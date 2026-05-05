@@ -1,0 +1,259 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Login | House of Ansh</title>
+<meta name="description" content="Sign in to your House of Ansh account to manage your orders, wishlist and profile."/>
+<meta name="keywords" content="silver jewellery, pure silver jewellery, 925 sterling silver, handcrafted jewellery, handmade jewellery india, silver bangles, silver rings, silver earrings, silver necklace, silver pendant, silver anklets, silver mangalsutra, silver brooches, silver wristlets, women silver jewellery, men silver jewellery, bridal jewellery, wedding jewellery, festival jewellery, everyday silver, luxury silver jewellery, traditional indian jewellery, oxidised silver, hallmarked silver, buy silver jewellery online, silver jewellery online india, house of ansh, virasat collection, artisan jewellery india, sustainable jewellery, pan india shipping, silver jewellery howrah, silver jewellery west bengal, best silver jewellery india, affordable silver jewellery, minimalist silver jewellery, gift for her, gift for him, jewellery gift india"/>
+<meta name="robots" content="index, follow"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Login | House of Ansh"/>
+<meta property="og:description" content="Sign in to your House of Ansh account to manage your orders, wishlist and profile."/>
+<meta property="og:image" content="https://houseofansh.in/images/logo.png"/>
+<meta property="og:site_name" content="House of Ansh"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Login | House of Ansh"/>
+<meta name="twitter:description" content="Sign in to your House of Ansh account to manage your orders, wishlist and profile."/>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"Organization","name":"House of Ansh","url":"https://houseofansh.in","logo":"https://houseofansh.in/images/logo.png","description":"Pure .925 and .999 silver jewellery handcrafted in Belur, Howrah. Founded March 2026. Ships across India.","foundingDate":"2026","contactPoint":{"@type":"ContactPoint","telephone":"+91-74390-49616","email":"house.of.ansh01@gmail.com","contactType":"customer service"},"sameAs":["https://www.instagram.com/house.of.ansh/","https://www.facebook.com/profile.php?id=61588830175777"]},
+{"@type":"WebSite","name":"House of Ansh","url":"https://houseofansh.in"},
+{"@type":"Store","name":"House of Ansh","description":"Premium handcrafted pure silver jewellery — bangles, rings, earrings, necklaces, pendants, mangalsutra, anklets and more. Ships Pan India.","image":"https://houseofansh.in/images/logo.png","priceRange":"₹₹","address":{"@type":"PostalAddress","addressLocality":"Belur","addressRegion":"Howrah, West Bengal","addressCountry":"IN"},"telephone":"+91-74390-49616","email":"house.of.ansh01@gmail.com"}
+]}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cinzel:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--black:#060606;--deep:#090909;--surface:#0e0e0e;--surface2:#131313;--border:#1a1a1a;--border2:#242424;--silver:#d8d8d8;--silver-dim:#909090;--silver-lo:#2c2c2c;--silver-hi:#f2f2f2;--white:#f5f5f5;--text:#aaaaaa;--text-dim:#555555;--fg:'Cormorant Garamond',serif;--fh:'Cinzel',serif;--fp:'Playfair Display',serif;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--white);font-family:var(--fg);}
+a{color:inherit;text-decoration:none;}
+ul{list-style:none;}
+button{cursor:pointer;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:20px 56px;transition:all .4s;background:rgba(6,6,6,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nl{display:flex;align-items:center;gap:11px;text-decoration:none;}
+.nl-logo{height:42px;width:auto;object-fit:contain;filter:brightness(1.05);}
+.nl-t{display:flex;flex-direction:column;}
+.nl-n{font-family:var(--fp);font-size:13px;letter-spacing:1.5px;color:var(--white);font-style:italic;}
+.nl-s{font-family:var(--fh);font-size:7.5px;letter-spacing:4px;color:var(--silver-dim);text-transform:uppercase;}
+.nm{display:flex;gap:0;list-style:none;align-items:center;}
+.nm > li{position:relative;}
+.nm > li > a{font-family:var(--fh);font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--silver-dim);text-decoration:none;transition:color .3s;padding:10px 16px;display:block;}
+.nm > li > a:hover{color:var(--white);}
+.dropdown{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(-6px);background:rgba(9,9,9,.98);backdrop-filter:blur(16px);border:1px solid var(--border2);min-width:200px;padding:8px 0;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;}
+.nm > li:hover > .dropdown{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0);}
+.dropdown a{display:block;font-family:var(--fh);font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:var(--silver-dim);text-decoration:none;padding:10px 20px;transition:color .2s,background .2s;}
+.dropdown a:hover{color:var(--white);background:rgba(255,255,255,.03);}
+.has-sub{position:relative;}
+.sub-dropdown{position:absolute;top:0;left:100%;background:rgba(9,9,9,.98);backdrop-filter:blur(16px);border:1px solid var(--border2);min-width:220px;padding:8px 0;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;transform:translateX(-6px);}
+.dropdown > .has-sub:hover > .sub-dropdown{opacity:1;pointer-events:all;transform:translateX(0);}
+.sub-dropdown a{display:block;font-family:var(--fh);font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:var(--silver-dim);text-decoration:none;padding:10px 20px;transition:color .2s,background .2s;}
+.sub-dropdown a:hover{color:var(--white);background:rgba(255,255,255,.03);}
+.nav-icons{display:flex;align-items:center;gap:0px;}
+.nav-icon{background:none;border:none;cursor:pointer;color:var(--silver-dim);padding:8px 9px;transition:color .3s;display:flex;align-items:center;justify-content:center;}
+.nav-icon:hover,.nav-icon.active-icon{color:var(--silver);}
+.nav-icon svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;}
+#search-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(6,6,6,.96);z-index:1100;display:none;align-items:center;justify-content:center;flex-direction:column;}
+#search-overlay.active{display:flex;}
+#search-input{background:none;border:none;border-bottom:1px solid var(--border2);color:var(--white);font-family:var(--fg);font-size:clamp(20px,2.5vw,28px);width:500px;max-width:86vw;padding:12px 0;outline:none;text-align:center;}
+#search-input::placeholder{color:var(--text-dim);}
+#search-close{position:absolute;top:28px;right:36px;background:none;border:none;color:var(--silver-dim);font-size:22px;cursor:pointer;transition:color .3s;line-height:1;}
+#search-close:hover{color:var(--silver);}
+.cart-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:1050;opacity:0;pointer-events:none;transition:opacity .35s;}
+.cart-overlay.active{opacity:1;pointer-events:all;}
+.cart-panel{position:fixed;top:0;right:0;bottom:0;width:400px;max-width:95vw;background:var(--surface);z-index:1060;transform:translateX(100%);transition:transform .42s cubic-bezier(.25,.46,.45,.94);display:flex;flex-direction:column;border-left:1px solid var(--border);}
+.cart-panel.active{transform:translateX(0);}
+.cart-head{display:flex;align-items:center;justify-content:space-between;padding:22px 26px;border-bottom:1px solid var(--border);}
+.cart-head-title{font-family:var(--fh);font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--white);}
+.cart-close-btn{background:none;border:none;color:var(--silver-dim);font-size:20px;cursor:pointer;line-height:1;transition:color .3s;padding:2px 4px;}
+.cart-close-btn:hover{color:var(--silver);}
+.cart-body{flex:1;overflow-y:auto;padding:32px 26px;display:flex;flex-direction:column;}
+.cart-empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:18px;text-align:center;}
+.cart-empty-state svg{color:var(--text-dim);}
+.cart-empty-msg{font-family:var(--fg);font-size:15px;color:var(--text);line-height:1.7;}
+.cart-shop-link{font-family:var(--fh);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--silver-dim);border-bottom:1px solid var(--border2);padding-bottom:2px;transition:color .3s,border-color .3s;}
+.cart-shop-link:hover{color:var(--silver);border-color:var(--silver-dim);}
+.cart-footer-panel{padding:20px 26px;border-top:1px solid var(--border);}
+.cart-total-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px;}
+.cart-total-label{font-family:var(--fh);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--silver-dim);}
+.cart-total-amount{font-family:var(--fg);font-size:20px;color:var(--white);}
+.cart-checkout-btn{width:100%;background:var(--white);color:var(--black);font-family:var(--fh);font-size:9px;letter-spacing:4px;text-transform:uppercase;border:none;padding:16px;cursor:pointer;transition:background .3s;}
+.cart-checkout-btn:hover{background:var(--silver);}
+
+.wa-float{position:fixed;bottom:32px;right:32px;z-index:800;width:56px;height:56px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.35);transition:transform .3s,box-shadow .3s;text-decoration:none;}
+.wa-float:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(37,211,102,.5);}
+.seo-tags{border-top:1px solid var(--border);padding:28px 56px;background:var(--surface);}
+.seo-tags-inner{max-width:1400px;margin:0 auto;}
+.seo-tags-lbl{font-family:var(--fh);font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:var(--silver-dim);margin-right:10px;font-weight:600;}
+.seo-tags-list{font-family:var(--fg);font-size:13px;color:var(--text-dim);line-height:2;}
+@media(max-width:640px){.seo-tags{padding:22px 20px;}.seo-tags-list{font-size:12px;}}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+.hamburger span{display:block;width:22px;height:1px;background:var(--silver-dim);transition:all .3s;}
+@media(max-width:860px){
+  nav{padding:16px 24px;}
+  .hamburger{display:flex;}
+  .nm{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(6,6,6,.97);padding:16px 0;border-top:1px solid rgba(196,196,196,.12);}
+  .nm.open{display:flex;}
+  .nm > li > a{padding:14px 24px;font-size:10px;}
+  .nm > li > .dropdown{position:static;opacity:1;pointer-events:all;transform:none;box-shadow:none;padding:0 0 0 16px;}
+  .nav-icon{display:none;}
+  .nav-icon.active-icon{display:flex;}
+}
+
+/* FOOTER */
+footer{background:var(--surface);border-top:1px solid var(--border);padding:56px 56px 32px;}
+.ft{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;max-width:1200px;margin:0 auto 40px;}
+.fb-logo-img{height:38px;width:auto;object-fit:contain;filter:brightness(1.05);margin-bottom:12px;}
+.fb-name{font-family:var(--fp);font-size:16px;font-style:italic;color:var(--white);letter-spacing:1px;margin-bottom:4px;}
+.fb-tag{font-family:var(--fh);font-size:7px;letter-spacing:3.5px;text-transform:uppercase;color:var(--silver-dim);margin-bottom:14px;}
+.fb-bio{font-family:var(--fg);font-size:13px;color:var(--text);line-height:1.8;}
+.fcol h5{font-family:var(--fh);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--silver-dim);margin-bottom:18px;}
+.fcol ul li{margin-bottom:11px;}
+.fcol ul li a{font-family:var(--fg);font-size:13.5px;color:var(--text);transition:color .3s;}
+.fcol ul li a:hover{color:var(--silver);}
+.fb-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;background:var(--surface);border-top:1px solid var(--border);padding:18px 56px;}
+.fb-copy,.fb-made{font-family:var(--fh);font-size:7.5px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);}
+@media(max-width:860px){
+  footer{padding:40px 24px 24px;}
+  .ft{grid-template-columns:1fr 1fr;gap:32px;}
+}
+@media(max-width:500px){.ft{grid-template-columns:1fr;}}
+
+/* LOGIN PAGE */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 24px 80px;}
+.login-card{width:100%;max-width:480px;}
+.login-title{font-family:var(--fh);font-size:clamp(18px,2.5vw,26px);letter-spacing:6px;text-transform:uppercase;color:var(--white);text-align:center;margin-bottom:14px;}
+.login-sub{font-family:var(--fg);font-size:clamp(14px,1.2vw,16px);color:var(--text);text-align:center;margin-bottom:36px;line-height:1.6;}
+.login-field{position:relative;margin-bottom:2px;}
+.login-field input{width:100%;background:transparent;border:1px solid var(--border2);color:var(--white);font-family:var(--fg);font-size:15px;padding:16px 18px;outline:none;transition:border-color .3s;-webkit-appearance:none;}
+.login-field input::placeholder{color:var(--text-dim);}
+.login-field input:focus{border-color:var(--silver-dim);}
+.login-field-pw{position:relative;margin-bottom:2px;}
+.login-field-pw input{width:100%;background:transparent;border:1px solid var(--border2);color:var(--white);font-family:var(--fg);font-size:15px;padding:16px 140px 16px 18px;outline:none;transition:border-color .3s;-webkit-appearance:none;}
+.login-field-pw input::placeholder{color:var(--text-dim);}
+.login-field-pw input:focus{border-color:var(--silver-dim);}
+.forgot-link{position:absolute;right:18px;top:50%;transform:translateY(-50%);font-family:var(--fg);font-size:12.5px;color:var(--silver-dim);white-space:nowrap;transition:color .3s;cursor:pointer;}
+.forgot-link:hover{color:var(--silver);}
+.login-btn{width:100%;margin-top:2px;background:var(--white);color:var(--black);font-family:var(--fh);font-size:10px;letter-spacing:4px;text-transform:uppercase;border:none;padding:18px;cursor:pointer;transition:background .3s,color .3s;}
+.login-btn:hover{background:var(--silver);color:var(--black);}
+.login-signup{text-align:center;margin-top:24px;font-family:var(--fg);font-size:14px;color:var(--text);}
+.login-signup a{color:var(--silver-dim);border-bottom:1px solid var(--border2);padding-bottom:1px;transition:color .3s,border-color .3s;}
+.login-signup a:hover{color:var(--silver);border-color:var(--silver-dim);}
+.login-divider{display:flex;align-items:center;gap:14px;margin:28px 0;}
+.login-divider::before,.login-divider::after{content:'';flex:1;height:1px;background:var(--border2);}
+.login-divider span{font-family:var(--fh);font-size:7px;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  <a href="index.html" class="nl"><img src="images/logo.png" alt="House of Ansh" class="nl-logo"/><div class="nl-t"><span class="nl-n">House of Ansh</span><span class="nl-s">Pure Silver Jewellery</span></div></a>
+  <ul class="nm">
+    <li><a href="home.html">Home</a></li>
+    <li><a href="#">Categories &#9662;</a><div class="dropdown"><div class="has-sub"><a href="forher.html">For Her</a><div class="sub-dropdown"><a href="forher.html">All Jewellery</a><a href="forher.html#bangles-bracelets">Bangles / Bracelets</a><a href="forher.html#rings">Rings</a><a href="forher.html#earrings">Earrings</a><a href="forher.html#pendants">Pendants</a><a href="forher.html#necklace-sets">Necklace Sets</a><a href="forher.html#mangalsutra">Mangalsutra</a><a href="forher.html#brooches">Brooches</a><a href="forher.html#anklets">Anklets</a></div></div><div class="has-sub"><a href="forhim.html">For Him</a><div class="sub-dropdown"><a href="forhim.html">All Jewellery</a><a href="forhim.html#wristlets">Wristlets</a><a href="forhim.html#chain">Chain</a><a href="forhim.html#brooches">Brooches</a><a href="forhim.html#rings">Rings</a></div></div></div></li>
+    <li><a href="#">Collections &#9662;</a><div class="dropdown"><a href="virasat.html">Virasat</a><a href="#" style="color:var(--text-dim);cursor:default;">More Coming Soon</a></div></li>
+    <li><a href="index.html#story">About Us</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <div class="nav-icons">
+    <button class="nav-icon active-icon" onclick="window.location.href='login.html'" title="Account"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.582-7 8-7s8 3 8 7"/></svg></button>
+    <button class="nav-icon" id="nav-search-btn" title="Search"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg></button>
+    <button class="nav-icon" onclick="openCart()" title="Cart"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></button>
+    <button class="nav-icon" onclick="window.location.href='#wishlist'" title="Favourites"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+  </div>
+</nav>
+
+<div id="search-overlay">
+  <button id="search-close" onclick="closeSearch()" aria-label="Close search">&#x2715;</button>
+  <input type="text" id="search-input" placeholder="Search jewellery&#x2026;" onkeydown="if(event.key==='Escape')closeSearch()"/>
+  <p style="font-family:var(--fh);font-size:8px;letter-spacing:3px;color:var(--text-dim);margin-top:18px;">PRESS ENTER TO SEARCH</p>
+</div>
+
+<div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+<div class="cart-panel" id="cart-panel">
+  <div class="cart-head">
+    <span class="cart-head-title">Your Cart</span>
+    <button class="cart-close-btn" onclick="closeCart()">&#x2715;</button>
+  </div>
+  <div class="cart-body" id="cart-body">
+    <div class="cart-empty-state">
+      <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <p class="cart-empty-msg">Your cart is empty.<br/>Add something beautiful.</p>
+      <a href="forher.html" class="cart-shop-link">Continue Shopping</a>
+    </div>
+  </div>
+  <div class="cart-footer-panel">
+    <div class="cart-total-row">
+      <span class="cart-total-label">Total</span>
+      <span class="cart-total-amount" id="cart-total-amount">&#x20B9;0</span>
+    </div>
+    <button class="cart-checkout-btn">Proceed to Checkout</button>
+  </div>
+</div>
+
+
+<div class="login-wrap">
+  <div class="login-card">
+    <h1 class="login-title">Login</h1>
+    <p class="login-sub">Enter your email and password to login:</p>
+
+    <div class="login-field">
+      <input type="email" id="login-email" placeholder="E-mail" autocomplete="email"/>
+    </div>
+
+    <div class="login-field-pw">
+      <input type="password" id="login-password" placeholder="Password" autocomplete="current-password"/>
+      <a href="#" class="forgot-link">Forgot your password?</a>
+    </div>
+
+    <button class="login-btn" onclick="handleLogin()">Login</button>
+
+    <div class="login-divider"><span>or</span></div>
+
+    <p class="login-signup">Don&#x2019;t have an account? <a href="signup.html">Sign up</a></p>
+  </div>
+</div>
+
+
+
+<footer><div class="ft"><div><img src="images/logo.png" alt="House of Ansh" class="fb-logo-img"/><div class="fb-name">House of Ansh</div><div class="fb-tag">A Little Moonlight You Can Wear</div><p class="fb-bio">Pure silver jewellery crafted with intention. Founded March 2026, Belur, Howrah. Ships across India.</p></div><div class="fcol"><h5>Navigate</h5><ul><li><a href="index.html">Home</a></li><li><a href="forher.html">For Her</a></li><li><a href="forhim.html">For Him</a></li><li><a href="virasat.html">Virasat Collection</a></li><li><a href="index.html#story">About Us</a></li></ul></div><div class="fcol"><h5>Policies</h5><ul><li><a href="#">Terms of Service</a></li><li><a href="#">Returns &amp; Exchanges</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Shipping &amp; Delivery</a></li></ul></div><div class="fcol"><h5>Connect</h5><ul><li><a href="https://www.instagram.com/house.of.ansh/" target="_blank">Instagram</a></li><li><a href="https://www.facebook.com/profile.php?id=61588830175777" target="_blank">Facebook</a></li><li><a href="mailto:house.of.ansh01@gmail.com">Email Us</a></li><li><a href="tel:+917439049616">+91-74390-49616</a></li></ul></div></div>
+</footer>
+<section class="seo-tags">
+  <div class="seo-tags-inner">
+    <span class="seo-tags-lbl">Tags :</span><span class="seo-tags-list">House of Ansh | Silver Jewellery | Pure Silver Jewellery | 925 Sterling Silver | Handcrafted Silver Jewellery | Handmade Jewellery India | Silver Bangles | Silver Bracelets | Silver Rings | Silver Earrings | Silver Necklace | Silver Pendant | Silver Anklets | Silver Mangalsutra | Silver Brooches | Silver Wristlets | Silver Chains for Men | Women's Silver Jewellery | Men's Silver Jewellery | Bridal Jewellery | Wedding Jewellery India | Festival Jewellery | Everyday Silver Jewellery | Daily Wear Silver | Luxury Silver Jewellery | Premium Silver Jewellery | Traditional Indian Jewellery | Contemporary Silver Jewellery | Oxidised Silver Jewellery | Hallmarked Silver | Pure 999 Silver | Buy Silver Jewellery Online | Silver Jewellery Online India | Silver Jewellery Shop | Jewellery Gift Ideas | Gift for Her | Gift for Him | Sustainable Jewellery | Artisan Jewellery India | Virasat Collection | Jewellery Store Online India | Pan India Shipping | Best Silver Jewellery India | Affordable Silver Jewellery | Minimalist Silver Jewellery | Silver Jewellery Howrah | Silver Jewellery West Bengal | House of Ansh Jewellery Store | Silver Jewellery Brand India</span>
+  </div>
+</section>
+<div class="fb-bottom"><span class="fb-copy">&#169; 2026 House of Ansh. All rights reserved.</span><span class="fb-made">Made with care by Anushree &amp; Meenakshi Krishna</span></div>
+
+
+<script>
+function openCart(){document.getElementById('cart-overlay').classList.add('active');document.getElementById('cart-panel').classList.add('active');document.body.style.overflow='hidden';}
+function closeCart(){document.getElementById('cart-overlay').classList.remove('active');document.getElementById('cart-panel').classList.remove('active');document.body.style.overflow='';}
+
+function closeSearch(){document.getElementById('search-overlay').classList.remove('active');}
+function handleLogin(){
+  var email=document.getElementById('login-email').value.trim();
+  var pw=document.getElementById('login-password').value;
+  if(!email||!pw){alert('Please enter your email and password.');return;}
+  alert('Login functionality coming soon!');
+}
+document.addEventListener('DOMContentLoaded',function(){
+  var ham=document.getElementById('hamburger'),nm=document.querySelector('.nm');
+  if(ham&&nm){ham.addEventListener('click',function(){ham.classList.toggle('open');nm.classList.toggle('open');});nm.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){ham.classList.remove('open');nm.classList.remove('open');});});}
+  var btn=document.getElementById('nav-search-btn');
+  var overlay=document.getElementById('search-overlay');
+  if(btn&&overlay){
+    btn.addEventListener('click',function(){overlay.classList.add('active');document.getElementById('search-input').focus();});
+    overlay.addEventListener('click',function(e){if(e.target===this)closeSearch();});
+  }
+  document.getElementById('login-email').focus();
+});
+</script>
+
+<a href="https://wa.me/917439049616?text=Hi!%20I%20need%20help" target="_blank" class="wa-float" title="Chat on WhatsApp" aria-label="Chat on WhatsApp"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" style="width:30px;height:30px;fill:#fff;"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.737 5.469 2.027 7.773L0 32l8.489-2.001A15.93 15.93 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.267 13.267 0 01-6.756-1.839l-.484-.287-5.04 1.187 1.208-4.916-.316-.505A13.267 13.267 0 012.667 16C2.667 8.636 8.636 2.667 16 2.667S29.333 8.636 29.333 16 23.364 29.333 16 29.333zm7.274-9.878c-.399-.2-2.359-1.163-2.724-1.296-.364-.133-.629-.2-.894.2s-1.026 1.296-1.257 1.562c-.232.265-.464.298-.863.1-.399-.2-1.685-.621-3.21-1.98-1.186-1.058-1.988-2.364-2.22-2.763-.232-.399-.024-.615.174-.814.178-.178.399-.464.598-.696.2-.232.265-.399.399-.665.133-.265.066-.498-.033-.697-.1-.2-.894-2.153-1.224-2.948-.323-.774-.65-.669-.894-.681-.232-.012-.498-.015-.764-.015s-.696.1-1.062.498c-.364.399-1.39 1.358-1.39 3.311s1.423 3.841 1.621 4.107c.2.265 2.801 4.276 6.786 5.996.949.41 1.689.655 2.267.838.953.303 1.82.26 2.506.158.764-.114 2.359-.964 2.691-1.895.332-.931.332-1.729.232-1.895-.099-.165-.364-.265-.763-.464z"/></svg></a>
+</html>

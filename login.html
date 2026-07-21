@@ -177,6 +177,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
     <li><a href="home.html">Home</a></li>
     <li><a href="#">Categories &#9662;</a><div class="dropdown"><div class="has-sub"><a href="forher.html">For Her</a><div class="sub-dropdown"><a href="forher.html">All Jewellery</a><a href="forher.html#bangles-bracelets">Bangles / Bracelets</a><a href="forher.html#rings">Rings</a><a href="forher.html#earrings">Earrings</a><a href="forher.html#pendants">Pendants</a><a href="forher.html#necklace-sets">Necklace Sets</a><a href="forher.html#mangalsutra">Mangalsutra</a><a href="forher.html#brooches">Brooches</a><a href="forher.html#anklets">Anklets</a></div></div><div class="has-sub"><a href="forhim.html">For Him</a><div class="sub-dropdown"><a href="forhim.html">All Jewellery</a><a href="forhim.html#wristlets">Wristlets</a><a href="forhim.html#chain">Chain</a><a href="forhim.html#brooches">Brooches</a><a href="forhim.html#rings">Rings</a></div></div></div></li>
     <li><a href="#">Collections &#9662;</a><div class="dropdown"><a href="virasat.html">Virasat</a><a href="#" style="color:var(--text-dim);cursor:default;">More Coming Soon</a></div></li>
+    <li><a href="#">Personalise &#9662;</a><div class="dropdown"><a href="transform.html">Transform Your Jewellery</a><a href="customdesign.html">Custom Design</a></div></li>
     <li><a href="index.html#story">About Us</a></li>
     <li><a href="index.html#contact">Contact</a></li>
   </ul>
@@ -228,10 +229,12 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
 
     <div class="login-field-pw">
       <input type="password" id="login-password" placeholder="Password" autocomplete="current-password"/>
-      <a href="#" class="forgot-link">Forgot your password?</a>
+      <a href="#" class="forgot-link" onclick="event.preventDefault();handleForgotPassword()">Forgot your password?</a>
     </div>
 
-    <button class="login-btn" onclick="handleLogin()">Login</button>
+    <button class="login-btn" id="login-btn" onclick="handleLogin()">Login</button>
+
+    <p id="login-error" style="font-family:var(--fg);font-size:13px;margin-top:10px;min-height:18px;text-align:center;"></p>
 
     <div class="login-divider"><span>or</span></div>
 
@@ -256,12 +259,6 @@ function openCart(){document.getElementById('cart-overlay').classList.add('activ
 function closeCart(){document.getElementById('cart-overlay').classList.remove('active');document.getElementById('cart-panel').classList.remove('active');document.body.style.overflow='';}
 
 function closeSearch(){document.getElementById('search-overlay').classList.remove('active');}
-function handleLogin(){
-  var email=document.getElementById('login-email').value.trim();
-  var pw=document.getElementById('login-password').value;
-  if(!email||!pw){alert('Please enter your email and password.');return;}
-  alert('Login functionality coming soon!');
-}
 document.addEventListener('DOMContentLoaded',function(){
   var ham=document.getElementById('hamburger'),nm=document.querySelector('.nm');
   if(ham&&nm){
@@ -283,5 +280,67 @@ document.addEventListener('DOMContentLoaded',function(){
 });
 </script>
 
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, onAuthStateChanged }
+  from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBwqpavjzi15Zt9qHoufjJFI05k7AAHLRs",
+  authDomain: "house-of-ansh.firebaseapp.com",
+  projectId: "house-of-ansh",
+  storageBucket: "house-of-ansh.firebasestorage.app",
+  messagingSenderId: "386185011014",
+  appId: "1:386185011014:web:fef798d4e17c84170bcf47",
+  measurementId: "G-Y640CVG7KQ"
+};
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, user => {
+  if(user) window.location.href = 'my-orders.html';
+});
+
+function showMsg(msg, isInfo) {
+  const el = document.getElementById('login-error');
+  if(!el) return;
+  el.textContent = msg;
+  el.style.color = isInfo ? 'var(--silver-dim)' : '#e05555';
+}
+
+window.handleLogin = async function() {
+  const email = document.getElementById('login-email').value.trim();
+  const pw    = document.getElementById('login-password').value;
+  if(!email || !pw){ showMsg('Please enter your email and password.'); return; }
+  const btn = document.getElementById('login-btn');
+  btn.disabled = true; btn.textContent = 'Signing in…';
+  try {
+    await signInWithEmailAndPassword(auth, email, pw);
+  } catch(e) {
+    btn.disabled = false; btn.textContent = 'Login';
+    const code = e.code || '';
+    showMsg(
+      (code.includes('credential') || code.includes('password') || code.includes('user-not-found'))
+        ? 'Incorrect email or password.'
+        : code === 'auth/too-many-requests'
+        ? 'Too many attempts. Try again later.'
+        : 'Sign in failed. Please try again.'
+    );
+  }
+};
+
+window.handleForgotPassword = async function() {
+  const email = document.getElementById('login-email').value.trim();
+  if(!email){ showMsg('Enter your email above first.'); return; }
+  try {
+    await sendPasswordResetEmail(auth, email);
+    showMsg('Reset link sent — check your inbox.', true);
+  } catch(e) {
+    showMsg('Could not send reset email. Check the address.');
+  }
+};
+</script>
+
 <a href="https://wa.me/917439049616?text=Hi!%20I%20need%20help" target="_blank" class="wa-float" title="Chat on WhatsApp" aria-label="Chat on WhatsApp"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" style="width:30px;height:30px;fill:#fff;"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.737 5.469 2.027 7.773L0 32l8.489-2.001A15.93 15.93 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.267 13.267 0 01-6.756-1.839l-.484-.287-5.04 1.187 1.208-4.916-.316-.505A13.267 13.267 0 012.667 16C2.667 8.636 8.636 2.667 16 2.667S29.333 8.636 29.333 16 23.364 29.333 16 29.333zm7.274-9.878c-.399-.2-2.359-1.163-2.724-1.296-.364-.133-.629-.2-.894.2s-1.026 1.296-1.257 1.562c-.232.265-.464.298-.863.1-.399-.2-1.685-.621-3.21-1.98-1.186-1.058-1.988-2.364-2.22-2.763-.232-.399-.024-.615.174-.814.178-.178.399-.464.598-.696.2-.232.265-.399.399-.665.133-.265.066-.498-.033-.697-.1-.2-.894-2.153-1.224-2.948-.323-.774-.65-.669-.894-.681-.232-.012-.498-.015-.764-.015s-.696.1-1.062.498c-.364.399-1.39 1.358-1.39 3.311s1.423 3.841 1.621 4.107c.2.265 2.801 4.276 6.786 5.996.949.41 1.689.655 2.267.838.953.303 1.82.26 2.506.158.764-.114 2.359-.964 2.691-1.895.332-.931.332-1.729.232-1.895-.099-.165-.364-.265-.763-.464z"/></svg></a>
+<script src="search.js"></script>
 </html>

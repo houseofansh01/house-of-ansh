@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Create Account | House of Ansh</title>
+<meta name="robots" content="noindex"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cinzel:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--black:#060606;--deep:#090909;--surface:#0e0e0e;--surface2:#131313;--border:#1a1a1a;--border2:#242424;--silver:#d8d8d8;--silver-dim:#909090;--silver-lo:#2c2c2c;--silver-hi:#f2f2f2;--white:#f5f5f5;--text:#aaaaaa;--text-dim:#555555;--fg:'Cormorant Garamond',serif;--fh:'Cinzel',serif;--fp:'Playfair Display',serif;}
+html{scroll-behavior:smooth;overflow-x:hidden;max-width:100vw;}
+body{background:var(--black);color:var(--white);font-family:var(--fg);}
+a{color:inherit;text-decoration:none;}
+ul{list-style:none;}
+button{cursor:pointer;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:20px 56px;transition:all .4s;background:rgba(6,6,6,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nl{display:flex;align-items:center;gap:11px;text-decoration:none;}
+.nl-logo{height:42px;width:auto;object-fit:contain;filter:brightness(1.05);}
+.nl-t{display:flex;flex-direction:column;}
+.nl-n{font-family:var(--fp);font-size:13px;letter-spacing:1.5px;color:var(--white);font-style:italic;}
+.nl-s{font-family:var(--fh);font-size:7.5px;letter-spacing:4px;color:var(--silver-dim);text-transform:uppercase;}
+.nm{display:flex;gap:0;list-style:none;align-items:center;}
+.nm > li{position:relative;}
+.nm > li > a{font-family:var(--fh);font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--silver-dim);text-decoration:none;transition:color .3s;padding:10px 16px;display:block;}
+.nm > li > a:hover{color:var(--white);}
+.dropdown{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(-6px);background:rgba(9,9,9,.98);backdrop-filter:blur(16px);border:1px solid var(--border2);min-width:200px;padding:8px 0;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;}
+.nm > li:hover > .dropdown{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0);}
+.dropdown a{display:block;font-family:var(--fh);font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:var(--silver-dim);text-decoration:none;padding:10px 20px;transition:color .2s,background .2s;}
+.dropdown a:hover{color:var(--white);background:rgba(255,255,255,.03);}
+.has-sub{position:relative;}
+.sub-dropdown{position:absolute;top:0;left:100%;background:rgba(9,9,9,.98);backdrop-filter:blur(16px);border:1px solid var(--border2);min-width:220px;padding:8px 0;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;transform:translateX(-6px);}
+.dropdown > .has-sub:hover > .sub-dropdown{opacity:1;pointer-events:all;transform:translateX(0);}
+.sub-dropdown a{display:block;font-family:var(--fh);font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:var(--silver-dim);text-decoration:none;padding:10px 20px;transition:color .2s,background .2s;}
+.sub-dropdown a:hover{color:var(--white);background:rgba(255,255,255,.03);}
+.nav-icons{display:flex;align-items:center;gap:0px;}
+.nav-icon{background:none;border:none;cursor:pointer;color:var(--silver-dim);padding:8px 9px;transition:color .3s;display:flex;align-items:center;justify-content:center;}
+.nav-icon:hover,.nav-icon.active-icon{color:var(--silver);}
+.nav-icon svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+.hamburger span{display:block;width:22px;height:1px;background:var(--silver-dim);transition:all .3s;}
+@media(max-width:640px){
+  nav{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:14px 0px;}
+  .hamburger{justify-self:start;padding:4px 4px 4px 0px;}
+  .nl{justify-self:center;text-align:center;flex-direction:column;align-items:center;gap:2px;}
+  .nl-logo{height:28px;}
+  .nl-t{align-items:center;}
+  .nl-n{font-size:11px;letter-spacing:1px;white-space:nowrap;}
+  .nl-s{font-size:5.5px;letter-spacing:2px;white-space:nowrap;}
+  .nm{display:none;}
+  .nav-icons{justify-self:end;gap:0px;}
+  .nav-icon{padding:6px 3px;}
+}
+@media(max-width:860px){
+  nav{padding:16px 24px;}
+  .hamburger{display:flex;}
+  .nm{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(6,6,6,.97);padding:16px 0;border-top:1px solid rgba(196,196,196,.12);}
+  .nm.open{display:flex;align-items:stretch;}
+  .nm > li > a{padding:14px 24px;font-size:10px;text-align:center;}
+  .nm > li > .dropdown{display:none;position:static;opacity:1;pointer-events:all;transform:none;box-shadow:none;padding:4px 0;border:none;background:transparent;min-width:0;width:100%;}
+  .nm > li.mob-open > .dropdown{display:block;}
+  .nm > li > .dropdown a{text-align:center;padding:8px 0;display:block;}
+  .has-sub.mob-open > .sub-dropdown{display:block;}
+  .sub-dropdown{display:none;position:static;opacity:1;pointer-events:all;transform:none;padding:4px 0;border:none;background:rgba(255,255,255,.03);min-width:0;width:100%;}
+  .sub-dropdown a{text-align:center;padding:7px 0;display:block;}
+  .nav-icon{display:none;}
+  .nav-icon.active-icon{display:flex;}
+}
+.wa-float{position:fixed;bottom:32px;right:32px;z-index:800;width:56px;height:56px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.35);transition:transform .3s,box-shadow .3s;text-decoration:none;}
+.wa-float:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(37,211,102,.5);}
+
+/* SIGNUP PAGE */
+.signup-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 24px 80px;}
+.signup-card{width:100%;max-width:480px;}
+.signup-title{font-family:var(--fh);font-size:clamp(18px,2.5vw,26px);letter-spacing:6px;text-transform:uppercase;color:var(--white);text-align:center;margin-bottom:14px;}
+.signup-sub{font-family:var(--fg);font-size:clamp(14px,1.2vw,16px);color:var(--text);text-align:center;margin-bottom:36px;line-height:1.6;}
+.signup-field{position:relative;margin-bottom:2px;}
+.signup-field input{width:100%;background:transparent;border:1px solid var(--border2);color:var(--white);font-family:var(--fg);font-size:15px;padding:16px 18px;outline:none;transition:border-color .3s;-webkit-appearance:none;}
+.signup-field input::placeholder{color:var(--text-dim);}
+.signup-field input:focus{border-color:var(--silver-dim);}
+.signup-btn{width:100%;margin-top:2px;background:var(--white);color:var(--black);font-family:var(--fh);font-size:10px;letter-spacing:4px;text-transform:uppercase;border:none;padding:18px;cursor:pointer;transition:background .3s,color .3s;}
+.signup-btn:hover{background:var(--silver);color:var(--black);}
+.signup-btn:disabled{opacity:.5;cursor:not-allowed;}
+.signup-login{text-align:center;margin-top:24px;font-family:var(--fg);font-size:14px;color:var(--text);}
+.signup-login a{color:var(--silver-dim);border-bottom:1px solid var(--border2);padding-bottom:1px;transition:color .3s,border-color .3s;}
+.signup-login a:hover{color:var(--silver);border-color:var(--silver-dim);}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  <a href="index.html" class="nl"><img src="images/logo.png" alt="House of Ansh" class="nl-logo"/><div class="nl-t"><span class="nl-n">House of Ansh</span><span class="nl-s">Pure Silver Jewellery</span></div></a>
+  <ul class="nm">
+    <li><a href="home.html">Home</a></li>
+    <li><a href="#">Categories &#9662;</a><div class="dropdown"><div class="has-sub"><a href="forher.html">For Her</a><div class="sub-dropdown"><a href="forher.html">All Jewellery</a><a href="forher.html#bangles-bracelets">Bangles / Bracelets</a><a href="forher.html#rings">Rings</a><a href="forher.html#earrings">Earrings</a><a href="forher.html#pendants">Pendants</a><a href="forher.html#necklace-sets">Necklace Sets</a><a href="forher.html#mangalsutra">Mangalsutra</a><a href="forher.html#brooches">Brooches</a><a href="forher.html#anklets">Anklets</a></div></div><div class="has-sub"><a href="forhim.html">For Him</a><div class="sub-dropdown"><a href="forhim.html">All Jewellery</a><a href="forhim.html#wristlets">Wristlets</a><a href="forhim.html#chain">Chain</a><a href="forhim.html#brooches">Brooches</a><a href="forhim.html#rings">Rings</a></div></div></div></li>
+    <li><a href="#">Collections &#9662;</a><div class="dropdown"><a href="virasat.html">Virasat</a><a href="#" style="color:var(--text-dim);cursor:default;">More Coming Soon</a></div></li>
+    <li><a href="#">Personalise &#9662;</a><div class="dropdown"><a href="transform.html">Transform Your Jewellery</a><a href="customdesign.html">Custom Design</a></div></li>
+    <li><a href="index.html#story">About Us</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <div class="nav-icons">
+    <button class="nav-icon active-icon" onclick="window.location.href='login.html'" title="Account"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.582-7 8-7s8 3 8 7"/></svg></button>
+  </div>
+</nav>
+
+<div class="signup-wrap">
+  <div class="signup-card">
+    <h1 class="signup-title">Create Account</h1>
+    <p class="signup-sub">Join House of Ansh to track your orders and save your details.</p>
+
+    <div class="signup-field">
+      <input type="text" id="su-name" placeholder="Full Name" autocomplete="name"/>
+    </div>
+    <div class="signup-field">
+      <input type="email" id="su-email" placeholder="E-mail" autocomplete="email"/>
+    </div>
+    <div class="signup-field">
+      <input type="tel" id="su-phone" placeholder="Phone Number" autocomplete="tel"/>
+    </div>
+    <div class="signup-field">
+      <input type="password" id="su-password" placeholder="Password (min. 6 characters)" autocomplete="new-password"/>
+    </div>
+
+    <button class="signup-btn" id="signup-btn" onclick="handleSignup()">Create Account</button>
+
+    <p id="signup-error" style="font-family:var(--fg);font-size:13px;margin-top:10px;min-height:18px;text-align:center;"></p>
+
+    <p class="signup-login">Already have an account? <a href="login.html">Sign in</a></p>
+  </div>
+</div>
+
+<a href="https://wa.me/917439049616?text=Hi!%20I%20need%20help" target="_blank" class="wa-float" title="Chat on WhatsApp" aria-label="Chat on WhatsApp"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" style="width:30px;height:30px;fill:#fff;"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.737 5.469 2.027 7.773L0 32l8.489-2.001A15.93 15.93 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.267 13.267 0 01-6.756-1.839l-.484-.287-5.04 1.187 1.208-4.916-.316-.505A13.267 13.267 0 012.667 16C2.667 8.636 8.636 2.667 16 2.667S29.333 8.636 29.333 16 23.364 29.333 16 29.333zm7.274-9.878c-.399-.2-2.359-1.163-2.724-1.296-.364-.133-.629-.2-.894.2s-1.026 1.296-1.257 1.562c-.232.265-.464.298-.863.1-.399-.2-1.685-.621-3.21-1.98-1.186-1.058-1.988-2.364-2.22-2.763-.232-.399-.024-.615.174-.814.178-.178.399-.464.598-.696.2-.232.265-.399.399-.665.133-.265.066-.498-.033-.697-.1-.2-.894-2.153-1.224-2.948-.323-.774-.65-.669-.894-.681-.232-.012-.498-.015-.764-.015s-.696.1-1.062.498c-.364.399-1.39 1.358-1.39 3.311s1.423 3.841 1.621 4.107c.2.265 2.801 4.276 6.786 5.996.949.41 1.689.655 2.267.838.953.303 1.82.26 2.506.158.764-.114 2.359-.964 2.691-1.895.332-.931.332-1.729.232-1.895-.099-.165-.364-.265-.763-.464z"/></svg></a>
+
+<script type="module">
+import { initializeApp }  from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, updateProfile, onAuthStateChanged }
+  from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, getDocs, query, where, serverTimestamp }
+  from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBwqpavjzi15Zt9qHoufjJFI05k7AAHLRs",
+  authDomain: "house-of-ansh.firebaseapp.com",
+  projectId: "house-of-ansh",
+  storageBucket: "house-of-ansh.firebasestorage.app",
+  messagingSenderId: "386185011014",
+  appId: "1:386185011014:web:fef798d4e17c84170bcf47",
+  measurementId: "G-Y640CVG7KQ"
+};
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db   = getFirestore(app);
+
+onAuthStateChanged(auth, user => {
+  if(user) window.location.href = 'my-orders.html';
+});
+
+function showMsg(msg, isInfo) {
+  const el = document.getElementById('signup-error');
+  if(!el) return;
+  el.textContent = msg;
+  el.style.color = isInfo ? '#4caf7d' : '#e05555';
+}
+
+window.handleSignup = async function() {
+  const name  = document.getElementById('su-name').value.trim();
+  const email = document.getElementById('su-email').value.trim();
+  const phone = document.getElementById('su-phone').value.trim();
+  const pw    = document.getElementById('su-password').value;
+
+  if(!name)  { showMsg('Please enter your full name.'); return; }
+  if(!email) { showMsg('Please enter your email address.'); return; }
+  if(!phone) { showMsg('Please enter your phone number.'); return; }
+  if(pw.length < 6) { showMsg('Password must be at least 6 characters.'); return; }
+
+  const btn = document.getElementById('signup-btn');
+  btn.disabled = true; btn.textContent = 'Creating account…';
+
+  try {
+    const cred = await createUserWithEmailAndPassword(auth, email, pw);
+    await updateProfile(cred.user, { displayName: name });
+
+    // Create customer doc if doesn't already exist
+    const existing = await getDocs(query(collection(db,'customers'), where('email','==',email)));
+    if(existing.empty) {
+      await addDoc(collection(db,'customers'), {
+        name, email, phone, address: '',
+        orderCount: 0, totalSpent: 0,
+        createdAt: serverTimestamp()
+      });
+    }
+    // onAuthStateChanged will redirect to my-orders.html
+  } catch(e) {
+    btn.disabled = false; btn.textContent = 'Create Account';
+    const code = e.code || '';
+    showMsg(
+      code === 'auth/email-already-in-use'
+        ? 'An account with this email already exists. Sign in instead.'
+        : code === 'auth/invalid-email'
+        ? 'Please enter a valid email address.'
+        : code === 'auth/weak-password'
+        ? 'Password must be at least 6 characters.'
+        : 'Could not create account. Please try again.'
+    );
+  }
+};
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var ham = document.getElementById('hamburger'), nm = document.querySelector('.nm');
+  if(ham && nm) {
+    ham.addEventListener('click', function(){ ham.classList.toggle('open'); nm.classList.toggle('open'); });
+  }
+  document.getElementById('su-name').focus();
+});
+</script>
+</body>
+</html>

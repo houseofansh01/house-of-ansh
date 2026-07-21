@@ -1,0 +1,1829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Admin — House of Ansh</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --black:#0a0a0a;--surface:#111;--surface2:#1a1a1a;--border:#2a2a2a;
+  --white:#f5f5f5;--silver:#c4c4c4;--silver-dim:#888;--text:#aaa;
+  --accent:#c4c4c4;--red:#e05555;--green:#4caf7d;--blue:#5b8dee;
+  --fh:'Helvetica Neue',Arial,sans-serif;
+}
+body{background:var(--black);color:var(--white);font-family:var(--fh);min-height:100vh;}
+
+/* ── LOGIN ── */
+#login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;}
+.login-box{background:var(--surface);border:1px solid var(--border);padding:48px 40px;width:100%;max-width:400px;}
+.login-logo{font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--silver);text-align:center;margin-bottom:8px;}
+.login-sub{font-size:11px;letter-spacing:2px;color:var(--silver-dim);text-align:center;margin-bottom:36px;}
+.login-box input{width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--white);padding:12px 14px;font-size:14px;margin-bottom:14px;outline:none;font-family:var(--fh);}
+.login-box input:focus{border-color:var(--silver-dim);}
+.login-btn{width:100%;background:var(--white);color:var(--black);border:none;padding:13px;font-size:12px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;font-family:var(--fh);margin-top:4px;}
+.login-btn:hover{background:var(--silver);}
+.login-err{color:var(--red);font-size:12px;text-align:center;margin-top:12px;min-height:18px;}
+
+/* ── APP SHELL ── */
+#app{display:none;}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 28px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.topbar-logo{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--silver);}
+.topbar-right{display:flex;align-items:center;gap:16px;}
+.topbar-email{font-size:11px;color:var(--silver-dim);}
+.logout-btn{background:none;border:1px solid var(--border);color:var(--silver-dim);padding:6px 14px;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:var(--fh);}
+.logout-btn:hover{border-color:var(--silver-dim);color:var(--white);}
+
+.layout{display:flex;min-height:calc(100vh - 56px);}
+
+/* ── SIDEBAR ── */
+.sidebar{width:200px;background:var(--surface);border-right:1px solid var(--border);padding:24px 0;flex-shrink:0;}
+.nav-item{display:block;padding:11px 24px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--silver-dim);cursor:pointer;border-left:2px solid transparent;transition:all .2s;}
+.nav-item:hover{color:var(--white);background:var(--surface2);}
+.nav-item.active{color:var(--white);border-left-color:var(--silver);background:var(--surface2);}
+.nav-section{font-size:9px;letter-spacing:3px;color:#444;text-transform:uppercase;padding:20px 24px 8px;}
+
+/* ── MAIN CONTENT ── */
+.main{flex:1;padding:32px;overflow-x:hidden;}
+.page{display:none;}
+.page.active{display:block;}
+.page-title{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--silver);margin-bottom:28px;}
+
+/* ── STATS ROW ── */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:16px;margin-bottom:32px;}
+.stat-card{background:var(--surface);border:1px solid var(--border);padding:22px 20px;}
+.stat-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--silver-dim);margin-bottom:10px;}
+.stat-value{font-size:28px;color:var(--white);font-weight:300;}
+.stat-sub{font-size:11px;color:var(--silver-dim);margin-top:4px;}
+
+/* ── TABLES ── */
+.section-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.section-title{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--silver-dim);}
+.btn{background:var(--white);color:var(--black);border:none;padding:9px 18px;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:var(--fh);}
+.btn:hover{background:var(--silver);}
+.btn-outline{background:none;color:var(--silver-dim);border:1px solid var(--border);padding:8px 16px;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:var(--fh);}
+.btn-outline:hover{border-color:var(--silver-dim);color:var(--white);}
+.btn-sm{padding:5px 12px;font-size:9px;}
+.btn-red{background:var(--red);color:var(--white);}
+.btn-red:hover{background:#c94444;}
+.avail-toggle{border:1px solid;cursor:pointer;font-family:var(--fh);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;transition:filter .2s;background:none;white-space:nowrap;}
+.avail-toggle:hover{filter:brightness(1.3);}
+.avail-stock{color:#4caf7d;border-color:#4caf7d55;background:#4caf7d08;}
+.avail-mto{color:#e0a830;border-color:#e0a83055;background:#e0a83008;}
+
+table{width:100%;border-collapse:collapse;}
+thead th{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--silver-dim);padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);}
+tbody td{padding:13px 14px;font-size:13px;color:var(--white);border-bottom:1px solid var(--border);}
+tbody tr:hover{background:var(--surface2);}
+.table-wrap{background:var(--surface);border:1px solid var(--border);overflow:hidden;}
+.empty-row td{text-align:center;color:var(--silver-dim);padding:40px;}
+
+/* ── BADGES ── */
+.badge{display:inline-block;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border-radius:2px;}
+.badge-pending{background:rgba(255,193,7,.12);color:#ffc107;}
+.badge-confirmed{background:rgba(91,141,238,.12);color:var(--blue);}
+.badge-shipped{background:rgba(196,196,196,.1);color:var(--silver);}
+.badge-delivered{background:rgba(76,175,125,.12);color:var(--green);}
+.badge-cancelled{background:rgba(224,85,85,.12);color:var(--red);}
+.badge-new-enq{background:rgba(255,193,7,.12);color:#ffc107;}
+.badge-read-enq{background:rgba(76,175,125,.12);color:var(--green);}
+.enq-msg-cell{max-width:220px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.enq-actions{display:flex;gap:6px;flex-wrap:wrap;}
+.btn-icon{background:none;border:1px solid var(--border2);color:var(--silver-dim);font-size:10px;letter-spacing:1px;padding:5px 10px;border-radius:2px;cursor:pointer;transition:color .2s,border-color .2s;white-space:nowrap;text-decoration:none;display:inline-block;}
+.btn-icon:hover{color:var(--white);border-color:var(--silver-dim);}
+
+/* ── MODAL ── */
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;align-items:center;justify-content:center;padding:20px;}
+.modal-ov.open{display:flex;}
+.modal-box{background:var(--surface);border:1px solid var(--border);padding:36px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;}
+.modal-title{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--silver);margin-bottom:24px;}
+.form-row{margin-bottom:16px;}
+.form-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--silver-dim);display:block;margin-bottom:7px;}
+.form-input{width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--white);padding:11px 13px;font-size:14px;outline:none;font-family:var(--fh);}
+.form-input:focus{border-color:var(--silver-dim);}
+select.form-input option{background:var(--surface2);}
+.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.modal-actions{display:flex;gap:12px;margin-top:24px;justify-content:flex-end;}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--surface);border:1px solid var(--border);padding:14px 20px;font-size:12px;color:var(--white);z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;}
+.toast.show{opacity:1;}
+
+/* ── PRODUCT GRID IN TABLE ── */
+.prod-img-cell{width:48px;height:48px;object-fit:cover;background:var(--surface2);display:block;}
+.prod-name-cell{font-size:13px;color:var(--white);}
+.prod-meta{font-size:11px;color:var(--silver-dim);margin-top:2px;}
+
+/* ── ORDER DETAIL ── */
+.order-items-list{background:var(--surface2);padding:14px;margin:12px 0;}
+.order-item-row{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;border-bottom:1px solid var(--border);}
+.order-item-row:last-child{border-bottom:none;}
+
+/* ── ANALYTICS ── */
+.af-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;}
+.af-filters{display:flex;gap:8px;}
+.af-btn{background:none;border:1px solid var(--border);color:var(--silver-dim);padding:7px 16px;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:var(--fh);transition:all .2s;}
+.af-btn:hover{border-color:var(--silver-dim);color:var(--white);}
+.af-btn.active{background:var(--white);color:var(--black);border-color:var(--white);}
+.chart-wrap{background:var(--surface);border:1px solid var(--border);padding:24px;margin-bottom:20px;}
+.chart-title{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--silver-dim);margin-bottom:20px;}
+.chart-canvas-wrap{position:relative;height:220px;}
+.charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;}
+.nv-wrap{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.nv-card{background:var(--surface2);border:1px solid var(--border);padding:28px;text-align:center;}
+.nv-val{font-size:40px;font-weight:300;color:var(--white);margin-bottom:6px;}
+.nv-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--silver-dim);}
+.nv-pct{font-size:12px;color:var(--silver-dim);margin-top:6px;}
+.an-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px;}
+
+/* ── SETTINGS ── */
+.settings-section{background:var(--surface);border:1px solid var(--border);padding:28px;margin-bottom:20px;max-width:680px;}
+.settings-section-title{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--silver-dim);margin-bottom:24px;}
+.settings-row{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--border);}
+.settings-row:last-child{border-bottom:none;padding-bottom:0;}
+.settings-row-info{}
+.settings-row-label{font-size:14px;color:var(--white);margin-bottom:4px;}
+.settings-row-sub{font-size:12px;color:var(--silver-dim);}
+.toggle{position:relative;width:44px;height:24px;flex-shrink:0;}
+.toggle input{opacity:0;width:0;height:0;}
+.toggle-slider{position:absolute;inset:0;background:var(--border);border-radius:24px;cursor:pointer;transition:.3s;}
+.toggle-slider:before{content:'';position:absolute;width:18px;height:18px;left:3px;top:3px;background:var(--white);border-radius:50%;transition:.3s;}
+.toggle input:checked + .toggle-slider{background:var(--green);}
+.toggle input:checked + .toggle-slider:before{transform:translateX(20px);}
+.settings-field{margin-top:16px;}
+.settings-field-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--silver-dim);margin-bottom:8px;display:block;}
+.settings-field-desc{font-size:12px;color:var(--silver-dim);margin-bottom:10px;}
+.settings-input-wrap{display:flex;align-items:center;background:var(--surface2);border:1px solid var(--border);width:200px;}
+.settings-input-prefix{padding:11px 12px;font-size:14px;color:var(--silver-dim);border-right:1px solid var(--border);}
+.settings-input{background:none;border:none;color:var(--white);padding:11px 13px;font-size:14px;outline:none;font-family:var(--fh);width:140px;}
+.settings-save-row{margin-top:24px;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .stats-row{grid-template-columns:1fr 1fr;}
+  .sidebar{width:160px;}
+}
+@media(max-width:640px){
+  .sidebar{display:none;}
+  .main{padding:16px;}
+  .stats-row{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">House of Ansh</div>
+    <div class="login-sub">Admin Dashboard</div>
+    <input type="email" id="loginEmail" placeholder="Email address"/>
+    <input type="password" id="loginPassword" placeholder="Password"/>
+    <button class="login-btn" onclick="doLogin()">Sign In</button>
+    <div class="login-err" id="loginErr"></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="topbar-logo">House of Ansh &mdash; Admin</div>
+    <div class="topbar-right">
+      <span class="topbar-email" id="adminEmail"></span>
+      <button class="logout-btn" onclick="doLogout()">Sign Out</button>
+    </div>
+  </div>
+
+  <div class="layout">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="nav-section">Menu</div>
+      <div class="nav-item active" onclick="showPage('dashboard')">Dashboard</div>
+      <div class="nav-item" onclick="showPage('orders')">Orders</div>
+      <div class="nav-item" onclick="showPage('products')">Products</div>
+      <div class="nav-item" onclick="showPage('enquiries')" id="nav-enquiries">Enquiries <span id="enq-badge" style="display:none;background:var(--silver);color:var(--black);font-size:9px;font-family:var(--fh);padding:2px 7px;border-radius:10px;margin-left:4px;vertical-align:middle;"></span></div>
+      <div class="nav-section">More</div>
+      <div class="nav-item" onclick="showPage('customers')">Customers</div>
+      <div class="nav-item" onclick="showPage('analytics')">Analytics</div>
+      <div class="nav-item" onclick="showPage('coupons')">Offers & Coupons</div>
+      <div class="nav-item" onclick="showPage('settings')">Delivery Settings</div>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+
+      <!-- DASHBOARD PAGE -->
+      <div class="page active" id="page-dashboard">
+        <div class="page-title">Dashboard</div>
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-label">Total Orders</div>
+            <div class="stat-value" id="stat-orders">—</div>
+            <div class="stat-sub">all time</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Revenue</div>
+            <div class="stat-value" id="stat-revenue">—</div>
+            <div class="stat-sub">excl. cancelled</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Avg Order Value</div>
+            <div class="stat-value" id="stat-avg">—</div>
+            <div class="stat-sub">per order</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Pending</div>
+            <div class="stat-value" id="stat-pending">—</div>
+            <div class="stat-sub">awaiting action</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Products</div>
+            <div class="stat-value" id="stat-products">—</div>
+            <div class="stat-sub">in catalogue</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Customers</div>
+            <div class="stat-value" id="stat-customers">—</div>
+            <div class="stat-sub">unique</div>
+          </div>
+          <div class="stat-card" style="cursor:pointer" onclick="document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-enquiries').classList.add('active');document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));document.getElementById('nav-enquiries').classList.add('active');">
+            <div class="stat-label">New Enquiries</div>
+            <div class="stat-value" id="stat-enquiries">0</div>
+            <div class="stat-sub">unread</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Total Cost</div>
+            <div class="stat-value" id="stat-cost">₹0</div>
+            <div class="stat-sub">goods & making</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Gross Profit</div>
+            <div class="stat-value" id="stat-profit">₹0</div>
+            <div class="stat-sub">revenue – cost</div>
+          </div>
+        </div>
+
+        <div class="section-hd"><div class="section-title">Recent Orders</div></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Order ID</th><th>Customer</th><th>Item</th><th>Amount</th><th>Status</th><th>Date</th></tr></thead>
+            <tbody id="recent-orders-body"><tr class="empty-row"><td colspan="6">Loading...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ORDERS PAGE -->
+      <div class="page" id="page-orders">
+        <div class="page-title">Orders</div>
+        <div class="section-hd">
+          <div class="section-title" id="orders-count">All Orders</div>
+          <button class="btn" onclick="openAddOrder()">+ New Order</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Order ID</th><th>Customer</th><th>Phone</th><th>Item</th><th>Amount / Cost</th><th>Payment</th><th>Status</th><th>Date</th><th>Action</th></tr></thead>
+            <tbody id="orders-body"><tr class="empty-row"><td colspan="9">Loading...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PRODUCTS PAGE -->
+      <div class="page" id="page-products">
+        <div class="page-title">Products</div>
+        <div class="section-hd">
+          <div class="section-title" id="products-count">All Products</div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn-outline btn-sm" id="sync-btn" onclick="syncCatalogue()">Sync Catalogue</button>
+            <button class="btn" onclick="openAddProduct()">+ Add Product</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Name</th><th>Category</th><th>Price</th><th>Availability</th><th>Action</th></tr></thead>
+            <tbody id="products-body"><tr class="empty-row"><td colspan="5">Loading...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ENQUIRIES PAGE -->
+      <div class="page" id="page-enquiries">
+        <div class="page-title">Enquiries</div>
+        <div class="section-hd">
+          <div class="section-title" id="enquiries-count">All Enquiries</div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Date</th><th>Name</th><th>Contact</th><th>Type</th><th>Message</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="enquiries-body"><tr class="empty-row"><td colspan="7">Loading...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- CUSTOMERS PAGE -->
+      <div class="page" id="page-customers">
+        <div class="page-title">Customers</div>
+        <div class="section-hd">
+          <div class="section-title" id="customers-count">All Customers</div>
+          <button class="btn" onclick="openAddCustomer()">+ Add Customer</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Address</th><th>Orders</th><th>Total Spent</th><th>Joined</th></tr></thead>
+            <tbody id="customers-body"><tr class="empty-row"><td colspan="7">Loading...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ANALYTICS PAGE -->
+      <div class="page" id="page-analytics">
+        <div class="af-row">
+          <div class="page-title" style="margin-bottom:0">Analytics</div>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+            <div class="af-filters">
+              <button class="af-btn" onclick="setAnalyticsDays(7,this)">7 Days</button>
+              <button class="af-btn active" onclick="setAnalyticsDays(30,this)">30 Days</button>
+              <button class="af-btn" onclick="setAnalyticsDays(90,this)">90 Days</button>
+              <button class="af-btn" onclick="setAnalyticsDays(0,this)">All Time</button>
+            </div>
+            <button class="btn" onclick="openExportModal()" style="white-space:nowrap;letter-spacing:1.5px;">&#8595; Export Excel</button>
+          </div>
+        </div>
+
+        <div class="an-stats">
+          <div class="stat-card">
+            <div class="stat-label">Revenue</div>
+            <div class="stat-value" id="an-revenue">—</div>
+            <div class="stat-sub">excl. cancelled</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Total Orders</div>
+            <div class="stat-value" id="an-orders">—</div>
+            <div class="stat-sub">in period</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Avg Order Value</div>
+            <div class="stat-value" id="an-avg">—</div>
+            <div class="stat-sub">per order</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Customers</div>
+            <div class="stat-value" id="an-customers">—</div>
+            <div class="stat-sub">unique in period</div>
+          </div>
+        </div>
+
+        <div class="chart-wrap">
+          <div class="chart-title">Daily Revenue</div>
+          <div class="chart-canvas-wrap"><canvas id="chart-daily"></canvas></div>
+        </div>
+
+        <div class="charts-grid">
+          <div class="chart-wrap" style="margin-bottom:0">
+            <div class="chart-title">Orders by Day of Week</div>
+            <div class="chart-canvas-wrap"><canvas id="chart-dow"></canvas></div>
+          </div>
+          <div class="chart-wrap" style="margin-bottom:0">
+            <div class="chart-title">New vs Returning Customers</div>
+            <div class="nv-wrap" style="margin-top:16px;">
+              <div class="nv-card">
+                <div class="nv-val" id="an-new">—</div>
+                <div class="nv-label">New</div>
+                <div class="nv-pct" id="an-new-pct"></div>
+              </div>
+              <div class="nv-card">
+                <div class="nv-val" id="an-returning">—</div>
+                <div class="nv-label">Returning</div>
+                <div class="nv-pct" id="an-ret-pct"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COUPONS PAGE -->
+      <div class="page" id="page-coupons">
+        <div class="page-title">Offers & Coupons</div>
+        <div class="section-hd">
+          <div class="section-title" id="coupons-count">All Coupons</div>
+          <button class="btn" onclick="openAddCoupon()">+ New Offer</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Code</th><th>Discount</th><th>Min Order</th><th>Expiry</th><th>Uses</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody id="coupons-body"><tr class="empty-row"><td colspan="7">Loading...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- SETTINGS PAGE -->
+      <div class="page" id="page-settings">
+        <div class="page-title">Delivery Settings</div>
+
+        <div class="settings-section">
+          <div class="settings-section-title">Payment Methods</div>
+          <div class="settings-row">
+            <div class="settings-row-info">
+              <div class="settings-row-label">Online Payment</div>
+              <div class="settings-row-sub">UPI, cards, net banking via Razorpay</div>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="tog-online" checked disabled/>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="settings-row">
+            <div class="settings-row-info">
+              <div class="settings-row-label">Cash on Delivery (COD)</div>
+              <div class="settings-row-sub">Not available — online payment only</div>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="tog-cod"/>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <div class="settings-section-title">Delivery Charge Rules</div>
+          <div class="settings-field">
+            <label class="settings-field-label">Free Delivery Above</label>
+            <div class="settings-field-desc">Orders at or above this amount get free delivery. Set to 0 to always charge.</div>
+            <div class="settings-input-wrap">
+              <span class="settings-input-prefix">₹</span>
+              <input class="settings-input" type="number" id="set-free-above" value="5000"/>
+            </div>
+          </div>
+          <div class="settings-field" style="margin-top:24px;">
+            <label class="settings-field-label">Standard Delivery Charge</label>
+            <div class="settings-field-desc">Charged when order is below the free delivery threshold.</div>
+            <div class="settings-input-wrap">
+              <span class="settings-input-prefix">₹</span>
+              <input class="settings-input" type="number" id="set-del-charge" value="300"/>
+            </div>
+          </div>
+          <div class="settings-save-row">
+            <button class="btn" onclick="saveSettings()">Save Settings</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /main -->
+  </div><!-- /layout -->
+</div><!-- /app -->
+
+<!-- ADD ORDER MODAL -->
+<div class="modal-ov" id="modal-add-order">
+  <div class="modal-box">
+    <div class="modal-title">New Order</div>
+    <div class="form-row-2">
+      <div class="form-row">
+        <label class="form-label">Customer Name</label>
+        <input class="form-input" id="o-name" placeholder="Full name"/>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Phone</label>
+        <input class="form-input" id="o-phone" placeholder="+91 XXXXX XXXXX"/>
+      </div>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Email</label>
+      <input class="form-input" id="o-email" placeholder="customer@email.com"/>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Item / Product Name</label>
+      <input class="form-input" id="o-item" placeholder="e.g. Silver Bangle Set"/>
+    </div>
+    <div class="form-row-2">
+      <div class="form-row">
+        <label class="form-label">Selling Price (₹)</label>
+        <input class="form-input" id="o-amount" type="number" placeholder="0"/>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Your Cost (₹)</label>
+        <input class="form-input" id="o-cost" type="number" placeholder="0"/>
+      </div>
+    </div>
+    <div class="form-row-2">
+      <div class="form-row">
+        <label class="form-label">Payment Method</label>
+        <select class="form-input" id="o-payment">
+          <option value="Cash">Cash</option>
+          <option value="UPI">UPI</option>
+          <option value="Bank Transfer">Bank Transfer</option>
+          <option value="Card">Card</option>
+          <option value="Online (Website)">Online (Website)</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Status</label>
+        <select class="form-input" id="o-status">
+          <option value="pending">Pending</option>
+          <option value="confirmed">Confirmed</option>
+          <option value="shipped">Shipped</option>
+          <option value="delivered">Delivered</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Shipping Address</label>
+      <input class="form-input" id="o-address" placeholder="Full address"/>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Notes (optional)</label>
+      <input class="form-input" id="o-notes" placeholder="Any special instructions"/>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-outline" onclick="closeModal('modal-add-order')">Cancel</button>
+      <button class="btn" onclick="saveOrder()">Save Order</button>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT ORDER STATUS MODAL -->
+<div class="modal-ov" id="modal-edit-order">
+  <div class="modal-box">
+    <div class="modal-title">Update Order</div>
+    <input type="hidden" id="edit-order-id"/>
+    <div class="form-row">
+      <label class="form-label">Customer</label>
+      <input class="form-input" id="edit-o-name" readonly style="opacity:.5;"/>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Item</label>
+      <input class="form-input" id="edit-o-item" readonly style="opacity:.5;"/>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Status</label>
+      <select class="form-input" id="edit-o-status">
+        <option value="pending">Pending</option>
+        <option value="confirmed">Confirmed</option>
+        <option value="shipped">Shipped</option>
+        <option value="delivered">Delivered</option>
+        <option value="cancelled">Cancelled</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Razorpay Payment Link (optional)</label>
+      <input class="form-input" id="edit-o-paylink" placeholder="https://rzp.io/..."/>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Tracking Number (optional)</label>
+      <input class="form-input" id="edit-o-tracking" placeholder="Tracking ID"/>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-outline" onclick="closeModal('modal-edit-order')">Cancel</button>
+      <button class="btn" onclick="updateOrder()">Update</button>
+    </div>
+  </div>
+</div>
+
+<!-- EXPORT MODAL -->
+<div class="modal-ov" id="modal-export">
+  <div class="modal-box" style="max-width:520px;">
+    <div class="modal-title">Export Report to Excel</div>
+
+    <div class="form-row" style="margin-bottom:16px;">
+      <label class="form-label" style="margin-bottom:10px;">Quick Select</label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="af-btn" id="exp-btn-7"   onclick="setExportPeriod(7,this)">Last 7 Days</button>
+        <button class="af-btn active" id="exp-btn-30"  onclick="setExportPeriod(30,this)">Last Month</button>
+        <button class="af-btn" id="exp-btn-90"  onclick="setExportPeriod(90,this)">3 Months</button>
+        <button class="af-btn" id="exp-btn-180" onclick="setExportPeriod(180,this)">6 Months</button>
+        <button class="af-btn" id="exp-btn-0"   onclick="setExportPeriod(0,this)">All Time</button>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:10px;margin:18px 0 14px;">
+      <div style="flex:1;height:1px;background:var(--border2);"></div>
+      <span style="font-family:var(--fh);font-size:8px;letter-spacing:3px;color:var(--text-dim);text-transform:uppercase;">Or Custom Range</span>
+      <div style="flex:1;height:1px;background:var(--border2);"></div>
+    </div>
+
+    <div class="form-row-2">
+      <div class="form-row">
+        <label class="form-label">From Date</label>
+        <input class="form-input" type="date" id="exp-from" oninput="onCustomDateInput()"/>
+      </div>
+      <div class="form-row">
+        <label class="form-label">To Date</label>
+        <input class="form-input" type="date" id="exp-to" oninput="onCustomDateInput()"/>
+      </div>
+    </div>
+    <p id="exp-custom-note" style="display:none;font-size:11px;color:var(--silver);letter-spacing:1px;margin-top:6px;">&#10003; Custom range selected — quick select buttons above are ignored.</p>
+
+    <div style="margin-top:16px;padding:12px 14px;background:rgba(196,196,196,.06);border:1px solid var(--border2);font-size:12px;color:var(--text-dim);line-height:1.8;">
+      Excel will include 4 sheets: <strong style="color:var(--silver-dim);">Summary</strong> · <strong style="color:var(--silver-dim);">Orders</strong> · <strong style="color:var(--silver-dim);">Customers</strong> · <strong style="color:var(--silver-dim);">Enquiries</strong>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-outline" onclick="closeModal('modal-export')">Cancel</button>
+      <button class="btn" onclick="runExport()">Download Excel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD CUSTOMER MODAL -->
+<div class="modal-ov" id="modal-add-customer">
+  <div class="modal-box">
+    <div class="modal-title">Add Customer</div>
+    <div class="form-row-2">
+      <div class="form-row">
+        <label class="form-label">Full Name</label>
+        <input class="form-input" id="cust-name" placeholder="Full name"/>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Phone</label>
+        <input class="form-input" id="cust-phone" placeholder="+91 XXXXX XXXXX"/>
+      </div>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Email</label>
+      <input class="form-input" id="cust-email" placeholder="customer@email.com"/>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Address (optional)</label>
+      <input class="form-input" id="cust-address" placeholder="Full address"/>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Notes (optional)</label>
+      <input class="form-input" id="cust-notes" placeholder="e.g. Regular offline customer"/>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-outline" onclick="closeModal('modal-add-customer')">Cancel</button>
+      <button class="btn" onclick="saveCustomer()">Save Customer</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD PRODUCT MODAL -->
+<div class="modal-ov" id="modal-add-product">
+  <div class="modal-box">
+    <div class="modal-title" id="prod-modal-title">Add Product</div>
+    <input type="hidden" id="p-id"/>
+    <div class="form-row">
+      <label class="form-label">Product Name</label>
+      <input class="form-input" id="p-name" placeholder="e.g. Silver Bangle Set"/>
+    </div>
+    <div class="form-row-2">
+      <div class="form-row">
+        <label class="form-label">Price (₹)</label>
+        <input class="form-input" id="p-price" type="number" placeholder="0"/>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Availability</label>
+        <select class="form-input" id="p-availability">
+          <option value="in-stock">In Stock — Ships Immediately</option>
+          <option value="made-to-order">Made to Order — Ships in 5 Business Days</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Category</label>
+      <select class="form-input" id="p-category">
+        <option value="forher">For Her</option>
+        <option value="forhim">For Him</option>
+        <option value="virasat">Virasat</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Description</label>
+      <input class="form-input" id="p-desc" placeholder="Short description"/>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Image URL (paste link)</label>
+      <input class="form-input" id="p-img" placeholder="https://..."/>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-outline" onclick="closeModal('modal-add-product')">Cancel</button>
+      <button class="btn" onclick="saveProduct()">Save Product</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD COUPON MODAL -->
+<div class="modal-ov" id="modal-add-coupon">
+  <div class="modal-box">
+    <div class="modal-title" id="coupon-modal-title">New Offer / Coupon</div>
+    <input type="hidden" id="c-id"/>
+    <div class="form-row">
+      <label class="form-label">Coupon Code</label>
+      <input class="form-input" id="c-code" placeholder="e.g. ANSH20" style="text-transform:uppercase;"/>
+    </div>
+    <div class="form-row-2">
+      <div class="form-row">
+        <label class="form-label">Discount Type</label>
+        <select class="form-input" id="c-type">
+          <option value="percent">Percentage (%)</option>
+          <option value="fixed">Fixed Amount (₹)</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Discount Value</label>
+        <input class="form-input" id="c-value" type="number" placeholder="e.g. 10 or 200"/>
+      </div>
+    </div>
+    <div class="form-row-2">
+      <div class="form-row">
+        <label class="form-label">Min Order Value (₹)</label>
+        <input class="form-input" id="c-minorder" type="number" placeholder="0 = no minimum"/>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Expiry Date</label>
+        <input class="form-input" id="c-expiry" type="date"/>
+      </div>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Status</label>
+      <select class="form-input" id="c-status">
+        <option value="active">Active</option>
+        <option value="inactive">Inactive</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-outline" onclick="closeModal('modal-add-coupon')">Cancel</button>
+      <button class="btn" onclick="saveCoupon()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- FIREBASE -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
+  from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc,
+  query, orderBy, serverTimestamp, onSnapshot }
+  from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBwqpavjzi15Zt9qHoufjJFI05k7AAHLRs",
+  authDomain: "house-of-ansh.firebaseapp.com",
+  projectId: "house-of-ansh",
+  storageBucket: "house-of-ansh.firebasestorage.app",
+  messagingSenderId: "386185011014",
+  appId: "1:386185011014:web:fef798d4e17c84170bcf47",
+  measurementId: "G-Y640CVG7KQ"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// ── AUTH ──
+window.doLogin = async function() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass  = document.getElementById('loginPassword').value;
+  const err   = document.getElementById('loginErr');
+  err.textContent = '';
+  try {
+    await signInWithEmailAndPassword(auth, email, pass);
+  } catch(e) {
+    err.textContent = 'Invalid email or password.';
+  }
+};
+
+window.doLogout = async function() {
+  await signOut(auth);
+};
+
+onAuthStateChanged(auth, user => {
+  if(user) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    document.getElementById('adminEmail').textContent = user.email;
+    startRealtimeListeners();
+    loadSettings();
+  } else {
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('app').style.display = 'none';
+  }
+});
+
+// ── NAVIGATION ──
+window.showPage = function(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  event.currentTarget.classList.add('active');
+  if(name === 'analytics') loadAnalytics(analyticsDays);
+};
+
+// ── TOAST ──
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ── MODALS ──
+window.closeModal = function(id) {
+  document.getElementById(id).classList.remove('open');
+};
+
+// ── FORMAT ──
+function fmtDate(ts) {
+  if(!ts) return '—';
+  const d = ts.toDate ? ts.toDate() : new Date(ts);
+  return d.toLocaleDateString('en-IN', {day:'2-digit',month:'short',year:'numeric'});
+}
+function fmtStatus(s) {
+  const map = {pending:'badge-pending',confirmed:'badge-confirmed',shipped:'badge-shipped',delivered:'badge-delivered',cancelled:'badge-cancelled'};
+  return `<span class="badge ${map[s]||'badge-pending'}">${s||'pending'}</span>`;
+}
+
+// ── REAL-TIME LISTENERS ──
+function startRealtimeListeners() {
+  // Orders — real-time
+  onSnapshot(query(collection(db,'orders'), orderBy('createdAt','desc')), snap => {
+    allOrders = snap.docs.map(d => ({id:d.id,...d.data()}));
+    renderOrders(allOrders);
+    updateDashboardStats();
+  });
+
+  // Products — real-time
+  onSnapshot(collection(db,'products'), snap => {
+    allProducts = snap.docs.map(d => ({id:d.id,...d.data()}));
+    renderProducts(allProducts);
+    document.getElementById('stat-products').textContent = allProducts.length;
+  });
+
+  // Customers — real-time
+  onSnapshot(collection(db,'customers'), snap => {
+    const customers = snap.docs.map(d => ({id:d.id,...d.data()}));
+    document.getElementById('stat-customers').textContent = customers.length;
+    if(document.getElementById('customers-count')) document.getElementById('customers-count').textContent = `${customers.length} Customer${customers.length!==1?'s':''}`;
+    renderCustomersData(customers);
+  });
+
+  // Coupons — real-time
+  onSnapshot(collection(db,'coupons'), snap => {
+    allCoupons = snap.docs.map(d => ({id:d.id,...d.data()}));
+    renderCoupons(allCoupons);
+  });
+
+  // Enquiries — real-time
+  onSnapshot(query(collection(db,'enquiries'), orderBy('createdAt','desc')), snap => {
+    allEnquiries = snap.docs.map(d => ({id:d.id,...d.data()}));
+    renderEnquiries(allEnquiries);
+    const newCount = allEnquiries.filter(eq => (eq.status||'new') === 'new').length;
+    document.getElementById('stat-enquiries').textContent = newCount;
+    const badge = document.getElementById('enq-badge');
+    if(newCount > 0){ badge.textContent = newCount; badge.style.display = 'inline'; }
+    else { badge.style.display = 'none'; }
+  });
+}
+
+function updateDashboardStats() {
+  const pending = allOrders.filter(o => o.status === 'pending').length;
+  const active  = allOrders.filter(o => o.status !== 'cancelled');
+  const revenue = active.reduce((s,o) => s+(Number(o.totalAmount||o.amount)||0), 0);
+  const cost    = active.reduce((s,o) => s+(Number(o.cost)||0), 0);
+  const profit  = revenue - cost;
+  const avg     = active.length ? Math.round(revenue/active.length) : 0;
+  document.getElementById('stat-orders').textContent  = allOrders.length;
+  document.getElementById('stat-revenue').textContent = '₹'+revenue.toLocaleString('en-IN');
+  document.getElementById('stat-avg').textContent     = '₹'+avg.toLocaleString('en-IN');
+  document.getElementById('stat-pending').textContent = pending;
+  document.getElementById('stat-cost').textContent    = '₹'+cost.toLocaleString('en-IN');
+  document.getElementById('stat-profit').textContent  = '₹'+profit.toLocaleString('en-IN');
+  document.getElementById('stat-profit').style.color  = profit >= 0 ? 'var(--green)' : 'var(--red)';
+
+  const recent = allOrders.slice(0,5);
+  const tbody  = document.getElementById('recent-orders-body');
+  if(!recent.length){ tbody.innerHTML='<tr class="empty-row"><td colspan="6">No orders yet</td></tr>'; return; }
+  tbody.innerHTML = recent.map(o => `
+    <tr>
+      <td style="font-size:11px;color:var(--silver-dim)">#${o.id.slice(-6).toUpperCase()}</td>
+      <td>${o.customerName||'—'}</td>
+      <td>${o.item||'—'}</td>
+      <td>₹${(o.totalAmount||o.amount||0).toLocaleString('en-IN')}</td>
+      <td>${fmtStatus(o.status)}</td>
+      <td style="font-size:11px;color:var(--silver-dim)">${fmtDate(o.createdAt)}</td>
+    </tr>`).join('');
+}
+
+// kept for compatibility — now a no-op since onSnapshot drives updates
+async function loadDashboard() {}
+
+
+// ── ORDERS ──
+let allOrders = [];
+async function loadOrders() {} // driven by onSnapshot
+function renderOrders(orders) {
+  document.getElementById('orders-count').textContent = `${orders.length} Order${orders.length!==1?'s':''}`;
+  const tbody = document.getElementById('orders-body');
+  if(!orders.length){
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="9">No orders yet</td></tr>';
+    return;
+  }
+  tbody.innerHTML = orders.map(o => {
+    const isOffline = o.source === 'offline';
+    const srcBadge  = isOffline
+      ? `<br/><span style="font-size:9px;letter-spacing:1px;color:var(--text-dim);font-family:var(--fh);text-transform:uppercase;">Offline</span>`
+      : `<br/><span style="font-size:9px;letter-spacing:1px;color:var(--silver-dim);font-family:var(--fh);text-transform:uppercase;">Online</span>`;
+    const costCell  = o.cost ? `<br/><span style="font-size:11px;color:var(--text-dim)">cost ₹${Number(o.cost).toLocaleString('en-IN')}</span>` : '';
+    return `<tr>
+      <td style="font-size:11px;color:var(--silver-dim)">#${o.id.slice(-6).toUpperCase()}${srcBadge}</td>
+      <td>${o.customerName||'—'}</td>
+      <td style="font-size:12px;color:var(--silver-dim)">${o.phone||'—'}</td>
+      <td>${o.item||'—'}</td>
+      <td>₹${(o.totalAmount||o.amount||0).toLocaleString('en-IN')}${costCell}</td>
+      <td style="font-size:12px;color:var(--silver-dim)">${o.paymentMethod||'—'}</td>
+      <td>${fmtStatus(o.status)}</td>
+      <td style="font-size:11px;color:var(--silver-dim)">${fmtDate(o.createdAt)}</td>
+      <td style="display:flex;gap:6px;flex-wrap:wrap;">
+        <button class="btn-outline btn-sm" onclick="editOrder('${o.id}')">Edit</button>
+        <button class="btn-outline btn-sm" onclick="generateInvoice('${o.id}')" style="color:var(--silver)">Invoice</button>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+window.openAddOrder = function() {
+  ['o-name','o-phone','o-email','o-item','o-amount','o-cost','o-address','o-notes'].forEach(id => document.getElementById(id).value='');
+  document.getElementById('o-status').value  = 'pending';
+  document.getElementById('o-payment').value = 'Cash';
+  document.getElementById('modal-add-order').classList.add('open');
+};
+
+window.saveOrder = async function() {
+  const name  = document.getElementById('o-name').value.trim();
+  const email = document.getElementById('o-email').value.trim();
+  const phone = document.getElementById('o-phone').value.trim();
+  const data = {
+    customerName:  name,
+    phone,
+    email,
+    item:          document.getElementById('o-item').value.trim(),
+    amount:        Number(document.getElementById('o-amount').value)||0,
+    cost:          Number(document.getElementById('o-cost').value)||0,
+    paymentMethod: document.getElementById('o-payment').value,
+    status:        document.getElementById('o-status').value,
+    address:       document.getElementById('o-address').value.trim(),
+    notes:         document.getElementById('o-notes').value.trim(),
+    source:        'offline',
+    createdAt:     serverTimestamp()
+  };
+  if(!name || !data.item){ toast('Name and item are required.'); return; }
+  try {
+    await addDoc(collection(db,'orders'), data);
+    // auto-add or update customer record
+    if(email) {
+      const cSnap = await getDocs(query(collection(db,'customers'), where('email','==',email)));
+      if(cSnap.empty) {
+        await addDoc(collection(db,'customers'), {name, email, phone, address:data.address, orderCount:1, createdAt:serverTimestamp()});
+      } else {
+        await updateDoc(doc(db,'customers',cSnap.docs[0].id), {orderCount: (cSnap.docs[0].data().orderCount||0)+1});
+      }
+    }
+    closeModal('modal-add-order');
+    toast('Order saved.');
+  } catch(e){ toast('Error saving order.'); }
+};
+
+window.editOrder = function(id) {
+  const o = allOrders.find(x => x.id === id);
+  if(!o) return;
+  document.getElementById('edit-order-id').value    = id;
+  document.getElementById('edit-o-name').value      = o.customerName||'';
+  document.getElementById('edit-o-item').value      = o.item||'';
+  document.getElementById('edit-o-status').value    = o.status||'pending';
+  document.getElementById('edit-o-paylink').value   = o.paymentLink||'';
+  document.getElementById('edit-o-tracking').value  = o.tracking||'';
+  document.getElementById('modal-edit-order').classList.add('open');
+};
+
+window.updateOrder = async function() {
+  const id = document.getElementById('edit-order-id').value;
+  try {
+    await updateDoc(doc(db,'orders',id), {
+      status:      document.getElementById('edit-o-status').value,
+      paymentLink: document.getElementById('edit-o-paylink').value.trim(),
+      tracking:    document.getElementById('edit-o-tracking').value.trim()
+    });
+    closeModal('modal-edit-order');
+    toast('Order updated.');
+    loadOrders(); loadDashboard();
+  } catch(e){ toast('Error updating order.'); }
+};
+
+// ── PRODUCTS ──
+let allProducts = [];
+async function loadProducts() {} // driven by onSnapshot
+function renderProducts(products) {
+  document.getElementById('products-count').textContent = `${products.length} Product${products.length!==1?'s':''}`;
+  const tbody = document.getElementById('products-body');
+  if(!products.length){
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="5">No products yet</td></tr>';
+    return;
+  }
+  tbody.innerHTML = products.map(p => `
+    <tr>
+      <td>
+        ${p.imageUrl ? `<img class="prod-img-cell" src="${p.imageUrl}" style="float:left;margin-right:10px;"/>` : ''}
+        <div class="prod-name-cell">${p.name||'—'}</div>
+        <div class="prod-meta">${p.description||''}</div>
+      </td>
+      <td style="text-transform:capitalize">${p.category||'—'}</td>
+      <td>₹${p.price||0}</td>
+      <td><button class="avail-toggle ${p.availability==='made-to-order'?'avail-mto':'avail-stock'}" onclick="toggleAvailability('${p.id}','${p.availability||'in-stock'}')">${p.availability==='made-to-order'?'Made to Order':'In Stock'}</button></td>
+      <td style="display:flex;gap:8px;">
+        <button class="btn-outline btn-sm" onclick="editProduct('${p.id}')">Edit</button>
+        <button class="btn btn-sm btn-red" onclick="deleteProduct('${p.id}')">Del</button>
+      </td>
+    </tr>`).join('');
+}
+
+window.openAddProduct = function() {
+  document.getElementById('prod-modal-title').textContent = 'Add Product';
+  ['p-id','p-name','p-price','p-desc','p-img'].forEach(id => document.getElementById(id).value='');
+  document.getElementById('p-category').value    = 'forher';
+  document.getElementById('p-availability').value = 'in-stock';
+  document.getElementById('modal-add-product').classList.add('open');
+};
+
+window.editProduct = function(id) {
+  const p = allProducts.find(x => x.id === id);
+  if(!p) return;
+  document.getElementById('prod-modal-title').textContent = 'Edit Product';
+  document.getElementById('p-id').value       = id;
+  document.getElementById('p-name').value         = p.name||'';
+  document.getElementById('p-price').value        = p.price||'';
+  document.getElementById('p-availability').value = p.availability||'in-stock';
+  document.getElementById('p-category').value     = p.category||'forher';
+  document.getElementById('p-desc').value     = p.description||'';
+  document.getElementById('p-img').value      = p.imageUrl||'';
+  document.getElementById('modal-add-product').classList.add('open');
+};
+
+window.saveProduct = async function() {
+  const id   = document.getElementById('p-id').value;
+  const data = {
+    name:         document.getElementById('p-name').value.trim(),
+    price:        Number(document.getElementById('p-price').value),
+    availability: document.getElementById('p-availability').value,
+    category:     document.getElementById('p-category').value,
+    description: document.getElementById('p-desc').value.trim(),
+    imageUrl:    document.getElementById('p-img').value.trim()
+  };
+  if(!data.name){ toast('Product name is required.'); return; }
+  try {
+    if(id) {
+      await updateDoc(doc(db,'products',id), data);
+      toast('Product updated.');
+    } else {
+      data.createdAt = serverTimestamp();
+      await addDoc(collection(db,'products'), data);
+      toast('Product added.');
+    }
+    closeModal('modal-add-product');
+    loadProducts(); loadDashboard();
+  } catch(e){ toast('Error saving product.'); }
+};
+
+window.deleteProduct = async function(id) {
+  if(!confirm('Delete this product?')) return;
+  try {
+    await deleteDoc(doc(db,'products',id));
+    toast('Product deleted.');
+    loadProducts(); loadDashboard();
+  } catch(e){ toast('Error deleting product.'); }
+};
+
+window.toggleAvailability = async function(id, current) {
+  const next = current === 'made-to-order' ? 'in-stock' : 'made-to-order';
+  try {
+    await updateDoc(doc(db,'products',id), { availability: next });
+    toast(next === 'made-to-order' ? 'Marked as Made to Order.' : 'Marked as In Stock.');
+  } catch(e){ toast('Error updating availability.'); }
+};
+
+window.syncCatalogue = async function() {
+  const CATALOGUE = [
+    {name:'Sterling Bangle Set 01',category:'bangles-bracelets',page:'forher',price:1999},
+    {name:'Sterling Bangle Set 02',category:'bangles-bracelets',page:'forher',price:1999},
+    {name:'Twisted Bangle 01',category:'bangles-bracelets',page:'forher',price:1999},
+    {name:'Twisted Bangle 02',category:'bangles-bracelets',page:'forher',price:1999},
+    {name:'Moonflower Ring 01',category:'rings',page:'forher',price:1999},
+    {name:'Moonflower Ring 02',category:'rings',page:'forher',price:1999},
+    {name:'Lotus Band Ring 01',category:'rings',page:'forher',price:1999},
+    {name:'Lotus Band Ring 02',category:'rings',page:'forher',price:1999},
+    {name:'Cascade Drop Earring 01',category:'earrings',page:'forher',price:1999},
+    {name:'Cascade Drop Earring 02',category:'earrings',page:'forher',price:1999},
+    {name:'Silver Hoop 01',category:'earrings',page:'forher',price:1999},
+    {name:'Silver Hoop 02',category:'earrings',page:'forher',price:1999},
+    {name:'Lotus Pendant 01',category:'pendants',page:'forher',price:1999},
+    {name:'Lotus Pendant 02',category:'pendants',page:'forher',price:1999},
+    {name:'Crescent Pendant 01',category:'pendants',page:'forher',price:1999},
+    {name:'Crescent Pendant 02',category:'pendants',page:'forher',price:1999},
+    {name:'Heritage Necklace Set 01',category:'necklace-sets',page:'forher',price:1999},
+    {name:'Heritage Necklace Set 02',category:'necklace-sets',page:'forher',price:1999},
+    {name:'Layered Necklace Set 01',category:'necklace-sets',page:'forher',price:1999},
+    {name:'Layered Necklace Set 02',category:'necklace-sets',page:'forher',price:1999},
+    {name:'Mangalsutra Classic 01',category:'mangalsutra',page:'forher',price:1999},
+    {name:'Mangalsutra Classic 02',category:'mangalsutra',page:'forher',price:1999},
+    {name:'Mangalsutra Slim 01',category:'mangalsutra',page:'forher',price:1999},
+    {name:'Mangalsutra Slim 02',category:'mangalsutra',page:'forher',price:1999},
+    {name:'Bloom Brooch 01',category:'brooches',page:'forher',price:1999},
+    {name:'Bloom Brooch 02',category:'brooches',page:'forher',price:1999},
+    {name:'Leaf Brooch 01',category:'brooches',page:'forher',price:1999},
+    {name:'Leaf Brooch 02',category:'brooches',page:'forher',price:1999},
+    {name:'Silver Anklet 01',category:'anklets',page:'forher',price:1999},
+    {name:'Silver Anklet 02',category:'anklets',page:'forher',price:1999},
+    {name:'Charm Anklet 01',category:'anklets',page:'forher',price:1999},
+    {name:'Charm Anklet 02',category:'anklets',page:'forher',price:1999},
+    {name:'Sterling Wristlet 01',category:'wristlets',page:'forhim',price:2499},
+    {name:'Sterling Wristlet 02',category:'wristlets',page:'forhim',price:2499},
+    {name:'Chain Wristlet 01',category:'wristlets',page:'forhim',price:2499},
+    {name:'Chain Wristlet 02',category:'wristlets',page:'forhim',price:2499},
+    {name:'Silver Chain 01',category:'chain',page:'forhim',price:2499},
+    {name:'Silver Chain 02',category:'chain',page:'forhim',price:2499},
+    {name:'Figaro Chain 01',category:'chain',page:'forhim',price:2499},
+    {name:'Figaro Chain 02',category:'chain',page:'forhim',price:2499},
+    {name:'Lapel Brooch 01',category:'brooches',page:'forhim',price:2499},
+    {name:'Lapel Brooch 02',category:'brooches',page:'forhim',price:2499},
+    {name:'Shield Brooch 01',category:'brooches',page:'forhim',price:2499},
+    {name:'Shield Brooch 02',category:'brooches',page:'forhim',price:2499},
+    {name:'Virasat Heritage Necklace Set 01',category:'necklace-sets',page:'virasat',price:3999},
+    {name:'Virasat Heritage Necklace Set 02',category:'necklace-sets',page:'virasat',price:3999},
+    {name:'Virasat Jhumka 01',category:'earrings',page:'virasat',price:3999},
+    {name:'Virasat Jhumka 02',category:'earrings',page:'virasat',price:3999},
+    {name:'Virasat Kangan 01',category:'bangles-bracelets',page:'virasat',price:3999},
+    {name:'Virasat Kangan 02',category:'bangles-bracelets',page:'virasat',price:3999},
+    {name:'Virasat Kundan Ring 01',category:'rings',page:'virasat',price:3999},
+    {name:'Virasat Kundan Ring 02',category:'rings',page:'virasat',price:3999},
+    {name:'Virasat Temple Pendant 01',category:'pendants',page:'virasat',price:3999},
+    {name:'Virasat Temple Pendant 02',category:'pendants',page:'virasat',price:3999},
+    {name:'Virasat Mangalsutra 01',category:'mangalsutra',page:'virasat',price:3999},
+    {name:'Virasat Mangalsutra 02',category:'mangalsutra',page:'virasat',price:3999},
+    {name:'Virasat Payal 01',category:'anklets',page:'virasat',price:3999},
+    {name:'Virasat Payal 02',category:'anklets',page:'virasat',price:3999},
+    {name:'Virasat Brooch 01',category:'brooches',page:'virasat',price:3999},
+    {name:'Virasat Wristlet 01',category:'wristlets',page:'virasat',price:3999}
+  ];
+  const btn = document.getElementById('sync-btn');
+  btn.disabled = true; btn.textContent = 'Syncing…';
+  try {
+    const existing = await getDocs(collection(db,'products'));
+    const existingNames = new Set(existing.docs.map(d => d.data().name));
+    let added = 0;
+    for(const p of CATALOGUE) {
+      if(!existingNames.has(p.name)) {
+        await addDoc(collection(db,'products'), { ...p, availability:'in-stock', createdAt: serverTimestamp() });
+        added++;
+      }
+    }
+    toast(added > 0 ? `${added} products added to catalogue.` : 'All products already synced.');
+  } catch(e){ toast('Sync failed.'); }
+  finally { btn.disabled=false; btn.textContent='Sync Catalogue'; }
+};
+
+// ── CUSTOMERS ──
+async function loadCustomers() {} // driven by onSnapshot
+
+function renderCustomersData(customers) {
+  const tbody = document.getElementById('customers-body');
+  const list  = customers.length ? customers
+    : Object.values(allOrders.reduce((acc, o) => {
+        const key = o.email||o.customerName;
+        if(!acc[key]) acc[key]={name:o.customerName,email:o.email,phone:o.phone,address:o.address,createdAt:o.createdAt,orders:[],spent:0};
+        if(o.status!=='cancelled') acc[key].spent+=(Number(o.totalAmount||o.amount)||0);
+        acc[key].orders.push(o);
+        return acc;
+      }, {}));
+
+  if(!list.length){ tbody.innerHTML='<tr class="empty-row"><td colspan="7">No customers yet</td></tr>'; return; }
+
+  // Compute spent from orders for customers collection entries
+  tbody.innerHTML = list.map(c => {
+    const myOrders = allOrders.filter(o => o.email===c.email||o.customerName===c.name);
+    const spent    = myOrders.filter(o=>o.status!=='cancelled').reduce((s,o)=>s+(Number(o.totalAmount||o.amount)||0),0);
+    return `<tr>
+      <td>${c.name||'—'}</td>
+      <td style="font-size:12px;color:var(--silver-dim)">${c.email||'—'}</td>
+      <td style="font-size:12px;color:var(--silver-dim)">${c.phone||'—'}</td>
+      <td style="font-size:12px;color:var(--silver-dim)">${c.address||'—'}</td>
+      <td>${c.orderCount||myOrders.length||0}</td>
+      <td>₹${spent.toLocaleString('en-IN')}</td>
+      <td style="font-size:11px;color:var(--silver-dim)">${fmtDate(c.createdAt)}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ── ANALYTICS ──
+let analyticsChart1 = null;
+let analyticsChart2 = null;
+let analyticsDays = 30;
+
+Chart.defaults.color = '#666';
+Chart.defaults.borderColor = '#1e1e1e';
+
+async function loadAnalytics(days) {
+  analyticsDays = days;
+  try {
+    const oSnap = await getDocs(collection(db,'orders'));
+    const allOrders = oSnap.docs.map(d => ({id:d.id,...d.data()}));
+
+    const now = new Date();
+    const cutoff = days === 0 ? null : new Date(now.getTime() - days*24*60*60*1000);
+    const orders = cutoff
+      ? allOrders.filter(o => {
+          const d = o.createdAt?.toDate ? o.createdAt.toDate() : new Date(o.createdAt||0);
+          return d >= cutoff;
+        })
+      : allOrders;
+
+    const active = orders.filter(o => o.status !== 'cancelled');
+    const revenue = active.reduce((s,o) => s+(Number(o.amount)||0), 0);
+    const avg = active.length ? Math.round(revenue/active.length) : 0;
+    const uniqueC = new Set(orders.map(o => o.email||o.customerName)).size;
+
+    document.getElementById('an-revenue').textContent  = '₹'+revenue.toLocaleString('en-IN');
+    document.getElementById('an-orders').textContent   = orders.length;
+    document.getElementById('an-avg').textContent      = '₹'+avg.toLocaleString('en-IN');
+    document.getElementById('an-customers').textContent= uniqueC;
+
+    // Daily revenue
+    const dailyMap = {};
+    active.forEach(o => {
+      const d = o.createdAt?.toDate ? o.createdAt.toDate() : new Date(o.createdAt||0);
+      const key = d.toLocaleDateString('en-IN',{day:'2-digit',month:'short'});
+      dailyMap[key] = (dailyMap[key]||0) + (Number(o.amount)||0);
+    });
+
+    if(analyticsChart1) analyticsChart1.destroy();
+    analyticsChart1 = new Chart(document.getElementById('chart-daily'), {
+      type:'bar',
+      data:{
+        labels: Object.keys(dailyMap),
+        datasets:[{
+          data: Object.values(dailyMap),
+          backgroundColor:'rgba(196,196,196,0.12)',
+          borderColor:'rgba(196,196,196,0.5)',
+          borderWidth:1, borderRadius:2
+        }]
+      },
+      options:{
+        responsive:true, maintainAspectRatio:false,
+        plugins:{legend:{display:false}},
+        scales:{
+          x:{grid:{color:'#1a1a1a'},ticks:{color:'#666',font:{size:10}}},
+          y:{grid:{color:'#1a1a1a'},ticks:{color:'#666',font:{size:10},callback:v=>'₹'+v.toLocaleString('en-IN')}}
+        }
+      }
+    });
+
+    // Orders by day of week
+    const dow = [0,0,0,0,0,0,0];
+    orders.forEach(o => {
+      const d = o.createdAt?.toDate ? o.createdAt.toDate() : new Date(o.createdAt||0);
+      dow[d.getDay()]++;
+    });
+
+    if(analyticsChart2) analyticsChart2.destroy();
+    analyticsChart2 = new Chart(document.getElementById('chart-dow'), {
+      type:'bar',
+      data:{
+        labels:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+        datasets:[{
+          data: dow,
+          backgroundColor:'rgba(196,196,196,0.12)',
+          borderColor:'rgba(196,196,196,0.5)',
+          borderWidth:1, borderRadius:2
+        }]
+      },
+      options:{
+        responsive:true, maintainAspectRatio:false,
+        plugins:{legend:{display:false}},
+        scales:{
+          x:{grid:{color:'#1a1a1a'},ticks:{color:'#666',font:{size:10}}},
+          y:{grid:{color:'#1a1a1a'},ticks:{color:'#666',font:{size:10},stepSize:1}}
+        }
+      }
+    });
+
+    // New vs returning
+    const allCounts = {};
+    allOrders.forEach(o => { const k=o.email||o.customerName; allCounts[k]=(allCounts[k]||0)+1; });
+    let newC=0, retC=0;
+    new Set(orders.map(o=>o.email||o.customerName)).forEach(k => {
+      allCounts[k] > 1 ? retC++ : newC++;
+    });
+    const tot = newC+retC||1;
+    document.getElementById('an-new').textContent      = newC;
+    document.getElementById('an-returning').textContent= retC;
+    document.getElementById('an-new-pct').textContent  = Math.round(newC/tot*100)+'%';
+    document.getElementById('an-ret-pct').textContent  = Math.round(retC/tot*100)+'%';
+
+  } catch(e){ console.error(e); }
+}
+
+window.setAnalyticsDays = function(days, btn) {
+  document.querySelectorAll('.af-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  loadAnalytics(days);
+};
+
+// ── COUPONS ──
+let allCoupons = [];
+
+async function loadCoupons() {
+  try {
+    const snap = await getDocs(collection(db,'coupons'));
+    allCoupons = snap.docs.map(d => ({id:d.id,...d.data()}));
+    renderCoupons(allCoupons);
+  } catch(e){ renderCoupons([]); }
+}
+
+function renderCoupons(coupons) {
+  document.getElementById('coupons-count').textContent = `${coupons.length} Coupon${coupons.length!==1?'s':''}`;
+  const tbody = document.getElementById('coupons-body');
+  if(!coupons.length){
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="7">No coupons yet</td></tr>';
+    return;
+  }
+  tbody.innerHTML = coupons.map(c => {
+    const discLabel = c.type === 'percent' ? `${c.value}% off` : `₹${c.value} off`;
+    const minLabel  = c.minOrder > 0 ? `₹${Number(c.minOrder).toLocaleString('en-IN')}` : 'None';
+    const expLabel  = c.expiry || '—';
+    const expired   = c.expiry && new Date(c.expiry) < new Date();
+    const statusBadge = (c.status === 'active' && !expired)
+      ? `<span class="badge badge-delivered">Active</span>`
+      : `<span class="badge badge-cancelled">${expired ? 'Expired' : 'Inactive'}</span>`;
+    return `<tr>
+      <td style="font-family:monospace;letter-spacing:2px;font-size:13px;">${c.code||'—'}</td>
+      <td>${discLabel}</td>
+      <td style="font-size:12px;color:var(--silver-dim)">${minLabel}</td>
+      <td style="font-size:12px;color:var(--silver-dim)">${expLabel}</td>
+      <td style="font-size:12px;color:var(--silver-dim)">${c.uses||0}</td>
+      <td>${statusBadge}</td>
+      <td style="display:flex;gap:8px;">
+        <button class="btn-outline btn-sm" onclick="editCoupon('${c.id}')">Edit</button>
+        <button class="btn btn-sm btn-red" onclick="deleteCoupon('${c.id}')">Del</button>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+window.openAddCoupon = function() {
+  document.getElementById('coupon-modal-title').textContent = 'New Offer / Coupon';
+  ['c-id','c-code','c-value','c-minorder','c-expiry'].forEach(id => document.getElementById(id).value='');
+  document.getElementById('c-type').value   = 'percent';
+  document.getElementById('c-status').value = 'active';
+  document.getElementById('modal-add-coupon').classList.add('open');
+};
+
+window.editCoupon = function(id) {
+  const c = allCoupons.find(x => x.id === id);
+  if(!c) return;
+  document.getElementById('coupon-modal-title').textContent = 'Edit Coupon';
+  document.getElementById('c-id').value       = id;
+  document.getElementById('c-code').value     = c.code||'';
+  document.getElementById('c-type').value     = c.type||'percent';
+  document.getElementById('c-value').value    = c.value||'';
+  document.getElementById('c-minorder').value = c.minOrder||'';
+  document.getElementById('c-expiry').value   = c.expiry||'';
+  document.getElementById('c-status').value   = c.status||'active';
+  document.getElementById('modal-add-coupon').classList.add('open');
+};
+
+window.saveCoupon = async function() {
+  const id   = document.getElementById('c-id').value;
+  const code = document.getElementById('c-code').value.trim().toUpperCase();
+  if(!code){ toast('Coupon code is required.'); return; }
+  const data = {
+    code,
+    type:     document.getElementById('c-type').value,
+    value:    Number(document.getElementById('c-value').value),
+    minOrder: Number(document.getElementById('c-minorder').value)||0,
+    expiry:   document.getElementById('c-expiry').value,
+    status:   document.getElementById('c-status').value,
+    uses:     id ? (allCoupons.find(x=>x.id===id)?.uses||0) : 0
+  };
+  try {
+    if(id) {
+      await updateDoc(doc(db,'coupons',id), data);
+      toast('Coupon updated.');
+    } else {
+      data.createdAt = serverTimestamp();
+      await addDoc(collection(db,'coupons'), data);
+      toast('Coupon created.');
+    }
+    closeModal('modal-add-coupon');
+    loadCoupons();
+  } catch(e){ toast('Error saving coupon.'); }
+};
+
+window.deleteCoupon = async function(id) {
+  if(!confirm('Delete this coupon?')) return;
+  try {
+    await deleteDoc(doc(db,'coupons',id));
+    toast('Coupon deleted.');
+    loadCoupons();
+  } catch(e){ toast('Error deleting coupon.'); }
+};
+
+// ── ENQUIRIES ──
+let allEnquiries = [];
+
+function renderEnquiries(enquiries) {
+  document.getElementById('enquiries-count').textContent = `${enquiries.length} Enquir${enquiries.length!==1?'ies':'y'}`;
+  const tbody = document.getElementById('enquiries-body');
+  if(!enquiries.length){
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="7">No enquiries yet</td></tr>';
+    return;
+  }
+  tbody.innerHTML = enquiries.map(eq => {
+    const dt = eq.createdAt?.toDate ? eq.createdAt.toDate() : new Date(eq.createdAt||0);
+    const dateStr = dt.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'2-digit'});
+    const isNew = (eq.status||'new') === 'new';
+    const waPhone = (eq.phone||'').replace(/\D/g,'');
+    const waTxt = encodeURIComponent(`Hi ${eq.name||'there'}, thank you for your enquiry with House of Ansh${eq.type?' about '+eq.type:''}. `);
+    const waLink = waPhone ? `https://wa.me/91${waPhone}?text=${waTxt}` : '';
+    const mailLink = eq.email ? `mailto:${eq.email}?subject=${encodeURIComponent('Re: Your Enquiry - House of Ansh')}&body=${encodeURIComponent('Hi '+eq.name+',\n\nThank you for reaching out to House of Ansh.\n\n')}` : '';
+    const msgEsc = (eq.message||'').replace(/"/g,'&quot;');
+    return `<tr style="${isNew?'background:rgba(196,196,196,.04)':''}">
+      <td style="white-space:nowrap;font-size:11px;color:var(--text-dim)">${dateStr}</td>
+      <td><strong>${eq.name||'—'}</strong></td>
+      <td style="font-size:12px;line-height:1.6">${eq.email||'—'}<br/><span style="color:var(--text-dim)">${eq.phone||''}</span></td>
+      <td style="font-size:12px">${eq.type||'General'}</td>
+      <td class="enq-msg-cell" title="${msgEsc}">${eq.message||'—'}</td>
+      <td>${isNew?'<span class="badge badge-new-enq">New</span>':'<span class="badge badge-read-enq">Read</span>'}</td>
+      <td><div class="enq-actions">
+        ${isNew?`<button class="btn-icon" onclick="markEnquiryRead('${eq.id}')">Mark Read</button>`:''}
+        ${waLink?`<a class="btn-icon" href="${waLink}" target="_blank">WhatsApp</a>`:''}
+        ${mailLink?`<a class="btn-icon" href="${mailLink}">Email</a>`:''}
+        <button class="btn-icon" onclick="deleteEnquiry('${eq.id}')" style="color:var(--red);border-color:rgba(224,85,85,.3)">Delete</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+}
+
+window.markEnquiryRead = async function(id) {
+  try { await updateDoc(doc(db,'enquiries',id), {status:'read'}); } catch(e){}
+};
+
+window.deleteEnquiry = async function(id) {
+  if(!confirm('Delete this enquiry?')) return;
+  try { await deleteDoc(doc(db,'enquiries',id)); toast('Enquiry deleted.'); } catch(e){}
+};
+
+// ── MANUAL CUSTOMERS ──
+window.openAddCustomer = function() {
+  ['cust-name','cust-phone','cust-email','cust-address','cust-notes'].forEach(id => document.getElementById(id).value='');
+  document.getElementById('modal-add-customer').classList.add('open');
+};
+
+window.saveCustomer = async function() {
+  const name  = document.getElementById('cust-name').value.trim();
+  const email = document.getElementById('cust-email').value.trim();
+  if(!name){ toast('Customer name is required.'); return; }
+  try {
+    if(email) {
+      const cSnap = await getDocs(query(collection(db,'customers'), where('email','==',email)));
+      if(!cSnap.empty){ toast('A customer with this email already exists.'); return; }
+    }
+    await addDoc(collection(db,'customers'), {
+      name,
+      email,
+      phone:      document.getElementById('cust-phone').value.trim(),
+      address:    document.getElementById('cust-address').value.trim(),
+      notes:      document.getElementById('cust-notes').value.trim(),
+      orderCount: 0,
+      source:     'manual',
+      createdAt:  serverTimestamp()
+    });
+    closeModal('modal-add-customer');
+    toast('Customer saved.');
+  } catch(e){ toast('Error saving customer.'); }
+};
+
+// ── INVOICE ──
+window.generateInvoice = function(id) {
+  const o = allOrders.find(x => x.id === id);
+  if(!o){ toast('Order not found.'); return; }
+  const invNo   = 'HOA-' + o.id.slice(-6).toUpperCase();
+  const dt      = o.createdAt?.toDate ? o.createdAt.toDate() : new Date(o.createdAt||Date.now());
+  const dateStr = dt.toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'});
+  const amount  = Number(o.totalAmount||o.amount)||0;
+  const statusLabel = (o.status||'pending').charAt(0).toUpperCase()+(o.status||'pending').slice(1);
+
+  const html = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/>
+<title>Invoice ${invNo} - House of Ansh</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Georgia',serif;background:#fff;color:#111;padding:48px;max-width:700px;margin:auto;}
+  .hdr{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #111;padding-bottom:24px;margin-bottom:32px;}
+  .brand-name{font-size:26px;letter-spacing:3px;font-weight:normal;text-transform:uppercase;}
+  .brand-sub{font-size:10px;letter-spacing:4px;color:#777;text-transform:uppercase;margin-top:4px;}
+  .inv-label{font-size:32px;letter-spacing:6px;font-weight:normal;text-transform:uppercase;color:#111;text-align:right;}
+  .inv-meta{text-align:right;margin-top:8px;font-size:13px;color:#555;line-height:1.8;}
+  .inv-meta strong{color:#111;}
+  .section{margin-bottom:28px;}
+  .section-title{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#999;margin-bottom:10px;font-family:Arial,sans-serif;}
+  .bill-name{font-size:16px;font-weight:bold;margin-bottom:4px;}
+  .bill-detail{font-size:13px;color:#444;line-height:1.7;}
+  table{width:100%;border-collapse:collapse;margin-bottom:8px;}
+  thead tr{border-bottom:1px solid #111;}
+  thead th{font-family:Arial,sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#777;padding:10px 0;text-align:left;font-weight:normal;}
+  thead th:last-child{text-align:right;}
+  tbody td{padding:14px 0;font-size:14px;border-bottom:1px solid #eee;vertical-align:top;}
+  tbody td:last-child{text-align:right;}
+  .total-row td{border-bottom:none;border-top:2px solid #111;padding-top:16px;font-size:17px;font-weight:bold;}
+  .payment-row{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:13px;color:#555;}
+  .status-chip{display:inline-block;padding:4px 12px;border:1px solid #111;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-family:Arial,sans-serif;}
+  .footer{border-top:1px solid #ddd;padding-top:24px;margin-top:40px;text-align:center;font-family:Arial,sans-serif;font-size:11px;color:#999;letter-spacing:1px;line-height:2;}
+  .footer strong{color:#555;}
+  @media print{
+    body{padding:24px;}
+    .no-print{display:none!important;}
+  }
+</style>
+</head><body>
+<div class="no-print" style="text-align:right;margin-bottom:24px;">
+  <button onclick="window.print()" style="background:#111;color:#fff;border:none;padding:10px 28px;font-family:Arial,sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;">Download / Print PDF</button>
+</div>
+<div class="hdr">
+  <div>
+    <div class="brand-name">House of Ansh</div>
+    <div class="brand-sub">Pure Silver Jewellery</div>
+    <div style="margin-top:12px;font-size:12px;color:#777;line-height:1.8;">
+      Belur, Howrah, West Bengal<br/>
+      +91 74390 49616<br/>
+      house.of.ansh01@gmail.com
+    </div>
+  </div>
+  <div>
+    <div class="inv-label">Invoice</div>
+    <div class="inv-meta">
+      <strong>${invNo}</strong><br/>
+      Date: ${dateStr}<br/>
+      Status: <span class="status-chip">${statusLabel}</span>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Billed To</div>
+  <div class="bill-name">${o.customerName||'—'}</div>
+  <div class="bill-detail">
+    ${o.phone ? 'Phone: '+o.phone+'<br/>' : ''}
+    ${o.email ? 'Email: '+o.email+'<br/>' : ''}
+    ${o.address ? o.address : ''}
+  </div>
+</div>
+
+<table>
+  <thead>
+    <tr><th>Description</th><th>Amount</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <strong>${o.item||'Silver Jewellery'}</strong>
+        ${o.notes ? '<br/><span style="font-size:12px;color:#777;">'+o.notes+'</span>' : ''}
+      </td>
+      <td>Rs. ${amount.toLocaleString('en-IN')}</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr class="total-row">
+      <td>Total</td>
+      <td>Rs. ${amount.toLocaleString('en-IN')}</td>
+    </tr>
+  </tfoot>
+</table>
+
+<div class="payment-row">
+  <span>Payment Method: <strong>${o.paymentMethod||'—'}</strong></span>
+  <span style="font-size:12px;color:#999;">${o.source==='offline'?'Offline Order':'Online Order'}</span>
+</div>
+
+<div class="footer">
+  <div style="font-size:15px;color:#111;letter-spacing:3px;margin-bottom:8px;font-family:Georgia,serif;">Thank you for your purchase.</div>
+  <strong>House of Ansh</strong> &nbsp;|&nbsp; houseofansh.in &nbsp;|&nbsp; house.of.ansh01@gmail.com &nbsp;|&nbsp; +91 74390 49616<br/>
+  For queries, WhatsApp us or email within 7 days of delivery.
+</div>
+</body></html>`;
+
+  const w = window.open('','_blank','width=800,height=900');
+  w.document.write(html);
+  w.document.close();
+};
+
+// ── SETTINGS ──
+async function loadSettings() {
+  try {
+    const snap = await getDocs(collection(db,'settings'));
+    if(!snap.empty) {
+      const s = snap.docs[0].data();
+      document.getElementById('set-free-above').value  = s.freeDeliveryAbove ?? 5000;
+      document.getElementById('set-del-charge').value  = s.deliveryCharge ?? 300;
+      document.getElementById('tog-cod').checked       = s.codEnabled ?? false;
+    }
+  } catch(e){}
+}
+
+window.saveSettings = async function() {
+  const data = {
+    freeDeliveryAbove: Number(document.getElementById('set-free-above').value),
+    deliveryCharge:    Number(document.getElementById('set-del-charge').value),
+    codEnabled:        document.getElementById('tog-cod').checked,
+    onlineEnabled:     true
+  };
+  try {
+    const snap = await getDocs(collection(db,'settings'));
+    if(!snap.empty) {
+      await updateDoc(doc(db,'settings',snap.docs[0].id), data);
+    } else {
+      await addDoc(collection(db,'settings'), data);
+    }
+    toast('Settings saved.');
+  } catch(e){ toast('Error saving settings.'); }
+};
+
+// close modals on backdrop click
+document.querySelectorAll('.modal-ov').forEach(m => {
+  m.addEventListener('click', e => { if(e.target === m) m.classList.remove('open'); });
+});
+
+// ── EXCEL EXPORT ──
+let exportDays = 30;
+
+window.openExportModal = function() {
+  exportDays = 30;
+  document.querySelectorAll('#modal-export .af-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('exp-btn-30').classList.add('active');
+  document.getElementById('exp-from').value = '';
+  document.getElementById('exp-to').value   = '';
+  document.getElementById('exp-custom-note').style.display = 'none';
+  document.getElementById('modal-export').classList.add('open');
+};
+
+window.setExportPeriod = function(days, btn) {
+  exportDays = days;
+  document.querySelectorAll('#modal-export .af-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('exp-from').value = '';
+  document.getElementById('exp-to').value   = '';
+  document.getElementById('exp-custom-note').style.display = 'none';
+};
+
+window.onCustomDateInput = function() {
+  const fv = document.getElementById('exp-from').value;
+  const tv = document.getElementById('exp-to').value;
+  const hasCustom = fv && tv;
+  document.getElementById('exp-custom-note').style.display = hasCustom ? 'block' : 'none';
+  if(hasCustom) {
+    document.querySelectorAll('#modal-export .af-btn').forEach(b => b.classList.remove('active'));
+    exportDays = -1;
+  }
+};
+
+window.runExport = function() {
+  if(typeof XLSX === 'undefined'){ toast('Excel library loading, try again in a moment.'); return; }
+
+  let fromDate = null;
+  let toDate   = new Date(); toDate.setHours(23,59,59,999);
+
+  if(exportDays === -1) {
+    const fv = document.getElementById('exp-from').value;
+    const tv = document.getElementById('exp-to').value;
+    if(!fv || !tv){ toast('Please select both From and To dates.'); return; }
+    fromDate = new Date(fv); fromDate.setHours(0,0,0,0);
+    toDate   = new Date(tv); toDate.setHours(23,59,59,999);
+  } else if(exportDays > 0) {
+    fromDate = new Date();
+    fromDate.setDate(fromDate.getDate() - exportDays);
+    fromDate.setHours(0,0,0,0);
+  }
+
+  const getD  = item => item.createdAt?.toDate ? item.createdAt.toDate() : new Date(item.createdAt||0);
+  const inRange = item => { const d=getD(item); return !fromDate || (d>=fromDate && d<=toDate); };
+  const fmt   = d => d ? d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}) : '—';
+  const fmtAmt = n => Number(n)||0;
+
+  const orders    = allOrders.filter(inRange);
+  const enquiries = allEnquiries.filter(inRange);
+
+  const active   = orders.filter(o => o.status !== 'cancelled');
+  const revenue  = active.reduce((s,o) => s+fmtAmt(o.totalAmount||o.amount), 0);
+  const cost     = active.reduce((s,o) => s+fmtAmt(o.cost), 0);
+  const profit   = revenue - cost;
+  const margin   = revenue ? ((profit/revenue)*100).toFixed(1)+'%' : '0%';
+  const avgOV    = active.length ? Math.round(revenue/active.length) : 0;
+  const offline  = orders.filter(o => o.source==='offline').length;
+  const online   = orders.length - offline;
+  const custSet  = new Set(orders.map(o => o.email||o.customerName).filter(Boolean));
+  const newEnq   = enquiries.filter(e => (e.status||'new')==='new').length;
+  const periodLabel = exportDays===0 ? 'All Time'
+    : exportDays===-1 ? `${document.getElementById('exp-from').value} to ${document.getElementById('exp-to').value}`
+    : `Last ${exportDays} Days`;
+
+  // ── SHEET 1: SUMMARY ──
+  const summaryData = [
+    ['HOUSE OF ANSH — BUSINESS REPORT'],
+    [`Period: ${periodLabel}`],
+    [`Generated: ${new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'})}`],
+    [],
+    ['FINANCIAL SUMMARY', ''],
+    ['Revenue (excl. cancelled)', `Rs. ${revenue.toLocaleString('en-IN')}`],
+    ['Total Cost (goods & making)', `Rs. ${cost.toLocaleString('en-IN')}`],
+    ['Gross Profit', `Rs. ${profit.toLocaleString('en-IN')}`],
+    ['Profit Margin', margin],
+    [],
+    ['ORDERS', ''],
+    ['Total Orders', orders.length],
+    ['Active Orders (excl. cancelled)', active.length],
+    ['Average Order Value', `Rs. ${avgOV.toLocaleString('en-IN')}`],
+    ['Online Orders', online],
+    ['Offline Orders', offline],
+    [],
+    ['CUSTOMERS', ''],
+    ['Unique Customers in Period', custSet.size],
+    [],
+    ['ENQUIRIES', ''],
+    ['Total Enquiries', enquiries.length],
+    ['New / Unread', newEnq],
+  ];
+  const wsSum = XLSX.utils.aoa_to_sheet(summaryData);
+  wsSum['!cols'] = [{wch:38},{wch:22}];
+
+  // ── SHEET 2: ORDERS ──
+  const orderRows = orders.map(o => ({
+    'Order ID':       '#'+o.id.slice(-6).toUpperCase(),
+    'Date':           fmt(getD(o)),
+    'Customer':       o.customerName||'—',
+    'Phone':          o.phone||'—',
+    'Email':          o.email||'—',
+    'Item':           o.item||'—',
+    'Selling Price':  fmtAmt(o.totalAmount||o.amount),
+    'Cost':           fmtAmt(o.cost),
+    'Profit':         fmtAmt(o.totalAmount||o.amount) - fmtAmt(o.cost),
+    'Payment Method': o.paymentMethod||'—',
+    'Status':         o.status||'—',
+    'Source':         o.source==='offline' ? 'Offline' : 'Online',
+    'Address':        o.address||'—',
+    'Notes':          o.notes||'',
+  }));
+  const wsOrd = XLSX.utils.json_to_sheet(orderRows.length ? orderRows : [{'No orders in period':''}]);
+  wsOrd['!cols'] = [{wch:12},{wch:14},{wch:20},{wch:16},{wch:26},{wch:28},{wch:14},{wch:10},{wch:10},{wch:16},{wch:12},{wch:10},{wch:30},{wch:24}];
+
+  // ── SHEET 3: CUSTOMERS (all customers) ──
+  const custRows = allOrders.reduce((acc, o) => {
+    const key = o.email||o.customerName||'';
+    if(!key) return acc;
+    if(!acc[key]) acc[key]={name:o.customerName||'—',email:o.email||'—',phone:o.phone||'—',address:o.address||'—',orders:0,spent:0,first:getD(o)};
+    if(o.status!=='cancelled') acc[key].spent += fmtAmt(o.totalAmount||o.amount);
+    acc[key].orders++;
+    const d=getD(o); if(d<acc[key].first) acc[key].first=d;
+    return acc;
+  }, {});
+  const custData = Object.values(custRows).map(c => ({
+    'Name':         c.name,
+    'Email':        c.email,
+    'Phone':        c.phone,
+    'Address':      c.address,
+    'Total Orders': c.orders,
+    'Total Spent':  c.spent,
+    'First Order':  fmt(c.first),
+  }));
+  const wsCust = XLSX.utils.json_to_sheet(custData.length ? custData : [{'No customers yet':''}]);
+  wsCust['!cols'] = [{wch:22},{wch:28},{wch:16},{wch:30},{wch:13},{wch:13},{wch:16}];
+
+  // ── SHEET 4: ENQUIRIES ──
+  const enqData = enquiries.map(e => ({
+    'Date':     fmt(getD(e)),
+    'Name':     e.name||'—',
+    'Email':    e.email||'—',
+    'Phone':    e.phone||'—',
+    'Type':     e.type||'General',
+    'Message':  e.message||'—',
+    'Status':   (e.status||'new').charAt(0).toUpperCase()+(e.status||'new').slice(1),
+  }));
+  const wsEnq = XLSX.utils.json_to_sheet(enqData.length ? enqData : [{'No enquiries in period':''}]);
+  wsEnq['!cols'] = [{wch:14},{wch:22},{wch:28},{wch:16},{wch:18},{wch:50},{wch:10}];
+
+  // ── BUILD & DOWNLOAD ──
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, wsSum, 'Summary');
+  XLSX.utils.book_append_sheet(wb, wsOrd, 'Orders');
+  XLSX.utils.book_append_sheet(wb, wsCust, 'Customers');
+  XLSX.utils.book_append_sheet(wb, wsEnq, 'Enquiries');
+
+  const dateTag = new Date().toISOString().split('T')[0];
+  XLSX.writeFile(wb, `HouseOfAnsh_Report_${dateTag}.xlsx`);
+  closeModal('modal-export');
+  toast('Excel report downloaded!');
+};
+</script>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+</body>
+</html>

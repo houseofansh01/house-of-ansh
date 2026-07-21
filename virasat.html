@@ -84,6 +84,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:cen
 .cart-total-amount{font-family:var(--fg);font-size:20px;color:var(--white);}
 .cart-checkout-btn{width:100%;background:var(--white);color:var(--black);font-family:var(--fh);font-size:9px;letter-spacing:4px;text-transform:uppercase;border:none;padding:16px;cursor:pointer;transition:background .3s;}
 .cart-checkout-btn:hover{background:var(--silver);}
+.cart-item{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.cart-item-info{flex:1;min-width:0;}
+.cart-item-name{font-size:13px;color:var(--white);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cart-item-price{font-size:12px;color:var(--silver-dim);}
+.cart-item-rm{background:none;border:none;color:var(--silver-dim);cursor:pointer;font-size:20px;line-height:1;padding:2px 6px;flex-shrink:0;}
+.cart-item-rm:hover{color:#e05555;}
 
 .wa-float{position:fixed;bottom:32px;right:32px;z-index:800;width:56px;height:56px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.35);transition:transform .3s,box-shadow .3s;text-decoration:none;}
 .wa-float:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(37,211,102,.5);}
@@ -155,8 +161,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:cen
 .pc-cat{font-family:var(--fh);font-size:7px;letter-spacing:3px;color:var(--text-dim);text-transform:uppercase;margin-bottom:8px;}
 .pc-name{font-family:var(--fp);font-size:15px;color:var(--white);margin-bottom:6px;font-weight:400;line-height:1.3;}
 .pc-price{font-family:var(--fh);font-size:10.5px;letter-spacing:1.5px;color:var(--silver-dim);margin-bottom:16px;}
+.pc-btns{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:0;}
 .pc-btn{width:100%;font-family:var(--fh);font-size:7.5px;letter-spacing:3px;text-transform:uppercase;color:var(--silver-dim);border:1px solid var(--border2);background:none;padding:11px;cursor:pointer;transition:all .3s;}
 .pc-btn:hover{color:var(--white);border-color:var(--silver-lo);background:rgba(255,255,255,.03);}
+.pc-btn-now{font-family:var(--fh);font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--black);background:var(--white);border:1px solid var(--white);padding:11px 6px;cursor:pointer;transition:all .3s;white-space:nowrap;}
+.pc-btn-now:hover{background:var(--silver);border-color:var(--silver);}
+.pc-mto-badge{font-family:var(--fh);font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--silver-dim);margin-bottom:6px;}
 .product-card.hidden{display:none;}
 .no-results{padding:80px 0;text-align:center;font-family:var(--fh);font-size:9px;letter-spacing:3px;color:var(--text-dim);text-transform:uppercase;display:none;}
 
@@ -317,6 +327,7 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
     <li><a href="index.html">Home</a></li>
     <li><a href="#">Categories &#9662;</a><div class="dropdown"><div class="has-sub"><a href="forher.html">For Her</a><div class="sub-dropdown"><a href="forher.html">All Jewellery</a><a href="forher.html#bangles-bracelets">Bangles / Bracelets</a><a href="forher.html#rings">Rings</a><a href="forher.html#earrings">Earrings</a><a href="forher.html#pendants">Pendants</a><a href="forher.html#necklace-sets">Necklace Sets</a><a href="forher.html#mangalsutra">Mangalsutra</a><a href="forher.html#brooches">Brooches</a><a href="forher.html#anklets">Anklets</a></div></div><div class="has-sub"><a href="forhim.html">For Him</a><div class="sub-dropdown"><a href="forhim.html">All Jewellery</a><a href="forhim.html#wristlets">Wristlets</a><a href="forhim.html#chain">Chain</a><a href="forhim.html#brooches">Brooches</a><a href="forhim.html#rings">Rings</a></div></div></div></li>
     <li><a href="#">Collections &#9662;</a><div class="dropdown"><a href="virasat.html">Virasat</a><a href="#" style="color:var(--text-dim);cursor:default;">More Coming Soon</a></div></li>
+    <li><a href="#">Personalise &#9662;</a><div class="dropdown"><a href="transform.html">Transform Your Jewellery</a><a href="customdesign.html">Custom Design</a></div></li>
     <li><a href="index.html#story">About Us</a></li>
     <li><a href="index.html#contact">Contact</a></li>
   </ul>
@@ -352,7 +363,7 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
       <span class="cart-total-label">Total</span>
       <span class="cart-total-amount" id="cart-total-amount">&#x20B9;0</span>
     </div>
-    <button class="cart-checkout-btn">Proceed to Checkout</button>
+    <button class="cart-checkout-btn" onclick="goToCheckout()">Proceed to Checkout</button>
   </div>
 </div>
 
@@ -442,7 +453,7 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
 </div>
 <div class="products-wrap">
 <div class="product-grid grid-3">
-<div class="product-card" data-category="necklace-sets" data-collection="virasat" data-name="Virasat Heritage Necklace Set 01" data-price="0" data-featured="1" data-bestselling="95" data-date="1700001001">
+<div class="product-card" data-category="necklace-sets" data-collection="virasat" data-name="Virasat Heritage Necklace Set 01" data-price="3999" data-availability="in-stock" data-featured="1" data-bestselling="95" data-date="1700001001">
   <div class="pc-img">
     <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
     <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
@@ -450,11 +461,11 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
   <div class="pc-info">
     <p class="pc-cat">Necklace Sets</p>
     <h3 class="pc-name">Virasat Heritage Necklace Set 01</h3>
-    <p class="pc-price">&#8377; &#8212;,&#8212;&#8212;&#8212;</p>
-    <button class="pc-btn">Add to Cart</button>
+    <p class="pc-price">&#8377; 3,999</p>
+    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
   </div>
 </div>
-<div class="product-card" data-category="necklace-sets" data-collection="virasat" data-name="Virasat Heritage Necklace Set 02" data-price="0" data-featured="2" data-bestselling="88" data-date="1700001002">
+<div class="product-card" data-category="necklace-sets" data-collection="virasat" data-name="Virasat Heritage Necklace Set 02" data-price="3999" data-availability="in-stock" data-featured="2" data-bestselling="88" data-date="1700001002">
   <div class="pc-img">
     <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
     <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
@@ -462,11 +473,11 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
   <div class="pc-info">
     <p class="pc-cat">Necklace Sets</p>
     <h3 class="pc-name">Virasat Heritage Necklace Set 02</h3>
-    <p class="pc-price">&#8377; &#8212;,&#8212;&#8212;&#8212;</p>
-    <button class="pc-btn">Add to Cart</button>
+    <p class="pc-price">&#8377; 3,999</p>
+    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
   </div>
 </div>
-<div class="product-card" data-category="earrings" data-collection="virasat" data-name="Virasat Jhumka 01" data-price="0" data-featured="3" data-bestselling="92" data-date="1700001003">
+<div class="product-card" data-category="earrings" data-collection="virasat" data-name="Virasat Jhumka 01" data-price="3999" data-availability="in-stock" data-featured="3" data-bestselling="92" data-date="1700001003">
   <div class="pc-img">
     <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
     <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
@@ -474,11 +485,11 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
   <div class="pc-info">
     <p class="pc-cat">Earrings</p>
     <h3 class="pc-name">Virasat Jhumka 01</h3>
-    <p class="pc-price">&#8377; &#8212;,&#8212;&#8212;&#8212;</p>
-    <button class="pc-btn">Add to Cart</button>
+    <p class="pc-price">&#8377; 3,999</p>
+    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
   </div>
 </div>
-<div class="product-card" data-category="earrings" data-collection="virasat" data-name="Virasat Jhumka 02" data-price="0" data-featured="4" data-bestselling="85" data-date="1700001004">
+<div class="product-card" data-category="earrings" data-collection="virasat" data-name="Virasat Jhumka 02" data-price="3999" data-availability="in-stock" data-featured="4" data-bestselling="85" data-date="1700001004">
   <div class="pc-img">
     <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
     <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
@@ -486,11 +497,11 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
   <div class="pc-info">
     <p class="pc-cat">Earrings</p>
     <h3 class="pc-name">Virasat Jhumka 02</h3>
-    <p class="pc-price">&#8377; &#8212;,&#8212;&#8212;&#8212;</p>
-    <button class="pc-btn">Add to Cart</button>
+    <p class="pc-price">&#8377; 3,999</p>
+    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
   </div>
 </div>
-<div class="product-card" data-category="bangles-bracelets" data-collection="virasat" data-name="Virasat Kangan 01" data-price="0" data-featured="5" data-bestselling="80" data-date="1700001005">
+<div class="product-card" data-category="bangles-bracelets" data-collection="virasat" data-name="Virasat Kangan 01" data-price="3999" data-availability="in-stock" data-featured="5" data-bestselling="80" data-date="1700001005">
   <div class="pc-img">
     <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
     <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
@@ -498,11 +509,11 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
   <div class="pc-info">
     <p class="pc-cat">Bangles / Bracelets</p>
     <h3 class="pc-name">Virasat Kangan 01</h3>
-    <p class="pc-price">&#8377; &#8212;,&#8212;&#8212;&#8212;</p>
-    <button class="pc-btn">Add to Cart</button>
+    <p class="pc-price">&#8377; 3,999</p>
+    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
   </div>
 </div>
-<div class="product-card" data-category="bangles-bracelets" data-collection="virasat" data-name="Virasat Kangan 02" data-price="0" data-featured="6" data-bestselling="75" data-date="1700001006">
+<div class="product-card" data-category="bangles-bracelets" data-collection="virasat" data-name="Virasat Kangan 02" data-price="3999" data-availability="in-stock" data-featured="6" data-bestselling="75" data-date="1700001006">
   <div class="pc-img">
     <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
     <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
@@ -510,11 +521,11 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
   <div class="pc-info">
     <p class="pc-cat">Bangles / Bracelets</p>
     <h3 class="pc-name">Virasat Kangan 02</h3>
-    <p class="pc-price">&#8377; &#8212;,&#8212;&#8212;&#8212;</p>
-    <button class="pc-btn">Add to Cart</button>
+    <p class="pc-price">&#8377; 3,999</p>
+    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
   </div>
 </div>
-<div class="product-card" data-category="rings" data-collection="virasat" data-name="Virasat Kundan Ring 01" data-price="0" data-featured="7" data-bestselling="78" data-date="1700001007">
+<div class="product-card" data-category="rings" data-collection="virasat" data-name="Virasat Kundan Ring 01" data-price="3999" data-availability="in-stock" data-featured="7" data-bestselling="78" data-date="1700001007">
   <div class="pc-img">
     <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
     <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
@@ -522,11 +533,11 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
   <div class="pc-info">
     <p class="pc-cat">Rings</p>
     <h3 class="pc-name">Virasat Kundan Ring 01</h3>
-    <p class="pc-price">&#8377; &#8212;,&#8212;&#8212;&#8212;</p>
-    <button class="pc-btn">Add to Cart</button>
+    <p class="pc-price">&#8377; 3,999</p>
+    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
   </div>
 </div>
-<div class="product-card" data-category="rings" data-collection="virasat" data-name="Virasat Kundan Ring 02" data-price="0" data-featured="8" data-bestselling="72" data-date="1700001008">
+<div class="product-card" data-category="rings" data-collection="virasat" data-name="Virasat Kundan Ring 02" data-price="3999" data-availability="in-stock" data-featured="8" data-bestselling="72" data-date="1700001008">
   <div class="pc-img">
     <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
     <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
@@ -534,11 +545,11 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
   <div class="pc-info">
     <p class="pc-cat">Rings</p>
     <h3 class="pc-name">Virasat Kundan Ring 02</h3>
-    <p class="pc-price">&#8377; &#8212;,&#8212;&#8212;&#8212;</p>
-    <button class="pc-btn">Add to Cart</button>
+    <p class="pc-price">&#8377; 3,999</p>
+    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
   </div>
 </div>
-<div class="product-card" data-category="pendants" data-collection="virasat" data-name="Virasat Temple Pendant 01" data-price="0" data-featured="9" data-bestselling="83" data-date="1700001009">
+<div class="product-card" data-category="pendants" data-collection="virasat" data-name="Virasat Temple Pendant 01" data-price="3999" data-availability="in-stock" data-featured="9" data-bestselling="83" data-date="1700001009">
   <div class="pc-img">
     <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
     <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
@@ -546,11 +557,11 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
   <div class="pc-info">
     <p class="pc-cat">Pendants</p>
     <h3 class="pc-name">Virasat Temple Pendant 01</h3>
-    <p class="pc-price">&#8377; &#8212;,&#8212;&#8212;&#8212;</p>
-    <button class="pc-btn">Add to Cart</button>
+    <p class="pc-price">&#8377; 3,999</p>
+    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
   </div>
 </div>
-<div class="product-card" data-category="pendants" data-collection="virasat" data-name="Virasat Temple Pendant 02" data-price="0" data-featured="10" data-bestselling="76" data-date="1700001010">
+<div class="product-card" data-category="pendants" data-collection="virasat" data-name="Virasat Temple Pendant 02" data-price="3999" data-availability="in-stock" data-featured="10" data-bestselling="76" data-date="1700001010">
   <div class="pc-img">
     <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
     <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
@@ -558,11 +569,11 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
   <div class="pc-info">
     <p class="pc-cat">Pendants</p>
     <h3 class="pc-name">Virasat Temple Pendant 02</h3>
-    <p class="pc-price">&#8377; &#8212;,&#8212;&#8212;&#8212;</p>
-    <button class="pc-btn">Add to Cart</button>
+    <p class="pc-price">&#8377; 3,999</p>
+    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
   </div>
 </div>
-<div class="product-card" data-category="mangalsutra" data-collection="virasat" data-name="Virasat Mangalsutra 01" data-price="0" data-featured="11" data-bestselling="90" data-date="1700001011">
+<div class="product-card" data-category="mangalsutra" data-collection="virasat" data-name="Virasat Mangalsutra 01" data-price="3999" data-availability="in-stock" data-featured="11" data-bestselling="90" data-date="1700001011">
   <div class="pc-img">
     <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
     <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
@@ -570,11 +581,11 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
   <div class="pc-info">
     <p class="pc-cat">Mangalsutra</p>
     <h3 class="pc-name">Virasat Mangalsutra 01</h3>
-    <p class="pc-price">&#8377; &#8212;,&#8212;&#8212;&#8212;</p>
-    <button class="pc-btn">Add to Cart</button>
+    <p class="pc-price">&#8377; 3,999</p>
+    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
   </div>
 </div>
-<div class="product-card" data-category="mangalsutra" data-collection="virasat" data-name="Virasat Mangalsutra 02" data-price="0" data-featured="12" data-bestselling="82" data-date="1700001012">
+<div class="product-card" data-category="mangalsutra" data-collection="virasat" data-name="Virasat Mangalsutra 02" data-price="3999" data-availability="in-stock" data-featured="12" data-bestselling="82" data-date="1700001012">
   <div class="pc-img">
     <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
     <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
@@ -582,11 +593,11 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
   <div class="pc-info">
     <p class="pc-cat">Mangalsutra</p>
     <h3 class="pc-name">Virasat Mangalsutra 02</h3>
-    <p class="pc-price">&#8377; &#8212;,&#8212;&#8212;&#8212;</p>
-    <button class="pc-btn">Add to Cart</button>
+    <p class="pc-price">&#8377; 3,999</p>
+    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
   </div>
 </div>
-<div class="product-card" data-category="anklets" data-collection="virasat" data-name="Virasat Payal 01" data-price="0" data-featured="13" data-bestselling="68" data-date="1700001013">
+<div class="product-card" data-category="anklets" data-collection="virasat" data-name="Virasat Payal 01" data-price="3999" data-availability="in-stock" data-featured="13" data-bestselling="68" data-date="1700001013">
   <div class="pc-img">
     <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
     <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
@@ -594,11 +605,11 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
   <div class="pc-info">
     <p class="pc-cat">Anklets</p>
     <h3 class="pc-name">Virasat Payal 01</h3>
-    <p class="pc-price">&#8377; &#8212;,&#8212;&#8212;&#8212;</p>
-    <button class="pc-btn">Add to Cart</button>
+    <p class="pc-price">&#8377; 3,999</p>
+    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
   </div>
 </div>
-<div class="product-card" data-category="anklets" data-collection="virasat" data-name="Virasat Payal 02" data-price="0" data-featured="14" data-bestselling="62" data-date="1700001014">
+<div class="product-card" data-category="anklets" data-collection="virasat" data-name="Virasat Payal 02" data-price="3999" data-availability="in-stock" data-featured="14" data-bestselling="62" data-date="1700001014">
   <div class="pc-img">
     <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
     <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
@@ -606,11 +617,11 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
   <div class="pc-info">
     <p class="pc-cat">Anklets</p>
     <h3 class="pc-name">Virasat Payal 02</h3>
-    <p class="pc-price">&#8377; &#8212;,&#8212;&#8212;&#8212;</p>
-    <button class="pc-btn">Add to Cart</button>
+    <p class="pc-price">&#8377; 3,999</p>
+    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
   </div>
 </div>
-<div class="product-card" data-category="brooches" data-collection="virasat" data-name="Virasat Brooch 01" data-price="0" data-featured="15" data-bestselling="58" data-date="1700001015">
+<div class="product-card" data-category="brooches" data-collection="virasat" data-name="Virasat Brooch 01" data-price="3999" data-availability="in-stock" data-featured="15" data-bestselling="58" data-date="1700001015">
   <div class="pc-img">
     <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
     <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
@@ -618,11 +629,11 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
   <div class="pc-info">
     <p class="pc-cat">Brooches</p>
     <h3 class="pc-name">Virasat Brooch 01</h3>
-    <p class="pc-price">&#8377; &#8212;,&#8212;&#8212;&#8212;</p>
-    <button class="pc-btn">Add to Cart</button>
+    <p class="pc-price">&#8377; 3,999</p>
+    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
   </div>
 </div>
-<div class="product-card" data-category="wristlets" data-collection="virasat" data-name="Virasat Wristlet 01" data-price="0" data-featured="16" data-bestselling="54" data-date="1700001016">
+<div class="product-card" data-category="wristlets" data-collection="virasat" data-name="Virasat Wristlet 01" data-price="3999" data-availability="in-stock" data-featured="16" data-bestselling="54" data-date="1700001016">
   <div class="pc-img">
     <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
     <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
@@ -630,8 +641,8 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
   <div class="pc-info">
     <p class="pc-cat">Wristlets</p>
     <h3 class="pc-name">Virasat Wristlet 01</h3>
-    <p class="pc-price">&#8377; &#8212;,&#8212;&#8212;&#8212;</p>
-    <button class="pc-btn">Add to Cart</button>
+    <p class="pc-price">&#8377; 3,999</p>
+    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
   </div>
 </div>
 </div>
@@ -704,7 +715,15 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
 function closeSearch(){var o=document.getElementById('search-overlay');if(o)o.classList.remove('active');}
 function openCart(){document.getElementById('cart-overlay').classList.add('active');document.getElementById('cart-panel').classList.add('active');document.body.style.overflow='hidden';}
 function closeCart(){document.getElementById('cart-overlay').classList.remove('active');document.getElementById('cart-panel').classList.remove('active');document.body.style.overflow='';}
+var hoaCart=JSON.parse(localStorage.getItem('hoaCart')||'[]');
+function renderCartUI(){var body=document.getElementById('cart-body');var footer=document.querySelector('.cart-footer-panel');var total=hoaCart.reduce(function(s,i){return s+(Number(i.price)||0)*i.qty;},0);if(!hoaCart.length){body.innerHTML='<div class="cart-empty-state"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><p class="cart-empty-msg">Your cart is empty.<br/>Add something beautiful.</p><a href="virasat.html" class="cart-shop-link">Continue Shopping</a></div>';if(footer)footer.style.display='none';}else{body.innerHTML=hoaCart.map(function(item,idx){return'<div class="cart-item"><div class="cart-item-info"><div class="cart-item-name">'+item.name+'</div><div class="cart-item-price">&#8377;'+(Number(item.price)||0).toLocaleString('en-IN')+(item.qty>1?' &times; '+item.qty:'')+'</div></div><button class="cart-item-rm" onclick="removeFromCart('+idx+')">&#215;</button></div>';}).join('');if(footer)footer.style.display='';var amt=document.getElementById('cart-total-amount');if(amt)amt.textContent='&#8377;'+total.toLocaleString('en-IN');}}
+function addToCart(btn){var card=btn.closest('.product-card');var name=card?card.dataset.name:'Item';var price=card?Number(card.dataset.price)||0:0;var cat=card?card.dataset.category:'';var avail=card?card.dataset.availability||'in-stock':'in-stock';var idx=hoaCart.findIndex(function(i){return i.name===name;});if(idx>-1){hoaCart[idx].qty++;}else{hoaCart.push({name:name,price:price,category:cat,availability:avail,qty:1});}localStorage.setItem('hoaCart',JSON.stringify(hoaCart));renderCartUI();openCart();}
+function removeFromCart(idx){hoaCart.splice(idx,1);localStorage.setItem('hoaCart',JSON.stringify(hoaCart));renderCartUI();}
+function buyNow(btn){var card=btn.closest('.product-card');var avail=card?card.dataset.availability||'in-stock':'in-stock';var name=encodeURIComponent(card?card.dataset.name:'Item');var price=card?card.dataset.price||0:0;var cat=encodeURIComponent(card?card.dataset.category:'');window.location.href='checkout.html?product='+name+'&price='+price+'&category='+cat+'&availability='+avail;}
+function goToCheckout(){window.location.href='checkout.html?from=cart';}
+renderCartUI();
 document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.product-card[data-availability="made-to-order"]').forEach(function(c){var badge=document.createElement('p');badge.className='pc-mto-badge';badge.textContent='Made to Order · Ships in 5 Days';var nameEl=c.querySelector('.pc-name');if(nameEl)nameEl.insertAdjacentElement('afterend',badge);else c.appendChild(badge);});
   var btn=document.getElementById('nav-search-btn');
   var overlay=document.getElementById('search-overlay');
   if(btn&&overlay){
@@ -734,4 +753,60 @@ document.addEventListener('DOMContentLoaded',function(){
   var pg=document.querySelector('.product-grid');
   document.querySelectorAll('.mob-vg').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.mob-vg').forEach(function(x){x.classList.remove('active');});b.classList.add('active');if(pg)pg.className='product-grid '+b.dataset.mg;});});
 })();
+</script>
+<script src="search.js"></script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+const app = initializeApp({apiKey:"AIzaSyBwqpavjzi15Zt9qHoufjJFI05k7AAHLRs",authDomain:"house-of-ansh.firebaseapp.com",projectId:"house-of-ansh",storageBucket:"house-of-ansh.firebasestorage.app",messagingSenderId:"386185011014",appId:"1:386185011014:web:fef798d4e17c84170bcf47"});
+const db = getFirestore(app);
+(async()=>{
+  try{
+    const snap = await getDocs(collection(db,'products'));
+    snap.forEach(d=>{
+      const p=d.data();
+      if(!p.name) return;
+      const card=document.querySelector(`.product-card[data-name="${CSS.escape(p.name)}"]`);
+      if(!card) return;
+      card.dataset.availability = p.availability||'in-stock';
+      if(p.price&&Number(p.price)>0){card.dataset.price=p.price;const pe=card.querySelector('.pc-price');if(pe)pe.textContent='₹ '+Number(p.price).toLocaleString('en-IN');}
+      const hasBadge = card.querySelector('.pc-mto-badge');
+      if(p.availability==='made-to-order' && !hasBadge){
+        const b=document.createElement('p');
+        b.className='pc-mto-badge';
+        b.textContent='Made to Order · Ships in 5 Days';
+        const nm=card.querySelector('.pc-name');
+        nm?nm.insertAdjacentElement('afterend',b):card.appendChild(b);
+      } else if(p.availability!=='made-to-order' && hasBadge){
+        hasBadge.remove();
+      }
+    });
+  }catch(e){}
+})();
+</script>
+<script type="module">
+import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, arrayUnion, arrayRemove, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+const cfg={apiKey:"AIzaSyBwqpavjzi15Zt9qHoufjJFI05k7AAHLRs",authDomain:"house-of-ansh.firebaseapp.com",projectId:"house-of-ansh",storageBucket:"house-of-ansh.firebasestorage.app",messagingSenderId:"386185011014",appId:"1:386185011014:web:fef798d4e17c84170bcf47"};
+const app=getApps().length?getApps()[0]:initializeApp(cfg);
+const auth=getAuth(app);const db=getFirestore(app);
+let uid=null;
+function applyWish(items){document.querySelectorAll('.pc-wish').forEach(function(b){var c=b.closest('.product-card');if(c)b.classList.toggle('wished',items.includes(c.dataset.name));});}
+onAuthStateChanged(auth,function(user){
+  uid=user?user.uid:null;
+  if(!user){applyWish(JSON.parse(localStorage.getItem('hoaWishlist')||'[]'));return;}
+  onSnapshot(doc(db,'wishlists',user.uid),function(snap){
+    var fb=snap.exists()?(snap.data().items||[]):[];
+    var loc=JSON.parse(localStorage.getItem('hoaWishlist')||'[]');
+    if(loc.length){var m=[...new Set([...fb,...loc])];setDoc(doc(db,'wishlists',user.uid),{items:m},{merge:true});localStorage.removeItem('hoaWishlist');applyWish(m);}
+    else{applyWish(fb);}
+  });
+});
+window.toggleWishlist=async function(btn){
+  var card=btn.closest('.product-card');var name=card?card.dataset.name:'Item';
+  btn.classList.toggle('wished');var wished=btn.classList.contains('wished');
+  if(uid){await setDoc(doc(db,'wishlists',uid),{items:wished?arrayUnion(name):arrayRemove(name)},{merge:true});}
+  else{var wl=JSON.parse(localStorage.getItem('hoaWishlist')||'[]');if(wished){if(!wl.includes(name))wl.push(name);}else{wl=wl.filter(function(n){return n!==name;});}localStorage.setItem('hoaWishlist',JSON.stringify(wl));}
+};
 </script></html>

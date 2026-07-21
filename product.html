@@ -105,6 +105,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:cen
 .cart-total-amount{font-family:var(--fg);font-size:20px;color:var(--white);}
 .cart-checkout-btn{width:100%;background:var(--white);color:var(--black);font-family:var(--fh);font-size:9px;letter-spacing:4px;text-transform:uppercase;border:none;padding:16px;cursor:pointer;transition:background .3s;}
 .cart-checkout-btn:hover{background:var(--silver);}
+.cart-item{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.cart-item-info{flex:1;min-width:0;}
+.cart-item-name{font-size:13px;color:var(--white);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cart-item-price{font-size:12px;color:var(--silver-dim);}
+.cart-item-rm{background:none;border:none;color:var(--silver-dim);cursor:pointer;font-size:20px;line-height:1;padding:2px 6px;flex-shrink:0;}
+.cart-item-rm:hover{color:#e05555;}
 
 /* FOOTER */
 footer{background:var(--surface);border-top:1px solid var(--border);padding:56px 56px 32px;}
@@ -240,6 +246,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
     <li><a href="home.html">Home</a></li>
     <li><a href="#">Categories &#9662;</a><div class="dropdown"><div class="has-sub"><a href="forher.html">For Her</a><div class="sub-dropdown"><a href="forher.html">All Jewellery</a><a href="forher.html#bangles-bracelets">Bangles / Bracelets</a><a href="forher.html#rings">Rings</a><a href="forher.html#earrings">Earrings</a><a href="forher.html#pendants">Pendants</a><a href="forher.html#necklace-sets">Necklace Sets</a><a href="forher.html#mangalsutra">Mangalsutra</a><a href="forher.html#brooches">Brooches</a><a href="forher.html#anklets">Anklets</a></div></div><div class="has-sub"><a href="forhim.html">For Him</a><div class="sub-dropdown"><a href="forhim.html">All Jewellery</a><a href="forhim.html#wristlets">Wristlets</a><a href="forhim.html#chain">Chain</a><a href="forhim.html#brooches">Brooches</a><a href="forhim.html#rings">Rings</a></div></div></div></li>
     <li><a href="#">Collections &#9662;</a><div class="dropdown"><a href="virasat.html">Virasat</a><a href="#" style="color:var(--text-dim);cursor:default;">More Coming Soon</a></div></li>
+    <li><a href="#">Personalise &#9662;</a><div class="dropdown"><a href="transform.html">Transform Your Jewellery</a><a href="customdesign.html">Custom Design</a></div></li>
     <li><a href="index.html#story">About Us</a></li>
     <li><a href="index.html#contact">Contact</a></li>
   </ul>
@@ -275,7 +282,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
       <span class="cart-total-label">Total</span>
       <span class="cart-total-amount" id="cart-total-amount">&#x20B9;0</span>
     </div>
-    <button class="cart-checkout-btn">Proceed to Checkout</button>
+    <button class="cart-checkout-btn" onclick="goToCheckout()">Proceed to Checkout</button>
   </div>
 </div>
 
@@ -461,6 +468,7 @@ var pName = params.get('name') || 'Silver Jewellery';
 var pCat = params.get('cat') || 'House of Ansh';
 var pPrice = params.get('price');
 var pFrom = params.get('from') || 'forher.html';
+var pAvail = params.get('avail') || 'in-stock';
 
 document.getElementById('pdp-name').textContent = pName.toUpperCase();
 document.getElementById('pdp-collection').textContent = pCat.toUpperCase();
@@ -512,12 +520,27 @@ function togglePdpWish(){
   localStorage.setItem('hoaWishlist',JSON.stringify(wl));
 }
 
+// ─── CART ─────────────────────────────────────────────────
+var hoaCart=JSON.parse(localStorage.getItem('hoaCart')||'[]');
+function renderCartUI(){var body=document.getElementById('cart-body');var footer=document.querySelector('.cart-footer-panel');var total=hoaCart.reduce(function(s,i){return s+(Number(i.price)||0)*i.qty;},0);if(!hoaCart.length){body.innerHTML='<div class="cart-empty-state"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><p class="cart-empty-msg">Your cart is empty.<br/>Add something beautiful.</p><a href="forher.html" class="cart-shop-link">Continue Shopping</a></div>';if(footer)footer.style.display='none';}else{body.innerHTML=hoaCart.map(function(item,idx){return'<div class="cart-item"><div class="cart-item-info"><div class="cart-item-name">'+item.name+'</div><div class="cart-item-price">&#8377;'+(Number(item.price)||0).toLocaleString('en-IN')+(item.qty>1?' &times; '+item.qty:'')+'</div></div><button class="cart-item-rm" onclick="removeFromCart('+idx+')">&#215;</button></div>';}).join('');if(footer)footer.style.display='';var amt=document.getElementById('cart-total-amount');if(amt)amt.textContent='&#8377;'+total.toLocaleString('en-IN');}}
+function removeFromCart(idx){hoaCart.splice(idx,1);localStorage.setItem('hoaCart',JSON.stringify(hoaCart));renderCartUI();}
+function goToCheckout(){window.location.href='checkout.html?from=cart';}
+renderCartUI();
+
 // ─── CART & BUY ───────────────────────────────────────────
-function pdpAddToCart(){openCart();}
+function pdpAddToCart(){
+  var qty=parseInt(document.getElementById('pdp-qty').value)||1;
+  var price=pPrice?parseInt(pPrice):0;
+  var idx=hoaCart.findIndex(function(i){return i.name===pName;});
+  if(idx>-1){hoaCart[idx].qty+=qty;}
+  else{hoaCart.push({name:pName,price:price,category:pCat,availability:pAvail,qty:qty});}
+  localStorage.setItem('hoaCart',JSON.stringify(hoaCart));
+  renderCartUI();
+  openCart();
+}
 function pdpBuyNow(){
-  var qty=document.getElementById('pdp-qty').value;
-  var msg='Hi! I want to buy '+pName+' (Qty: '+qty+'). Can you help me?';
-  window.open('https://wa.me/917439049616?text='+encodeURIComponent(msg),'_blank');
+  var price=pPrice?parseInt(pPrice):0;
+  window.location.href='checkout.html?product='+encodeURIComponent(pName)+'&price='+price+'&category='+encodeURIComponent(pCat)+'&availability='+pAvail;
 }
 
 // ─── ACCORDION ────────────────────────────────────────────
@@ -558,6 +581,28 @@ document.addEventListener('DOMContentLoaded',function(){
   nm.querySelectorAll('.has-sub > a').forEach(function(a){a.addEventListener('click',function(e){if(!isMob())return;e.preventDefault();var hs=a.parentElement;var wasOpen=hs.classList.contains('mob-open');hs.parentElement.querySelectorAll('.has-sub.mob-open').forEach(function(s){s.classList.remove('mob-open');});if(!wasOpen)hs.classList.add('mob-open');});});
   nm.querySelectorAll('.sub-dropdown a').forEach(function(a){a.addEventListener('click',function(){if(isMob())closeAll();});});
   nm.querySelectorAll('.dropdown > a').forEach(function(a){a.addEventListener('click',function(){if(isMob())closeAll();});});
+})();
+</script>
+<script src="search.js"></script>
+<script type="module">
+import {initializeApp,getApps} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import {getFirestore,collection,query,where,getDocs} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+const cfg={apiKey:"AIzaSyBwqpavjzi15Zt9qHoufjJFI05k7AAHLRs",authDomain:"house-of-ansh.firebaseapp.com",projectId:"house-of-ansh",storageBucket:"house-of-ansh.firebasestorage.app",messagingSenderId:"386185011014",appId:"1:386185011014:web:fef798d4e17c84170bcf47"};
+const app=getApps().length?getApps()[0]:initializeApp(cfg);
+const db=getFirestore(app);
+(async()=>{
+  try{
+    const nm=window.pName;
+    if(!nm||nm==='Silver Jewellery')return;
+    const snap=await getDocs(query(collection(db,'products'),where('name','==',nm)));
+    if(snap.empty)return;
+    const p=snap.docs[0].data();
+    if(p.price&&Number(p.price)>0){
+      window.pPrice=String(p.price);
+      document.getElementById('pdp-price').textContent='₹ '+Number(p.price).toLocaleString('en-IN');
+    }
+    if(p.availability){window.pAvail=p.availability;}
+  }catch(e){}
 })();
 </script>
 </html>

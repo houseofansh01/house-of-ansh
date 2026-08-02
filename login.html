@@ -17,7 +17,7 @@
 <meta name="twitter:description" content="Sign in to your House of Ansh account to manage your orders, wishlist and profile."/>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
-{"@type":"Organization","name":"House of Ansh","url":"https://houseofansh.in","logo":"https://houseofansh.in/images/logo.png","description":"Pure .925 and .999 silver jewellery handcrafted in Belur, Howrah. Founded March 2026. Ships across India.","foundingDate":"2026","contactPoint":{"@type":"ContactPoint","telephone":"+91-74390-49616","email":"house.of.ansh01@gmail.com","contactType":"customer service"},"sameAs":["https://www.instagram.com/house.of.ansh/","https://www.facebook.com/profile.php?id=61588830175777"]},
+{"@type":"Organization","name":"House of Ansh","url":"https://houseofansh.in","logo":"https://houseofansh.in/images/logo.png","description":"Pure .925 and .999 silver jewellery handcrafted in Belur, Howrah. Founded March 2026. Ships across India.","foundingDate":"2026","contactPoint":{"@type":"ContactPoint","telephone":"+91-74390-49616","email":"house.of.ansh01@gmail.com","contactType":"customer service"},"sameAs":["https://www.instagram.com/houseofansh.in/","https://www.facebook.com/profile.php?id=61588830175777"]},
 {"@type":"WebSite","name":"House of Ansh","url":"https://houseofansh.in"},
 {"@type":"Store","name":"House of Ansh","description":"Premium handcrafted pure silver jewellery — bangles, rings, earrings, necklaces, pendants, mangalsutra, anklets and more. Ships Pan India.","image":"https://houseofansh.in/images/logo.png","priceRange":"₹₹","address":{"@type":"PostalAddress","addressLocality":"Belur","addressRegion":"Howrah, West Bengal","addressCountry":"IN"},"telephone":"+91-74390-49616","email":"house.of.ansh01@gmail.com"}
 ]}
@@ -112,30 +112,39 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:cen
   .nm{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(6,6,6,.97);padding:16px 0;border-top:1px solid rgba(196,196,196,.12);}
   .nm.open{display:flex;align-items:stretch;}
   .nm > li > a{padding:14px 24px;font-size:10px;text-align:center;}
-  .nm > li > .dropdown{display:none;position:static;opacity:1;pointer-events:all;transform:none;box-shadow:none;padding:4px 0;border:none;background:transparent;min-width:0;width:100%;}
+  .nm > li > .dropdown{display:none;position:relative!important;left:auto!important;right:auto!important;top:auto!important;transform:none!important;opacity:1!important;pointer-events:all!important;box-shadow:none!important;min-width:0!important;width:100%!important;padding:6px 0;border:none;background:rgba(255,255,255,.05);text-align:center;transition:none!important;}
   .nm > li.mob-open > .dropdown{display:block;}
-  .nm > li > .dropdown a{text-align:center;padding:8px 0;display:block;}
-  .nm > li > .dropdown .has-sub > a{text-align:center;padding:8px 0;}
+  .nm > li > .dropdown a{text-align:center;padding:11px 0;display:block;color:var(--silver)!important;font-size:9px;letter-spacing:2px;width:100%;}
+  .nm > li > .dropdown .has-sub > a{text-align:center;padding:11px 0;color:var(--silver)!important;}
   .nm > li > .dropdown .has-sub > a::after{display:none;}
-  .sub-dropdown{display:none;position:static;opacity:1;pointer-events:all;transform:none;padding:4px 0 4px 0;border:none;background:rgba(255,255,255,.03);min-width:0;width:100%;}
+  .sub-dropdown{display:none;position:static;opacity:1;pointer-events:all;transform:none;padding:4px 0;border:none;background:rgba(255,255,255,.04);min-width:0;width:100%;text-align:center;}
   .has-sub.mob-open > .sub-dropdown{display:block;}
-  .sub-dropdown a{text-align:center;padding:7px 0;display:block;}
+  .sub-dropdown a{text-align:center;padding:10px 0;display:block;color:var(--silver)!important;width:100%;}
   .nav-icon{display:none;}
   .nav-icon.active-icon{display:flex;}
 }
 
 /* FOOTER */
-footer{background:var(--surface);border-top:1px solid var(--border);padding:56px 56px 32px;}
-.ft{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;max-width:1200px;margin:0 auto 40px;}
-.fb-logo-img{height:38px;width:auto;object-fit:contain;filter:brightness(1.05);margin-bottom:12px;}
-.fb-name{font-family:var(--fp);font-size:16px;font-style:italic;color:var(--white);letter-spacing:1px;margin-bottom:4px;}
-.fb-tag{font-family:var(--fh);font-size:7px;letter-spacing:3.5px;text-transform:uppercase;color:var(--silver-dim);margin-bottom:14px;}
-.fb-bio{font-family:var(--fg);font-size:13px;color:var(--text);line-height:1.8;}
-.fcol h5{font-family:var(--fh);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--silver-dim);margin-bottom:18px;}
-.fcol ul li{margin-bottom:11px;}
-.fcol ul li a{font-family:var(--fg);font-size:13.5px;color:var(--text);transition:color .3s;}
+footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56px 32px;}
+.ft{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid var(--border);}
+.fb-logo-img{height:48px;width:auto;object-fit:contain;margin-bottom:10px;display:block;}
+.fb-name{font-family:var(--fp);font-size:17px;font-style:italic;color:var(--white);margin-bottom:4px;}
+.fb-tag{font-family:var(--fg);font-style:italic;font-size:13px;color:var(--silver-dim);margin-bottom:14px;}
+.fb-bio{font-family:var(--fg);font-size:16px;color:var(--silver-dim);line-height:1.7;max-width:280px;}
+.fcol h5{font-family:var(--fh);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--silver);margin-bottom:16px;}
+.fcol ul{list-style:none;}
+.fcol li{margin-bottom:12px;line-height:1.8;}
+.fcol a{font-family:var(--fg);font-size:16px;line-height:1.8;color:var(--silver-dim);text-decoration:none;transition:color .3s;display:block;}
+.fcol a:hover{color:var(--silver);}
+.fb-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;background:var(--surface);border-top:1px solid var(--border);padding:18px 56px;}
+.fb-copy{font-family:var(--fh);font-size:7.5px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;}
+.fb-made{font-family:var(--fp);font-style:italic;font-size:12px;color:var(--text-dim);}
+.seo-tags{border-top:1px solid var(--border);padding:28px 56px;background:var(--surface);}
+.seo-tags-inner{max-width:1400px;margin:0 auto;}
+.seo-tags-lbl{font-family:var(--fh);font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:var(--silver-dim);margin-right:10px;font-weight:600;}
+.seo-tags-list{font-family:var(--fg);font-size:13px;color:var(--text-dim);line-height:2;}
 .fcol ul li a:hover{color:var(--silver);}
-.fb-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;background:var(--surface);border-top:1px solid var(--border);padding:18px 56px;}
+
 .fb-copy,.fb-made{font-family:var(--fh);font-size:7.5px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);}
 @media(max-width:860px){
   footer{padding:40px 24px 24px;}
@@ -213,7 +222,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
       <span class="cart-total-label">Total</span>
       <span class="cart-total-amount" id="cart-total-amount">&#x20B9;0</span>
     </div>
-    <button class="cart-checkout-btn">Proceed to Checkout</button>
+    <div id="cod-notice" style="background:rgba(196,196,196,.07);border:1px solid rgba(196,196,196,.2);border-left:3px solid #d8d8d8;padding:14px 16px;margin-bottom:16px;transition:border-left-color .3s;"><div id="shipping-notice-inner"><div style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:#d8d8d8;margin-bottom:7px;">&#9432; Shipping</div><p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:14px;color:#d8d8d8;line-height:1.7;margin:0;">Free shipping on orders &#x20B9;2,999 &amp; above. &#x20B9;299 fee on orders below.</p></div></div><button class="cart-checkout-btn">Proceed to Checkout</button>
   </div>
 </div>
 
@@ -244,14 +253,9 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
 
 
 
-<footer><div class="ft"><div><img src="images/logo.png" alt="House of Ansh" class="fb-logo-img"/><div class="fb-name">House of Ansh</div><div class="fb-tag">A Little Moonlight You Can Wear</div><p class="fb-bio">Pure silver jewellery crafted with intention. Founded March 2026, Belur, Howrah. Ships across India.</p></div><div class="fcol"><h5>Navigate</h5><ul><li><a href="index.html">Home</a></li><li><a href="forher.html">For Her</a></li><li><a href="forhim.html">For Him</a></li><li><a href="virasat.html">Virasat Collection</a></li><li><a href="index.html#story">About Us</a></li></ul></div><div class="fcol"><h5>Policies</h5><ul><li><a href="#">Terms of Service</a></li><li><a href="#">Returns &amp; Exchanges</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Shipping &amp; Delivery</a></li></ul></div><div class="fcol"><h5>Connect</h5><ul><li><a href="https://www.instagram.com/house.of.ansh/" target="_blank">Instagram</a></li><li><a href="https://www.facebook.com/profile.php?id=61588830175777" target="_blank">Facebook</a></li><li><a href="mailto:house.of.ansh01@gmail.com">Email Us</a></li><li><a href="tel:+917439049616">+91-74390-49616</a></li></ul></div></div>
-</footer>
-<section class="seo-tags">
-  <div class="seo-tags-inner">
-    <span class="seo-tags-lbl">Tags :</span><span class="seo-tags-list">House of Ansh | Silver Jewellery | Pure Silver Jewellery | 925 Sterling Silver | Handcrafted Silver Jewellery | Handmade Jewellery India | Silver Bangles | Silver Bracelets | Silver Rings | Silver Earrings | Silver Necklace | Silver Pendant | Silver Anklets | Silver Mangalsutra | Silver Brooches | Silver Wristlets | Silver Chains for Men | Women's Silver Jewellery | Men's Silver Jewellery | Bridal Jewellery | Wedding Jewellery India | Festival Jewellery | Everyday Silver Jewellery | Daily Wear Silver | Luxury Silver Jewellery | Premium Silver Jewellery | Traditional Indian Jewellery | Contemporary Silver Jewellery | Oxidised Silver Jewellery | Hallmarked Silver | Pure 999 Silver | Buy Silver Jewellery Online | Silver Jewellery Online India | Silver Jewellery Shop | Jewellery Gift Ideas | Gift for Her | Gift for Him | Sustainable Jewellery | Artisan Jewellery India | Virasat Collection | Jewellery Store Online India | Pan India Shipping | Best Silver Jewellery India | Affordable Silver Jewellery | Minimalist Silver Jewellery | Silver Jewellery Howrah | Silver Jewellery West Bengal | House of Ansh Jewellery Store | Silver Jewellery Brand India</span>
-  </div>
-</section>
-<div class="fb-bottom"><span class="fb-copy">&#169; 2026 House of Ansh. All rights reserved.</span><span class="fb-made">Made with care by Anushree &amp; Meenakshi Krishna</span></div>
+<footer><div class="ft"><div><img src="images/logo.png" alt="House of Ansh" class="fb-logo-img"/><div class="fb-name">House of Ansh</div><div class="fb-tag">A Little Moonlight You Can Wear</div><p class="fb-bio">Pure silver jewellery crafted with intention. Founded March 2026, Belur, Howrah. Ships across India.</p></div><div class="fcol"><h5>Navigate</h5><ul><li><a href="home.html">Home</a></li><li><a href="forher.html">For Her</a></li><li><a href="forhim.html">For Him</a></li><li><a href="virasat.html">Virasat Collection</a></li><li><a href="index.html#story">About Us</a></li></ul></div><div class="fcol"><h5>Policies</h5><ul><li><a href="#" onclick="om('mTerms');return false;">Terms of Service</a></li><li><a href="#" onclick="om('mReturns');return false;">Returns &amp; Exchanges</a></li><li><a href="#" onclick="om('mPrivacy');return false;">Privacy Policy</a></li><li><a href="#" onclick="om('mShipping');return false;">Shipping &amp; Delivery</a></li></ul></div><div class="fcol"><h5>Connect</h5><ul><li><a href="https://www.instagram.com/houseofansh.in/" target="_blank">Instagram</a></li><li><a href="https://www.facebook.com/profile.php?id=61588830175777" target="_blank">Facebook</a></li><li><a href="https://www.linkedin.com/" target="_blank">LinkedIn</a></li><li><a href="#" onclick="openEmailChooser();return false;">Email Us</a></li><li><a href="tel:+917439049616">+91-74390-49616</a></li></ul></div></div></footer>
+<section class="seo-tags"><div class="seo-tags-inner"><span class="seo-tags-lbl">Tags :</span><span class="seo-tags-list">House of Ansh | Silver Jewellery | Pure Silver Jewellery | 925 Sterling Silver | Handcrafted Silver Jewellery | Handmade Jewellery India | Silver Bangles | Silver Bracelets | Silver Rings | Silver Earrings | Silver Necklace | Silver Pendant | Silver Anklets | Silver Mangalsutra | Silver Brooches | Silver Wristlets | Silver Chains for Men | Women's Silver Jewellery | Men's Silver Jewellery | Bridal Jewellery | Wedding Jewellery India | Festival Jewellery | Everyday Silver Jewellery | Daily Wear Silver | Luxury Silver Jewellery | Premium Silver Jewellery | Traditional Indian Jewellery | Contemporary Silver Jewellery | Oxidised Silver Jewellery | Hallmarked Silver | Pure 999 Silver | Buy Silver Jewellery Online | Silver Jewellery Online India | Silver Jewellery Shop | Jewellery Gift Ideas | Gift for Her | Gift for Him | Sustainable Jewellery | Artisan Jewellery India | Virasat Collection | Jewellery Store Online India | Pan India Shipping | Best Silver Jewellery India | Affordable Silver Jewellery | Minimalist Silver Jewellery | Silver Jewellery Howrah | Silver Jewellery West Bengal | House of Ansh Jewellery Store | Silver Jewellery Brand India</span></div></section>
+<div class="fb-bottom"><span class="fb-copy">© 2026 House of Ansh. All rights reserved. Howrah, West Bengal, India.</span><span class="fb-made">Made with care by Anushree &amp; Meenakshi Krishna</span></div>
 
 
 <script>
@@ -343,4 +347,128 @@ window.handleForgotPassword = async function() {
 
 <a href="https://wa.me/917439049616?text=Hi!%20I%20need%20help" target="_blank" class="wa-float" title="Chat on WhatsApp" aria-label="Chat on WhatsApp"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" style="width:30px;height:30px;fill:#fff;"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.737 5.469 2.027 7.773L0 32l8.489-2.001A15.93 15.93 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.267 13.267 0 01-6.756-1.839l-.484-.287-5.04 1.187 1.208-4.916-.316-.505A13.267 13.267 0 012.667 16C2.667 8.636 8.636 2.667 16 2.667S29.333 8.636 29.333 16 23.364 29.333 16 29.333zm7.274-9.878c-.399-.2-2.359-1.163-2.724-1.296-.364-.133-.629-.2-.894.2s-1.026 1.296-1.257 1.562c-.232.265-.464.298-.863.1-.399-.2-1.685-.621-3.21-1.98-1.186-1.058-1.988-2.364-2.22-2.763-.232-.399-.024-.615.174-.814.178-.178.399-.464.598-.696.2-.232.265-.399.399-.665.133-.265.066-.498-.033-.697-.1-.2-.894-2.153-1.224-2.948-.323-.774-.65-.669-.894-.681-.232-.012-.498-.015-.764-.015s-.696.1-1.062.498c-.364.399-1.39 1.358-1.39 3.311s1.423 3.841 1.621 4.107c.2.265 2.801 4.276 6.786 5.996.949.41 1.689.655 2.267.838.953.303 1.82.26 2.506.158.764-.114 2.359-.964 2.691-1.895.332-.931.332-1.729.232-1.895-.099-.165-.364-.265-.763-.464z"/></svg></a>
 <script src="search.js"></script>
-</html>
+<div id="email-chooser-ov" onclick="if(event.target===this)closeEmailChooser()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9500;align-items:center;justify-content:center;backdrop-filter:blur(6px);">
+  <div style="background:#0e0e0e;border:1px solid #242424;padding:36px 32px;width:90%;max-width:360px;position:relative;">
+    <button onclick="closeEmailChooser()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#909090;font-size:18px;cursor:pointer;line-height:1;">&#x2715;</button>
+    <div style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:#d8d8d8;margin-bottom:6px;">Send Us an Email</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:14px;color:#666;margin-bottom:24px;">Choose your email platform</div>
+    <a id="ec-gmail" href="#" target="_blank" style="display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid #1a1a1a;text-decoration:none;color:#aaa;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;transition:color .2s;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2m20 0v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6m20 0l-10 7L2 6" stroke="#EA4335" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Gmail
+    </a>
+    <a id="ec-outlook" href="#" target="_blank" style="display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid #1a1a1a;text-decoration:none;color:#aaa;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;transition:color .2s;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#0078D4" stroke-width="1.5"/><path d="M2 8l10 6 10-6" stroke="#0078D4" stroke-width="1.5" stroke-linecap="round"/></svg>
+      Outlook
+    </a>
+    <a id="ec-yahoo" href="#" target="_blank" style="display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid #1a1a1a;text-decoration:none;color:#aaa;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;transition:color .2s;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 4l6 8v5h6v-5l6-8" stroke="#6001D2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Yahoo Mail
+    </a>
+    <a id="ec-default" href="#" style="display:flex;align-items:center;gap:14px;padding:13px 0;text-decoration:none;color:#aaa;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;transition:color .2s;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="#d8d8d8" stroke-width="1.5"/><polyline points="22,6 12,13 2,6" stroke="#d8d8d8" stroke-width="1.5"/></svg>
+      Default Mail App
+    </a>
+  </div>
+</div>
+<script>
+function openEmailChooser(){
+  var s='Enquiry - House of Ansh';
+  var b='Hi House of Ansh,\n\nI would like to get in touch regarding:\n\n';
+  var to='house.of.ansh01@gmail.com';
+  document.getElementById('ec-gmail').href='https://mail.google.com/mail/?view=cm&to='+encodeURIComponent(to)+'&su='+encodeURIComponent(s)+'&body='+encodeURIComponent(b);
+  document.getElementById('ec-outlook').href='https://outlook.live.com/mail/0/deeplink/compose?to='+encodeURIComponent(to)+'&subject='+encodeURIComponent(s)+'&body='+encodeURIComponent(b);
+  document.getElementById('ec-yahoo').href='https://compose.mail.yahoo.com/?to='+encodeURIComponent(to)+'&subject='+encodeURIComponent(s)+'&body='+encodeURIComponent(b);
+  document.getElementById('ec-default').href='mailto:'+to+'?subject='+encodeURIComponent(s)+'&body='+encodeURIComponent(b);
+  var ov=document.getElementById('email-chooser-ov');
+  ov.style.display='flex';
+  document.body.style.overflow='hidden';
+}
+function closeEmailChooser(){
+  document.getElementById('email-chooser-ov').style.display='none';
+  document.body.style.overflow='';
+}
+</script><div class="modal-ov" id="mTerms" style="position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(8px);"><div style="background:#0e0e0e;border:1px solid #242424;max-width:620px;width:90%;max-height:80vh;overflow-y:auto;padding:48px;position:relative;"><button onclick="cm('mTerms')" style="position:absolute;top:14px;right:14px;font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:#909090;cursor:pointer;background:none;border:none;text-transform:uppercase;">Close ✕</button><div style="font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#f5f5f5;margin-bottom:5px;">Terms of Service</div><div style="font-family:'Playfair Display',serif;font-size:18px;font-style:italic;color:#909090;margin-bottom:24px;">Effective March 2026</div><div style="font-family:'Cormorant Garamond',serif;font-size:16px;color:#aaa;line-height:1.82;"><b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">1. Introduction</b>These Terms govern your use of our website. By using it, you accept these Terms in full.<br/><br/>You must be at least 18 years of age. Our website uses cookies; by using it you consent to our cookie policy.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">2. License to Use Website</b>You may view, print, and use services for personal and business purposes. You must not republish, sell, or redistribute material without permission.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">3. Acceptable Use</b>You must not damage the website, transmit malware, or use it unlawfully. All information you supply must be accurate.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">4. Orders &amp; Payment</b>Confirmed on receipt of full payment in INR. Unavailable orders refunded in full.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">5. Buyback &amp; Exchange (Up to 70%)</b>Eligible only for genuine products with invoice, purchased from our official website. Valid up to 3 years. Up to 70% as store credit; new purchase must exceed credit. Items must be in good condition. Customised or discounted products may not be eligible. Store credits are non-refundable and non-transferable.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">16. Law &amp; Jurisdiction</b>Governed by Indian law. Disputes under Howrah court jurisdiction.</div></div></div>
+<div class="modal-ov" id="mReturns" style="position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(8px);"><div style="background:#0e0e0e;border:1px solid #242424;max-width:620px;width:90%;max-height:80vh;overflow-y:auto;padding:48px;position:relative;"><button onclick="cm('mReturns')" style="position:absolute;top:14px;right:14px;font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:#909090;cursor:pointer;background:none;border:none;text-transform:uppercase;">Close ✕</button><div style="font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#f5f5f5;margin-bottom:5px;">Returns &amp; Exchanges</div><div style="font-family:'Playfair Display',serif;font-size:18px;font-style:italic;color:#909090;margin-bottom:24px;">We want you to love every piece.</div><div style="font-family:'Cormorant Garamond',serif;font-size:16px;color:#aaa;line-height:1.82;"><b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">Return Window</b>7 days from delivery — unused, unworn, original packaging.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">Non-Returnable</b>Custom/personalised pieces, sale items, damaged by misuse.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">Process</b>Email house.of.ansh01@gmail.com with order number. Response within 48 hours.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">Refunds</b>7–10 business days to original payment. Shipping non-refundable.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">Photograph Requirement</b>Before we arrange for your damaged or incorrect product to be returned to us, you are required to send us a photograph of the product. It is then up to the discretion of the House of Ansh Jewellery Quality Check team to decide whether the product is approved for return.<br/><br/>This policy does not apply to cancellation of orders after 3 days of placing it, or to custom made orders.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">No Refunds in the Following Cases</b><ul style="margin-top:6px;padding-left:18px;"><li style="margin-bottom:8px;">Incorrect or outdated delivery address.</li><li style="margin-bottom:8px;">After 3 failed delivery attempts by our courier agent.</li><li style="margin-bottom:8px;">Package refused by recipient.</li><li style="margin-bottom:8px;">Sizing issues. Please review our size guides carefully before making your purchase.</li><li style="margin-bottom:8px;">Products returned in a used or damaged condition.</li><li style="margin-bottom:8px;">Minor colour and design variation. All products are handmade and may vary slightly from website photographs.</li><li style="margin-bottom:8px;">If the jewellery is not faulty or damaged.</li><li style="margin-bottom:8px;">The customer fails to inform us within 2 days of receipt of goods.</li><li style="margin-bottom:8px;">For Made to Order requests cancelled after 2 days of payment — 25% of the product cost will be deducted and the balance refunded.</li></ul></div></div></div>
+<div class="modal-ov" id="mPrivacy" style="position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(8px);"><div style="background:#0e0e0e;border:1px solid #242424;max-width:620px;width:90%;max-height:80vh;overflow-y:auto;padding:48px;position:relative;"><button onclick="cm('mPrivacy')" style="position:absolute;top:14px;right:14px;font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:#909090;cursor:pointer;background:none;border:none;text-transform:uppercase;">Close ✕</button><div style="font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#f5f5f5;margin-bottom:5px;">Privacy Policy</div><div style="font-family:'Playfair Display',serif;font-size:18px;font-style:italic;color:#909090;margin-bottom:24px;">Your trust matters deeply.</div><div style="font-family:'Cormorant Garamond',serif;font-size:16px;color:#aaa;line-height:1.82;"><b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">What We Collect</b>Name, email, phone, address — only what you provide.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">How We Use It</b>Solely to process orders and provide support. Never sold or shared.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">Contact</b>house.of.ansh01@gmail.com</div></div></div>
+<div class="modal-ov" id="mShipping" style="position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(8px);"><div style="background:#0e0e0e;border:1px solid #242424;max-width:620px;width:90%;max-height:80vh;overflow-y:auto;padding:48px;position:relative;"><button onclick="cm('mShipping')" style="position:absolute;top:14px;right:14px;font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:#909090;cursor:pointer;background:none;border:none;text-transform:uppercase;">Close ✕</button><div style="font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#f5f5f5;margin-bottom:5px;">Shipping &amp; Delivery</div><div style="font-family:'Playfair Display',serif;font-size:18px;font-style:italic;color:#909090;margin-bottom:24px;">Pan India &amp; Worldwide. With care.</div><div style="font-family:'Cormorant Garamond',serif;font-size:16px;color:#aaa;line-height:1.82;"><b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">1. Pan-India Shipping</b>Partnered with DHL, FedEx, DTDC, Delhivery, Blue Dart, Xpress Bees and more.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">2. Shipping Method</b>Free shipping on orders ₹2,999 & above. A delivery fee of ₹299 applies to all orders below ₹2,999. All prices inclusive of GST.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">3. Processing &amp; Dispatch</b>Each piece is crafted to order. Dispatch takes 2–5 business days. Customisation: 7–30 days + ₹500 fee.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">4. Delivery</b>Monday–Saturday, 10 AM–6 PM. Delivery takes 6–8 business days after dispatch, excluding bank holidays and Sundays.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">5. Contact</b>house.of.ansh01@gmail.com | +91 74390 49616</div></div></div>
+<script>
+if(typeof om !== 'function'){
+  function om(id){var m=document.getElementById(id);if(m){m.classList.add('open');m.style.opacity='1';m.style.pointerEvents='all';document.body.style.overflow='hidden';}}
+  function cm(id){var m=document.getElementById(id);if(m){m.classList.remove('open');m.style.opacity='0';m.style.pointerEvents='none';document.body.style.overflow='';}}
+  document.addEventListener('click',function(e){if(e.target.id&&['mTerms','mReturns','mPrivacy','mShipping'].indexOf(e.target.id)>-1)cm(e.target.id);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')['mTerms','mReturns','mPrivacy','mShipping'].forEach(function(id){cm(id);});});
+}
+</script>
+<style id="footer-std">
+footer{background:var(--deep,#090909);border-top:1px solid var(--border,#1a1a1a);padding:56px 56px 32px;}
+.ft{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid var(--border,#1a1a1a);}
+.fb-logo-img{height:48px;width:auto;object-fit:contain;margin-bottom:10px;display:block;}
+.fb-name{font-family:var(--fp,'Playfair Display',serif);font-size:17px;font-style:italic;color:var(--white,#f5f5f5);margin-bottom:4px;}
+.fb-tag{font-family:var(--fg,'Cormorant Garamond',serif);font-style:italic;font-size:13px;color:var(--silver-dim,#909090);margin-bottom:14px;}
+.fb-bio{font-family:var(--fg,'Cormorant Garamond',serif);font-size:16px;color:var(--silver-dim,#909090);line-height:1.7;max-width:280px;}
+.fcol h5{font-family:var(--fh,'Cinzel',serif);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--silver,#d8d8d8);margin-bottom:16px;}
+.fcol ul{list-style:none;}
+.fcol li,.fcol ul li{margin-bottom:12px;line-height:1.8;}
+.fcol a,.fcol li a,.fcol ul li a{font-family:var(--fg,'Cormorant Garamond',serif);font-size:16px;line-height:1.8;color:var(--silver-dim,#909090);text-decoration:none;transition:color .3s;display:block;}
+.fcol a:hover,.fcol li a:hover,.fcol ul li a:hover{color:var(--silver,#d8d8d8);}
+.fb-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;background:var(--surface,#0e0e0e);border-top:1px solid var(--border,#1a1a1a);padding:18px 56px;}
+.fb-copy{font-family:var(--fh,'Cinzel',serif);font-size:7.5px;letter-spacing:2px;color:var(--text-dim,#555);text-transform:uppercase;}
+.fb-made{font-family:var(--fp,'Playfair Display',serif);font-style:italic;font-size:12px;color:var(--text-dim,#555);}
+.seo-tags{border-top:1px solid var(--border,#1a1a1a);padding:28px 56px;background:var(--surface,#0e0e0e);}
+.seo-tags-inner{max-width:1400px;margin:0 auto;}
+.seo-tags-lbl{font-family:var(--fh,'Cinzel',serif);font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:var(--silver-dim,#909090);margin-right:10px;font-weight:600;}
+.seo-tags-list{font-family:var(--fg,'Cormorant Garamond',serif);font-size:13px;color:var(--text-dim,#555);line-height:2;}
+@media(max-width:900px){footer{padding:48px 24px 28px;}.ft{grid-template-columns:1fr 1fr;gap:28px;}}
+@media(max-width:640px){footer{padding:32px 20px 16px;}.ft{grid-template-columns:1fr;margin-bottom:28px;padding-bottom:28px;gap:20px;}.fb-bottom{padding:14px 20px;}.seo-tags{padding:22px 20px;}.seo-tags-list{font-size:12px;}}
+</style>
+<script>
+(function(){
+  var FREE=2999, FEE=299;
+  function updateShipNotice(){
+    var notice=document.getElementById('cod-notice');
+    var inner=document.getElementById('shipping-notice-inner');
+    if(!notice||!inner)return;
+    var total=(typeof hoaCart!=='undefined'&&hoaCart)?hoaCart.reduce(function(s,i){return s+(Number(i.price)||0)*(i.qty||1);},0):0;
+    if(total>=FREE){
+      notice.style.borderLeftColor='#4caf7d';
+      inner.innerHTML='<div style="font-family:\'Cinzel\',serif;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:#4caf7d;margin-bottom:5px;">&#10003; Free Shipping Unlocked</div><p style="font-family:\'Cormorant Garamond\',Georgia,serif;font-size:14px;color:#4caf7d;line-height:1.6;margin:0;">Your order qualifies for free shipping!</p>';
+    }else{
+      notice.style.borderLeftColor='#d8d8d8';
+      var rem=FREE-total;
+      var pct=total>0?Math.min(95,Math.round(total/FREE*100)):0;
+      var msg=total>0?'Add \u20b9'+rem.toLocaleString('en-IN')+' more for free shipping':'Free shipping on orders \u20b92,999 & above';
+      inner.innerHTML='<div style="font-family:\'Cinzel\',serif;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:#d8d8d8;margin-bottom:6px;">\u24d8 Shipping</div>'
+        +'<p style="font-family:\'Cormorant Garamond\',Georgia,serif;font-size:14px;color:#d8d8d8;line-height:1.6;margin:0 0 10px;">'+msg+'. \u20b9'+FEE+' fee applies below \u20b92,999.</p>'
+        +(total>0?'<div style="height:3px;background:rgba(196,196,196,.15);border-radius:2px;overflow:hidden;"><div style="height:100%;width:'+pct+'%;background:#d8d8d8;border-radius:2px;transition:width .4s;"></div></div>':'');
+    }
+  }
+  document.addEventListener('DOMContentLoaded',function(){
+    updateShipNotice();
+    var el=document.getElementById('cart-total-amount');
+    if(el){new MutationObserver(updateShipNotice).observe(el,{childList:true,subtree:true,characterData:true});}
+  });
+  document.addEventListener('click',function(){setTimeout(updateShipNotice,80);});
+  window.addEventListener('storage',updateShipNotice);
+})();
+</script></html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

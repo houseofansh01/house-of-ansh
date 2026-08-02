@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -17,7 +17,7 @@
 <meta name="twitter:description" content="The Virasat Collection by House of Ansh — heritage-inspired handcrafted silver jewellery celebrating Indian craftsmanship. Pure .925 silver, ships Pan India."/>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
-{"@type":"Organization","name":"House of Ansh","url":"https://houseofansh.in","logo":"https://houseofansh.in/images/logo.png","description":"Pure .925 and .999 silver jewellery handcrafted in Belur, Howrah. Founded March 2026. Ships across India.","foundingDate":"2026","contactPoint":{"@type":"ContactPoint","telephone":"+91-74390-49616","email":"house.of.ansh01@gmail.com","contactType":"customer service"},"sameAs":["https://www.instagram.com/house.of.ansh/","https://www.facebook.com/profile.php?id=61588830175777"]},
+{"@type":"Organization","name":"House of Ansh","url":"https://houseofansh.in","logo":"https://houseofansh.in/images/logo.png","description":"Pure .925 and .999 silver jewellery handcrafted in Belur, Howrah. Founded March 2026. Ships across India.","foundingDate":"2026","contactPoint":{"@type":"ContactPoint","telephone":"+91-74390-49616","email":"house.of.ansh01@gmail.com","contactType":"customer service"},"sameAs":["https://www.instagram.com/houseofansh.in/","https://www.facebook.com/profile.php?id=61588830175777"]},
 {"@type":"WebSite","name":"House of Ansh","url":"https://houseofansh.in"},
 {"@type":"Store","name":"House of Ansh","description":"Premium handcrafted pure silver jewellery — bangles, rings, earrings, necklaces, pendants, mangalsutra, anklets and more. Ships Pan India.","image":"https://houseofansh.in/images/logo.png","priceRange":"₹₹","address":{"@type":"PostalAddress","addressLocality":"Belur","addressRegion":"Howrah, West Bengal","addressCountry":"IN"},"telephone":"+91-74390-49616","email":"house.of.ansh01@gmail.com"}
 ]}
@@ -171,17 +171,26 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:cen
 .no-results{padding:80px 0;text-align:center;font-family:var(--fh);font-size:9px;letter-spacing:3px;color:var(--text-dim);text-transform:uppercase;display:none;}
 
 /* FOOTER */
-footer{border-top:1px solid var(--border);padding:60px 56px 0;}
-.ft{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid var(--border);}
+footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56px 32px;}
+.ft{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid var(--border);}
 .fb-logo-img{height:48px;width:auto;object-fit:contain;margin-bottom:10px;display:block;}
-.fb-name{font-family:var(--fp);font-size:18px;color:var(--white);font-style:italic;margin-bottom:4px;}
-.fb-tag{font-family:var(--fh);font-size:8px;letter-spacing:3px;color:var(--silver-dim);text-transform:uppercase;margin-bottom:14px;}
-.fb-bio{font-family:var(--fg);font-size:13px;color:var(--text);line-height:1.7;}
+.fb-name{font-family:var(--fp);font-size:17px;font-style:italic;color:var(--white);margin-bottom:4px;}
+.fb-tag{font-family:var(--fg);font-style:italic;font-size:13px;color:var(--silver-dim);margin-bottom:14px;}
+.fb-bio{font-family:var(--fg);font-size:16px;color:var(--silver-dim);line-height:1.7;max-width:280px;}
 .fcol h5{font-family:var(--fh);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--silver);margin-bottom:16px;}
-.fcol ul li{margin-bottom:10px;}
-.fcol ul li a{font-family:var(--fg);font-size:13px;color:var(--text);transition:color .3s;}
-.fcol ul li a:hover{color:var(--white);}
+.fcol ul{list-style:none;}
+.fcol li{margin-bottom:12px;line-height:1.8;}
+.fcol a{font-family:var(--fg);font-size:16px;line-height:1.8;color:var(--silver-dim);text-decoration:none;transition:color .3s;display:block;}
+.fcol a:hover{color:var(--silver);}
 .fb-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;background:var(--surface);border-top:1px solid var(--border);padding:18px 56px;}
+.fb-copy{font-family:var(--fh);font-size:7.5px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;}
+.fb-made{font-family:var(--fp);font-style:italic;font-size:12px;color:var(--text-dim);}
+.seo-tags{border-top:1px solid var(--border);padding:28px 56px;background:var(--surface);}
+.seo-tags-inner{max-width:1400px;margin:0 auto;}
+.seo-tags-lbl{font-family:var(--fh);font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:var(--silver-dim);margin-right:10px;font-weight:600;}
+.seo-tags-list{font-family:var(--fg);font-size:13px;color:var(--text-dim);line-height:2;}
+
+
 .fb-copy,.fb-made{font-family:var(--fh);font-size:7.5px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;}
 
 /* RESPONSIVE */
@@ -194,7 +203,7 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
   .sort-bar,.products-wrap{padding-left:24px;padding-right:24px;}
   .product-grid{grid-template-columns:repeat(2,1fr);}
   .ft{grid-template-columns:1fr 1fr;gap:32px;}
-  footer{padding:40px 24px 0;}
+  footer{padding:48px 24px 28px;}
 }
 @media(max-width:640px){
   .hamburger{display:flex;}
@@ -202,14 +211,14 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
   .nm{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(6,6,6,.97);padding:16px 0;border-top:1px solid rgba(196,196,196,.12);}
   .nm.open{display:flex;align-items:stretch;}
   .nm > li > a{padding:14px 24px;font-size:10px;text-align:center;}
-  .nm > li > .dropdown{display:none;position:static;opacity:1;pointer-events:all;transform:none;box-shadow:none;padding:4px 0;border:none;background:transparent;min-width:0;width:100%;}
+  .nm > li > .dropdown{display:none;position:relative!important;left:auto!important;right:auto!important;top:auto!important;transform:none!important;opacity:1!important;pointer-events:all!important;box-shadow:none!important;min-width:0!important;width:100%!important;padding:6px 0;border:none;background:rgba(255,255,255,.05);text-align:center;transition:none!important;}
   .nm > li.mob-open > .dropdown{display:block;}
-  .nm > li > .dropdown a{text-align:center;padding:8px 0;display:block;}
-  .nm > li > .dropdown .has-sub > a{text-align:center;padding:8px 0;}
+  .nm > li > .dropdown a{text-align:center;padding:11px 0;display:block;color:var(--silver)!important;font-size:9px;letter-spacing:2px;width:100%;}
+  .nm > li > .dropdown .has-sub > a{text-align:center;padding:11px 0;color:var(--silver)!important;}
   .nm > li > .dropdown .has-sub > a::after{display:none;}
-  .sub-dropdown{display:none;position:static;opacity:1;pointer-events:all;transform:none;padding:4px 0 4px 0;border:none;background:rgba(255,255,255,.03);min-width:0;width:100%;}
+  .sub-dropdown{display:none;position:static;opacity:1;pointer-events:all;transform:none;padding:4px 0;border:none;background:rgba(255,255,255,.04);min-width:0;width:100%;text-align:center;}
   .has-sub.mob-open > .sub-dropdown{display:block;}
-  .sub-dropdown a{text-align:center;padding:7px 0;display:block;}
+  .sub-dropdown a{text-align:center;padding:10px 0;display:block;color:var(--silver)!important;width:100%;}
   .page-hero{padding:100px 20px 36px;text-align:center;}
   .breadcrumb{text-align:center;}
   .page-title{font-size:36px;}
@@ -217,7 +226,7 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
   .sort-bar,.products-wrap{padding-left:20px;padding-right:20px;}
   .product-grid{grid-template-columns:repeat(2,1fr);}
   .ft{grid-template-columns:1fr;}
-  footer{padding:32px 20px 0;}
+  footer{padding:32px 20px 16px;}
 }
 
 /* LAYOUT WITH SIDEBAR */
@@ -363,7 +372,7 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
       <span class="cart-total-label">Total</span>
       <span class="cart-total-amount" id="cart-total-amount">&#x20B9;0</span>
     </div>
-    <button class="cart-checkout-btn" onclick="goToCheckout()">Proceed to Checkout</button>
+    <div id="cod-notice" style="background:rgba(196,196,196,.07);border:1px solid rgba(196,196,196,.2);border-left:3px solid #d8d8d8;padding:14px 16px;margin-bottom:16px;transition:border-left-color .3s;"><div id="shipping-notice-inner"><div style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:#d8d8d8;margin-bottom:7px;">&#9432; Shipping</div><p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:14px;color:#d8d8d8;line-height:1.7;margin:0;">Free shipping on orders &#x20B9;2,999 &amp; above. &#x20B9;299 fee on orders below.</p></div></div><button class="cart-checkout-btn" onclick="goToCheckout()">Proceed to Checkout</button>
   </div>
 </div>
 
@@ -426,16 +435,6 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
       <label class="filter-opt"><input type="checkbox" data-filter="availability" value="out-of-stock"><label>Out of Stock</label></label>
     </div>
   </div>
-  <div class="filter-section" id="fs-occasion">
-    <div class="filter-head" onclick="toggleFilter('fs-occasion')">Occasion <span class="chev">&#8964;</span></div>
-    <div class="filter-body">
-      <label class="filter-opt"><input type="checkbox" data-filter="occasion" value="wedding"><label>Wedding</label></label>
-      <label class="filter-opt"><input type="checkbox" data-filter="occasion" value="festival"><label>Festival</label></label>
-      <label class="filter-opt"><input type="checkbox" data-filter="occasion" value="casual"><label>Casual</label></label>
-      <label class="filter-opt"><input type="checkbox" data-filter="occasion" value="gift"><label>Gift</label></label>
-      <label class="filter-opt"><input type="checkbox" data-filter="occasion" value="everyday"><label>Everyday</label></label>
-    </div>
-  </div>
   <div class="filter-section" id="fs-discount">
     <div class="filter-head" onclick="toggleFilter('fs-discount')">Discount <span class="chev">&#8964;</span></div>
     <div class="filter-body">
@@ -452,199 +451,7 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
   <div class="sort-wrap"><span class="sort-label">Sort by:</span><div class="sort-select-wrap"><select class="sort-select" id="sortSelect"><option value="featured">Featured</option><option value="relevant">Most Relevant</option><option value="bestselling">Best Selling</option><option value="name-az">Alphabetically, A&#8211;Z</option><option value="name-za">Alphabetically, Z&#8211;A</option><option value="price-lh">Price, Low to High</option><option value="price-hl">Price, High to Low</option><option value="date-on">Date, Old to New</option><option value="date-no">Date, New to Old</option></select></div></div>
 </div>
 <div class="products-wrap">
-<div class="product-grid grid-3">
-<div class="product-card" data-category="necklace-sets" data-collection="virasat" data-name="Virasat Heritage Necklace Set 01" data-price="3999" data-availability="in-stock" data-featured="1" data-bestselling="95" data-date="1700001001">
-  <div class="pc-img">
-    <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
-    <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
-  </div>
-  <div class="pc-info">
-    <p class="pc-cat">Necklace Sets</p>
-    <h3 class="pc-name">Virasat Heritage Necklace Set 01</h3>
-    <p class="pc-price">&#8377; 3,999</p>
-    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
-  </div>
-</div>
-<div class="product-card" data-category="necklace-sets" data-collection="virasat" data-name="Virasat Heritage Necklace Set 02" data-price="3999" data-availability="in-stock" data-featured="2" data-bestselling="88" data-date="1700001002">
-  <div class="pc-img">
-    <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
-    <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
-  </div>
-  <div class="pc-info">
-    <p class="pc-cat">Necklace Sets</p>
-    <h3 class="pc-name">Virasat Heritage Necklace Set 02</h3>
-    <p class="pc-price">&#8377; 3,999</p>
-    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
-  </div>
-</div>
-<div class="product-card" data-category="earrings" data-collection="virasat" data-name="Virasat Jhumka 01" data-price="3999" data-availability="in-stock" data-featured="3" data-bestselling="92" data-date="1700001003">
-  <div class="pc-img">
-    <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
-    <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
-  </div>
-  <div class="pc-info">
-    <p class="pc-cat">Earrings</p>
-    <h3 class="pc-name">Virasat Jhumka 01</h3>
-    <p class="pc-price">&#8377; 3,999</p>
-    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
-  </div>
-</div>
-<div class="product-card" data-category="earrings" data-collection="virasat" data-name="Virasat Jhumka 02" data-price="3999" data-availability="in-stock" data-featured="4" data-bestselling="85" data-date="1700001004">
-  <div class="pc-img">
-    <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
-    <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
-  </div>
-  <div class="pc-info">
-    <p class="pc-cat">Earrings</p>
-    <h3 class="pc-name">Virasat Jhumka 02</h3>
-    <p class="pc-price">&#8377; 3,999</p>
-    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
-  </div>
-</div>
-<div class="product-card" data-category="bangles-bracelets" data-collection="virasat" data-name="Virasat Kangan 01" data-price="3999" data-availability="in-stock" data-featured="5" data-bestselling="80" data-date="1700001005">
-  <div class="pc-img">
-    <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
-    <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
-  </div>
-  <div class="pc-info">
-    <p class="pc-cat">Bangles / Bracelets</p>
-    <h3 class="pc-name">Virasat Kangan 01</h3>
-    <p class="pc-price">&#8377; 3,999</p>
-    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
-  </div>
-</div>
-<div class="product-card" data-category="bangles-bracelets" data-collection="virasat" data-name="Virasat Kangan 02" data-price="3999" data-availability="in-stock" data-featured="6" data-bestselling="75" data-date="1700001006">
-  <div class="pc-img">
-    <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
-    <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
-  </div>
-  <div class="pc-info">
-    <p class="pc-cat">Bangles / Bracelets</p>
-    <h3 class="pc-name">Virasat Kangan 02</h3>
-    <p class="pc-price">&#8377; 3,999</p>
-    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
-  </div>
-</div>
-<div class="product-card" data-category="rings" data-collection="virasat" data-name="Virasat Kundan Ring 01" data-price="3999" data-availability="in-stock" data-featured="7" data-bestselling="78" data-date="1700001007">
-  <div class="pc-img">
-    <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
-    <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
-  </div>
-  <div class="pc-info">
-    <p class="pc-cat">Rings</p>
-    <h3 class="pc-name">Virasat Kundan Ring 01</h3>
-    <p class="pc-price">&#8377; 3,999</p>
-    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
-  </div>
-</div>
-<div class="product-card" data-category="rings" data-collection="virasat" data-name="Virasat Kundan Ring 02" data-price="3999" data-availability="in-stock" data-featured="8" data-bestselling="72" data-date="1700001008">
-  <div class="pc-img">
-    <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
-    <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
-  </div>
-  <div class="pc-info">
-    <p class="pc-cat">Rings</p>
-    <h3 class="pc-name">Virasat Kundan Ring 02</h3>
-    <p class="pc-price">&#8377; 3,999</p>
-    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
-  </div>
-</div>
-<div class="product-card" data-category="pendants" data-collection="virasat" data-name="Virasat Temple Pendant 01" data-price="3999" data-availability="in-stock" data-featured="9" data-bestselling="83" data-date="1700001009">
-  <div class="pc-img">
-    <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
-    <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
-  </div>
-  <div class="pc-info">
-    <p class="pc-cat">Pendants</p>
-    <h3 class="pc-name">Virasat Temple Pendant 01</h3>
-    <p class="pc-price">&#8377; 3,999</p>
-    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
-  </div>
-</div>
-<div class="product-card" data-category="pendants" data-collection="virasat" data-name="Virasat Temple Pendant 02" data-price="3999" data-availability="in-stock" data-featured="10" data-bestselling="76" data-date="1700001010">
-  <div class="pc-img">
-    <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
-    <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
-  </div>
-  <div class="pc-info">
-    <p class="pc-cat">Pendants</p>
-    <h3 class="pc-name">Virasat Temple Pendant 02</h3>
-    <p class="pc-price">&#8377; 3,999</p>
-    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
-  </div>
-</div>
-<div class="product-card" data-category="mangalsutra" data-collection="virasat" data-name="Virasat Mangalsutra 01" data-price="3999" data-availability="in-stock" data-featured="11" data-bestselling="90" data-date="1700001011">
-  <div class="pc-img">
-    <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
-    <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
-  </div>
-  <div class="pc-info">
-    <p class="pc-cat">Mangalsutra</p>
-    <h3 class="pc-name">Virasat Mangalsutra 01</h3>
-    <p class="pc-price">&#8377; 3,999</p>
-    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
-  </div>
-</div>
-<div class="product-card" data-category="mangalsutra" data-collection="virasat" data-name="Virasat Mangalsutra 02" data-price="3999" data-availability="in-stock" data-featured="12" data-bestselling="82" data-date="1700001012">
-  <div class="pc-img">
-    <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
-    <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
-  </div>
-  <div class="pc-info">
-    <p class="pc-cat">Mangalsutra</p>
-    <h3 class="pc-name">Virasat Mangalsutra 02</h3>
-    <p class="pc-price">&#8377; 3,999</p>
-    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
-  </div>
-</div>
-<div class="product-card" data-category="anklets" data-collection="virasat" data-name="Virasat Payal 01" data-price="3999" data-availability="in-stock" data-featured="13" data-bestselling="68" data-date="1700001013">
-  <div class="pc-img">
-    <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
-    <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
-  </div>
-  <div class="pc-info">
-    <p class="pc-cat">Anklets</p>
-    <h3 class="pc-name">Virasat Payal 01</h3>
-    <p class="pc-price">&#8377; 3,999</p>
-    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
-  </div>
-</div>
-<div class="product-card" data-category="anklets" data-collection="virasat" data-name="Virasat Payal 02" data-price="3999" data-availability="in-stock" data-featured="14" data-bestselling="62" data-date="1700001014">
-  <div class="pc-img">
-    <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
-    <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
-  </div>
-  <div class="pc-info">
-    <p class="pc-cat">Anklets</p>
-    <h3 class="pc-name">Virasat Payal 02</h3>
-    <p class="pc-price">&#8377; 3,999</p>
-    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
-  </div>
-</div>
-<div class="product-card" data-category="brooches" data-collection="virasat" data-name="Virasat Brooch 01" data-price="3999" data-availability="in-stock" data-featured="15" data-bestselling="58" data-date="1700001015">
-  <div class="pc-img">
-    <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
-    <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
-  </div>
-  <div class="pc-info">
-    <p class="pc-cat">Brooches</p>
-    <h3 class="pc-name">Virasat Brooch 01</h3>
-    <p class="pc-price">&#8377; 3,999</p>
-    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
-  </div>
-</div>
-<div class="product-card" data-category="wristlets" data-collection="virasat" data-name="Virasat Wristlet 01" data-price="3999" data-availability="in-stock" data-featured="16" data-bestselling="54" data-date="1700001016">
-  <div class="pc-img">
-    <div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Add Photo</span></div>
-    <div class="pc-actions"><button class="pc-wish" title="Wishlist">&#9825;</button></div>
-  </div>
-  <div class="pc-info">
-    <p class="pc-cat">Wristlets</p>
-    <h3 class="pc-name">Virasat Wristlet 01</h3>
-    <p class="pc-price">&#8377; 3,999</p>
-    <div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>
-  </div>
-</div>
+<div class="product-grid grid-3" id="product-grid"><div id="products-loading" style="grid-column:1/-1;padding:80px 0;text-align:center;font-family:var(--fh);font-size:9px;letter-spacing:3px;color:var(--text-dim);text-transform:uppercase;">Loading jewellery...</div>
 </div>
 <div class="no-results">No pieces found matching your filters.</div>
 </div>
@@ -652,14 +459,9 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
 </div>
 
 
-<footer><div class="ft"><div><img src="images/logo.png" alt="House of Ansh" class="fb-logo-img"/><div class="fb-name">House of Ansh</div><div class="fb-tag">A Little Moonlight You Can Wear</div><p class="fb-bio">Pure silver jewellery crafted with intention. Founded March 2026, Belur, Howrah. Ships across India.</p></div><div class="fcol"><h5>Navigate</h5><ul><li><a href="index.html">Home</a></li><li><a href="forher.html">For Her</a></li><li><a href="forhim.html">For Him</a></li><li><a href="virasat.html">Virasat Collection</a></li><li><a href="index.html#story">About Us</a></li></ul></div><div class="fcol"><h5>Policies</h5><ul><li><a href="#">Terms of Service</a></li><li><a href="#">Returns &amp; Exchanges</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Shipping &amp; Delivery</a></li></ul></div><div class="fcol"><h5>Connect</h5><ul><li><a href="https://www.instagram.com/house.of.ansh/" target="_blank">Instagram</a></li><li><a href="https://www.facebook.com/profile.php?id=61588830175777" target="_blank">Facebook</a></li><li><a href="mailto:house.of.ansh01@gmail.com">Email Us</a></li><li><a href="tel:+917439049616">+91-74390-49616</a></li></ul></div></div>
-</footer>
-<section class="seo-tags">
-  <div class="seo-tags-inner">
-    <span class="seo-tags-lbl">Tags :</span><span class="seo-tags-list">House of Ansh | Silver Jewellery | Pure Silver Jewellery | 925 Sterling Silver | Handcrafted Silver Jewellery | Handmade Jewellery India | Silver Bangles | Silver Bracelets | Silver Rings | Silver Earrings | Silver Necklace | Silver Pendant | Silver Anklets | Silver Mangalsutra | Silver Brooches | Silver Wristlets | Silver Chains for Men | Women's Silver Jewellery | Men's Silver Jewellery | Bridal Jewellery | Wedding Jewellery India | Festival Jewellery | Everyday Silver Jewellery | Daily Wear Silver | Luxury Silver Jewellery | Premium Silver Jewellery | Traditional Indian Jewellery | Contemporary Silver Jewellery | Oxidised Silver Jewellery | Hallmarked Silver | Pure 999 Silver | Buy Silver Jewellery Online | Silver Jewellery Online India | Silver Jewellery Shop | Jewellery Gift Ideas | Gift for Her | Gift for Him | Sustainable Jewellery | Artisan Jewellery India | Virasat Collection | Jewellery Store Online India | Pan India Shipping | Best Silver Jewellery India | Affordable Silver Jewellery | Minimalist Silver Jewellery | Silver Jewellery Howrah | Silver Jewellery West Bengal | House of Ansh Jewellery Store | Silver Jewellery Brand India</span>
-  </div>
-</section>
-<div class="fb-bottom"><span class="fb-copy">&#169; 2026 House of Ansh. All rights reserved.</span><span class="fb-made">Made with care by Anushree &amp; Meenakshi Krishna</span></div>
+<footer><div class="ft"><div><img src="images/logo.png" alt="House of Ansh" class="fb-logo-img"/><div class="fb-name">House of Ansh</div><div class="fb-tag">A Little Moonlight You Can Wear</div><p class="fb-bio">Pure silver jewellery crafted with intention. Founded March 2026, Belur, Howrah. Ships across India.</p></div><div class="fcol"><h5>Navigate</h5><ul><li><a href="home.html">Home</a></li><li><a href="forher.html">For Her</a></li><li><a href="forhim.html">For Him</a></li><li><a href="virasat.html">Virasat Collection</a></li><li><a href="index.html#story">About Us</a></li></ul></div><div class="fcol"><h5>Policies</h5><ul><li><a href="#" onclick="om('mTerms');return false;">Terms of Service</a></li><li><a href="#" onclick="om('mReturns');return false;">Returns &amp; Exchanges</a></li><li><a href="#" onclick="om('mPrivacy');return false;">Privacy Policy</a></li><li><a href="#" onclick="om('mShipping');return false;">Shipping &amp; Delivery</a></li></ul></div><div class="fcol"><h5>Connect</h5><ul><li><a href="https://www.instagram.com/houseofansh.in/" target="_blank">Instagram</a></li><li><a href="https://www.facebook.com/profile.php?id=61588830175777" target="_blank">Facebook</a></li><li><a href="https://www.linkedin.com/" target="_blank">LinkedIn</a></li><li><a href="#" onclick="openEmailChooser();return false;">Email Us</a></li><li><a href="tel:+917439049616">+91-74390-49616</a></li></ul></div></div></footer>
+<section class="seo-tags"><div class="seo-tags-inner"><span class="seo-tags-lbl">Tags :</span><span class="seo-tags-list">House of Ansh | Silver Jewellery | Pure Silver Jewellery | 925 Sterling Silver | Handcrafted Silver Jewellery | Handmade Jewellery India | Silver Bangles | Silver Bracelets | Silver Rings | Silver Earrings | Silver Necklace | Silver Pendant | Silver Anklets | Silver Mangalsutra | Silver Brooches | Silver Wristlets | Silver Chains for Men | Women's Silver Jewellery | Men's Silver Jewellery | Bridal Jewellery | Wedding Jewellery India | Festival Jewellery | Everyday Silver Jewellery | Daily Wear Silver | Luxury Silver Jewellery | Premium Silver Jewellery | Traditional Indian Jewellery | Contemporary Silver Jewellery | Oxidised Silver Jewellery | Hallmarked Silver | Pure 999 Silver | Buy Silver Jewellery Online | Silver Jewellery Online India | Silver Jewellery Shop | Jewellery Gift Ideas | Gift for Her | Gift for Him | Sustainable Jewellery | Artisan Jewellery India | Virasat Collection | Jewellery Store Online India | Pan India Shipping | Best Silver Jewellery India | Affordable Silver Jewellery | Minimalist Silver Jewellery | Silver Jewellery Howrah | Silver Jewellery West Bengal | House of Ansh Jewellery Store | Silver Jewellery Brand India</span></div></section>
+<div class="fb-bottom"><span class="fb-copy">© 2026 House of Ansh. All rights reserved. Howrah, West Bengal, India.</span><span class="fb-made">Made with care by Anushree &amp; Meenakshi Krishna</span></div>
 
 <script>
 (function(){
@@ -674,10 +476,10 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
     nm.querySelectorAll('.dropdown > a').forEach(function(a){a.addEventListener('click',function(){if(isMob())closeAll();});});
   }
   window.toggleFilter=function(id){document.getElementById(id).classList.toggle('open');};
-  var state={cats:new Set(),forSet:new Set(),availability:new Set(),occasions:new Set(),discounts:new Set(),priceMin:0,priceMax:50000};
-  var cards=Array.from(document.querySelectorAll('.product-card'));
+  var state={cats:new Set(),forSet:new Set(),availability:new Set(),discounts:new Set(),priceMin:0,priceMax:50000};
+  var cards=[];
   var countEl=document.getElementById('sortCount');
-  var grid=document.querySelector('.product-grid');
+  var grid=document.getElementById('product-grid');
   function applyFilters(){
     var visible=0;
     cards.forEach(function(c){
@@ -686,20 +488,18 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
       if(state.forSet.size&&!state.forSet.has(c.dataset.for||''))show=false;
       var p=+c.dataset.price||0;if(p>0&&(p<state.priceMin||p>state.priceMax))show=false;
       if(state.availability.size&&!state.availability.has(c.dataset.availability||'in-stock'))show=false;
-      if(state.occasions.size&&!state.occasions.has(c.dataset.occasion||''))show=false;
-      if(state.discounts.size){var ok=false;state.discounts.forEach(function(d){if((+c.dataset.discount||0)>=+d)ok=true;});if(!ok)show=false;}
+      if(state.discounts.size){var dk=false;state.discounts.forEach(function(d){if((+c.dataset.discount||0)>=+d)dk=true;});if(!dk)show=false;}
       c.classList.toggle('hidden',!show);if(show)visible++;
     });
     if(countEl)countEl.textContent=visible+' '+(visible===1?'piece':'pieces');
-    var nr=document.querySelector('.no-results');if(nr)nr.style.display=visible===0?'block':'none';
+    var nr=document.querySelector('.no-results');if(nr)nr.style.display=(visible===0&&cards.length>0)?'block':'none';
   }
   document.querySelectorAll('input[data-filter]').forEach(function(inp){
     inp.addEventListener('change',function(){
-      var map={category:state.cats,'for':state.forSet,availability:state.availability,occasion:state.occasions,discount:state.discounts};
+      var map={category:state.cats,'for':state.forSet,availability:state.availability,discount:state.discounts};
       var s=map[inp.dataset.filter];if(s){inp.checked?s.add(inp.value):s.delete(inp.value);applyFilters();}
     });
   });
-  applyFilters();
   var sel=document.getElementById('sortSelect');
   if(sel){sel.addEventListener('change',function(){var v=sel.value;cards.sort(function(a,b){if(v==='name-az')return a.dataset.name.localeCompare(b.dataset.name);if(v==='name-za')return b.dataset.name.localeCompare(a.dataset.name);if(v==='price-lh')return +a.dataset.price - +b.dataset.price;if(v==='price-hl')return +b.dataset.price - +a.dataset.price;if(v==='date-on')return +a.dataset.date - +b.dataset.date;if(v==='date-no')return +b.dataset.date - +a.dataset.date;if(v==='bestselling')return +b.dataset.bestselling - +a.dataset.bestselling;return +a.dataset.featured - +b.dataset.featured;});cards.forEach(function(c){grid.appendChild(c);});});}
   var slMin=document.getElementById('priceMin'),slMax=document.getElementById('priceMax'),inMin=document.getElementById('priceMinIn'),inMax=document.getElementById('priceMaxIn'),fill=document.getElementById('priceFill');
@@ -707,6 +507,13 @@ footer{border-top:1px solid var(--border);padding:60px 56px 0;}
   function sp(){state.priceMin=+slMin.value;state.priceMax=+slMax.value;inMin.value=slMin.value;inMax.value=slMax.value;uf();applyFilters();}
   if(slMin&&slMax){slMin.addEventListener('input',function(){if(+slMin.value>+slMax.value)slMax.value=slMin.value;sp();});slMax.addEventListener('input',function(){if(+slMax.value<+slMin.value)slMin.value=slMax.value;sp();});inMin.addEventListener('change',function(){slMin.value=Math.min(+inMin.value,+slMax.value);sp();});inMax.addEventListener('change',function(){slMax.value=Math.max(+inMax.value,+slMin.value);sp();});uf();}
   document.querySelectorAll('.vt-btn').forEach(function(btn){btn.addEventListener('click',function(){document.querySelectorAll('.vt-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');grid.className='product-grid '+btn.dataset.grid;});});
+  window.initProductGrid=function(newCards){
+    cards=newCards;
+    var wl=JSON.parse(localStorage.getItem('hoaWishlist')||'[]');
+    cards.forEach(function(c){var btn=c.querySelector('.pc-wish');if(btn&&wl.includes(c.dataset.name))btn.classList.add('wished');});
+    cards.forEach(function(c){if(c.dataset.availability==='made-to-order'&&!c.querySelector('.pc-mto-badge')){var badge=document.createElement('p');badge.className='pc-mto-badge';badge.textContent='Made to Order · Ships in 5 Days';var nameEl=c.querySelector('.pc-name');if(nameEl)nameEl.insertAdjacentElement('afterend',badge);else c.appendChild(badge);}});
+    applyFilters();
+  };
 })();
 </script>
 
@@ -716,13 +523,29 @@ function closeSearch(){var o=document.getElementById('search-overlay');if(o)o.cl
 function openCart(){document.getElementById('cart-overlay').classList.add('active');document.getElementById('cart-panel').classList.add('active');document.body.style.overflow='hidden';}
 function closeCart(){document.getElementById('cart-overlay').classList.remove('active');document.getElementById('cart-panel').classList.remove('active');document.body.style.overflow='';}
 var hoaCart=JSON.parse(localStorage.getItem('hoaCart')||'[]');
-function renderCartUI(){var body=document.getElementById('cart-body');var footer=document.querySelector('.cart-footer-panel');var total=hoaCart.reduce(function(s,i){return s+(Number(i.price)||0)*i.qty;},0);if(!hoaCart.length){body.innerHTML='<div class="cart-empty-state"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><p class="cart-empty-msg">Your cart is empty.<br/>Add something beautiful.</p><a href="virasat.html" class="cart-shop-link">Continue Shopping</a></div>';if(footer)footer.style.display='none';}else{body.innerHTML=hoaCart.map(function(item,idx){return'<div class="cart-item"><div class="cart-item-info"><div class="cart-item-name">'+item.name+'</div><div class="cart-item-price">&#8377;'+(Number(item.price)||0).toLocaleString('en-IN')+(item.qty>1?' &times; '+item.qty:'')+'</div></div><button class="cart-item-rm" onclick="removeFromCart('+idx+')">&#215;</button></div>';}).join('');if(footer)footer.style.display='';var amt=document.getElementById('cart-total-amount');if(amt)amt.textContent='&#8377;'+total.toLocaleString('en-IN');}}
+function renderCartUI(){var body=document.getElementById('cart-body');var footer=document.querySelector('.cart-footer-panel');var total=hoaCart.reduce(function(s,i){return s+(Number(i.price)||0)*i.qty;},0);if(!hoaCart.length){body.innerHTML='<div class="cart-empty-state"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><p class="cart-empty-msg">Your cart is empty.<br/>Add something beautiful.</p><a href="virasat.html" class="cart-shop-link">Continue Shopping</a></div>';if(footer)footer.style.display='none';}else{body.innerHTML=hoaCart.map(function(item,idx){return'<div class="cart-item"><div class="cart-item-info"><div class="cart-item-name">'+item.name+'</div><div class="cart-item-price">&#8377;'+(Number(item.price)||0).toLocaleString('en-IN')+(item.qty>1?' &times; '+item.qty:'')+'</div></div><button class="cart-item-rm" onclick="removeFromCart('+idx+')">&#215;</button></div>';}).join('');if(footer)footer.style.display='';var amt=document.getElementById('cart-total-amount');if(amt){amt.innerHTML='&#8377;'+total.toLocaleString('en-IN');amt.dataset.cartTotal=total;};}}
 function addToCart(btn){var card=btn.closest('.product-card');var name=card?card.dataset.name:'Item';var price=card?Number(card.dataset.price)||0:0;var cat=card?card.dataset.category:'';var avail=card?card.dataset.availability||'in-stock':'in-stock';var idx=hoaCart.findIndex(function(i){return i.name===name;});if(idx>-1){hoaCart[idx].qty++;}else{hoaCart.push({name:name,price:price,category:cat,availability:avail,qty:1});}localStorage.setItem('hoaCart',JSON.stringify(hoaCart));renderCartUI();openCart();}
 function removeFromCart(idx){hoaCart.splice(idx,1);localStorage.setItem('hoaCart',JSON.stringify(hoaCart));renderCartUI();}
 function buyNow(btn){var card=btn.closest('.product-card');var avail=card?card.dataset.availability||'in-stock':'in-stock';var name=encodeURIComponent(card?card.dataset.name:'Item');var price=card?card.dataset.price||0:0;var cat=encodeURIComponent(card?card.dataset.category:'');window.location.href='checkout.html?product='+name+'&price='+price+'&category='+cat+'&availability='+avail;}
 function goToCheckout(){window.location.href='checkout.html?from=cart';}
 renderCartUI();
+function goToProduct(card){
+  var n=encodeURIComponent(card.dataset.name||'');
+  var cat=encodeURIComponent(card.dataset.category||'');
+  var price=encodeURIComponent(card.dataset.price||'0');
+  var avail=encodeURIComponent(card.dataset.availability||'in-stock');
+  var from=encodeURIComponent('virasat.html');
+  var img=encodeURIComponent(card.dataset.img||'');var pid=encodeURIComponent(card.dataset.id||'');
+  window.location.href='product.html?name='+n+'&cat='+cat+'&price='+price+'&from='+from+'&avail='+avail+'&img='+img+'&id='+pid;
+}
+
 document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.product-card').forEach(function(card){
+    card.addEventListener('click',function(e){
+      if(e.target.closest('.pc-actions'))return;
+      goToProduct(card);
+    });
+  });
   document.querySelectorAll('.product-card[data-availability="made-to-order"]').forEach(function(c){var badge=document.createElement('p');badge.className='pc-mto-badge';badge.textContent='Made to Order · Ships in 5 Days';var nameEl=c.querySelector('.pc-name');if(nameEl)nameEl.insertAdjacentElement('afterend',badge);else c.appendChild(badge);});
   var btn=document.getElementById('nav-search-btn');
   var overlay=document.getElementById('search-overlay');
@@ -756,32 +579,35 @@ document.addEventListener('DOMContentLoaded',function(){
 </script>
 <script src="search.js"></script>
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
-const app = initializeApp({apiKey:"AIzaSyBwqpavjzi15Zt9qHoufjJFI05k7AAHLRs",authDomain:"house-of-ansh.firebaseapp.com",projectId:"house-of-ansh",storageBucket:"house-of-ansh.firebasestorage.app",messagingSenderId:"386185011014",appId:"1:386185011014:web:fef798d4e17c84170bcf47"});
-const db = getFirestore(app);
+import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+const cfg={apiKey:"AIzaSyBwqpavjzi15Zt9qHoufjJFI05k7AAHLRs",authDomain:"house-of-ansh.firebaseapp.com",projectId:"house-of-ansh",storageBucket:"house-of-ansh.firebasestorage.app",messagingSenderId:"386185011014",appId:"1:386185011014:web:fef798d4e17c84170bcf47"};
+const app=getApps().length?getApps()[0]:initializeApp(cfg);
+const db=getFirestore(app);
+const COLLECTION_KEY='virasat';
+const TYPE_LABELS={'bangles-bracelets':'Bangles / Bracelets','rings':'Rings','earrings':'Earrings','pendants':'Pendants','necklace-sets':'Necklace Sets','mangalsutra':'Mangalsutra','brooches':'Brooches','anklets':'Anklets','wristlets':'Wristlets','chain':'Chain'};
+const PH=`<div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Coming Soon</span></div>`;
+function makeCard(p,idx){
+  const typeLabel=TYPE_LABELS[p.productType||'']||'';
+  const imgHtml=p.imageUrl?`<img src="${p.imageUrl}" alt="${(p.name||'').replace(/"/g,'')}" style="width:100%;height:100%;object-fit:cover;">`:PH;
+  const ts=p.createdAt&&p.createdAt.seconds?p.createdAt.seconds:Math.floor(Date.now()/1000)-idx;
+  return `<div class="product-card" data-id="${p.id}" data-category="${p.productType||''}" data-collection="virasat" data-name="${(p.name||'').replace(/"/g,'&quot;')}" data-price="${p.price||0}" data-availability="${p.availability||'in-stock'}" data-img="${p.imageUrl||''}" data-featured="${idx+1}" data-bestselling="${1000-idx}" data-date="${ts}"><div class="pc-img" onclick="goToProduct(this.closest('.product-card'))">${imgHtml}<div class="pc-actions"><button class="pc-wish" title="Add to Wishlist" onclick="toggleWishlist(this)">&#9825;</button></div></div><div class="pc-info">${typeLabel?`<p class="pc-cat">${typeLabel}</p>`:''}<h3 class="pc-name" onclick="goToProduct(this.closest('.product-card'))" style="cursor:pointer;">${p.name||'—'}</h3><p class="pc-price">&#8377; ${Number(p.price||0).toLocaleString('en-IN')}</p><div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div></div></div>`;
+}
 (async()=>{
+  const loadingEl=document.getElementById('products-loading');
+  const grid=document.getElementById('product-grid');
   try{
-    const snap = await getDocs(collection(db,'products'));
-    snap.forEach(d=>{
-      const p=d.data();
-      if(!p.name) return;
-      const card=document.querySelector(`.product-card[data-name="${CSS.escape(p.name)}"]`);
-      if(!card) return;
-      card.dataset.availability = p.availability||'in-stock';
-      if(p.price&&Number(p.price)>0){card.dataset.price=p.price;const pe=card.querySelector('.pc-price');if(pe)pe.textContent='₹ '+Number(p.price).toLocaleString('en-IN');}
-      const hasBadge = card.querySelector('.pc-mto-badge');
-      if(p.availability==='made-to-order' && !hasBadge){
-        const b=document.createElement('p');
-        b.className='pc-mto-badge';
-        b.textContent='Made to Order · Ships in 5 Days';
-        const nm=card.querySelector('.pc-name');
-        nm?nm.insertAdjacentElement('afterend',b):card.appendChild(b);
-      } else if(p.availability!=='made-to-order' && hasBadge){
-        hasBadge.remove();
-      }
-    });
-  }catch(e){}
+    const snap=await getDocs(query(collection(db,'products'),where('categories','array-contains',COLLECTION_KEY)));
+    if(loadingEl)loadingEl.remove();
+    if(snap.empty){
+      grid.innerHTML='<div style="grid-column:1/-1;padding:80px 0;text-align:center;font-family:var(--fh);font-size:9px;letter-spacing:3px;color:var(--text-dim);text-transform:uppercase;">New pieces coming soon...</div>';
+      if(window.initProductGrid)window.initProductGrid([]);
+      return;
+    }
+    const products=snap.docs.map(d=>({id:d.id,...d.data()}));
+    grid.innerHTML=products.map(makeCard).join('');
+    if(window.initProductGrid)window.initProductGrid(Array.from(grid.querySelectorAll('.product-card')));
+  }catch(e){if(loadingEl)loadingEl.remove();if(window.initProductGrid)window.initProductGrid([]);}
 })();
 </script>
 <script type="module">
@@ -809,4 +635,130 @@ window.toggleWishlist=async function(btn){
   if(uid){await setDoc(doc(db,'wishlists',uid),{items:wished?arrayUnion(name):arrayRemove(name)},{merge:true});}
   else{var wl=JSON.parse(localStorage.getItem('hoaWishlist')||'[]');if(wished){if(!wl.includes(name))wl.push(name);}else{wl=wl.filter(function(n){return n!==name;});}localStorage.setItem('hoaWishlist',JSON.stringify(wl));}
 };
+</script><div id="email-chooser-ov" onclick="if(event.target===this)closeEmailChooser()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9500;align-items:center;justify-content:center;backdrop-filter:blur(6px);">
+  <div style="background:#0e0e0e;border:1px solid #242424;padding:36px 32px;width:90%;max-width:360px;position:relative;">
+    <button onclick="closeEmailChooser()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#909090;font-size:18px;cursor:pointer;line-height:1;">&#x2715;</button>
+    <div style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:#d8d8d8;margin-bottom:6px;">Send Us an Email</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:14px;color:#666;margin-bottom:24px;">Choose your email platform</div>
+    <a id="ec-gmail" href="#" target="_blank" style="display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid #1a1a1a;text-decoration:none;color:#aaa;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;transition:color .2s;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2m20 0v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6m20 0l-10 7L2 6" stroke="#EA4335" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Gmail
+    </a>
+    <a id="ec-outlook" href="#" target="_blank" style="display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid #1a1a1a;text-decoration:none;color:#aaa;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;transition:color .2s;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#0078D4" stroke-width="1.5"/><path d="M2 8l10 6 10-6" stroke="#0078D4" stroke-width="1.5" stroke-linecap="round"/></svg>
+      Outlook
+    </a>
+    <a id="ec-yahoo" href="#" target="_blank" style="display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid #1a1a1a;text-decoration:none;color:#aaa;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;transition:color .2s;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 4l6 8v5h6v-5l6-8" stroke="#6001D2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Yahoo Mail
+    </a>
+    <a id="ec-default" href="#" style="display:flex;align-items:center;gap:14px;padding:13px 0;text-decoration:none;color:#aaa;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;transition:color .2s;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="#d8d8d8" stroke-width="1.5"/><polyline points="22,6 12,13 2,6" stroke="#d8d8d8" stroke-width="1.5"/></svg>
+      Default Mail App
+    </a>
+  </div>
+</div>
+<script>
+function openEmailChooser(){
+  var s='Enquiry - House of Ansh';
+  var b='Hi House of Ansh,\n\nI would like to get in touch regarding:\n\n';
+  var to='house.of.ansh01@gmail.com';
+  document.getElementById('ec-gmail').href='https://mail.google.com/mail/?view=cm&to='+encodeURIComponent(to)+'&su='+encodeURIComponent(s)+'&body='+encodeURIComponent(b);
+  document.getElementById('ec-outlook').href='https://outlook.live.com/mail/0/deeplink/compose?to='+encodeURIComponent(to)+'&subject='+encodeURIComponent(s)+'&body='+encodeURIComponent(b);
+  document.getElementById('ec-yahoo').href='https://compose.mail.yahoo.com/?to='+encodeURIComponent(to)+'&subject='+encodeURIComponent(s)+'&body='+encodeURIComponent(b);
+  document.getElementById('ec-default').href='mailto:'+to+'?subject='+encodeURIComponent(s)+'&body='+encodeURIComponent(b);
+  var ov=document.getElementById('email-chooser-ov');
+  ov.style.display='flex';
+  document.body.style.overflow='hidden';
+}
+function closeEmailChooser(){
+  document.getElementById('email-chooser-ov').style.display='none';
+  document.body.style.overflow='';
+}
+</script><div class="modal-ov" id="mTerms" style="position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(8px);"><div style="background:#0e0e0e;border:1px solid #242424;max-width:620px;width:90%;max-height:80vh;overflow-y:auto;padding:48px;position:relative;"><button onclick="cm('mTerms')" style="position:absolute;top:14px;right:14px;font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:#909090;cursor:pointer;background:none;border:none;text-transform:uppercase;">Close ✕</button><div style="font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#f5f5f5;margin-bottom:5px;">Terms of Service</div><div style="font-family:'Playfair Display',serif;font-size:18px;font-style:italic;color:#909090;margin-bottom:24px;">Effective March 2026</div><div style="font-family:'Cormorant Garamond',serif;font-size:16px;color:#aaa;line-height:1.82;"><b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">1. Introduction</b>These Terms govern your use of our website. By using it, you accept these Terms in full.<br/><br/>You must be at least 18 years of age. Our website uses cookies; by using it you consent to our cookie policy.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">2. License to Use Website</b>You may view, print, and use services for personal and business purposes. You must not republish, sell, or redistribute material without permission.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">3. Acceptable Use</b>You must not damage the website, transmit malware, or use it unlawfully. All information you supply must be accurate.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">4. Orders &amp; Payment</b>Confirmed on receipt of full payment in INR. Unavailable orders refunded in full.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">5. Buyback &amp; Exchange (Up to 70%)</b>Eligible only for genuine products with invoice, purchased from our official website. Valid up to 3 years. Up to 70% as store credit; new purchase must exceed credit. Items must be in good condition. Customised or discounted products may not be eligible. Store credits are non-refundable and non-transferable.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">16. Law &amp; Jurisdiction</b>Governed by Indian law. Disputes under Howrah court jurisdiction.</div></div></div>
+<div class="modal-ov" id="mReturns" style="position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(8px);"><div style="background:#0e0e0e;border:1px solid #242424;max-width:620px;width:90%;max-height:80vh;overflow-y:auto;padding:48px;position:relative;"><button onclick="cm('mReturns')" style="position:absolute;top:14px;right:14px;font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:#909090;cursor:pointer;background:none;border:none;text-transform:uppercase;">Close ✕</button><div style="font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#f5f5f5;margin-bottom:5px;">Returns &amp; Exchanges</div><div style="font-family:'Playfair Display',serif;font-size:18px;font-style:italic;color:#909090;margin-bottom:24px;">We want you to love every piece.</div><div style="font-family:'Cormorant Garamond',serif;font-size:16px;color:#aaa;line-height:1.82;"><b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">Return Window</b>7 days from delivery — unused, unworn, original packaging.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">Non-Returnable</b>Custom/personalised pieces, sale items, damaged by misuse.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">Process</b>Email house.of.ansh01@gmail.com with order number. Response within 48 hours.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">Refunds</b>7–10 business days to original payment. Shipping non-refundable.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">Photograph Requirement</b>Before we arrange for your damaged or incorrect product to be returned to us, you are required to send us a photograph of the product. It is then up to the discretion of the House of Ansh Jewellery Quality Check team to decide whether the product is approved for return.<br/><br/>This policy does not apply to cancellation of orders after 3 days of placing it, or to custom made orders.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">No Refunds in the Following Cases</b><ul style="margin-top:6px;padding-left:18px;"><li style="margin-bottom:8px;">Incorrect or outdated delivery address.</li><li style="margin-bottom:8px;">After 3 failed delivery attempts by our courier agent.</li><li style="margin-bottom:8px;">Package refused by recipient.</li><li style="margin-bottom:8px;">Sizing issues. Please review our size guides carefully before making your purchase.</li><li style="margin-bottom:8px;">Products returned in a used or damaged condition.</li><li style="margin-bottom:8px;">Minor colour and design variation. All products are handmade and may vary slightly from website photographs.</li><li style="margin-bottom:8px;">If the jewellery is not faulty or damaged.</li><li style="margin-bottom:8px;">The customer fails to inform us within 2 days of receipt of goods.</li><li style="margin-bottom:8px;">For Made to Order requests cancelled after 2 days of payment — 25% of the product cost will be deducted and the balance refunded.</li></ul></div></div></div>
+<div class="modal-ov" id="mPrivacy" style="position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(8px);"><div style="background:#0e0e0e;border:1px solid #242424;max-width:620px;width:90%;max-height:80vh;overflow-y:auto;padding:48px;position:relative;"><button onclick="cm('mPrivacy')" style="position:absolute;top:14px;right:14px;font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:#909090;cursor:pointer;background:none;border:none;text-transform:uppercase;">Close ✕</button><div style="font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#f5f5f5;margin-bottom:5px;">Privacy Policy</div><div style="font-family:'Playfair Display',serif;font-size:18px;font-style:italic;color:#909090;margin-bottom:24px;">Your trust matters deeply.</div><div style="font-family:'Cormorant Garamond',serif;font-size:16px;color:#aaa;line-height:1.82;"><b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">What We Collect</b>Name, email, phone, address — only what you provide.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">How We Use It</b>Solely to process orders and provide support. Never sold or shared.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">Contact</b>house.of.ansh01@gmail.com</div></div></div>
+<div class="modal-ov" id="mShipping" style="position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(8px);"><div style="background:#0e0e0e;border:1px solid #242424;max-width:620px;width:90%;max-height:80vh;overflow-y:auto;padding:48px;position:relative;"><button onclick="cm('mShipping')" style="position:absolute;top:14px;right:14px;font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:#909090;cursor:pointer;background:none;border:none;text-transform:uppercase;">Close ✕</button><div style="font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#f5f5f5;margin-bottom:5px;">Shipping &amp; Delivery</div><div style="font-family:'Playfair Display',serif;font-size:18px;font-style:italic;color:#909090;margin-bottom:24px;">Pan India &amp; Worldwide. With care.</div><div style="font-family:'Cormorant Garamond',serif;font-size:16px;color:#aaa;line-height:1.82;"><b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">1. Pan-India Shipping</b>Partnered with DHL, FedEx, DTDC, Delhivery, Blue Dart, Xpress Bees and more.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">2. Shipping Method</b>Free shipping on orders ₹2,999 & above. A delivery fee of ₹299 applies to all orders below ₹2,999. All prices inclusive of GST.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">3. Processing &amp; Dispatch</b>Each piece is crafted to order. Dispatch takes 2–5 business days. Customisation: 7–30 days + ₹500 fee.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">4. Delivery</b>Monday–Saturday, 10 AM–6 PM. Delivery takes 6–8 business days after dispatch, excluding bank holidays and Sundays.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">5. Contact</b>house.of.ansh01@gmail.com | +91 74390 49616</div></div></div>
+<script>
+if(typeof om !== 'function'){
+  function om(id){var m=document.getElementById(id);if(m){m.classList.add('open');m.style.opacity='1';m.style.pointerEvents='all';document.body.style.overflow='hidden';}}
+  function cm(id){var m=document.getElementById(id);if(m){m.classList.remove('open');m.style.opacity='0';m.style.pointerEvents='none';document.body.style.overflow='';}}
+  document.addEventListener('click',function(e){if(e.target.id&&['mTerms','mReturns','mPrivacy','mShipping'].indexOf(e.target.id)>-1)cm(e.target.id);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')['mTerms','mReturns','mPrivacy','mShipping'].forEach(function(id){cm(id);});});
+}
+</script>
+<style id="footer-std">
+footer{background:var(--deep,#090909);border-top:1px solid var(--border,#1a1a1a);padding:56px 56px 32px;}
+.ft{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid var(--border,#1a1a1a);}
+.fb-logo-img{height:48px;width:auto;object-fit:contain;margin-bottom:10px;display:block;}
+.fb-name{font-family:var(--fp,'Playfair Display',serif);font-size:17px;font-style:italic;color:var(--white,#f5f5f5);margin-bottom:4px;}
+.fb-tag{font-family:var(--fg,'Cormorant Garamond',serif);font-style:italic;font-size:13px;color:var(--silver-dim,#909090);margin-bottom:14px;}
+.fb-bio{font-family:var(--fg,'Cormorant Garamond',serif);font-size:16px;color:var(--silver-dim,#909090);line-height:1.7;max-width:280px;}
+.fcol h5{font-family:var(--fh,'Cinzel',serif);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--silver,#d8d8d8);margin-bottom:16px;}
+.fcol ul{list-style:none;}
+.fcol li,.fcol ul li{margin-bottom:12px;line-height:1.8;}
+.fcol a,.fcol li a,.fcol ul li a{font-family:var(--fg,'Cormorant Garamond',serif);font-size:16px;line-height:1.8;color:var(--silver-dim,#909090);text-decoration:none;transition:color .3s;display:block;}
+.fcol a:hover,.fcol li a:hover,.fcol ul li a:hover{color:var(--silver,#d8d8d8);}
+.fb-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;background:var(--surface,#0e0e0e);border-top:1px solid var(--border,#1a1a1a);padding:18px 56px;}
+.fb-copy{font-family:var(--fh,'Cinzel',serif);font-size:7.5px;letter-spacing:2px;color:var(--text-dim,#555);text-transform:uppercase;}
+.fb-made{font-family:var(--fp,'Playfair Display',serif);font-style:italic;font-size:12px;color:var(--text-dim,#555);}
+.seo-tags{border-top:1px solid var(--border,#1a1a1a);padding:28px 56px;background:var(--surface,#0e0e0e);}
+.seo-tags-inner{max-width:1400px;margin:0 auto;}
+.seo-tags-lbl{font-family:var(--fh,'Cinzel',serif);font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:var(--silver-dim,#909090);margin-right:10px;font-weight:600;}
+.seo-tags-list{font-family:var(--fg,'Cormorant Garamond',serif);font-size:13px;color:var(--text-dim,#555);line-height:2;}
+@media(max-width:900px){footer{padding:48px 24px 28px;}.ft{grid-template-columns:1fr 1fr;gap:28px;}}
+@media(max-width:640px){footer{padding:32px 20px 16px;}.ft{grid-template-columns:1fr;margin-bottom:28px;padding-bottom:28px;gap:20px;}.fb-bottom{padding:14px 20px;}.seo-tags{padding:22px 20px;}.seo-tags-list{font-size:12px;}}
+</style>
+<script>
+(function(){
+  var FREE=2999, FEE=299;
+  function updateShipNotice(){
+    var notice=document.getElementById('cod-notice');
+    var inner=document.getElementById('shipping-notice-inner');
+    if(!notice||!inner)return;
+    var total=(typeof hoaCart!=='undefined'&&hoaCart)?hoaCart.reduce(function(s,i){return s+(Number(i.price)||0)*(i.qty||1);},0):0;
+    if(total>=FREE){
+      notice.style.borderLeftColor='#4caf7d';
+      inner.innerHTML='<div style="font-family:\'Cinzel\',serif;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:#4caf7d;margin-bottom:5px;">&#10003; Free Shipping Unlocked</div><p style="font-family:\'Cormorant Garamond\',Georgia,serif;font-size:14px;color:#4caf7d;line-height:1.6;margin:0;">Your order qualifies for free shipping!</p>';
+    }else{
+      notice.style.borderLeftColor='#d8d8d8';
+      var rem=FREE-total;
+      var pct=total>0?Math.min(95,Math.round(total/FREE*100)):0;
+      var msg=total>0?'Add \u20b9'+rem.toLocaleString('en-IN')+' more for free shipping':'Free shipping on orders \u20b92,999 & above';
+      inner.innerHTML='<div style="font-family:\'Cinzel\',serif;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:#d8d8d8;margin-bottom:6px;">\u24d8 Shipping</div>'
+        +'<p style="font-family:\'Cormorant Garamond\',Georgia,serif;font-size:14px;color:#d8d8d8;line-height:1.6;margin:0 0 10px;">'+msg+'. \u20b9'+FEE+' fee applies below \u20b92,999.</p>'
+        +(total>0?'<div style="height:3px;background:rgba(196,196,196,.15);border-radius:2px;overflow:hidden;"><div style="height:100%;width:'+pct+'%;background:#d8d8d8;border-radius:2px;transition:width .4s;"></div></div>':'');
+    }
+  }
+  document.addEventListener('DOMContentLoaded',function(){
+    updateShipNotice();
+    var el=document.getElementById('cart-total-amount');
+    if(el){new MutationObserver(updateShipNotice).observe(el,{childList:true,subtree:true,characterData:true});}
+  });
+  document.addEventListener('click',function(){setTimeout(updateShipNotice,80);});
+  window.addEventListener('storage',updateShipNotice);
+})();
 </script></html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -129,6 +129,19 @@ textarea.form-input{resize:vertical;min-height:80px;}
       </div>
     </div>
 
+    <!-- FOUNDER DELIVERY — shown only when city = Kolkata -->
+    <div id="founder-delivery-section" style="display:none;margin-bottom:28px;">
+      <div style="border:1px solid rgba(201,168,76,.35);background:rgba(201,168,76,.05);padding:20px 22px;">
+        <div style="display:flex;align-items:flex-start;gap:16px;">
+          <input type="checkbox" id="founder-chk" onchange="toggleFounderDelivery()" style="width:18px;height:18px;margin-top:3px;accent-color:#c9a84c;cursor:pointer;flex-shrink:0;"/>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#c9a84c;margin-bottom:6px;">Founder's Personal Delivery &nbsp;·&nbsp; ₹1,499</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:15px;color:#d8d8d8;line-height:1.7;">Have Anushree, founder of House of Ansh, personally deliver your order to you. A rare and intimate experience — available exclusively in Kolkata.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="form-section">
       <div class="form-section-title">Coupon Code</div>
       <div class="coupon-row">
@@ -157,8 +170,15 @@ textarea.form-input{resize:vertical;min-height:80px;}
     <div class="summary-line"><span>Product Price</span><span id="sum-price">—</span></div>
     <div class="summary-line discount" id="sum-discount-row" style="display:none;"><span id="sum-coupon-label">Coupon</span><span id="sum-discount">—</span></div>
     <div class="summary-line" id="sum-delivery-row"><span>Delivery</span><span id="sum-delivery">—</span></div>
+    <div class="summary-line" id="sum-founder-row" style="display:none;color:#c9a84c;"><span>Founder's Delivery</span><span id="sum-founder">₹1,499</span></div>
     <div class="summary-line" id="sum-dispatch-row"><span>Dispatch</span><span id="sum-dispatch">—</span></div>
     <div class="summary-line total"><span>Total</span><span id="sum-total">—</span></div>
+    <div id="cod-notice" style="background:rgba(196,196,196,.07);border:1px solid rgba(196,196,196,.2);border-left:3px solid #d8d8d8;padding:14px 16px;margin-bottom:16px;transition:border-left-color .3s;">
+      <div id="checkout-ship-inner">
+        <div style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:#d8d8d8;margin-bottom:6px;">&#9432; Shipping</div>
+        <p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:14px;color:#d8d8d8;line-height:1.7;margin:0;">Calculating...</p>
+      </div>
+    </div>
     <button class="place-btn" id="place-btn" onclick="placeOrder()">Place Order</button>
     <div style="font-size:11px;color:var(--silver-dim);text-align:center;margin-top:14px;line-height:1.6;">
       We will send you a payment link on WhatsApp within 1 hour of placing your order.
@@ -226,8 +246,8 @@ async function init() {
     const snap = await getDocs(collection(db,'settings'));
     if(!snap.empty) {
       const s = snap.docs[0].data();
-      freeAbove   = s.freeDeliveryAbove ?? 5000;
-      deliveryFee = s.deliveryCharge    ?? 300;
+      freeAbove   = s.freeDeliveryAbove ?? 2999;
+      deliveryFee = s.deliveryCharge    ?? 299;
     }
   } catch(e){}
 
@@ -254,9 +274,40 @@ async function init() {
   document.getElementById('checkout-wrap').style.display = 'grid';
 }
 
+let founderDeliveryAmt = 0;
+
+window.toggleFounderDelivery = function() {
+  const chk = document.getElementById('founder-chk');
+  founderDeliveryAmt = chk.checked ? 1499 : 0;
+  const row = document.getElementById('sum-founder-row');
+  if(row) row.style.display = chk.checked ? 'flex' : 'none';
+  updateSummary();
+};
+
+// Show/hide founder delivery section based on city
+document.addEventListener('DOMContentLoaded', function() {
+  const cityInput = document.getElementById('c-city');
+  if(cityInput) {
+    cityInput.addEventListener('input', function() {
+      const sec = document.getElementById('founder-delivery-section');
+      const isKolkata = /kolkata/i.test(cityInput.value.trim());
+      if(sec) sec.style.display = isKolkata ? 'block' : 'none';
+      if(!isKolkata) {
+        const chk = document.getElementById('founder-chk');
+        if(chk) chk.checked = false;
+        founderDeliveryAmt = 0;
+        const row = document.getElementById('sum-founder-row');
+        if(row) row.style.display = 'none';
+        updateSummary();
+      }
+    });
+  }
+});
+
 function updateSummary() {
-  const del = (productPrice - discountAmt) >= freeAbove ? 0 : deliveryFee;
-  const total = productPrice - discountAmt + del;
+  const subtotal = productPrice - discountAmt;
+  const del = subtotal >= freeAbove ? 0 : deliveryFee;
+  const total = subtotal + del + founderDeliveryAmt;
 
   if(del === 0) {
     document.getElementById('sum-delivery').textContent = 'FREE';
@@ -266,6 +317,23 @@ function updateSummary() {
     document.getElementById('sum-delivery').style.color = '';
   }
   document.getElementById('sum-total').textContent = '₹' + total.toLocaleString('en-IN');
+
+  // Update shipping notice
+  const notice = document.getElementById('cod-notice');
+  const inner  = document.getElementById('checkout-ship-inner');
+  if(notice && inner) {
+    if(del === 0) {
+      notice.style.borderLeftColor = '#4caf7d';
+      inner.innerHTML = '<div style="font-family:\'Cinzel\',serif;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:#4caf7d;margin-bottom:5px;">&#10003; Free Shipping</div>'
+        + '<p style="font-family:\'Cormorant Garamond\',Georgia,serif;font-size:14px;color:#4caf7d;line-height:1.6;margin:0;">Your order qualifies for free shipping!</p>';
+    } else {
+      const rem = freeAbove - subtotal;
+      notice.style.borderLeftColor = '#d8d8d8';
+      inner.innerHTML = '<div style="font-family:\'Cinzel\',serif;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:#d8d8d8;margin-bottom:6px;">&#9432; Shipping</div>'
+        + '<p style="font-family:\'Cormorant Garamond\',Georgia,serif;font-size:14px;color:#d8d8d8;line-height:1.6;margin:0 0 8px;">Add &#x20B9;' + rem.toLocaleString('en-IN') + ' more for free shipping. &#x20B9;' + deliveryFee + ' delivery fee applies.</p>'
+        + '<div style="height:3px;background:rgba(196,196,196,.15);border-radius:2px;overflow:hidden;"><div style="height:100%;width:' + Math.min(95,Math.round(subtotal/freeAbove*100)) + '%;background:#d8d8d8;border-radius:2px;"></div></div>';
+    }
+  }
 }
 
 // ── COUPON ──
@@ -325,7 +393,7 @@ window.placeOrder = async function() {
   btn.textContent = 'Placing Order...';
 
   const del    = (productPrice - discountAmt) >= freeAbove ? 0 : deliveryFee;
-  const total  = productPrice - discountAmt + del;
+  const total  = productPrice - discountAmt + del + founderDeliveryAmt;
   const address= `${addr1}, ${city}, ${state} — ${pin}`;
 
   try {
@@ -341,6 +409,8 @@ window.placeOrder = async function() {
       amount:        productPrice,
       discount:      discountAmt,
       deliveryCharge:del,
+      founderDelivery: founderDeliveryAmt > 0,
+      founderDeliveryCharge: founderDeliveryAmt,
       totalAmount:   total,
       couponCode:    appliedCoupon?.code || '',
       notes,
@@ -387,6 +457,7 @@ window.placeOrder = async function() {
       `*Amount:* ₹${total.toLocaleString('en-IN')}\n` +
       (appliedCoupon ? `*Coupon:* ${appliedCoupon.code} (-₹${discountAmt.toLocaleString('en-IN')})\n` : '') +
       `*Delivery:* ${del === 0 ? 'Free' : '₹' + del.toLocaleString('en-IN')}\n` +
+      (founderDeliveryAmt > 0 ? `*Founder's Personal Delivery by Anushree:* ₹1,499\n` : '') +
       `*Dispatch:* ${availability === 'made-to-order' ? 'Made to Order — 5 Business Days' : 'Immediate'}\n` +
       `*Address:* ${address}\n\n` +
       `Please confirm my order and share the payment link. Thank you!`
@@ -410,3 +481,8 @@ init();
 </script>
 </body>
 </html>
+
+
+
+
+

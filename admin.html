@@ -204,6 +204,7 @@ select.form-input option{background:var(--surface2);}
       <div class="nav-item" onclick="showPage('orders')">Orders</div>
       <div class="nav-item" onclick="showPage('products')">Products</div>
       <div class="nav-item" onclick="showPage('enquiries')" id="nav-enquiries">Enquiries <span id="enq-badge" style="display:none;background:var(--silver);color:var(--black);font-size:9px;font-family:var(--fh);padding:2px 7px;border-radius:10px;margin-left:4px;vertical-align:middle;"></span></div>
+      <div class="nav-item" onclick="showPage('reviews')" id="nav-reviews">Reviews <span id="rev-badge" style="display:none;background:#c9a84c;color:#000;font-size:9px;font-family:var(--fh);padding:2px 7px;border-radius:10px;margin-left:4px;vertical-align:middle;"></span></div>
       <div class="nav-section">More</div>
       <div class="nav-item" onclick="showPage('customers')">Customers</div>
       <div class="nav-item" onclick="showPage('analytics')">Analytics</div>
@@ -217,11 +218,18 @@ select.form-input option{background:var(--surface2);}
       <!-- DASHBOARD PAGE -->
       <div class="page active" id="page-dashboard">
         <div class="page-title">Dashboard</div>
+
+        <!-- ROW 1: Key metrics -->
         <div class="stats-row">
           <div class="stat-card">
             <div class="stat-label">Total Orders</div>
             <div class="stat-value" id="stat-orders">—</div>
             <div class="stat-sub">all time</div>
+          </div>
+          <div class="stat-card" style="border-left:2px solid var(--silver-dim);">
+            <div class="stat-label">Today's Orders</div>
+            <div class="stat-value" id="stat-today">—</div>
+            <div class="stat-sub">placed today</div>
           </div>
           <div class="stat-card">
             <div class="stat-label">Revenue</div>
@@ -233,11 +241,34 @@ select.form-input option{background:var(--surface2);}
             <div class="stat-value" id="stat-avg">—</div>
             <div class="stat-sub">per order</div>
           </div>
-          <div class="stat-card">
-            <div class="stat-label">Pending</div>
+        </div>
+
+        <!-- ROW 2: Status metrics -->
+        <div class="stats-row" style="margin-top:12px;">
+          <div class="stat-card" style="border-left:2px solid #e8a838;">
+            <div class="stat-label">Pending Orders</div>
             <div class="stat-value" id="stat-pending">—</div>
             <div class="stat-sub">awaiting action</div>
           </div>
+          <div class="stat-card" style="border-left:2px solid var(--red);">
+            <div class="stat-label">Unpaid Orders</div>
+            <div class="stat-value" id="stat-unpaid">—</div>
+            <div class="stat-sub">payment not received</div>
+          </div>
+          <div class="stat-card" style="border-left:2px solid #c9a84c;">
+            <div class="stat-label">Founder Deliveries</div>
+            <div class="stat-value" id="stat-founder">—</div>
+            <div class="stat-sub">personal by Anushree</div>
+          </div>
+          <div class="stat-card" style="cursor:pointer;border-left:2px solid var(--green);" onclick="showPage('enquiries')">
+            <div class="stat-label">New Enquiries</div>
+            <div class="stat-value" id="stat-enquiries">0</div>
+            <div class="stat-sub">unread — click to view</div>
+          </div>
+        </div>
+
+        <!-- ROW 3: Financial -->
+        <div class="stats-row" style="margin-top:12px;">
           <div class="stat-card">
             <div class="stat-label">Products</div>
             <div class="stat-value" id="stat-products">—</div>
@@ -248,28 +279,23 @@ select.form-input option{background:var(--surface2);}
             <div class="stat-value" id="stat-customers">—</div>
             <div class="stat-sub">unique</div>
           </div>
-          <div class="stat-card" style="cursor:pointer" onclick="document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-enquiries').classList.add('active');document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));document.getElementById('nav-enquiries').classList.add('active');">
-            <div class="stat-label">New Enquiries</div>
-            <div class="stat-value" id="stat-enquiries">0</div>
-            <div class="stat-sub">unread</div>
-          </div>
           <div class="stat-card">
             <div class="stat-label">Total Cost</div>
             <div class="stat-value" id="stat-cost">₹0</div>
             <div class="stat-sub">goods & making</div>
           </div>
-          <div class="stat-card">
+          <div class="stat-card" style="border-left:2px solid var(--green);">
             <div class="stat-label">Gross Profit</div>
             <div class="stat-value" id="stat-profit">₹0</div>
             <div class="stat-sub">revenue – cost</div>
           </div>
         </div>
 
-        <div class="section-hd"><div class="section-title">Recent Orders</div></div>
+        <div class="section-hd" style="margin-top:24px;"><div class="section-title">Recent Orders</div><button class="btn-outline btn-sm" onclick="showPage('orders')">View All</button></div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>Order ID</th><th>Customer</th><th>Item</th><th>Amount</th><th>Status</th><th>Date</th></tr></thead>
-            <tbody id="recent-orders-body"><tr class="empty-row"><td colspan="6">Loading...</td></tr></tbody>
+            <thead><tr><th>Order ID</th><th>Customer</th><th>Item</th><th>Amount</th><th>Payment</th><th>Status</th><th>Date</th></tr></thead>
+            <tbody id="recent-orders-body"><tr class="empty-row"><td colspan="7">Loading...</td></tr></tbody>
           </table>
         </div>
       </div>
@@ -301,7 +327,7 @@ select.form-input option{background:var(--surface2);}
         </div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>Name</th><th>Category</th><th>Price</th><th>Availability</th><th>Action</th></tr></thead>
+            <thead><tr><th>Name</th><th>Collections / Type</th><th>Price</th><th>Availability</th><th>Action</th></tr></thead>
             <tbody id="products-body"><tr class="empty-row"><td colspan="5">Loading...</td></tr></tbody>
           </table>
         </div>
@@ -415,6 +441,54 @@ select.form-input option{background:var(--surface2);}
             <tbody id="coupons-body"><tr class="empty-row"><td colspan="7">Loading...</td></tr></tbody>
           </table>
         </div>
+      </div>
+
+      <!-- REVIEWS PAGE -->
+      <div class="page" id="page-reviews">
+        <div class="page-title">Customer Reviews</div>
+
+        <!-- Overview Stats -->
+        <div class="stats-row" id="rev-stats-row" style="margin-bottom:24px;">
+          <div class="stat-card">
+            <div class="stat-label">Total Reviews</div>
+            <div class="stat-value" id="rev-total">—</div>
+            <div class="stat-sub">all time</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Average Rating</div>
+            <div class="stat-value" id="rev-avg" style="color:#c9a84c;">—</div>
+            <div class="stat-sub" id="rev-avg-stars">out of 5</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Pending Approval</div>
+            <div class="stat-value" id="rev-pending">—</div>
+            <div class="stat-sub">awaiting review</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Approved</div>
+            <div class="stat-value" id="rev-approved">—</div>
+            <div class="stat-sub">published</div>
+          </div>
+        </div>
+
+        <!-- Star Distribution -->
+        <div class="section-hd"><div class="section-title">Rating Distribution</div></div>
+        <div id="rev-distribution" style="background:var(--surface);border:1px solid var(--border);padding:24px 28px;margin-bottom:28px;">
+          <div id="rev-dist-bars">
+            <div style="color:var(--text-dim);font-family:var(--fh);font-size:9px;letter-spacing:2px;">Loading...</div>
+          </div>
+        </div>
+
+        <!-- Reviews List -->
+        <div class="section-hd">
+          <div class="section-title" id="rev-list-title">All Reviews</div>
+          <div style="display:flex;gap:8px;">
+            <button class="af-btn active" id="rev-filter-all" onclick="filterReviews('all',this)">All</button>
+            <button class="af-btn" id="rev-filter-pending" onclick="filterReviews('pending',this)">Pending</button>
+            <button class="af-btn" id="rev-filter-approved" onclick="filterReviews('approved',this)">Approved</button>
+          </div>
+        </div>
+        <div id="rev-list" style="display:flex;flex-direction:column;gap:14px;"></div>
       </div>
 
       <!-- SETTINGS PAGE -->
@@ -681,12 +755,30 @@ select.form-input option{background:var(--surface2);}
       </div>
     </div>
     <div class="form-row">
-      <label class="form-label">Category</label>
-      <select class="form-input" id="p-category">
-        <option value="forher">For Her</option>
-        <option value="forhim">For Him</option>
-        <option value="virasat">Virasat</option>
-      </select>
+      <label class="form-label">Collections <span style="font-size:10px;color:var(--text-dim);font-family:var(--fg)">(select all that apply)</span></label>
+      <div style="display:flex;flex-wrap:wrap;gap:10px 20px;margin-top:6px;">
+        <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-family:var(--fg);font-size:13px;color:var(--text)"><input type="checkbox" id="p-col-forher" value="forher" style="accent-color:#c9a84c;width:15px;height:15px;"/> For Her</label>
+        <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-family:var(--fg);font-size:13px;color:var(--text)"><input type="checkbox" id="p-col-forhim" value="forhim" style="accent-color:#c9a84c;width:15px;height:15px;"/> For Him</label>
+        <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-family:var(--fg);font-size:13px;color:var(--text)"><input type="checkbox" id="p-col-virasat" value="virasat" style="accent-color:#c9a84c;width:15px;height:15px;"/> Virasat</label>
+      </div>
+    </div>
+    <div class="form-row-2">
+      <div class="form-row">
+        <label class="form-label">Product Type</label>
+        <select class="form-input" id="p-type">
+          <option value="">— Select —</option>
+          <option value="bangles-bracelets">Bangles / Bracelets</option>
+          <option value="rings">Rings</option>
+          <option value="earrings">Earrings</option>
+          <option value="pendants">Pendants</option>
+          <option value="necklace-sets">Necklace Sets</option>
+          <option value="mangalsutra">Mangalsutra</option>
+          <option value="brooches">Brooches</option>
+          <option value="anklets">Anklets</option>
+          <option value="wristlets">Wristlets</option>
+          <option value="chain">Chain</option>
+        </select>
+      </div>
     </div>
     <div class="form-row">
       <label class="form-label">Description</label>
@@ -878,35 +970,53 @@ function startRealtimeListeners() {
     if(newCount > 0){ badge.textContent = newCount; badge.style.display = 'inline'; }
     else { badge.style.display = 'none'; }
   });
+
+  // Reviews — real-time
+  startReviewsListener();
 }
 
 function updateDashboardStats() {
-  const pending = allOrders.filter(o => o.status === 'pending').length;
-  const active  = allOrders.filter(o => o.status !== 'cancelled');
-  const revenue = active.reduce((s,o) => s+(Number(o.totalAmount||o.amount)||0), 0);
-  const cost    = active.reduce((s,o) => s+(Number(o.cost)||0), 0);
-  const profit  = revenue - cost;
-  const avg     = active.length ? Math.round(revenue/active.length) : 0;
+  const today    = new Date(); today.setHours(0,0,0,0);
+  const active   = allOrders.filter(o => o.status !== 'cancelled');
+  const todayOrd = allOrders.filter(o => {
+    const d = o.createdAt?.toDate ? o.createdAt.toDate() : new Date(o.createdAt||0);
+    return d >= today;
+  });
+  const pending   = allOrders.filter(o => o.status === 'pending').length;
+  const unpaid    = allOrders.filter(o => (o.paymentStatus||'unpaid') === 'unpaid' && o.status !== 'cancelled').length;
+  const founder   = allOrders.filter(o => o.founderDelivery === true).length;
+  const revenue   = active.reduce((s,o) => s+(Number(o.totalAmount||o.amount)||0), 0);
+  const cost      = active.reduce((s,o) => s+(Number(o.cost)||0), 0);
+  const profit    = revenue - cost;
+  const avg       = active.length ? Math.round(revenue/active.length) : 0;
+
   document.getElementById('stat-orders').textContent  = allOrders.length;
+  document.getElementById('stat-today').textContent   = todayOrd.length;
   document.getElementById('stat-revenue').textContent = '₹'+revenue.toLocaleString('en-IN');
   document.getElementById('stat-avg').textContent     = '₹'+avg.toLocaleString('en-IN');
   document.getElementById('stat-pending').textContent = pending;
+  document.getElementById('stat-unpaid').textContent  = unpaid;
+  document.getElementById('stat-founder').textContent = founder;
   document.getElementById('stat-cost').textContent    = '₹'+cost.toLocaleString('en-IN');
   document.getElementById('stat-profit').textContent  = '₹'+profit.toLocaleString('en-IN');
   document.getElementById('stat-profit').style.color  = profit >= 0 ? 'var(--green)' : 'var(--red)';
 
-  const recent = allOrders.slice(0,5);
+  const recent = allOrders.slice(0,8);
   const tbody  = document.getElementById('recent-orders-body');
-  if(!recent.length){ tbody.innerHTML='<tr class="empty-row"><td colspan="6">No orders yet</td></tr>'; return; }
-  tbody.innerHTML = recent.map(o => `
-    <tr>
-      <td style="font-size:11px;color:var(--silver-dim)">#${o.id.slice(-6).toUpperCase()}</td>
-      <td>${o.customerName||'—'}</td>
-      <td>${o.item||'—'}</td>
+  if(!recent.length){ tbody.innerHTML='<tr class="empty-row"><td colspan="7">No orders yet</td></tr>'; return; }
+  tbody.innerHTML = recent.map(o => {
+    const isPaid = (o.paymentStatus||'unpaid') === 'paid';
+    const isFounder = o.founderDelivery === true;
+    return `<tr>
+      <td style="font-size:11px;color:var(--silver-dim)">#${o.id.slice(-6).toUpperCase()}<br/><span style="font-size:9px;color:var(--text-dim)">${o.source==='offline'?'Offline':'Online'}</span></td>
+      <td>${o.customerName||'—'}<br/><span style="font-size:10px;color:var(--text-dim)">${o.phone||''}</span></td>
+      <td>${o.item||'—'}${isFounder?'<br/><span style="font-size:9px;color:#c9a84c;letter-spacing:1px;">★ Founder Delivery</span>':''}</td>
       <td>₹${(o.totalAmount||o.amount||0).toLocaleString('en-IN')}</td>
+      <td>${isPaid?'<span style="color:var(--green);font-size:10px;">✓ Paid</span>':'<span style="color:var(--red);font-size:10px;">Unpaid</span>'}</td>
       <td>${fmtStatus(o.status)}</td>
       <td style="font-size:11px;color:var(--silver-dim)">${fmtDate(o.createdAt)}</td>
-    </tr>`).join('');
+    </tr>`;
+  }).join('');
 }
 
 // kept for compatibility — now a no-op since onSnapshot drives updates
@@ -924,27 +1034,45 @@ function renderOrders(orders) {
     return;
   }
   tbody.innerHTML = orders.map(o => {
-    const isOffline = o.source === 'offline';
-    const srcBadge  = isOffline
+    const isOffline   = o.source === 'offline';
+    const isFounder   = o.founderDelivery === true;
+    const isPaid      = (o.paymentStatus||'unpaid') === 'paid';
+    const srcBadge    = isOffline
       ? `<br/><span style="font-size:9px;letter-spacing:1px;color:var(--text-dim);font-family:var(--fh);text-transform:uppercase;">Offline</span>`
       : `<br/><span style="font-size:9px;letter-spacing:1px;color:var(--silver-dim);font-family:var(--fh);text-transform:uppercase;">Online</span>`;
-    const costCell  = o.cost ? `<br/><span style="font-size:11px;color:var(--text-dim)">cost ₹${Number(o.cost).toLocaleString('en-IN')}</span>` : '';
+    const costCell    = o.cost ? `<br/><span style="font-size:11px;color:var(--text-dim)">cost ₹${Number(o.cost).toLocaleString('en-IN')}</span>` : '';
+    const addrCell    = o.address ? `<br/><span style="font-size:10px;color:var(--text-dim);line-height:1.5;">${o.address.replace(/\n/g,', ')}</span>` : '';
+    const founderBadge = isFounder ? `<br/><span style="font-size:9px;color:#c9a84c;letter-spacing:1px;font-family:var(--fh);">★ FOUNDER DELIVERY · ₹${(o.founderDeliveryCharge||1499).toLocaleString('en-IN')}</span>` : '';
+    const payStatus   = isPaid
+      ? `<span style="color:var(--green);font-size:10px;display:block;margin-top:4px;">✓ Paid</span>`
+      : `<span style="color:var(--red);font-size:10px;display:block;margin-top:4px;">Unpaid</span>`;
+    const markPaidBtn = !isPaid
+      ? `<button class="btn-outline btn-sm" onclick="markPaid('${o.id}')" style="color:var(--green);border-color:var(--green)">Mark Paid</button>`
+      : '';
     return `<tr>
       <td style="font-size:11px;color:var(--silver-dim)">#${o.id.slice(-6).toUpperCase()}${srcBadge}</td>
-      <td>${o.customerName||'—'}</td>
+      <td>${o.customerName||'—'}${addrCell}</td>
       <td style="font-size:12px;color:var(--silver-dim)">${o.phone||'—'}</td>
-      <td>${o.item||'—'}</td>
+      <td>${o.item||'—'}${founderBadge}</td>
       <td>₹${(o.totalAmount||o.amount||0).toLocaleString('en-IN')}${costCell}</td>
-      <td style="font-size:12px;color:var(--silver-dim)">${o.paymentMethod||'—'}</td>
+      <td style="font-size:12px;color:var(--silver-dim)">${o.paymentMethod||'—'}${payStatus}</td>
       <td>${fmtStatus(o.status)}</td>
       <td style="font-size:11px;color:var(--silver-dim)">${fmtDate(o.createdAt)}</td>
       <td style="display:flex;gap:6px;flex-wrap:wrap;">
+        ${markPaidBtn}
         <button class="btn-outline btn-sm" onclick="editOrder('${o.id}')">Edit</button>
         <button class="btn-outline btn-sm" onclick="generateInvoice('${o.id}')" style="color:var(--silver)">Invoice</button>
       </td>
     </tr>`;
   }).join('');
 }
+
+window.markPaid = async function(id) {
+  try {
+    await updateDoc(doc(db,'orders',id), { paymentStatus: 'paid' });
+    toast('Order marked as paid.');
+  } catch(e){ toast('Error updating payment status.'); }
+};
 
 window.openAddOrder = function() {
   ['o-name','o-phone','o-email','o-item','o-amount','o-cost','o-address','o-notes'].forEach(id => document.getElementById(id).value='');
@@ -1024,28 +1152,38 @@ function renderProducts(products) {
     tbody.innerHTML = '<tr class="empty-row"><td colspan="5">No products yet</td></tr>';
     return;
   }
-  tbody.innerHTML = products.map(p => `
-    <tr>
+  const tagStyle = 'display:inline-block;font-size:9px;font-family:var(--fh);letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border-radius:3px;margin:2px 2px 0 0;';
+  const TYPE_LABELS = {'bangles-bracelets':'Bangles / Bracelets','rings':'Rings','earrings':'Earrings','pendants':'Pendants','necklace-sets':'Necklace Sets','mangalsutra':'Mangalsutra','brooches':'Brooches','anklets':'Anklets','wristlets':'Wristlets','chain':'Chain'};
+  tbody.innerHTML = products.map(p => {
+    const cols = Array.isArray(p.categories) ? p.categories : (p.category ? [p.category] : []);
+    const colLabels = {forher:'For Her',forhim:'For Him',virasat:'Virasat'};
+    const colTags = cols.map(c => `<span style="${tagStyle}background:rgba(201,168,76,.15);color:#c9a84c;border:1px solid rgba(201,168,76,.3);">${colLabels[c]||c}</span>`).join('');
+    const typeLabel = TYPE_LABELS[p.productType||''] || p.productType || '';
+    const typeTag = typeLabel ? `<span style="${tagStyle}background:rgba(180,180,180,.1);color:var(--silver-dim);border:1px solid rgba(180,180,180,.2);">${typeLabel}</span>` : '';
+    const occTags = '';
+    return `<tr>
       <td>
         ${p.imageUrl ? `<img class="prod-img-cell" src="${p.imageUrl}" style="float:left;margin-right:10px;"/>` : ''}
         <div class="prod-name-cell">${p.name||'—'}</div>
         <div class="prod-meta">${p.description||''}</div>
       </td>
-      <td style="text-transform:capitalize">${p.category||'—'}</td>
+      <td>${colTags}${typeTag ? '<br/>'+typeTag : ''}${occTags ? '<br/>'+occTags : ''}</td>
       <td>₹${p.price||0}</td>
       <td><button class="avail-toggle ${p.availability==='made-to-order'?'avail-mto':'avail-stock'}" onclick="toggleAvailability('${p.id}','${p.availability||'in-stock'}')">${p.availability==='made-to-order'?'Made to Order':'In Stock'}</button></td>
       <td style="display:flex;gap:8px;">
         <button class="btn-outline btn-sm" onclick="editProduct('${p.id}')">Edit</button>
         <button class="btn btn-sm btn-red" onclick="deleteProduct('${p.id}')">Del</button>
       </td>
-    </tr>`).join('');
+    </tr>`;
+  }).join('');
 }
 
 window.openAddProduct = function() {
   document.getElementById('prod-modal-title').textContent = 'Add Product';
   ['p-id','p-name','p-price','p-desc','p-img'].forEach(id => document.getElementById(id).value='');
-  document.getElementById('p-category').value    = 'forher';
   document.getElementById('p-availability').value = 'in-stock';
+  document.getElementById('p-type').value = '';
+  ['p-col-forher','p-col-forhim','p-col-virasat'].forEach(id => document.getElementById(id).checked = false);
   document.getElementById('modal-add-product').classList.add('open');
 };
 
@@ -1053,27 +1191,38 @@ window.editProduct = function(id) {
   const p = allProducts.find(x => x.id === id);
   if(!p) return;
   document.getElementById('prod-modal-title').textContent = 'Edit Product';
-  document.getElementById('p-id').value       = id;
-  document.getElementById('p-name').value         = p.name||'';
-  document.getElementById('p-price').value        = p.price||'';
-  document.getElementById('p-availability').value = p.availability||'in-stock';
-  document.getElementById('p-category').value     = p.category||'forher';
-  document.getElementById('p-desc').value     = p.description||'';
-  document.getElementById('p-img').value      = p.imageUrl||'';
+  document.getElementById('p-id').value            = id;
+  document.getElementById('p-name').value          = p.name||'';
+  document.getElementById('p-price').value         = p.price||'';
+  document.getElementById('p-availability').value  = p.availability||'in-stock';
+  document.getElementById('p-type').value          = p.productType||'';
+  document.getElementById('p-desc').value          = p.description||'';
+  document.getElementById('p-img').value           = p.imageUrl||'';
+  // collections — support both old single 'category' field and new 'categories' array
+  const cols = Array.isArray(p.categories) ? p.categories : (p.category ? [p.category] : []);
+  ['p-col-forher','p-col-forhim','p-col-virasat'].forEach(eid => {
+    document.getElementById(eid).checked = cols.includes(document.getElementById(eid).value);
+  });
   document.getElementById('modal-add-product').classList.add('open');
 };
 
 window.saveProduct = async function() {
-  const id   = document.getElementById('p-id').value;
+  const id         = document.getElementById('p-id').value;
+  const categories = ['p-col-forher','p-col-forhim','p-col-virasat']
+    .filter(eid => document.getElementById(eid).checked)
+    .map(eid => document.getElementById(eid).value);
   const data = {
     name:         document.getElementById('p-name').value.trim(),
     price:        Number(document.getElementById('p-price').value),
     availability: document.getElementById('p-availability').value,
-    category:     document.getElementById('p-category').value,
-    description: document.getElementById('p-desc').value.trim(),
-    imageUrl:    document.getElementById('p-img').value.trim()
+    categories,
+    category:     categories[0] || '',
+    productType:  document.getElementById('p-type').value,
+    description:  document.getElementById('p-desc').value.trim(),
+    imageUrl:     document.getElementById('p-img').value.trim()
   };
   if(!data.name){ toast('Product name is required.'); return; }
+  if(!categories.length){ toast('Please select at least one collection.'); return; }
   try {
     if(id) {
       await updateDoc(doc(db,'products',id), data);
@@ -1647,6 +1796,102 @@ window.saveSettings = async function() {
     }
     toast('Settings saved.');
   } catch(e){ toast('Error saving settings.'); }
+};
+
+// ── REVIEWS ──
+let allReviews = [];
+let revFilter = 'all';
+
+function startReviewsListener() {
+  onSnapshot(query(collection(db,'reviews'), orderBy('createdAt','desc')), snap => {
+    allReviews = snap.docs.map(d => ({id:d.id,...d.data()}));
+    renderReviews(allReviews);
+    updateReviewStats();
+    const pending = allReviews.filter(r => (r.status||'pending')==='pending').length;
+    const badge = document.getElementById('rev-badge');
+    if(pending > 0){ badge.textContent=pending; badge.style.display='inline'; }
+    else { badge.style.display='none'; }
+  });
+}
+
+function updateReviewStats() {
+  const total    = allReviews.length;
+  const approved = allReviews.filter(r => r.status==='approved').length;
+  const pending  = allReviews.filter(r => (r.status||'pending')==='pending').length;
+  const rated    = allReviews.filter(r => r.rating > 0);
+  const avg      = rated.length ? (rated.reduce((s,r)=>s+r.rating,0)/rated.length) : 0;
+
+  document.getElementById('rev-total').textContent    = total;
+  document.getElementById('rev-approved').textContent = approved;
+  document.getElementById('rev-pending').textContent  = pending;
+  document.getElementById('rev-avg').textContent      = avg ? avg.toFixed(1) : '—';
+  document.getElementById('rev-avg-stars').textContent= avg ? '★'.repeat(Math.round(avg))+'☆'.repeat(5-Math.round(avg)) : 'out of 5';
+
+  // Distribution bars
+  const dist = {5:0,4:0,3:0,2:0,1:0};
+  rated.forEach(r => { if(dist[r.rating]!==undefined) dist[r.rating]++; });
+  const max = Math.max(...Object.values(dist), 1);
+  document.getElementById('rev-dist-bars').innerHTML = [5,4,3,2,1].map(star => {
+    const count = dist[star];
+    const pct   = total ? Math.round(count/total*100) : 0;
+    const width = Math.round(count/max*100);
+    return `<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+      <span style="font-family:var(--fh);font-size:9px;letter-spacing:1px;color:#c9a84c;width:14px;text-align:right;">${star}★</span>
+      <div style="flex:1;height:8px;background:var(--border);border-radius:2px;overflow:hidden;">
+        <div style="height:100%;width:${width}%;background:#c9a84c;border-radius:2px;transition:width .5s;"></div>
+      </div>
+      <span style="font-family:var(--fh);font-size:9px;color:var(--silver-dim);width:44px;">${count} (${pct}%)</span>
+    </div>`;
+  }).join('');
+}
+
+function renderReviews(reviews) {
+  const filtered = revFilter === 'all' ? reviews : reviews.filter(r => (r.status||'pending') === revFilter);
+  document.getElementById('rev-list-title').textContent = `${filtered.length} Review${filtered.length!==1?'s':''}`;
+  const el = document.getElementById('rev-list');
+  if(!filtered.length){
+    el.innerHTML='<div style="padding:40px;text-align:center;color:var(--text-dim);font-family:var(--fh);font-size:9px;letter-spacing:2px;">No reviews found</div>';
+    return;
+  }
+  el.innerHTML = filtered.map(r => {
+    const dt     = r.createdAt?.toDate ? r.createdAt.toDate() : new Date(r.createdAt||0);
+    const date   = dt.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+    const stars  = '★'.repeat(r.rating||0) + '☆'.repeat(5-(r.rating||0));
+    const isPending = (r.status||'pending') === 'pending';
+    return `<div style="background:var(--surface);border:1px solid var(--border);padding:22px 26px;${isPending?'border-left:3px solid #c9a84c;':'border-left:3px solid var(--green);'}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:12px;">
+        <div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px;">
+            <span style="color:#c9a84c;font-size:16px;letter-spacing:2px;">${stars}</span>
+            <span style="font-family:var(--fh);font-size:8px;letter-spacing:2px;padding:3px 9px;border:1px solid ${isPending?'#c9a84c':' var(--green)'};color:${isPending?'#c9a84c':'var(--green)'};">${isPending?'PENDING':'APPROVED'}</span>
+          </div>
+          <div style="font-family:var(--fh);font-size:10px;letter-spacing:2px;color:var(--white);">${r.name||'Anonymous'}${r.location?` <span style="color:var(--text-dim);font-weight:400;">· ${r.location}</span>`:''}</div>
+        </div>
+        <div style="font-family:var(--fh);font-size:9px;color:var(--text-dim);letter-spacing:1px;">${date}</div>
+      </div>
+      <p style="font-family:var(--fg);font-size:16px;font-style:italic;color:var(--text);line-height:1.7;margin-bottom:16px;">"${r.text||''}"</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        ${isPending?`<button class="btn-icon" onclick="approveReview('${r.id}')" style="color:var(--green);border-color:rgba(76,175,125,.3);">Approve</button>`:''}
+        <button class="btn-icon" onclick="deleteReview('${r.id}')" style="color:var(--red);border-color:rgba(224,85,85,.3);">Delete</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+window.filterReviews = function(filter, btn) {
+  revFilter = filter;
+  document.querySelectorAll('#page-reviews .af-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderReviews(allReviews);
+};
+
+window.approveReview = async function(id) {
+  try { await updateDoc(doc(db,'reviews',id), {status:'approved'}); toast('Review approved.'); } catch(e){ toast('Error.'); }
+};
+
+window.deleteReview = async function(id) {
+  if(!confirm('Delete this review?')) return;
+  try { await deleteDoc(doc(db,'reviews',id)); toast('Review deleted.'); } catch(e){ toast('Error.'); }
 };
 
 // close modals on backdrop click

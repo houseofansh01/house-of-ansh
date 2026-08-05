@@ -416,7 +416,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
             <span class="acc-toggle">+</span>
           </div>
           <div class="acc-body">
-            <p>This exquisite piece is handcrafted from pure .925 sterling silver, finished with care by skilled artisans. Each piece is unique and may carry subtle variations that reflect its handmade origin.</p>
+            <p id="pdp-desc-text">This exquisite piece is handcrafted from pure .925 sterling silver, finished with care by skilled artisans. Each piece is unique and may carry subtle variations that reflect its handmade origin.</p>
           </div>
         </div>
 
@@ -543,6 +543,8 @@ var pCat = params.get('cat') || 'House of Ansh';
 var pPrice = params.get('price');
 var pFrom = params.get('from') || 'forher.html';
 var pAvail = params.get('avail') || 'in-stock';
+var pImg = params.get('img') || '';
+var pId = params.get('id') || '';
 
 document.getElementById('pdp-name').textContent = pName.toUpperCase();
 document.getElementById('pdp-collection').textContent = pCat.toUpperCase();
@@ -555,6 +557,15 @@ if(pPrice && pPrice !== '0') {
   document.getElementById('pdp-price').textContent = '₹ ' + num.toLocaleString('en-IN');
 } else {
   document.getElementById('pdp-price').textContent = '₹ —,———';
+}
+
+// Show product image from URL param
+if(pImg){
+  var imgEl=document.getElementById('pdp-main-img');
+  var plEl=document.getElementById('pdp-placeholder');
+  imgEl.src=pImg;
+  imgEl.style.display='block';
+  if(plEl)plEl.style.display='none';
 }
 
 // Restore wishlist state
@@ -741,22 +752,41 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')document.que
 <script src="search.js"></script>
 <script type="module">
 import {initializeApp,getApps} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import {getFirestore,collection,query,where,getDocs} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import {getFirestore,collection,query,where,getDocs,getDoc,doc} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 const cfg={apiKey:"AIzaSyBwqpavjzi15Zt9qHoufjJFI05k7AAHLRs",authDomain:"house-of-ansh.firebaseapp.com",projectId:"house-of-ansh",storageBucket:"house-of-ansh.firebasestorage.app",messagingSenderId:"386185011014",appId:"1:386185011014:web:fef798d4e17c84170bcf47"};
 const app=getApps().length?getApps()[0]:initializeApp(cfg);
 const db=getFirestore(app);
 (async()=>{
   try{
+    let p=null;
+    const pid=window.pId;
     const nm=window.pName;
-    if(!nm||nm==='Silver Jewellery')return;
-    const snap=await getDocs(query(collection(db,'products'),where('name','==',nm)));
-    if(snap.empty)return;
-    const p=snap.docs[0].data();
+    if(pid){
+      const snap=await getDoc(doc(db,'products',pid));
+      if(snap.exists())p=snap.data();
+    }
+    if(!p){
+      if(!nm||nm==='Silver Jewellery')return;
+      const snap=await getDocs(query(collection(db,'products'),where('name','==',nm)));
+      if(snap.empty)return;
+      p=snap.docs[0].data();
+    }
     if(p.price&&Number(p.price)>0){
       window.pPrice=String(p.price);
       document.getElementById('pdp-price').textContent='₹ '+Number(p.price).toLocaleString('en-IN');
     }
     if(p.availability){window.pAvail=p.availability;}
+    if(p.description){
+      var descEl=document.getElementById('pdp-desc-text');
+      if(descEl)descEl.innerHTML=p.description.replace(/\n/g,'<br/>');
+    }
+    if(p.imageUrl&&!window.pImg){
+      var imgEl=document.getElementById('pdp-main-img');
+      var plEl=document.getElementById('pdp-placeholder');
+      imgEl.src=p.imageUrl;
+      imgEl.style.display='block';
+      if(plEl)plEl.style.display='none';
+    }
   }catch(e){}
 })();
 

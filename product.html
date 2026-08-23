@@ -190,6 +190,9 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
 .pdp-add-btn:hover{color:var(--white);border-color:var(--silver-lo);background:rgba(255,255,255,.04);}
 .pdp-buy-btn{width:100%;background:var(--white);border:1px solid var(--white);color:var(--black);font-family:var(--fh);font-size:9px;letter-spacing:4px;text-transform:uppercase;padding:16px;cursor:pointer;transition:all .3s;margin-bottom:28px;}
 .pdp-buy-btn:hover{background:var(--silver);border-color:var(--silver);}
+.pdp-add-btn:disabled,.pdp-buy-btn:disabled{opacity:.35;cursor:not-allowed;}
+.pdp-add-btn:disabled:hover{color:var(--silver-dim);border-color:var(--border2);background:none;}
+.pdp-buy-btn:disabled:hover{background:var(--white);border-color:var(--white);}
 
 /* ACCORDION */
 .pdp-accordion{border-top:1px solid var(--border2);margin-bottom:28px;}
@@ -271,7 +274,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
   <a href="index.html" class="nl"><img src="images/logo.png" alt="House of Ansh" class="nl-logo"/><div class="nl-t"><span class="nl-n">House of Ansh</span><span class="nl-s">Pure Silver Jewellery</span></div></a>
   <ul class="nm">
     <li><a href="home.html">Home</a></li>
-    <li><a href="#">Categories &#9662;</a><div class="dropdown"><div class="has-sub"><a href="forher.html">For Her</a><div class="sub-dropdown"><a href="forher.html">All Jewellery</a><a href="forher.html#bangles-bracelets">Bangles / Bracelets</a><a href="forher.html#rings">Rings</a><a href="forher.html#earrings">Earrings</a><a href="forher.html#pendants">Pendants</a><a href="forher.html#necklace-sets">Necklace Sets</a><a href="forher.html#mangalsutra">Mangalsutra</a><a href="forher.html#brooches">Brooches</a><a href="forher.html#anklets">Anklets</a></div></div><div class="has-sub"><a href="forhim.html">For Him</a><div class="sub-dropdown"><a href="forhim.html">All Jewellery</a><a href="forhim.html#wristlets">Wristlets</a><a href="forhim.html#chain">Chain</a><a href="forhim.html#brooches">Brooches</a><a href="forhim.html#rings">Rings</a></div></div></div></li>
+    <li><a href="#">Categories &#9662;</a><div class="dropdown"><div class="has-sub"><a href="forher.html">For Her</a><div class="sub-dropdown"><a href="forher.html">All Jewellery</a><a href="forher.html#bangles-bracelets">Bangles / Bracelets</a><a href="forher.html#rings">Rings</a><a href="forher.html#earrings">Earrings</a><a href="forher.html#pendants">Pendants</a><a href="forher.html#pendant-sets">Pendant Sets</a><a href="forher.html#necklace-sets">Necklace Sets</a><a href="forher.html#mangalsutra">Mangalsutra</a><a href="forher.html#brooches">Brooches</a><a href="forher.html#anklets">Anklets</a><a href="forher.html#wristlets">Wristlets</a><a href="forher.html#chain">Chain</a><a href="forher.html#necklaces">Necklaces</a></div></div><div class="has-sub"><a href="forhim.html">For Him</a><div class="sub-dropdown"><a href="forhim.html">All Jewellery</a><a href="forhim.html#wristlets">Wristlets</a><a href="forhim.html#chain">Chain</a><a href="forhim.html#brooches">Brooches</a><a href="forhim.html#rings">Rings</a></div></div></div></li>
     <li><a href="#">Collections &#9662;</a><div class="dropdown"><a href="virasat.html">Virasat</a><a href="#" style="color:var(--text-dim);cursor:default;">More Coming Soon</a></div></li>
     <li><a href="#">Personalise &#9662;</a><div class="dropdown"><a href="transform.html">Transform Your Jewellery</a><a href="customdesign.html">Custom Design</a></div></li>
     <li><a href="index.html#story">About Us</a></li>
@@ -430,6 +433,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
           </div>
           <div class="acc-body">
             <ul>
+              <li id="pdp-weight-li" style="display:none;">Weight: <span id="pdp-weight"></span></li>
               <li>Premium 92.5 Sterling Silver</li>
               <li>All hypoallergenic jewellery</li>
               <li>Free from nickel, lead, and aluminium</li>
@@ -584,6 +588,14 @@ function setThumb(el,idx){
   if(el.style.opacity==='0.4'||el.style.cursor==='default') return;
   document.querySelectorAll('.pdp-thumb').forEach(function(t){t.classList.remove('active');});
   el.classList.add('active');
+  var src=el.dataset.src;
+  if(src){
+    var imgEl=document.getElementById('pdp-main-img');
+    var plEl=document.getElementById('pdp-placeholder');
+    imgEl.src=src;
+    imgEl.style.display='block';
+    if(plEl)plEl.style.display='none';
+  }
   zoomReset();
 }
 
@@ -614,6 +626,7 @@ renderCartUI();
 
 // ─── CART & BUY ───────────────────────────────────────────
 function pdpAddToCart(){
+  if(pAvail==='out-of-stock'){return;}
   var qty=parseInt(document.getElementById('pdp-qty').value)||1;
   var price=pPrice?parseInt(pPrice):0;
   var idx=hoaCart.findIndex(function(i){return i.name===pName;});
@@ -624,6 +637,7 @@ function pdpAddToCart(){
   openCart();
 }
 function pdpBuyNow(){
+  if(pAvail==='out-of-stock'){return;}
   var price=pPrice?parseInt(pPrice):0;
   window.location.href='checkout.html?product='+encodeURIComponent(pName)+'&price='+price+'&category='+encodeURIComponent(pCat)+'&availability='+pAvail;
 }
@@ -775,17 +789,37 @@ const db=getFirestore(app);
       window.pPrice=String(p.price);
       document.getElementById('pdp-price').textContent='₹ '+Number(p.price).toLocaleString('en-IN');
     }
-    if(p.availability){window.pAvail=p.availability;}
+    if(p.availability){
+      window.pAvail=p.availability;
+      if(p.availability==='out-of-stock'){
+        var addBtn=document.querySelector('.pdp-add-btn');
+        var buyBtn=document.querySelector('.pdp-buy-btn');
+        if(addBtn){addBtn.disabled=true;addBtn.textContent='Sold Out';}
+        if(buyBtn){buyBtn.disabled=true;buyBtn.textContent='Sold Out';}
+      }
+    }
+    if(p.weight){
+      var wLi=document.getElementById('pdp-weight-li');
+      var wEl=document.getElementById('pdp-weight');
+      if(wLi&&wEl){wEl.textContent=p.weight+'g';wLi.style.display='';}
+    }
     if(p.description){
       var descEl=document.getElementById('pdp-desc-text');
       if(descEl)descEl.innerHTML=p.description.replace(/\n/g,'<br/>');
     }
-    if(p.imageUrl&&!window.pImg){
-      var imgEl=document.getElementById('pdp-main-img');
-      var plEl=document.getElementById('pdp-placeholder');
-      imgEl.src=p.imageUrl;
-      imgEl.style.display='block';
-      if(plEl)plEl.style.display='none';
+    const imgs=Array.isArray(p.images)&&p.images.length?p.images:(p.imageUrl?[p.imageUrl]:[]);
+    if(imgs.length){
+      const thumbsEl=document.getElementById('pdp-thumbs');
+      if(thumbsEl){
+        thumbsEl.innerHTML=imgs.map((url,i)=>`<div class="pdp-thumb${i===0?' active':''}" onclick="setThumb(this,${i})" data-src="${url}"><img src="${url}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"/></div>`).join('');
+      }
+      if(!window.pImg&&imgs[0]){
+        var imgEl=document.getElementById('pdp-main-img');
+        var plEl=document.getElementById('pdp-placeholder');
+        imgEl.src=imgs[0];
+        imgEl.style.display='block';
+        if(plEl)plEl.style.display='none';
+      }
     }
   }catch(e){}
 })();

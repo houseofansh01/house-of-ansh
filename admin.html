@@ -71,6 +71,10 @@ body{background:var(--black);color:var(--white);font-family:var(--fh);min-height
 .avail-toggle:hover{filter:brightness(1.3);}
 .avail-stock{color:#4caf7d;border-color:#4caf7d55;background:#4caf7d08;}
 .avail-mto{color:#e0a830;border-color:#e0a83055;background:#e0a83008;}
+.avail-oos{color:#e05555;border-color:#e0555555;background:#e0555508;}
+.avail-select{border:1px solid;cursor:pointer;font-family:var(--fh);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 22px 4px 10px;transition:filter .2s;white-space:nowrap;appearance:none;-webkit-appearance:none;background-repeat:no-repeat;background-position:right 7px center;background-size:8px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' fill='none' stroke-width='1.4'/%3E%3C/svg%3E");}
+.avail-select:hover{filter:brightness(1.3);}
+.avail-select option{background:var(--surface2,#1a1a1a);color:var(--text,#ccc);}
 
 table{width:100%;border-collapse:collapse;}
 thead th{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--silver-dim);padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);}
@@ -321,7 +325,7 @@ select.form-input option{background:var(--surface2);}
         <div class="section-hd">
           <div class="section-title" id="products-count">All Products</div>
           <div style="display:flex;gap:8px;">
-            <button class="btn-outline btn-sm" id="sync-btn" onclick="syncCatalogue()">Sync Catalogue</button>
+            <button class="btn-outline btn-sm" id="sync-btn" onclick="removeDemoProducts()" title="Removes any leftover demo/placeholder products. Never touches real products you've added.">Remove Demo Products</button>
             <button class="btn" onclick="openAddProduct()">+ Add Product</button>
           </div>
         </div>
@@ -747,12 +751,17 @@ select.form-input option{background:var(--surface2);}
         <input class="form-input" id="p-price" type="number" placeholder="0"/>
       </div>
       <div class="form-row">
-        <label class="form-label">Availability</label>
-        <select class="form-input" id="p-availability">
-          <option value="in-stock">In Stock — Ships Immediately</option>
-          <option value="made-to-order">Made to Order — Ships in 5 Business Days</option>
-        </select>
+        <label class="form-label">Weight (g)</label>
+        <input class="form-input" id="p-weight" type="number" placeholder="e.g. 12"/>
       </div>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Availability</label>
+      <select class="form-input" id="p-availability">
+        <option value="in-stock">In Stock — Ships Immediately</option>
+        <option value="made-to-order">Made to Order — Ships in 5 Business Days</option>
+        <option value="out-of-stock">Out of Stock</option>
+      </select>
     </div>
     <div class="form-row">
       <label class="form-label">Collections <span style="font-size:10px;color:var(--text-dim);font-family:var(--fg)">(select all that apply)</span></label>
@@ -762,22 +771,21 @@ select.form-input option{background:var(--surface2);}
         <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-family:var(--fg);font-size:13px;color:var(--text)"><input type="checkbox" id="p-col-virasat" value="virasat" style="accent-color:#c9a84c;width:15px;height:15px;"/> Virasat</label>
       </div>
     </div>
-    <div class="form-row-2">
-      <div class="form-row">
-        <label class="form-label">Product Type</label>
-        <select class="form-input" id="p-type">
-          <option value="">— Select —</option>
-          <option value="bangles-bracelets">Bangles / Bracelets</option>
-          <option value="rings">Rings</option>
-          <option value="earrings">Earrings</option>
-          <option value="pendants">Pendants</option>
-          <option value="necklace-sets">Necklace Sets</option>
-          <option value="mangalsutra">Mangalsutra</option>
-          <option value="brooches">Brooches</option>
-          <option value="anklets">Anklets</option>
-          <option value="wristlets">Wristlets</option>
-          <option value="chain">Chain</option>
-        </select>
+    <div class="form-row">
+      <label class="form-label">Product Type <span style="font-family:var(--fg);font-size:11px;color:var(--text-dim);text-transform:none;letter-spacing:0;">(select all that apply)</span></label>
+      <div style="border:1px solid var(--border2);padding:10px 14px;display:flex;flex-direction:column;gap:8px;max-height:200px;overflow-y:auto;">
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" class="p-type-cb" value="bangles-bracelets"/><span style="font-family:var(--fg);font-size:13px;">Bangles / Bracelets</span></label>
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" class="p-type-cb" value="rings"/><span style="font-family:var(--fg);font-size:13px;">Rings</span></label>
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" class="p-type-cb" value="earrings"/><span style="font-family:var(--fg);font-size:13px;">Earrings</span></label>
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" class="p-type-cb" value="pendants"/><span style="font-family:var(--fg);font-size:13px;">Pendants</span></label>
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" class="p-type-cb" value="pendant-sets"/><span style="font-family:var(--fg);font-size:13px;">Pendant Sets</span></label>
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" class="p-type-cb" value="necklace-sets"/><span style="font-family:var(--fg);font-size:13px;">Necklace Sets</span></label>
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" class="p-type-cb" value="necklaces"/><span style="font-family:var(--fg);font-size:13px;">Necklaces</span></label>
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" class="p-type-cb" value="mangalsutra"/><span style="font-family:var(--fg);font-size:13px;">Mangalsutra</span></label>
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" class="p-type-cb" value="brooches"/><span style="font-family:var(--fg);font-size:13px;">Brooches</span></label>
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" class="p-type-cb" value="anklets"/><span style="font-family:var(--fg);font-size:13px;">Anklets</span></label>
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" class="p-type-cb" value="wristlets"/><span style="font-family:var(--fg);font-size:13px;">Wristlets</span></label>
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" class="p-type-cb" value="chain"/><span style="font-family:var(--fg);font-size:13px;">Chain</span></label>
       </div>
     </div>
     <div class="form-row">
@@ -785,8 +793,10 @@ select.form-input option{background:var(--surface2);}
       <textarea class="form-input" id="p-desc" placeholder="Short description" rows="4" style="resize:vertical;line-height:1.6;"></textarea>
     </div>
     <div class="form-row">
-      <label class="form-label">Image URL (paste link)</label>
-      <input class="form-input" id="p-img" placeholder="https://..."/>
+      <label class="form-label" style="display:flex;align-items:center;justify-content:space-between;">Product Images (paste URLs)<button type="button" onclick="addImageRow()" style="background:none;border:1px solid var(--border2);color:var(--silver-dim);font-family:var(--fh);font-size:7px;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;cursor:pointer;">+ Add Image</button></label>
+      <div id="p-images-list">
+        <div class="p-img-row" style="display:flex;gap:8px;margin-bottom:6px;"><input class="form-input p-img-input" placeholder="https://... (main image)" style="flex:1;"/><button type="button" onclick="removeImageRow(this)" style="background:none;border:1px solid var(--border2);color:var(--silver-dim);padding:0 10px;cursor:pointer;font-size:16px;flex-shrink:0;" title="Remove">&#215;</button></div>
+      </div>
     </div>
     <div class="modal-actions">
       <button class="btn-outline" onclick="closeModal('modal-add-product')">Cancel</button>
@@ -850,7 +860,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebas
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
   from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc,
-  query, orderBy, serverTimestamp, onSnapshot }
+  query, where, orderBy, serverTimestamp, onSnapshot }
   from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -1153,13 +1163,13 @@ function renderProducts(products) {
     return;
   }
   const tagStyle = 'display:inline-block;font-size:9px;font-family:var(--fh);letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border-radius:3px;margin:2px 2px 0 0;';
-  const TYPE_LABELS = {'bangles-bracelets':'Bangles / Bracelets','rings':'Rings','earrings':'Earrings','pendants':'Pendants','necklace-sets':'Necklace Sets','mangalsutra':'Mangalsutra','brooches':'Brooches','anklets':'Anklets','wristlets':'Wristlets','chain':'Chain'};
+  const TYPE_LABELS = {'bangles-bracelets':'Bangles / Bracelets','rings':'Rings','earrings':'Earrings','pendants':'Pendants','pendant-sets':'Pendant Sets','necklace-sets':'Necklace Sets','mangalsutra':'Mangalsutra','brooches':'Brooches','anklets':'Anklets','wristlets':'Wristlets','chain':'Chain','necklaces':'Necklaces'};
   tbody.innerHTML = products.map(p => {
     const cols = Array.isArray(p.categories) ? p.categories : (p.category ? [p.category] : []);
     const colLabels = {forher:'For Her',forhim:'For Him',virasat:'Virasat'};
     const colTags = cols.map(c => `<span style="${tagStyle}background:rgba(201,168,76,.15);color:#c9a84c;border:1px solid rgba(201,168,76,.3);">${colLabels[c]||c}</span>`).join('');
-    const typeLabel = TYPE_LABELS[p.productType||''] || p.productType || '';
-    const typeTag = typeLabel ? `<span style="${tagStyle}background:rgba(180,180,180,.1);color:var(--silver-dim);border:1px solid rgba(180,180,180,.2);">${typeLabel}</span>` : '';
+    const ptypes = Array.isArray(p.productTypes) ? p.productTypes : (p.productType ? [p.productType] : []);
+    const typeTag = ptypes.map(t => TYPE_LABELS[t]||t).filter(Boolean).map(l => `<span style="${tagStyle}background:rgba(180,180,180,.1);color:var(--silver-dim);border:1px solid rgba(180,180,180,.2);">${l}</span>`).join('');
     const occTags = '';
     return `<tr>
       <td>
@@ -1169,7 +1179,11 @@ function renderProducts(products) {
       </td>
       <td>${colTags}${typeTag ? '<br/>'+typeTag : ''}${occTags ? '<br/>'+occTags : ''}</td>
       <td>₹${p.price||0}</td>
-      <td><button class="avail-toggle ${p.availability==='made-to-order'?'avail-mto':'avail-stock'}" onclick="toggleAvailability('${p.id}','${p.availability||'in-stock'}')">${p.availability==='made-to-order'?'Made to Order':'In Stock'}</button></td>
+      <td><select class="avail-select ${p.availability==='made-to-order'?'avail-mto':(p.availability==='out-of-stock'?'avail-oos':'avail-stock')}" onchange="setAvailability('${p.id}',this.value)">
+        <option value="in-stock" ${(!p.availability||p.availability==='in-stock')?'selected':''}>In Stock</option>
+        <option value="made-to-order" ${p.availability==='made-to-order'?'selected':''}>Made to Order</option>
+        <option value="out-of-stock" ${p.availability==='out-of-stock'?'selected':''}>Out of Stock</option>
+      </select></td>
       <td style="display:flex;gap:8px;">
         <button class="btn-outline btn-sm" onclick="editProduct('${p.id}')">Edit</button>
         <button class="btn btn-sm btn-red" onclick="deleteProduct('${p.id}')">Del</button>
@@ -1178,12 +1192,19 @@ function renderProducts(products) {
   }).join('');
 }
 
+function makeImgRow(val,isFirst){return'<div class="p-img-row" style="display:flex;gap:8px;margin-bottom:6px;"><input class="form-input p-img-input" placeholder="https://...'+(isFirst?' (main image)':'')+'" style="flex:1;" value="'+(val||'')+'"/><button type="button" onclick="removeImageRow(this)" style="background:none;border:1px solid var(--border2);color:var(--silver-dim);padding:0 10px;cursor:pointer;font-size:16px;flex-shrink:0;" title="Remove">&#215;</button></div>';}
+window.addImageRow=function(){var list=document.getElementById('p-images-list');if(list.querySelectorAll('.p-img-row').length>=5){toast('Max 5 images per product.');return;}list.insertAdjacentHTML('beforeend',makeImgRow('',false));};
+window.removeImageRow=function(btn){var list=document.getElementById('p-images-list');if(list.querySelectorAll('.p-img-row').length<=1){btn.closest('.p-img-row').querySelector('.p-img-input').value='';return;}btn.closest('.p-img-row').remove();};
+function resetImageList(){document.getElementById('p-images-list').innerHTML=makeImgRow('',true);}
+function populateImageList(p){var imgs=Array.isArray(p.images)&&p.images.length?p.images:(p.imageUrl?[p.imageUrl]:[]);var list=document.getElementById('p-images-list');list.innerHTML=imgs.length?imgs.map(function(u,i){return makeImgRow(u,i===0);}).join(''):makeImgRow('',true);}
+
 window.openAddProduct = function() {
   document.getElementById('prod-modal-title').textContent = 'Add Product';
-  ['p-id','p-name','p-price','p-desc','p-img'].forEach(id => document.getElementById(id).value='');
+  ['p-id','p-name','p-price','p-weight','p-desc'].forEach(id => document.getElementById(id).value='');
   document.getElementById('p-availability').value = 'in-stock';
-  document.getElementById('p-type').value = '';
+  document.querySelectorAll('.p-type-cb').forEach(cb => cb.checked = false);
   ['p-col-forher','p-col-forhim','p-col-virasat'].forEach(id => document.getElementById(id).checked = false);
+  resetImageList();
   document.getElementById('modal-add-product').classList.add('open');
 };
 
@@ -1194,10 +1215,12 @@ window.editProduct = function(id) {
   document.getElementById('p-id').value            = id;
   document.getElementById('p-name').value          = p.name||'';
   document.getElementById('p-price').value         = p.price||'';
+  document.getElementById('p-weight').value        = p.weight||'';
   document.getElementById('p-availability').value  = p.availability||'in-stock';
-  document.getElementById('p-type').value          = p.productType||'';
+  const ptypes = Array.isArray(p.productTypes) ? p.productTypes : (p.productType ? [p.productType] : []);
+  document.querySelectorAll('.p-type-cb').forEach(cb => cb.checked = ptypes.includes(cb.value));
   document.getElementById('p-desc').value          = p.description||'';
-  document.getElementById('p-img').value           = p.imageUrl||'';
+  populateImageList(p);
   // collections — support both old single 'category' field and new 'categories' array
   const cols = Array.isArray(p.categories) ? p.categories : (p.category ? [p.category] : []);
   ['p-col-forher','p-col-forhim','p-col-virasat'].forEach(eid => {
@@ -1214,12 +1237,15 @@ window.saveProduct = async function() {
   const data = {
     name:         document.getElementById('p-name').value.trim(),
     price:        Number(document.getElementById('p-price').value),
+    weight:       document.getElementById('p-weight').value.trim(),
     availability: document.getElementById('p-availability').value,
     categories,
     category:     categories[0] || '',
-    productType:  document.getElementById('p-type').value,
+    productTypes: Array.from(document.querySelectorAll('.p-type-cb:checked')).map(cb => cb.value),
+    productType:  document.querySelectorAll('.p-type-cb:checked')[0]?.value || '',
     description:  document.getElementById('p-desc').value.trim(),
-    imageUrl:     document.getElementById('p-img').value.trim()
+    images:       Array.from(document.querySelectorAll('#p-images-list .p-img-input')).map(i=>i.value.trim()).filter(Boolean),
+    imageUrl:     Array.from(document.querySelectorAll('#p-images-list .p-img-input')).map(i=>i.value.trim()).filter(Boolean)[0]||''
   };
   if(!data.name){ toast('Product name is required.'); return; }
   if(!categories.length){ toast('Please select at least one collection.'); return; }
@@ -1246,92 +1272,31 @@ window.deleteProduct = async function(id) {
   } catch(e){ toast('Error deleting product.'); }
 };
 
-window.toggleAvailability = async function(id, current) {
-  const next = current === 'made-to-order' ? 'in-stock' : 'made-to-order';
+window.setAvailability = async function(id, next) {
+  const labels = {'in-stock':'In Stock','made-to-order':'Made to Order','out-of-stock':'Out of Stock'};
   try {
     await updateDoc(doc(db,'products',id), { availability: next });
-    toast(next === 'made-to-order' ? 'Marked as Made to Order.' : 'Marked as In Stock.');
+    toast('Marked as ' + (labels[next]||next) + '.');
+    loadProducts();
   } catch(e){ toast('Error updating availability.'); }
 };
 
-window.syncCatalogue = async function() {
-  const CATALOGUE = [
-    {name:'Sterling Bangle Set 01',category:'bangles-bracelets',page:'forher',price:1999},
-    {name:'Sterling Bangle Set 02',category:'bangles-bracelets',page:'forher',price:1999},
-    {name:'Twisted Bangle 01',category:'bangles-bracelets',page:'forher',price:1999},
-    {name:'Twisted Bangle 02',category:'bangles-bracelets',page:'forher',price:1999},
-    {name:'Moonflower Ring 01',category:'rings',page:'forher',price:1999},
-    {name:'Moonflower Ring 02',category:'rings',page:'forher',price:1999},
-    {name:'Lotus Band Ring 01',category:'rings',page:'forher',price:1999},
-    {name:'Lotus Band Ring 02',category:'rings',page:'forher',price:1999},
-    {name:'Cascade Drop Earring 01',category:'earrings',page:'forher',price:1999},
-    {name:'Cascade Drop Earring 02',category:'earrings',page:'forher',price:1999},
-    {name:'Silver Hoop 01',category:'earrings',page:'forher',price:1999},
-    {name:'Silver Hoop 02',category:'earrings',page:'forher',price:1999},
-    {name:'Lotus Pendant 01',category:'pendants',page:'forher',price:1999},
-    {name:'Lotus Pendant 02',category:'pendants',page:'forher',price:1999},
-    {name:'Crescent Pendant 01',category:'pendants',page:'forher',price:1999},
-    {name:'Crescent Pendant 02',category:'pendants',page:'forher',price:1999},
-    {name:'Heritage Necklace Set 01',category:'necklace-sets',page:'forher',price:1999},
-    {name:'Heritage Necklace Set 02',category:'necklace-sets',page:'forher',price:1999},
-    {name:'Layered Necklace Set 01',category:'necklace-sets',page:'forher',price:1999},
-    {name:'Layered Necklace Set 02',category:'necklace-sets',page:'forher',price:1999},
-    {name:'Mangalsutra Classic 01',category:'mangalsutra',page:'forher',price:1999},
-    {name:'Mangalsutra Classic 02',category:'mangalsutra',page:'forher',price:1999},
-    {name:'Mangalsutra Slim 01',category:'mangalsutra',page:'forher',price:1999},
-    {name:'Mangalsutra Slim 02',category:'mangalsutra',page:'forher',price:1999},
-    {name:'Bloom Brooch 01',category:'brooches',page:'forher',price:1999},
-    {name:'Bloom Brooch 02',category:'brooches',page:'forher',price:1999},
-    {name:'Leaf Brooch 01',category:'brooches',page:'forher',price:1999},
-    {name:'Leaf Brooch 02',category:'brooches',page:'forher',price:1999},
-    {name:'Silver Anklet 01',category:'anklets',page:'forher',price:1999},
-    {name:'Silver Anklet 02',category:'anklets',page:'forher',price:1999},
-    {name:'Charm Anklet 01',category:'anklets',page:'forher',price:1999},
-    {name:'Charm Anklet 02',category:'anklets',page:'forher',price:1999},
-    {name:'Sterling Wristlet 01',category:'wristlets',page:'forhim',price:2499},
-    {name:'Sterling Wristlet 02',category:'wristlets',page:'forhim',price:2499},
-    {name:'Chain Wristlet 01',category:'wristlets',page:'forhim',price:2499},
-    {name:'Chain Wristlet 02',category:'wristlets',page:'forhim',price:2499},
-    {name:'Silver Chain 01',category:'chain',page:'forhim',price:2499},
-    {name:'Silver Chain 02',category:'chain',page:'forhim',price:2499},
-    {name:'Figaro Chain 01',category:'chain',page:'forhim',price:2499},
-    {name:'Figaro Chain 02',category:'chain',page:'forhim',price:2499},
-    {name:'Lapel Brooch 01',category:'brooches',page:'forhim',price:2499},
-    {name:'Lapel Brooch 02',category:'brooches',page:'forhim',price:2499},
-    {name:'Shield Brooch 01',category:'brooches',page:'forhim',price:2499},
-    {name:'Shield Brooch 02',category:'brooches',page:'forhim',price:2499},
-    {name:'Virasat Heritage Necklace Set 01',category:'necklace-sets',page:'virasat',price:3999},
-    {name:'Virasat Heritage Necklace Set 02',category:'necklace-sets',page:'virasat',price:3999},
-    {name:'Virasat Jhumka 01',category:'earrings',page:'virasat',price:3999},
-    {name:'Virasat Jhumka 02',category:'earrings',page:'virasat',price:3999},
-    {name:'Virasat Kangan 01',category:'bangles-bracelets',page:'virasat',price:3999},
-    {name:'Virasat Kangan 02',category:'bangles-bracelets',page:'virasat',price:3999},
-    {name:'Virasat Kundan Ring 01',category:'rings',page:'virasat',price:3999},
-    {name:'Virasat Kundan Ring 02',category:'rings',page:'virasat',price:3999},
-    {name:'Virasat Temple Pendant 01',category:'pendants',page:'virasat',price:3999},
-    {name:'Virasat Temple Pendant 02',category:'pendants',page:'virasat',price:3999},
-    {name:'Virasat Mangalsutra 01',category:'mangalsutra',page:'virasat',price:3999},
-    {name:'Virasat Mangalsutra 02',category:'mangalsutra',page:'virasat',price:3999},
-    {name:'Virasat Payal 01',category:'anklets',page:'virasat',price:3999},
-    {name:'Virasat Payal 02',category:'anklets',page:'virasat',price:3999},
-    {name:'Virasat Brooch 01',category:'brooches',page:'virasat',price:3999},
-    {name:'Virasat Wristlet 01',category:'wristlets',page:'virasat',price:3999}
-  ];
+window.removeDemoProducts = async function() {
+  // Real products are always saved with a `categories` array + `productTypes` array (see saveProduct above).
+  // The old dev-only seeder wrote a `page` field instead, which saveProduct never writes — so any product
+  // that has a `page` field is provably leftover demo data, never something the owner added by hand.
   const btn = document.getElementById('sync-btn');
-  btn.disabled = true; btn.textContent = 'Syncing…';
+  btn.disabled = true; btn.textContent = 'Checking…';
   try {
-    const existing = await getDocs(collection(db,'products'));
-    const existingNames = new Set(existing.docs.map(d => d.data().name));
-    let added = 0;
-    for(const p of CATALOGUE) {
-      if(!existingNames.has(p.name)) {
-        await addDoc(collection(db,'products'), { ...p, availability:'in-stock', createdAt: serverTimestamp() });
-        added++;
-      }
-    }
-    toast(added > 0 ? `${added} products added to catalogue.` : 'All products already synced.');
-  } catch(e){ toast('Sync failed.'); }
-  finally { btn.disabled=false; btn.textContent='Sync Catalogue'; }
+    const snap = await getDocs(collection(db,'products'));
+    const toRemove = snap.docs.filter(d => d.data().page !== undefined);
+    for(const d of toRemove) { await deleteDoc(doc(db,'products',d.id)); }
+    toast(toRemove.length > 0
+      ? `Removed ${toRemove.length} demo product${toRemove.length>1?'s':''}.`
+      : 'No demo products found — your catalogue is already clean.');
+    loadProducts(); loadDashboard();
+  } catch(e){ toast('Cleanup failed.'); }
+  finally { btn.disabled=false; btn.textContent='Remove Demo Products'; }
 };
 
 // ── CUSTOMERS ──
@@ -1390,7 +1355,7 @@ async function loadAnalytics(days) {
       : allOrders;
 
     const active = orders.filter(o => o.status !== 'cancelled');
-    const revenue = active.reduce((s,o) => s+(Number(o.amount)||0), 0);
+    const revenue = active.reduce((s,o) => s+(Number(o.totalAmount||o.amount)||0), 0);
     const avg = active.length ? Math.round(revenue/active.length) : 0;
     const uniqueC = new Set(orders.map(o => o.email||o.customerName)).size;
 
@@ -1404,7 +1369,7 @@ async function loadAnalytics(days) {
     active.forEach(o => {
       const d = o.createdAt?.toDate ? o.createdAt.toDate() : new Date(o.createdAt||0);
       const key = d.toLocaleDateString('en-IN',{day:'2-digit',month:'short'});
-      dailyMap[key] = (dailyMap[key]||0) + (Number(o.amount)||0);
+      dailyMap[key] = (dailyMap[key]||0) + (Number(o.totalAmount||o.amount)||0);
     });
 
     if(analyticsChart1) analyticsChart1.destroy();

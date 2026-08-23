@@ -176,6 +176,8 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
 .wl-btn-cart:hover{background:var(--border2);color:var(--white);}
 .wl-btn-buy{background:var(--white);color:var(--black);}
 .wl-btn-buy:hover{background:var(--silver);}
+.wl-sold-out .wl-img,.wl-sold-out .wl-img-placeholder{filter:grayscale(.55) brightness(.7);}
+.wl-btn-oos{flex:1;background:none;color:var(--text-dim);border:1px solid var(--border2);cursor:not-allowed;}
 .wl-img-placeholder{width:100%;aspect-ratio:3/4;background:var(--surface2);display:block;}
 @media(max-width:640px){.wl-page{padding:100px 20px 60px;}}
 </style>
@@ -187,7 +189,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
   <a href="index.html" class="nl"><img src="images/logo.png" alt="House of Ansh" class="nl-logo"/><div class="nl-t"><span class="nl-n">House of Ansh</span><span class="nl-s">Pure Silver Jewellery</span></div></a>
   <ul class="nm">
     <li><a href="home.html">Home</a></li>
-    <li><a href="#">Categories &#9662;</a><div class="dropdown"><div class="has-sub"><a href="forher.html">For Her</a><div class="sub-dropdown"><a href="forher.html">All Jewellery</a><a href="forher.html#bangles-bracelets">Bangles / Bracelets</a><a href="forher.html#rings">Rings</a><a href="forher.html#earrings">Earrings</a><a href="forher.html#pendants">Pendants</a><a href="forher.html#necklace-sets">Necklace Sets</a><a href="forher.html#mangalsutra">Mangalsutra</a><a href="forher.html#brooches">Brooches</a><a href="forher.html#anklets">Anklets</a></div></div><div class="has-sub"><a href="forhim.html">For Him</a><div class="sub-dropdown"><a href="forhim.html">All Jewellery</a><a href="forhim.html#wristlets">Wristlets</a><a href="forhim.html#chain">Chain</a><a href="forhim.html#brooches">Brooches</a><a href="forhim.html#rings">Rings</a></div></div></div></li>
+    <li><a href="#">Categories &#9662;</a><div class="dropdown"><div class="has-sub"><a href="forher.html">For Her</a><div class="sub-dropdown"><a href="forher.html">All Jewellery</a><a href="forher.html#bangles-bracelets">Bangles / Bracelets</a><a href="forher.html#rings">Rings</a><a href="forher.html#earrings">Earrings</a><a href="forher.html#pendants">Pendants</a><a href="forher.html#pendant-sets">Pendant Sets</a><a href="forher.html#necklace-sets">Necklace Sets</a><a href="forher.html#mangalsutra">Mangalsutra</a><a href="forher.html#brooches">Brooches</a><a href="forher.html#anklets">Anklets</a><a href="forher.html#wristlets">Wristlets</a><a href="forher.html#chain">Chain</a><a href="forher.html#necklaces">Necklaces</a></div></div><div class="has-sub"><a href="forhim.html">For Him</a><div class="sub-dropdown"><a href="forhim.html">All Jewellery</a><a href="forhim.html#wristlets">Wristlets</a><a href="forhim.html#chain">Chain</a><a href="forhim.html#brooches">Brooches</a><a href="forhim.html#rings">Rings</a></div></div></div></li>
     <li><a href="#">Collections &#9662;</a><div class="dropdown"><a href="virasat.html">Virasat</a><a href="#" style="color:var(--text-dim);cursor:default;">More Coming Soon</a></div></li>
     <li><a href="#">Personalise &#9662;</a><div class="dropdown"><a href="transform.html">Transform Your Jewellery</a><a href="customdesign.html">Custom Design</a></div></li>
     <li><a href="index.html#story">About Us</a></li>
@@ -254,7 +256,7 @@ function renderCartUI(){var body=document.getElementById('cart-body');var footer
 function removeFromCart(idx){hoaCart.splice(idx,1);localStorage.setItem('hoaCart',JSON.stringify(hoaCart));renderCartUI();}
 function goToCheckout(){window.location.href='checkout.html?from=cart';}
 function addFromWishlist(name,price,category,availability){var idx=hoaCart.findIndex(function(i){return i.name===name;});if(idx>-1){hoaCart[idx].qty++;}else{hoaCart.push({name:name,price:price,category:category,availability:availability,qty:1});}localStorage.setItem('hoaCart',JSON.stringify(hoaCart));renderCartUI();openCart();}
-function buyFromWishlist(name,price,category,availability){window.location.href='checkout.html?product='+encodeURIComponent(name)+'&price='+price+'&category='+encodeURIComponent(category)+'&availability='+availability;}
+function buyFromWishlist(name,price,category,availability,img,id){window.location.href='checkout.html?product='+encodeURIComponent(name)+'&price='+price+'&category='+encodeURIComponent(category)+'&availability='+availability+'&img='+encodeURIComponent(img||'')+'&id='+encodeURIComponent(id||'');}
 renderCartUI();
 function closeSearch(){var o=document.getElementById('search-overlay');if(o)o.classList.remove('active');}
 function openCart(){document.getElementById('cart-overlay').classList.add('active');document.getElementById('cart-panel').classList.add('active');document.body.style.overflow='hidden';}
@@ -291,96 +293,63 @@ document.addEventListener('DOMContentLoaded',function(){
 <script type="module">
 import {initializeApp,getApps} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
 import {getAuth,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
-import {getFirestore,doc,setDoc,arrayRemove,onSnapshot} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
-const CATALOG=[
-  {n:'Sterling Bangle Set 01',c:'bangles-bracelets',p:'forher.html',r:1999},
-  {n:'Sterling Bangle Set 02',c:'bangles-bracelets',p:'forher.html',r:1999},
-  {n:'Twisted Bangle 01',c:'bangles-bracelets',p:'forher.html',r:1999},
-  {n:'Twisted Bangle 02',c:'bangles-bracelets',p:'forher.html',r:1999},
-  {n:'Moonflower Ring 01',c:'rings',p:'forher.html',r:1999},
-  {n:'Moonflower Ring 02',c:'rings',p:'forher.html',r:1999},
-  {n:'Lotus Band Ring 01',c:'rings',p:'forher.html',r:1999},
-  {n:'Lotus Band Ring 02',c:'rings',p:'forher.html',r:1999},
-  {n:'Cascade Drop Earring 01',c:'earrings',p:'forher.html',r:1999},
-  {n:'Cascade Drop Earring 02',c:'earrings',p:'forher.html',r:1999},
-  {n:'Silver Hoop 01',c:'earrings',p:'forher.html',r:1999},
-  {n:'Silver Hoop 02',c:'earrings',p:'forher.html',r:1999},
-  {n:'Lotus Pendant 01',c:'pendants',p:'forher.html',r:1999},
-  {n:'Lotus Pendant 02',c:'pendants',p:'forher.html',r:1999},
-  {n:'Crescent Pendant 01',c:'pendants',p:'forher.html',r:1999},
-  {n:'Crescent Pendant 02',c:'pendants',p:'forher.html',r:1999},
-  {n:'Heritage Necklace Set 01',c:'necklace-sets',p:'forher.html',r:1999},
-  {n:'Heritage Necklace Set 02',c:'necklace-sets',p:'forher.html',r:1999},
-  {n:'Layered Necklace Set 01',c:'necklace-sets',p:'forher.html',r:1999},
-  {n:'Layered Necklace Set 02',c:'necklace-sets',p:'forher.html',r:1999},
-  {n:'Mangalsutra Classic 01',c:'mangalsutra',p:'forher.html',r:1999},
-  {n:'Mangalsutra Classic 02',c:'mangalsutra',p:'forher.html',r:1999},
-  {n:'Mangalsutra Slim 01',c:'mangalsutra',p:'forher.html',r:1999},
-  {n:'Mangalsutra Slim 02',c:'mangalsutra',p:'forher.html',r:1999},
-  {n:'Bloom Brooch 01',c:'brooches',p:'forher.html',r:1999},
-  {n:'Bloom Brooch 02',c:'brooches',p:'forher.html',r:1999},
-  {n:'Leaf Brooch 01',c:'brooches',p:'forher.html',r:1999},
-  {n:'Leaf Brooch 02',c:'brooches',p:'forher.html',r:1999},
-  {n:'Silver Anklet 01',c:'anklets',p:'forher.html',r:1999},
-  {n:'Silver Anklet 02',c:'anklets',p:'forher.html',r:1999},
-  {n:'Charm Anklet 01',c:'anklets',p:'forher.html',r:1999},
-  {n:'Charm Anklet 02',c:'anklets',p:'forher.html',r:1999},
-  {n:'Sterling Wristlet 01',c:'wristlets',p:'forhim.html',r:2499},
-  {n:'Sterling Wristlet 02',c:'wristlets',p:'forhim.html',r:2499},
-  {n:'Chain Wristlet 01',c:'wristlets',p:'forhim.html',r:2499},
-  {n:'Chain Wristlet 02',c:'wristlets',p:'forhim.html',r:2499},
-  {n:'Silver Chain 01',c:'chain',p:'forhim.html',r:2499},
-  {n:'Silver Chain 02',c:'chain',p:'forhim.html',r:2499},
-  {n:'Figaro Chain 01',c:'chain',p:'forhim.html',r:2499},
-  {n:'Figaro Chain 02',c:'chain',p:'forhim.html',r:2499},
-  {n:'Lapel Brooch 01',c:'brooches',p:'forhim.html',r:2499},
-  {n:'Lapel Brooch 02',c:'brooches',p:'forhim.html',r:2499},
-  {n:'Shield Brooch 01',c:'brooches',p:'forhim.html',r:2499},
-  {n:'Shield Brooch 02',c:'brooches',p:'forhim.html',r:2499},
-  {n:'Virasat Heritage Necklace Set 01',c:'necklace-sets',p:'virasat.html',r:3999},
-  {n:'Virasat Heritage Necklace Set 02',c:'necklace-sets',p:'virasat.html',r:3999},
-  {n:'Virasat Jhumka 01',c:'earrings',p:'virasat.html',r:3999},
-  {n:'Virasat Jhumka 02',c:'earrings',p:'virasat.html',r:3999},
-  {n:'Virasat Kangan 01',c:'bangles-bracelets',p:'virasat.html',r:3999},
-  {n:'Virasat Kangan 02',c:'bangles-bracelets',p:'virasat.html',r:3999},
-  {n:'Virasat Kundan Ring 01',c:'rings',p:'virasat.html',r:3999},
-  {n:'Virasat Kundan Ring 02',c:'rings',p:'virasat.html',r:3999},
-  {n:'Virasat Temple Pendant 01',c:'pendants',p:'virasat.html',r:3999},
-  {n:'Virasat Temple Pendant 02',c:'pendants',p:'virasat.html',r:3999},
-  {n:'Virasat Mangalsutra 01',c:'mangalsutra',p:'virasat.html',r:3999},
-  {n:'Virasat Mangalsutra 02',c:'mangalsutra',p:'virasat.html',r:3999},
-  {n:'Virasat Payal 01',c:'anklets',p:'virasat.html',r:3999},
-  {n:'Virasat Payal 02',c:'anklets',p:'virasat.html',r:3999},
-  {n:'Virasat Brooch 01',c:'brooches',p:'virasat.html',r:3999},
-  {n:'Virasat Wristlet 01',c:'wristlets',p:'virasat.html',r:3999}
-];
+import {getFirestore,doc,setDoc,arrayRemove,onSnapshot,collection,getDocs} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+const TYPE_LABELS={'bangles-bracelets':'Bangles / Bracelets','rings':'Rings','earrings':'Earrings','pendants':'Pendants','necklace-sets':'Necklace Sets','mangalsutra':'Mangalsutra','brooches':'Brooches','anklets':'Anklets','wristlets':'Wristlets','chain':'Chain','necklaces':'Necklaces'};
 const cfg={apiKey:"AIzaSyBwqpavjzi15Zt9qHoufjJFI05k7AAHLRs",authDomain:"house-of-ansh.firebaseapp.com",projectId:"house-of-ansh",storageBucket:"house-of-ansh.firebasestorage.app",messagingSenderId:"386185011014",appId:"1:386185011014:web:fef798d4e17c84170bcf47"};
 const app=getApps().length?getApps()[0]:initializeApp(cfg);
 const auth=getAuth(app);const db=getFirestore(app);
 let uid=null;
-function lookup(name){return CATALOG.find(function(p){return p.n===name;})||null;}
+let productsPromise=null;
+// Pulled live from Firestore so the wishlist always reflects whatever is currently in the admin catalogue —
+// nothing here needs to be hand-maintained as products are added, edited or removed.
+function loadProducts(){
+  if(productsPromise) return productsPromise;
+  productsPromise=getDocs(collection(db,'products')).then(function(snap){
+    var map={};
+    snap.docs.forEach(function(d){
+      var p=d.data();
+      var typeSlugs=(Array.isArray(p.productTypes)&&p.productTypes.length)?p.productTypes:(p.productType?[p.productType]:[]);
+      var thumb=(Array.isArray(p.images)&&p.images[0])||p.imageUrl||'';
+      var cats=Array.isArray(p.categories)?p.categories:(p.category?[p.category]:[]);
+      var page=cats.indexOf('virasat')!==-1?'virasat.html':(cats.indexOf('forhim')!==-1?'forhim.html':'forher.html');
+      var typeLabel=typeSlugs.map(function(s){return TYPE_LABELS[s]||s;}).filter(Boolean).join(' · ');
+      map[p.name]={id:d.id,name:p.name||'',price:Number(p.price)||0,img:thumb,cat:typeSlugs.join(' '),typeLabel:typeLabel,page:page,availability:p.availability||'in-stock'};
+    });
+    return map;
+  }).catch(function(){return {};});
+  return productsPromise;
+}
 function he(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function renderWishlist(items){
   var c=document.getElementById('wl-content');if(!c)return;
   if(!items||!items.length){c.innerHTML='<div class="wl-empty-box"><p class="wl-empty-text">There are no items in your Wishlist</p></div>';return;}
+  loadProducts().then(function(products){
   c.innerHTML='<div class="wl-grid">'+items.map(function(name){
-    var prod=lookup(name);var price=prod?prod.r:0;var page=prod?prod.p:'forher.html';var cat=prod?prod.c:'';
-    return '<div class="wl-item">'+
-      '<a href="'+he(page)+'"><div class="wl-img-placeholder"></div></a>'+
+    var prod=products[name]||null;
+    var price=prod?prod.price:0;var page=prod?prod.page:'forher.html';var cat=prod?prod.cat:'';
+    var img=prod?prod.img:'';var id=prod?prod.id:'';var avail=prod?prod.availability:'in-stock';var typeLabel=prod?prod.typeLabel:'';
+    var href='product.html?id='+encodeURIComponent(id)+'&name='+encodeURIComponent(name)+'&cat='+encodeURIComponent(cat)+'&price='+price+'&avail='+encodeURIComponent(avail)+'&img='+encodeURIComponent(img)+'&from='+encodeURIComponent(page);
+    var imgHtml=img?'<img class="wl-img" src="'+he(img)+'" alt="'+he(name)+'"/>':'<div class="wl-img-placeholder"></div>';
+    var isOOS=avail==='out-of-stock';
+    var btnsHtml=isOOS
+      ?'<button class="wl-btn wl-btn-oos" disabled>Sold Out</button>'
+      :'<button class="wl-btn wl-btn-cart" data-wl-name="'+he(name)+'" data-wl-price="'+price+'" data-wl-cat="'+he(cat)+'" data-wl-avail="'+he(avail)+'">Add to Cart</button>'+
+       '<button class="wl-btn wl-btn-buy" data-wl-name="'+he(name)+'" data-wl-price="'+price+'" data-wl-cat="'+he(cat)+'" data-wl-avail="'+he(avail)+'" data-wl-img="'+he(img)+'" data-wl-id="'+he(id)+'">Buy Now</button>';
+    return '<div class="wl-item'+(isOOS?' wl-sold-out':'')+'">'+
+      '<a href="'+he(href)+'">'+imgHtml+'</a>'+
       '<div class="wl-info">'+
+        (typeLabel?'<div style="font-family:var(--fh);font-size:7px;letter-spacing:2.5px;text-transform:uppercase;color:var(--text-dim);margin-bottom:6px;">'+he(typeLabel)+'</div>':'')+
         '<div class="wl-item-name">'+he(name)+'</div>'+
         (price?'<div class="wl-item-price">&#8377;'+price.toLocaleString('en-IN')+'</div>':'')+
-        '<div class="wl-item-btns">'+
-          '<button class="wl-btn wl-btn-cart" data-wl-name="'+he(name)+'" data-wl-price="'+price+'" data-wl-cat="'+he(cat)+'">Add to Cart</button>'+
-          '<button class="wl-btn wl-btn-buy" data-wl-name="'+he(name)+'" data-wl-price="'+price+'" data-wl-cat="'+he(cat)+'">Buy Now</button>'+
-        '</div>'+
+        '<div class="wl-item-btns">'+btnsHtml+'</div>'+
       '</div>'+
       '<button class="wl-remove" data-wl-name="'+he(name)+'">&#x2715;</button>'+
     '</div>';
   }).join('')+'</div>';
   c.querySelectorAll('.wl-remove').forEach(function(btn){btn.addEventListener('click',function(){removeFromWishlist(btn.dataset.wlName);});});
-  c.querySelectorAll('.wl-btn-cart').forEach(function(btn){btn.addEventListener('click',function(){window.addFromWishlist(btn.dataset.wlName,Number(btn.dataset.wlPrice),btn.dataset.wlCat,'in-stock');});});
-  c.querySelectorAll('.wl-btn-buy').forEach(function(btn){btn.addEventListener('click',function(){window.buyFromWishlist(btn.dataset.wlName,Number(btn.dataset.wlPrice),btn.dataset.wlCat,'in-stock');});});
+  c.querySelectorAll('.wl-btn-cart').forEach(function(btn){btn.addEventListener('click',function(){window.addFromWishlist(btn.dataset.wlName,Number(btn.dataset.wlPrice),btn.dataset.wlCat,btn.dataset.wlAvail);});});
+  c.querySelectorAll('.wl-btn-buy').forEach(function(btn){btn.addEventListener('click',function(){window.buyFromWishlist(btn.dataset.wlName,Number(btn.dataset.wlPrice),btn.dataset.wlCat,btn.dataset.wlAvail,btn.dataset.wlImg,btn.dataset.wlId);});});
+  });
 }
 onAuthStateChanged(auth,function(user){
   uid=user?user.uid:null;

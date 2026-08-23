@@ -1,72 +1,6 @@
 (function () {
-  var PRODUCTS = [
-    // ── FOR HER ──────────────────────────────────────────────────
-    {n:'Sterling Bangle Set 01',   c:'bangles-bracelets', g:'For Her', p:'forher.html', r:1999},
-    {n:'Sterling Bangle Set 02',   c:'bangles-bracelets', g:'For Her', p:'forher.html', r:1999},
-    {n:'Twisted Bangle 01',        c:'bangles-bracelets', g:'For Her', p:'forher.html', r:1999},
-    {n:'Twisted Bangle 02',        c:'bangles-bracelets', g:'For Her', p:'forher.html', r:1999},
-    {n:'Moonflower Ring 01',       c:'rings',             g:'For Her', p:'forher.html', r:1999},
-    {n:'Moonflower Ring 02',       c:'rings',             g:'For Her', p:'forher.html', r:1999},
-    {n:'Lotus Band Ring 01',       c:'rings',             g:'For Her', p:'forher.html', r:1999},
-    {n:'Lotus Band Ring 02',       c:'rings',             g:'For Her', p:'forher.html', r:1999},
-    {n:'Cascade Drop Earring 01',  c:'earrings',          g:'For Her', p:'forher.html', r:1999},
-    {n:'Cascade Drop Earring 02',  c:'earrings',          g:'For Her', p:'forher.html', r:1999},
-    {n:'Silver Hoop 01',           c:'earrings',          g:'For Her', p:'forher.html', r:1999},
-    {n:'Silver Hoop 02',           c:'earrings',          g:'For Her', p:'forher.html', r:1999},
-    {n:'Lotus Pendant 01',         c:'pendants',          g:'For Her', p:'forher.html', r:1999},
-    {n:'Lotus Pendant 02',         c:'pendants',          g:'For Her', p:'forher.html', r:1999},
-    {n:'Crescent Pendant 01',      c:'pendants',          g:'For Her', p:'forher.html', r:1999},
-    {n:'Crescent Pendant 02',      c:'pendants',          g:'For Her', p:'forher.html', r:1999},
-    {n:'Heritage Necklace Set 01', c:'necklace-sets',     g:'For Her', p:'forher.html', r:1999},
-    {n:'Heritage Necklace Set 02', c:'necklace-sets',     g:'For Her', p:'forher.html', r:1999},
-    {n:'Layered Necklace Set 01',  c:'necklace-sets',     g:'For Her', p:'forher.html', r:1999},
-    {n:'Layered Necklace Set 02',  c:'necklace-sets',     g:'For Her', p:'forher.html', r:1999},
-    {n:'Mangalsutra Classic 01',   c:'mangalsutra',       g:'For Her', p:'forher.html', r:1999},
-    {n:'Mangalsutra Classic 02',   c:'mangalsutra',       g:'For Her', p:'forher.html', r:1999},
-    {n:'Mangalsutra Slim 01',      c:'mangalsutra',       g:'For Her', p:'forher.html', r:1999},
-    {n:'Mangalsutra Slim 02',      c:'mangalsutra',       g:'For Her', p:'forher.html', r:1999},
-    {n:'Bloom Brooch 01',          c:'brooches',          g:'For Her', p:'forher.html', r:1999},
-    {n:'Bloom Brooch 02',          c:'brooches',          g:'For Her', p:'forher.html', r:1999},
-    {n:'Leaf Brooch 01',           c:'brooches',          g:'For Her', p:'forher.html', r:1999},
-    {n:'Leaf Brooch 02',           c:'brooches',          g:'For Her', p:'forher.html', r:1999},
-    {n:'Silver Anklet 01',         c:'anklets',           g:'For Her', p:'forher.html', r:1999},
-    {n:'Silver Anklet 02',         c:'anklets',           g:'For Her', p:'forher.html', r:1999},
-    {n:'Charm Anklet 01',          c:'anklets',           g:'For Her', p:'forher.html', r:1999},
-    {n:'Charm Anklet 02',          c:'anklets',           g:'For Her', p:'forher.html', r:1999},
-    // ── FOR HIM ──────────────────────────────────────────────────
-    {n:'Sterling Wristlet 01',     c:'wristlets',         g:'For Him', p:'forhim.html', r:2499},
-    {n:'Sterling Wristlet 02',     c:'wristlets',         g:'For Him', p:'forhim.html', r:2499},
-    {n:'Chain Wristlet 01',        c:'wristlets',         g:'For Him', p:'forhim.html', r:2499},
-    {n:'Chain Wristlet 02',        c:'wristlets',         g:'For Him', p:'forhim.html', r:2499},
-    {n:'Silver Chain 01',          c:'chain',             g:'For Him', p:'forhim.html', r:2499},
-    {n:'Silver Chain 02',          c:'chain',             g:'For Him', p:'forhim.html', r:2499},
-    {n:'Figaro Chain 01',          c:'chain',             g:'For Him', p:'forhim.html', r:2499},
-    {n:'Figaro Chain 02',          c:'chain',             g:'For Him', p:'forhim.html', r:2499},
-    {n:'Lapel Brooch 01',          c:'brooches',          g:'For Him', p:'forhim.html', r:2499},
-    {n:'Lapel Brooch 02',          c:'brooches',          g:'For Him', p:'forhim.html', r:2499},
-    {n:'Shield Brooch 01',         c:'brooches',          g:'For Him', p:'forhim.html', r:2499},
-    {n:'Shield Brooch 02',         c:'brooches',          g:'For Him', p:'forhim.html', r:2499},
-    // ── VIRASAT ──────────────────────────────────────────────────
-    {n:'Virasat Heritage Necklace Set 01', c:'necklace-sets',     g:'Virasat', p:'virasat.html', r:3999},
-    {n:'Virasat Heritage Necklace Set 02', c:'necklace-sets',     g:'Virasat', p:'virasat.html', r:3999},
-    {n:'Virasat Jhumka 01',               c:'earrings',          g:'Virasat', p:'virasat.html', r:3999},
-    {n:'Virasat Jhumka 02',               c:'earrings',          g:'Virasat', p:'virasat.html', r:3999},
-    {n:'Virasat Kangan 01',               c:'bangles-bracelets', g:'Virasat', p:'virasat.html', r:3999},
-    {n:'Virasat Kangan 02',               c:'bangles-bracelets', g:'Virasat', p:'virasat.html', r:3999},
-    {n:'Virasat Kundan Ring 01',          c:'rings',             g:'Virasat', p:'virasat.html', r:3999},
-    {n:'Virasat Kundan Ring 02',          c:'rings',             g:'Virasat', p:'virasat.html', r:3999},
-    {n:'Virasat Temple Pendant 01',       c:'pendants',          g:'Virasat', p:'virasat.html', r:3999},
-    {n:'Virasat Temple Pendant 02',       c:'pendants',          g:'Virasat', p:'virasat.html', r:3999},
-    {n:'Virasat Mangalsutra 01',          c:'mangalsutra',       g:'Virasat', p:'virasat.html', r:3999},
-    {n:'Virasat Mangalsutra 02',          c:'mangalsutra',       g:'Virasat', p:'virasat.html', r:3999},
-    {n:'Virasat Payal 01',                c:'anklets',           g:'Virasat', p:'virasat.html', r:3999},
-    {n:'Virasat Payal 02',                c:'anklets',           g:'Virasat', p:'virasat.html', r:3999},
-    {n:'Virasat Brooch 01',               c:'brooches',          g:'Virasat', p:'virasat.html', r:3999},
-    {n:'Virasat Wristlet 01',             c:'wristlets',         g:'Virasat', p:'virasat.html', r:3999}
-  ];
-
-  var CAT_LABELS = {
-    'bangles-bracelets': 'Bangles & Bracelets',
+  var TYPE_LABELS = {
+    'bangles-bracelets': 'Bangles / Bracelets',
     'rings':             'Rings',
     'earrings':          'Earrings',
     'pendants':          'Pendants',
@@ -75,8 +9,61 @@
     'brooches':          'Brooches',
     'anklets':           'Anklets',
     'wristlets':         'Wristlets',
-    'chain':             'Chain'
+    'chain':             'Chain',
+    'necklaces':         'Necklaces'
   };
+  var GROUP_PAGE  = { forher: 'forher.html', forhim: 'forhim.html', virasat: 'virasat.html' };
+  var GROUP_LABEL = { forher: 'For Her', forhim: 'For Him', virasat: 'Virasat' };
+
+  var firebaseConfig = {
+    apiKey: "AIzaSyBwqpavjzi15Zt9qHoufjJFI05k7AAHLRs",
+    authDomain: "house-of-ansh.firebaseapp.com",
+    projectId: "house-of-ansh",
+    storageBucket: "house-of-ansh.firebasestorage.app",
+    messagingSenderId: "386185011014",
+    appId: "1:386185011014:web:fef798d4e17c84170bcf47"
+  };
+
+  var productsPromise = null;
+
+  function he(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+
+  // Loaded live from Firestore on first use, so any product added in the admin
+  // panel shows up in search automatically — nothing here needs to be kept in sync by hand.
+  function loadProducts() {
+    if (productsPromise) return productsPromise;
+    productsPromise = Promise.all([
+      import("https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js"),
+      import("https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js")
+    ]).then(function (mods) {
+      var appMod = mods[0], fsMod = mods[1];
+      var app = appMod.getApps().length ? appMod.getApps()[0] : appMod.initializeApp(firebaseConfig);
+      var db  = fsMod.getFirestore(app);
+      return fsMod.getDocs(fsMod.collection(db, 'products'));
+    }).then(function (snap) {
+      return snap.docs.map(function (d) {
+        var p = d.data();
+        var typeSlugs = (Array.isArray(p.productTypes) && p.productTypes.length)
+          ? p.productTypes : (p.productType ? [p.productType] : []);
+        var typeLabel = typeSlugs.map(function (s) { return TYPE_LABELS[s] || s; }).filter(Boolean).join(' · ');
+        var thumb = (Array.isArray(p.images) && p.images[0]) || p.imageUrl || '';
+        var cats  = Array.isArray(p.categories) ? p.categories : (p.category ? [p.category] : []);
+        var groupKey = cats.indexOf('virasat') !== -1 ? 'virasat' : (cats.indexOf('forhim') !== -1 ? 'forhim' : 'forher');
+        return {
+          id: d.id,
+          name: p.name || '',
+          price: Number(p.price) || 0,
+          img: thumb,
+          cat: typeSlugs.join(' '),
+          typeLabel: typeLabel,
+          group: GROUP_LABEL[groupKey],
+          page: GROUP_PAGE[groupKey],
+          availability: p.availability || 'in-stock'
+        };
+      });
+    }).catch(function () { return []; });
+    return productsPromise;
+  }
 
   function init() {
     var input   = document.getElementById('search-input');
@@ -85,7 +72,6 @@
 
     var hint = overlay.querySelector('p');
 
-    // Inject results container
     var box = document.createElement('div');
     box.id = 'hoa-sr';
     box.style.cssText = [
@@ -96,6 +82,56 @@
     if (hint) hint.insertAdjacentElement('afterend', box);
     else overlay.appendChild(box);
 
+    function renderMatches(q, list) {
+      var lq = q.toLowerCase();
+      var matches = list.filter(function (p) {
+        return p.name.toLowerCase().indexOf(lq) !== -1 ||
+          p.typeLabel.toLowerCase().indexOf(lq) !== -1 ||
+          p.group.toLowerCase().indexOf(lq) !== -1;
+      }).slice(0, 8);
+
+      if (matches.length === 0) {
+        box.innerHTML =
+          '<p style="font-family:Cinzel,serif;font-size:9px;letter-spacing:3px;' +
+          'text-transform:uppercase;color:#555;text-align:center;padding:24px;">' +
+          'No results for &ldquo;' + he(q) + '&rdquo;</p>';
+        box.style.display = 'block';
+        return;
+      }
+
+      box.innerHTML = matches.map(function (p, i) {
+        var border = i < matches.length - 1 ? 'border-bottom:1px solid #1a1a1a;' : '';
+        var href = 'product.html?id=' + encodeURIComponent(p.id) +
+          '&name=' + encodeURIComponent(p.name) +
+          '&cat=' + encodeURIComponent(p.cat) +
+          '&price=' + encodeURIComponent(p.price) +
+          '&avail=' + encodeURIComponent(p.availability) +
+          '&img=' + encodeURIComponent(p.img) +
+          '&from=' + encodeURIComponent(p.page);
+        var thumbHtml = p.img
+          ? '<img src="' + p.img + '" style="width:42px;height:42px;object-fit:cover;margin-right:14px;flex-shrink:0;" alt=""/>'
+          : '<div style="width:42px;height:42px;background:#1a1a1a;margin-right:14px;flex-shrink:0;"></div>';
+        return '<a href="' + href + '" onclick="closeSearch()" ' +
+          'style="display:flex;align-items:center;justify-content:space-between;' +
+          'padding:14px 20px;text-decoration:none;' + border +
+          'transition:background .15s;" ' +
+          'onmouseover="this.style.background=\'rgba(255,255,255,.04)\'" ' +
+          'onmouseout="this.style.background=\'\'">' +
+          '<div style="display:flex;align-items:center;min-width:0;">' + thumbHtml +
+          '<div style="min-width:0;">' +
+          '<div style="font-family:\'Playfair Display\',serif;font-size:14px;' +
+          'font-style:italic;color:#f5f5f5;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + he(p.name) + '</div>' +
+          '<div style="font-family:Cinzel,serif;font-size:7.5px;letter-spacing:2px;' +
+          'text-transform:uppercase;color:#555;">' + he(p.group) + (p.typeLabel ? ' · ' + he(p.typeLabel) : '') +
+          '</div></div></div>' +
+          '<span style="font-family:\'Cormorant Garamond\',serif;font-size:16px;' +
+          'color:#909090;flex-shrink:0;margin-left:20px;">' +
+          '₹' + p.price.toLocaleString('en-IN') + '</span>' +
+          '</a>';
+      }).join('');
+      box.style.display = 'block';
+    }
+
     function render(q) {
       if (!q || q.length < 2) {
         box.style.display = 'none';
@@ -103,48 +139,18 @@
         return;
       }
       if (hint) hint.style.display = 'none';
-
-      var lq = q.toLowerCase();
-      var matches = PRODUCTS.filter(function (p) {
-        return p.n.toLowerCase().indexOf(lq) !== -1 ||
-          (CAT_LABELS[p.c] || '').toLowerCase().indexOf(lq) !== -1 ||
-          p.g.toLowerCase().indexOf(lq) !== -1;
-      }).slice(0, 8);
-
-      if (matches.length === 0) {
-        box.innerHTML =
-          '<p style="font-family:Cinzel,serif;font-size:9px;letter-spacing:3px;' +
-          'text-transform:uppercase;color:#555;text-align:center;padding:24px;">' +
-          'No results for &ldquo;' + q + '&rdquo;</p>';
-        box.style.display = 'block';
-        return;
-      }
-
-      box.innerHTML = matches.map(function (p, i) {
-        var border = i < matches.length - 1 ? 'border-bottom:1px solid #1a1a1a;' : '';
-        var href   = p.g === 'Virasat' ? p.p : (p.p + '#' + p.c);
-        return '<a href="' + href + '" onclick="closeSearch()" ' +
-          'style="display:flex;justify-content:space-between;align-items:center;' +
-          'padding:14px 20px;text-decoration:none;' + border +
-          'transition:background .15s;" ' +
-          'onmouseover="this.style.background=\'rgba(255,255,255,.04)\'" ' +
-          'onmouseout="this.style.background=\'\'">' +
-          '<div>' +
-          '<div style="font-family:\'Playfair Display\',serif;font-size:14px;' +
-          'font-style:italic;color:#f5f5f5;margin-bottom:4px;">' + p.n + '</div>' +
-          '<div style="font-family:Cinzel,serif;font-size:7.5px;letter-spacing:2px;' +
-          'text-transform:uppercase;color:#555;">' + p.g + ' · ' +
-          (CAT_LABELS[p.c] || p.c) + '</div>' +
-          '</div>' +
-          '<span style="font-family:\'Cormorant Garamond\',serif;font-size:16px;' +
-          'color:#909090;flex-shrink:0;margin-left:20px;">' +
-          '₹' + p.r.toLocaleString('en-IN') + '</span>' +
-          '</a>';
-      }).join('');
+      box.innerHTML =
+        '<p style="font-family:Cinzel,serif;font-size:9px;letter-spacing:3px;' +
+        'text-transform:uppercase;color:#555;text-align:center;padding:24px;">Searching&hellip;</p>';
       box.style.display = 'block';
+      loadProducts().then(function (list) {
+        if (input.value.trim() !== q) return; // input moved on while we were fetching
+        renderMatches(q, list);
+      });
     }
 
     input.addEventListener('input', function () { render(this.value.trim()); });
+    input.addEventListener('focus', function () { loadProducts(); }); // prefetch so first keystroke feels instant
 
     input.addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {

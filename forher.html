@@ -168,6 +168,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:cen
 .pc-btn-now{font-family:var(--fh);font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--black);background:var(--white);border:1px solid var(--white);padding:11px 6px;cursor:pointer;transition:all .3s;white-space:nowrap;}
 .pc-btn-now:hover{background:var(--silver);border-color:var(--silver);}
 .pc-mto-badge{font-family:var(--fh);font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--silver-dim);margin-bottom:6px;}
+.pc-sold-out .pc-img{filter:grayscale(.55) brightness(.7);}
+.pc-btn-oos{grid-column:1/-1;font-family:var(--fh);font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);border:1px solid var(--border2);background:rgba(255,255,255,.02);padding:11px 6px;cursor:not-allowed;white-space:nowrap;text-align:center;}
 .product-card.hidden{display:none;}
 .no-results{padding:80px 0;text-align:center;font-family:var(--fh);font-size:9px;letter-spacing:3px;color:var(--text-dim);text-transform:uppercase;display:none;}
 
@@ -343,7 +345,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
   <a href="index.html" class="nl"><img src="images/logo.png" alt="House of Ansh" class="nl-logo"/><div class="nl-t"><span class="nl-n">House of Ansh</span><span class="nl-s">Pure Silver Jewellery</span></div></a>
   <ul class="nm">
     <li><a href="index.html">Home</a></li>
-    <li><a href="#">Categories &#9662;</a><div class="dropdown"><div class="has-sub"><a href="forher.html">For Her</a><div class="sub-dropdown"><a href="forher.html">All Jewellery</a><a href="forher.html#bangles-bracelets">Bangles / Bracelets</a><a href="forher.html#rings">Rings</a><a href="forher.html#earrings">Earrings</a><a href="forher.html#pendants">Pendants</a><a href="forher.html#necklace-sets">Necklace Sets</a><a href="forher.html#mangalsutra">Mangalsutra</a><a href="forher.html#brooches">Brooches</a><a href="forher.html#anklets">Anklets</a></div></div><div class="has-sub"><a href="forhim.html">For Him</a><div class="sub-dropdown"><a href="forhim.html">All Jewellery</a><a href="forhim.html#wristlets">Wristlets</a><a href="forhim.html#chain">Chain</a><a href="forhim.html#brooches">Brooches</a><a href="forhim.html#rings">Rings</a></div></div></div></li>
+    <li><a href="#">Categories &#9662;</a><div class="dropdown"><div class="has-sub"><a href="forher.html">For Her</a><div class="sub-dropdown"><a href="forher.html">All Jewellery</a><a href="forher.html#bangles-bracelets">Bangles / Bracelets</a><a href="forher.html#rings">Rings</a><a href="forher.html#earrings">Earrings</a><a href="forher.html#pendants">Pendants</a><a href="forher.html#pendant-sets">Pendant Sets</a><a href="forher.html#necklace-sets">Necklace Sets</a><a href="forher.html#mangalsutra">Mangalsutra</a><a href="forher.html#brooches">Brooches</a><a href="forher.html#anklets">Anklets</a><a href="forher.html#wristlets">Wristlets</a><a href="forher.html#chain">Chain</a><a href="forher.html#necklaces">Necklaces</a></div></div><div class="has-sub"><a href="forhim.html">For Him</a><div class="sub-dropdown"><a href="forhim.html">All Jewellery</a><a href="forhim.html#wristlets">Wristlets</a><a href="forhim.html#chain">Chain</a><a href="forhim.html#brooches">Brooches</a><a href="forhim.html#rings">Rings</a></div></div></div></li>
     <li><a href="#">Collections &#9662;</a><div class="dropdown"><a href="virasat.html">Virasat</a><a href="#" style="color:var(--text-dim);cursor:default;">More Coming Soon</a></div></li>
     <li><a href="#">Personalise &#9662;</a><div class="dropdown"><a href="transform.html">Transform Your Jewellery</a><a href="customdesign.html">Custom Design</a></div></li>
     <li><a href="index.html#story">About Us</a></li>
@@ -410,12 +412,15 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
           <label class="filter-opt"><input type="checkbox" data-filter="category" value="rings"><label>Rings</label></label>
           <label class="filter-opt"><input type="checkbox" data-filter="category" value="earrings"><label>Earrings</label></label>
           <label class="filter-opt"><input type="checkbox" data-filter="category" value="pendants"><label>Pendants</label></label>
+          <label class="filter-opt"><input type="checkbox" data-filter="category" value="pendant-sets"><label>Pendant Sets</label></label>
           <label class="filter-opt"><input type="checkbox" data-filter="category" value="necklace-sets"><label>Necklace Sets</label></label>
           <label class="filter-opt"><input type="checkbox" data-filter="category" value="mangalsutra"><label>Mangalsutra</label></label>
           <label class="filter-opt"><input type="checkbox" data-filter="category" value="brooches"><label>Brooches</label></label>
           <label class="filter-opt"><input type="checkbox" data-filter="category" value="anklets"><label>Anklets</label></label>
           <label class="filter-opt"><input type="checkbox" data-filter="category" value="wristlets"><label>Wristlets</label></label>
-          <label class="filter-opt"><input type="checkbox" data-filter="category" value="chain"><label>Chain</label></label>        </div>
+          <label class="filter-opt"><input type="checkbox" data-filter="category" value="chain"><label>Chain</label></label>
+          <label class="filter-opt"><input type="checkbox" data-filter="category" value="necklaces"><label>Necklaces</label></label>
+        </div>
       </div>
       <div class="cat-group">
         <div class="cat-group-head" onclick="this.parentElement.classList.toggle('open')">
@@ -477,12 +482,14 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
   <button class="cat-tab" data-cat="rings">Rings</button>
   <button class="cat-tab" data-cat="earrings">Earrings</button>
   <button class="cat-tab" data-cat="pendants">Pendants</button>
+  <button class="cat-tab" data-cat="pendant-sets">Pendant Sets</button>
   <button class="cat-tab" data-cat="necklace-sets">Necklace Sets</button>
   <button class="cat-tab" data-cat="mangalsutra">Mangalsutra</button>
   <button class="cat-tab" data-cat="brooches">Brooches</button>
   <button class="cat-tab" data-cat="anklets">Anklets</button>
   <button class="cat-tab" data-cat="wristlets">Wristlets</button>
   <button class="cat-tab" data-cat="chain">Chain</button>
+  <button class="cat-tab" data-cat="necklaces">Necklaces</button>
 </div>
 <div class="sort-bar">
   <span class="sort-count" id="sortCount">— pieces</span>
@@ -522,7 +529,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
     var visible=0;
     cards.forEach(function(c){
       var show=true;
-      if(state.cats.size&&!state.cats.has(c.dataset.category||''))show=false;
+      if(state.cats.size){var cts=(c.dataset.category||'').split(' ').filter(Boolean);if(!cts.some(function(ct){return state.cats.has(ct);}))show=false;}
       if(state.collections.size&&!state.collections.has(c.dataset.collection||''))show=false;
       var p=+c.dataset.price||0;if(p>0&&(p<state.priceMin||p>state.priceMax))show=false;
       if(state.availability.size&&!state.availability.has(c.dataset.availability||'in-stock'))show=false;
@@ -532,16 +539,27 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
     if(countEl)countEl.textContent=visible+' '+(visible===1?'piece':'pieces');
     var nr=document.querySelector('.no-results');if(nr)nr.style.display=(visible===0&&cards.length>0)?'block':'none';
   }
+  var tabs=document.querySelectorAll('.cat-tab');
+  function syncTabsToCats(){
+    var active=state.cats.size===1?Array.from(state.cats)[0]:(state.cats.size===0?'all':null);
+    tabs.forEach(function(x){x.classList.toggle('active',x.dataset.cat===active);});
+  }
   document.querySelectorAll('input[data-filter]').forEach(function(inp){
     inp.addEventListener('change',function(){
-      var map={category:state.cats,collection:state.collections,availability:state.availability,discount:state.discounts};
+      if(inp.dataset.filter==='category'){
+        state.cats=new Set(Array.from(document.querySelectorAll('input[data-filter=category]:checked')).map(function(i){return i.value;}));
+        var only=state.cats.size===1?Array.from(state.cats)[0]:(state.cats.size===0?window.location.pathname.split('/').pop():null);
+        history.replaceState(null,'',only&&only!=='all'?'#'+only:window.location.pathname);
+        syncTabsToCats();applyFilters();return;
+      }
+      var map={collection:state.collections,availability:state.availability,discount:state.discounts};
       var s=map[inp.dataset.filter];if(s){inp.checked?s.add(inp.value):s.delete(inp.value);applyFilters();}
     });
   });
-  var tabs=document.querySelectorAll('.cat-tab');
-  tabs.forEach(function(t){t.addEventListener('click',function(){tabs.forEach(function(x){x.classList.remove('active');});t.classList.add('active');var cat=t.dataset.cat;history.replaceState(null,'',cat==='all'?window.location.pathname:'#'+cat);state.cats=cat==='all'?new Set():new Set([cat]);document.querySelectorAll('input[data-filter=category]').forEach(function(i){i.checked=false;});applyFilters();});});
+  tabs.forEach(function(t){t.addEventListener('click',function(){var cat=t.dataset.cat;history.replaceState(null,'',cat==='all'?window.location.pathname:'#'+cat);state.cats=cat==='all'?new Set():new Set([cat]);document.querySelectorAll('input[data-filter=category]').forEach(function(i){i.checked=(cat!=='all'&&i.value===cat);});syncTabsToCats();applyFilters();});});
   var hash=window.location.hash.replace('#','');
-  if(hash){state.cats=new Set([hash]);tabs.forEach(function(t){t.classList.toggle('active',t.dataset.cat===hash);});}else{var ft=document.querySelector('.cat-tab');if(ft)ft.classList.add('active');}
+  if(hash){state.cats=new Set([hash]);document.querySelectorAll('input[data-filter=category]').forEach(function(i){i.checked=(i.value===hash);});}
+  syncTabsToCats();
   var sel=document.getElementById('sortSelect');
   if(sel){sel.addEventListener('change',function(){var v=sel.value;cards.sort(function(a,b){if(v==='name-az')return a.dataset.name.localeCompare(b.dataset.name);if(v==='name-za')return b.dataset.name.localeCompare(a.dataset.name);if(v==='price-lh')return +a.dataset.price - +b.dataset.price;if(v==='price-hl')return +b.dataset.price - +a.dataset.price;if(v==='date-on')return +a.dataset.date - +b.dataset.date;if(v==='date-no')return +b.dataset.date - +a.dataset.date;if(v==='bestselling')return +b.dataset.bestselling - +a.dataset.bestselling;return +a.dataset.featured - +b.dataset.featured;});cards.forEach(function(c){grid.appendChild(c);});});}
   var slMin=document.getElementById('priceMin'),slMax=document.getElementById('priceMax'),inMin=document.getElementById('priceMinIn'),inMax=document.getElementById('priceMaxIn'),fill=document.getElementById('priceFill');
@@ -614,14 +632,18 @@ const cfg={apiKey:"AIzaSyBwqpavjzi15Zt9qHoufjJFI05k7AAHLRs",authDomain:"house-of
 const app=getApps().length?getApps()[0]:initializeApp(cfg);
 const db=getFirestore(app);
 const COLLECTION_KEY='forher';
-const TYPE_LABELS={'bangles-bracelets':'Bangles / Bracelets','rings':'Rings','earrings':'Earrings','pendants':'Pendants','necklace-sets':'Necklace Sets','mangalsutra':'Mangalsutra','brooches':'Brooches','anklets':'Anklets','wristlets':'Wristlets','chain':'Chain'};
+const TYPE_LABELS={'bangles-bracelets':'Bangles / Bracelets','rings':'Rings','earrings':'Earrings','pendants':'Pendants','pendant-sets':'Pendant Sets','necklace-sets':'Necklace Sets','mangalsutra':'Mangalsutra','brooches':'Brooches','anklets':'Anklets','wristlets':'Wristlets','chain':'Chain','necklaces':'Necklaces'};
 const PH=`<div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Coming Soon</span></div>`;
 function makeCard(p,idx){
-  const typeLabel=TYPE_LABELS[p.productType||'']||'';
-  const imgHtml=p.imageUrl?`<img src="${p.imageUrl}" alt="${(p.name||'').replace(/"/g,'')}" style="width:100%;height:100%;object-fit:cover;">`:PH;
+  const typeSlugs=Array.isArray(p.productTypes)&&p.productTypes.length?p.productTypes:(p.productType?[p.productType]:[]);
+  const typeLabel=typeSlugs.map(s=>TYPE_LABELS[s]||'').filter(Boolean).join(' · ');
+  const thumb=(Array.isArray(p.images)&&p.images[0])||p.imageUrl||'';
+  const imgHtml=thumb?`<img src="${thumb}" alt="${(p.name||'').replace(/"/g,'')}" style="width:100%;height:100%;object-fit:cover;">`:PH;
   const isVirasat=Array.isArray(p.categories)&&p.categories.includes('virasat');
   const ts=p.createdAt&&p.createdAt.seconds?p.createdAt.seconds:Math.floor(Date.now()/1000)-idx;
-  return `<div class="product-card" data-id="${p.id}" data-category="${p.productType||''}" data-collection="${isVirasat?'virasat':''}" data-name="${(p.name||'').replace(/"/g,'&quot;')}" data-price="${p.price||0}" data-availability="${p.availability||'in-stock'}" data-img="${p.imageUrl||''}" data-featured="${idx+1}" data-bestselling="${1000-idx}" data-date="${ts}"><div class="pc-img" onclick="goToProduct(this.closest('.product-card'))">${imgHtml}<div class="pc-actions"><button class="pc-wish" title="Add to Wishlist" onclick="toggleWishlist(this)">&#9825;</button></div></div><div class="pc-info">${typeLabel?`<p class="pc-cat">${typeLabel}</p>`:''}<h3 class="pc-name" onclick="goToProduct(this.closest('.product-card'))" style="cursor:pointer;">${p.name||'—'}</h3><p class="pc-price">&#8377; ${Number(p.price||0).toLocaleString('en-IN')}</p><div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div></div></div>`;
+  const isOOS=p.availability==='out-of-stock';
+  const btnsHtml=isOOS?`<div class="pc-btns"><button class="pc-btn-oos" disabled>Sold Out</button></div>`:`<div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>`;
+  return `<div class="product-card${isOOS?' pc-sold-out':''}" data-id="${p.id}" data-category="${typeSlugs.join(' ')}" data-collection="${isVirasat?'virasat':''}" data-name="${(p.name||'').replace(/"/g,'&quot;')}" data-price="${p.price||0}" data-availability="${p.availability||'in-stock'}" data-img="${thumb}" data-featured="${idx+1}" data-bestselling="${1000-idx}" data-date="${ts}"><div class="pc-img" onclick="goToProduct(this.closest('.product-card'))">${imgHtml}<div class="pc-actions"><button class="pc-wish" title="Add to Wishlist" onclick="toggleWishlist(this)">&#9825;</button></div></div><div class="pc-info">${typeLabel?`<p class="pc-cat">${typeLabel}</p>`:''}<h3 class="pc-name" onclick="goToProduct(this.closest('.product-card'))" style="cursor:pointer;">${p.name||'—'}</h3><p class="pc-price">&#8377; ${Number(p.price||0).toLocaleString('en-IN')}</p>${btnsHtml}</div></div>`;
 }
 (async()=>{
   const loadingEl=document.getElementById('products-loading');

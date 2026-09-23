@@ -1039,19 +1039,21 @@ window._saveReview=async function(data,onSuccess,onError){
 // Load approved reviews from Firestore into the carousel
 (async function loadApprovedReviews(){
   try{
+    console.log('HOA: querying approved reviews...');
     const snap=await getDocs(query(collection(db,'reviews'),where('status','==','approved')));
+    console.log('HOA: query done, empty='+snap.empty+', count='+snap.size);
     if(snap.empty) return;
-    const docs=snap.docs.map(d=>({...d.data()})).sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
-    const stars=n=>Array(n).fill('&#9733;').join('')+Array(5-n).fill('&#9734;').join('');
-    const html=docs.map(r=>{
-      const rating=Math.round(r.rating||5);
-      return `<div class="rc"><div class="rb">Verified</div><div class="rs">${stars(rating)}</div><p class="rt">&ldquo;${(r.text||'').replace(/</g,'&lt;')}&rdquo;</p><div class="rr-line"></div><div class="rn">${(r.name||'').replace(/</g,'&lt;')}</div><div class="rl">${(r.location||'').replace(/</g,'&lt;')}</div></div>`;
+    const docs=snap.docs.map(d=>d.data()).sort((a,b)=>((b.createdAt&&b.createdAt.seconds)||0)-((a.createdAt&&a.createdAt.seconds)||0));
+    const stars=function(n){return Array(n).fill('&#9733;').join('')+Array(5-n).fill('&#9734;').join('');};
+    const html=docs.map(function(r){
+      var rating=Math.round(r.rating||5);
+      return '<div class="rc"><div class="rb">Verified</div><div class="rs">'+stars(rating)+'</div><p class="rt">“'+(r.text||'').replace(/</g,'&lt;')+'”</p><div class="rr-line"></div><div class="rn">'+(r.name||'').replace(/</g,'&lt;')+'</div><div class="rl">'+(r.location||'').replace(/</g,'&lt;')+'</div></div>';
     }).join('');
     var track=document.getElementById('revTrack');
-    if(track) track.innerHTML=html;
-    // re-init carousel bounds
+    console.log('HOA: track found='+!!track+', html length='+html.length);
+    if(track){track.innerHTML=html;}
     if(window._revCarouselInit) window._revCarouselInit();
-  }catch(e){}
+  }catch(e){console.error('HOA reviews error:',e);}
 })();
 </script>
 <!-- INSTAGRAM -->

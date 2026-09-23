@@ -638,7 +638,7 @@ function makeCard(p,idx){
   const typeSlugs=Array.isArray(p.productTypes)&&p.productTypes.length?p.productTypes:(p.productType?[p.productType]:[]);
   const typeLabel=typeSlugs.map(s=>TYPE_LABELS[s]||'').filter(Boolean).join(' · ');
   const thumb=(Array.isArray(p.images)&&p.images[0])||p.imageUrl||'';
-  const imgHtml=thumb?`<img src="${thumb}" alt="${(p.name||'').replace(/"/g,'')}" style="width:100%;height:100%;object-fit:cover;">`:PH;
+  const imgHtml=thumb?`<img src="${thumb}" alt="${(p.name||'').replace(/"/g,'')}" style="width:100%;height:100%;object-fit:contain;">`:PH;
   const isVirasat=Array.isArray(p.categories)&&p.categories.includes('virasat');
   const ts=p.createdAt&&p.createdAt.seconds?p.createdAt.seconds:Math.floor(Date.now()/1000)-idx;
   const isOOS=p.availability==='out-of-stock';

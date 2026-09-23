@@ -1018,7 +1018,7 @@ window.submitReview=function(){
 
 <script type="module">
 import {initializeApp,getApps} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import {getFirestore,collection,addDoc,serverTimestamp} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import {getFirestore,collection,addDoc,getDocs,query,where,orderBy,serverTimestamp} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 const cfg={apiKey:"AIzaSyBwqpavjzi15Zt9qHoufjJFI05k7AAHLRs",authDomain:"house-of-ansh.firebaseapp.com",projectId:"house-of-ansh",storageBucket:"house-of-ansh.firebasestorage.app",messagingSenderId:"386185011014",appId:"1:386185011014:web:fef798d4e17c84170bcf47"};
 const app=getApps().length?getApps()[0]:initializeApp(cfg);
 const db=getFirestore(app);
@@ -1036,6 +1036,23 @@ window._saveReview=async function(data,onSuccess,onError){
     onSuccess();
   }catch(e){onError();}
 };
+// Load approved reviews from Firestore into the carousel
+(async function loadApprovedReviews(){
+  try{
+    const snap=await getDocs(query(collection(db,'reviews'),where('status','==','approved'),orderBy('createdAt','desc')));
+    if(snap.empty) return;
+    const stars=n=>Array(n).fill('&#9733;').join('')+Array(5-n).fill('&#9734;').join('');
+    const html=snap.docs.map(d=>{
+      const r=d.data();
+      const rating=Math.round(r.rating||5);
+      return `<div class="rc"><div class="rb">Verified</div><div class="rs">${stars(rating)}</div><p class="rt">&ldquo;${(r.text||'').replace(/</g,'&lt;')}&rdquo;</p><div class="rr-line"></div><div class="rn">${(r.name||'').replace(/</g,'&lt;')}</div><div class="rl">${(r.location||'').replace(/</g,'&lt;')}</div></div>`;
+    }).join('');
+    var track=document.getElementById('revTrack');
+    if(track) track.innerHTML=html;
+    // re-init carousel bounds
+    if(window._revCarouselInit) window._revCarouselInit();
+  }catch(e){}
+})();
 </script>
 <!-- INSTAGRAM -->
 <section id="instagram">
@@ -1307,6 +1324,16 @@ function hs(e){
   }
 
   goTo(0);
+
+  window._revCarouselInit = function(){
+    cards = Array.from(track.querySelectorAll('.rc'));
+    total = cards.length;
+    cur = 0;
+    expanded = false;
+    if(wrap) wrap.classList.remove('expanded');
+    if(viewAll) viewAll.querySelector('span').textContent = 'View All Reviews';
+    goTo(0);
+  };
 })();
 </script>
 

@@ -1,0 +1,427 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Full Catalogue | House of Ansh</title>
+<meta name="description" content="Browse the complete House of Ansh catalogue — pure silver jewellery for her, for him, and the Virasat collection, with prices. Handcrafted, hallmarked, ships Pan India."/>
+<meta name="robots" content="index, follow"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Full Catalogue | House of Ansh"/>
+<meta property="og:description" content="Browse the complete House of Ansh catalogue with prices — pure silver jewellery, handcrafted in Kolkata."/>
+<meta property="og:image" content="https://houseofansh.in/images/logo.png"/>
+<meta property="og:site_name" content="House of Ansh"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cinzel:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--black:#060606;--deep:#090909;--surface:#0e0e0e;--surface2:#131313;--border:#1a1a1a;--border2:#242424;--silver:#d8d8d8;--silver-dim:#b8b8b8;--white:#f5f5f5;--text:#aaaaaa;--text-dim:#999999;--fg:'Cormorant Garamond',serif;--fh:'Cinzel',serif;--fp:'Playfair Display',serif;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--white);font-family:var(--fg);}
+a{color:inherit;text-decoration:none;}
+
+header{position:sticky;top:0;z-index:900;background:rgba(6,6,6,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:18px 56px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.hd-brand{display:flex;align-items:center;gap:11px;}
+.hd-logo{height:40px;width:auto;object-fit:contain;}
+.hd-t{display:flex;flex-direction:column;}
+.hd-n{font-family:var(--fp);font-size:14px;letter-spacing:1px;font-style:italic;color:var(--white);}
+.hd-s{font-family:var(--fh);font-size:7px;letter-spacing:3.5px;color:var(--silver-dim);text-transform:uppercase;}
+.hd-actions{display:flex;align-items:center;gap:10px;}
+.hd-btn{font-family:var(--fh);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--silver-dim);border:1px solid var(--border2);background:none;padding:10px 16px;cursor:pointer;transition:all .3s;white-space:nowrap;}
+.hd-btn:hover{color:var(--white);border-color:var(--silver-dim);}
+.hd-btn.primary{background:var(--white);color:var(--black);border-color:var(--white);}
+.hd-btn.primary:hover{background:var(--silver);}
+
+.hero{padding:56px 56px 32px;text-align:center;border-bottom:1px solid var(--border);}
+.hero-title{font-family:var(--fp);font-size:44px;font-style:italic;color:var(--white);margin-bottom:10px;}
+.hero-sub{font-family:var(--fh);font-size:9px;letter-spacing:5px;color:var(--silver-dim);text-transform:uppercase;margin-bottom:18px;}
+.hero-count{font-family:var(--fg);font-size:15px;color:var(--text);}
+
+.toolbar{position:sticky;top:78px;z-index:800;background:rgba(6,6,6,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:14px 56px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.tabs{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{font-family:var(--fh);font-size:8.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--silver-dim);padding:10px 16px;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none;transition:all .3s;}
+.tab:hover,.tab.active{color:var(--white);border-bottom-color:var(--silver);}
+.chips-row{padding:12px 56px;border-bottom:1px solid var(--border);display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;background:rgba(6,6,6,.94);position:sticky;top:127px;z-index:790;}
+.chips-row::-webkit-scrollbar{display:none;}
+.chip{font-family:var(--fh);font-size:7.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--silver-dim);border:1px solid var(--border2);background:none;padding:8px 14px;cursor:pointer;white-space:nowrap;border-radius:20px;transition:all .3s;}
+.chip:hover{color:var(--white);border-color:var(--silver-dim);}
+.chip.active{color:var(--black);background:var(--silver);border-color:var(--silver);}
+.search-wrap{position:relative;}
+#searchInput{background:var(--surface);border:1px solid var(--border2);color:var(--silver);font-family:var(--fg);font-size:14px;padding:9px 14px;width:220px;outline:none;transition:border-color .3s;}
+#searchInput:focus{border-color:var(--silver-dim);}
+#searchInput::placeholder{color:var(--text-dim);}
+
+.grid-wrap{padding:8px 56px 80px;}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-top:1px;}
+.card{background:var(--black);position:relative;overflow:hidden;transition:background .3s;}
+.card:hover{background:var(--surface);}
+.card.hidden{display:none;}
+.c-img{aspect-ratio:3/4;background:var(--surface);display:flex;align-items:center;justify-content:center;overflow:hidden;width:100%;border:none;padding:0;cursor:pointer;}
+.c-img img{width:100%;height:100%;object-fit:contain;}
+.c-ph{opacity:.2;font-family:var(--fh);font-size:8px;letter-spacing:2px;color:var(--silver);text-transform:uppercase;}
+.c-info{padding:16px 18px 20px;}
+.c-cat{font-family:var(--fh);font-size:7px;letter-spacing:2.5px;color:var(--text-dim);text-transform:uppercase;margin-bottom:7px;}
+.c-name{font-family:var(--fp);font-size:15px;color:var(--white);margin-bottom:6px;line-height:1.3;}
+.c-price{font-family:var(--fh);font-size:10.5px;letter-spacing:1.5px;color:var(--silver-dim);margin-bottom:14px;}
+.c-oos{font-family:var(--fh);font-size:7px;letter-spacing:2px;color:#c98a8a;text-transform:uppercase;margin-bottom:14px;}
+.c-btns{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+.c-btn{font-family:var(--fh);font-size:7px;letter-spacing:1.5px;text-transform:uppercase;color:var(--silver-dim);border:1px solid var(--border2);background:none;padding:10px 4px;cursor:pointer;transition:all .3s;text-align:center;white-space:nowrap;}
+.c-btn:hover{color:var(--white);border-color:var(--silver-dim);background:rgba(255,255,255,.04);}
+.c-btn.wa{color:#8fd6a8;border-color:rgba(143,214,168,.25);}
+.c-btn.wa:hover{color:#b6ecc9;border-color:rgba(143,214,168,.5);}
+.c-btn.ig{color:#e0a8cf;border-color:rgba(224,168,207,.25);}
+.c-btn.ig:hover{color:#f0c4e2;border-color:rgba(224,168,207,.5);}
+.c-btn-view{grid-column:1/-1;}
+
+.state-msg{grid-column:1/-1;padding:80px 0;text-align:center;font-family:var(--fh);font-size:9px;letter-spacing:3px;color:var(--text-dim);text-transform:uppercase;}
+
+footer{background:var(--deep);border-top:1px solid var(--border);padding:32px 56px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.ft-copy{font-family:var(--fh);font-size:7.5px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;}
+.ft-contact{font-family:var(--fg);font-size:14px;color:var(--silver-dim);}
+.ft-contact a{border-bottom:1px solid var(--border2);}
+
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--surface2);border:1px solid var(--border2);color:var(--white);font-family:var(--fh);font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:14px 22px;opacity:0;pointer-events:none;transition:all .3s;z-index:2000;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* PRODUCT MODAL */
+.pm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:3000;display:none;align-items:center;justify-content:center;padding:24px;}
+.pm-overlay.open{display:flex;}
+.pm-box{background:var(--surface);border:1px solid var(--border2);width:920px;max-width:100%;max-height:90vh;overflow-y:auto;display:grid;grid-template-columns:1fr 1fr;position:relative;}
+.pm-close{position:absolute;top:14px;right:16px;background:none;border:none;color:var(--silver-dim);font-size:24px;line-height:1;cursor:pointer;z-index:1;padding:4px 8px;transition:color .3s;}
+.pm-close:hover{color:var(--white);}
+.pm-gallery{background:var(--black);display:flex;flex-direction:column;}
+.pm-main-img{aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--black);}
+.pm-main-img img{width:100%;height:100%;object-fit:contain;}
+.pm-thumbs{display:flex;gap:1px;background:var(--border);overflow-x:auto;}
+.pm-thumb{width:60px;height:60px;flex-shrink:0;object-fit:cover;cursor:pointer;opacity:.55;transition:opacity .25s;background:var(--surface);}
+.pm-thumb:hover,.pm-thumb.active{opacity:1;}
+.pm-info{padding:36px 34px;display:flex;flex-direction:column;}
+.pm-cat{font-family:var(--fh);font-size:8px;letter-spacing:2.5px;color:var(--text-dim);text-transform:uppercase;margin-bottom:10px;}
+.pm-name{font-family:var(--fp);font-size:26px;font-style:italic;color:var(--white);margin-bottom:12px;line-height:1.25;}
+.pm-price{font-family:var(--fh);font-size:15px;letter-spacing:1.5px;color:var(--silver);margin-bottom:18px;}
+.pm-oos{font-family:var(--fh);font-size:9px;letter-spacing:2px;color:#c98a8a;text-transform:uppercase;margin-bottom:18px;}
+.pm-meta{display:flex;gap:22px;margin-bottom:20px;}
+.pm-meta-item{font-family:var(--fg);font-size:14px;color:var(--text);}
+.pm-meta-item b{display:block;font-family:var(--fh);font-size:7.5px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;margin-bottom:4px;font-weight:400;}
+.pm-desc{font-family:var(--fg);font-size:16px;line-height:1.75;color:var(--text);margin-bottom:26px;}
+.pm-cta-row{margin-top:auto;display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.pm-wa,.pm-ig{font-family:var(--fh);font-size:8.5px;letter-spacing:2px;text-transform:uppercase;padding:15px 6px;text-align:center;transition:all .3s;white-space:nowrap;}
+.pm-wa{color:#0e0e0e;background:#8fd6a8;border:1px solid #8fd6a8;}
+.pm-wa:hover{background:#b6ecc9;border-color:#b6ecc9;}
+.pm-ig{color:#0e0e0e;background:#e0a8cf;border:1px solid #e0a8cf;}
+.pm-ig:hover{background:#f0c4e2;border-color:#f0c4e2;}
+@media(max-width:700px){
+  .pm-box{grid-template-columns:1fr;}
+  .pm-info{padding:26px 22px;}
+}
+
+@media(max-width:1200px){.grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:900px){
+  header{padding:14px 24px;}
+  .hero{padding:40px 24px 24px;}
+  .hero-title{font-size:32px;}
+  .toolbar{top:70px;padding:12px 24px;}
+  .chips-row{top:119px;padding:10px 24px;}
+  .grid-wrap{padding:8px 24px 60px;}
+  .grid{grid-template-columns:repeat(2,1fr);}
+  footer{padding:28px 24px;flex-direction:column;align-items:flex-start;}
+}
+@media(max-width:520px){
+  #searchInput{width:150px;}
+  .hero-title{font-size:26px;}
+}
+
+@media print{
+  header,.toolbar,.chips-row,footer,.c-btns,.wa-note{display:none!important;}
+  body{background:#fff;color:#111;}
+  .grid{background:#fff;gap:16px;}
+  .card{background:#fff;border:1px solid #ddd;}
+  .c-name,.c-price{color:#111;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="https://houseofansh.in/index.html" class="hd-brand">
+    <img src="https://houseofansh.in/images/logo.png" alt="House of Ansh" class="hd-logo"/>
+    <div class="hd-t"><span class="hd-n">House of Ansh</span><span class="hd-s">Pure Silver Jewellery</span></div>
+  </a>
+  <div class="hd-actions">
+    <button class="hd-btn" id="shareBtn">Share Catalogue</button>
+    <button class="hd-btn primary" onclick="window.print()">Save as PDF</button>
+  </div>
+</header>
+
+<div class="hero">
+  <h1 class="hero-title">Full Catalogue</h1>
+  <p class="hero-sub">Pure Silver Jewellery &nbsp;&#183;&nbsp; Crafted with Intention</p>
+  <p class="hero-count" id="heroCount">Loading pieces&hellip;</p>
+</div>
+
+<div class="toolbar">
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-group="all">All</button>
+    <button class="tab" data-group="forher">For Her</button>
+    <button class="tab" data-group="forhim">For Him</button>
+    <button class="tab" data-group="virasat">Virasat</button>
+  </div>
+  <div class="search-wrap"><input type="text" id="searchInput" placeholder="Search by name&hellip;"/></div>
+</div>
+
+<div class="chips-row" id="chipsRow"></div>
+
+<div class="grid-wrap">
+  <div class="grid" id="grid">
+    <div class="state-msg" id="loadingMsg">Loading catalogue&hellip;</div>
+  </div>
+</div>
+
+<footer>
+  <span class="ft-copy">&copy; 2026 House of Ansh &middot; Kolkata, West Bengal, India</span>
+  <span class="ft-contact">Contact Us &middot; <a href="tel:+917439049616">+91 74390 49616</a> &middot; <a href="mailto:house.of.ansh01@gmail.com">house.of.ansh01@gmail.com</a> &middot; <a href="https://www.instagram.com/houseofansh.in/" target="_blank" rel="noopener">Instagram</a></span>
+</footer>
+
+<div class="toast" id="toast">Link copied</div>
+
+<div class="pm-overlay" id="pmOverlay">
+  <div class="pm-box">
+    <button class="pm-close" id="pmClose" aria-label="Close">&#x2715;</button>
+    <div class="pm-gallery">
+      <div class="pm-main-img" id="pmMainImg"></div>
+      <div class="pm-thumbs" id="pmThumbs"></div>
+    </div>
+    <div class="pm-info">
+      <p class="pm-cat" id="pmCat"></p>
+      <h2 class="pm-name" id="pmName"></h2>
+      <div id="pmPriceWrap"></div>
+      <div class="pm-meta" id="pmMeta"></div>
+      <p class="pm-desc" id="pmDesc"></p>
+      <div class="pm-cta-row">
+        <a class="pm-wa" id="pmWa" href="#" target="_blank" rel="noopener">Enquire on WhatsApp</a>
+        <a class="pm-ig" id="pmIg" href="#" target="_blank" rel="noopener">Enquire on Instagram</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+const cfg={apiKey:"AIzaSyBwqpavjzi15Zt9qHoufjJFI05k7AAHLRs",authDomain:"house-of-ansh.firebaseapp.com",projectId:"house-of-ansh",storageBucket:"house-of-ansh.firebasestorage.app",messagingSenderId:"386185011014",appId:"1:386185011014:web:fef798d4e17c84170bcf47"};
+const app=getApps().length?getApps()[0]:initializeApp(cfg);
+const db=getFirestore(app);
+
+const TYPE_LABELS={'bangles-bracelets':'Bangles / Bracelets','rings':'Rings','earrings':'Earrings','pendants':'Pendants','pendant-sets':'Pendant Sets','necklace-sets':'Necklace Sets','mangalsutra':'Mangalsutra','brooches':'Brooches','anklets':'Anklets','wristlets':'Wristlets','chain':'Chain','necklaces':'Necklaces'};
+const WA_NUMBER='917439049616';
+const IG_DM_LINK='https://ig.me/m/houseofansh.in';
+
+function groupOf(p){
+  const cats=Array.isArray(p.categories)?p.categories:(p.category?[p.category]:[]);
+  if(cats.includes('virasat'))return'virasat';
+  if(cats.includes('forhim'))return'forhim';
+  return'forher';
+}
+
+function typeLabelOf(p){
+  const typeSlugs=Array.isArray(p.productTypes)&&p.productTypes.length?p.productTypes:(p.productType?[p.productType]:[]);
+  return typeSlugs.map(s=>TYPE_LABELS[s]||'').filter(Boolean).join(' &middot; ');
+}
+
+function card(p){
+  const typeSlugs=Array.isArray(p.productTypes)&&p.productTypes.length?p.productTypes:(p.productType?[p.productType]:[]);
+  const typeLabel=typeLabelOf(p);
+  const thumb=(Array.isArray(p.images)&&p.images[0])||p.imageUrl||'';
+  const imgHtml=thumb?`<img src="${thumb}" alt="${(p.name||'').replace(/"/g,'')}" loading="lazy">`:`<span class="c-ph">Coming Soon</span>`;
+  const isOOS=p.availability==='out-of-stock';
+  const price=Number(p.price||0);
+  const group=groupOf(p);
+  const waText=encodeURIComponent(`Hi! I'm interested in "${p.name||'this piece'}" (₹${price.toLocaleString('en-IN')}) from the House of Ansh catalogue.`);
+  const div=document.createElement('div');
+  div.className='card';
+  div.dataset.group=group;
+  div.dataset.types=typeSlugs.join(' ');
+  div.dataset.name=(p.name||'').toLowerCase();
+  div.innerHTML=`
+    <button type="button" class="c-img" aria-label="View ${(p.name||'this piece').replace(/"/g,'')}">${imgHtml}</button>
+    <div class="c-info">
+      ${typeLabel?`<p class="c-cat">${typeLabel}</p>`:''}
+      <h3 class="c-name">${p.name||'&mdash;'}</h3>
+      ${isOOS?`<p class="c-oos">Currently Sold Out</p>`:`<p class="c-price">&#8377; ${price.toLocaleString('en-IN')}</p>`}
+      <div class="c-btns">
+        <button type="button" class="c-btn c-btn-view">View</button>
+        <a class="c-btn wa" href="https://wa.me/${WA_NUMBER}?text=${waText}" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="c-btn ig" href="${IG_DM_LINK}" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>`;
+  div.querySelector('.c-img').addEventListener('click',()=>openProductModal(p));
+  div.querySelector('.c-btn-view').addEventListener('click',()=>openProductModal(p));
+  return div;
+}
+
+function openProductModal(p){
+  const imgs=(Array.isArray(p.images)&&p.images.length?p.images:(p.imageUrl?[p.imageUrl]:[]));
+  const price=Number(p.price||0);
+  const isOOS=p.availability==='out-of-stock';
+  const typeLabel=typeLabelOf(p);
+  const waText=encodeURIComponent(`Hi! I'm interested in "${p.name||'this piece'}" (₹${price.toLocaleString('en-IN')}) from the House of Ansh catalogue.`);
+
+  document.getElementById('pmCat').innerHTML=typeLabel||'';
+  document.getElementById('pmName').textContent=p.name||'—';
+  document.getElementById('pmPriceWrap').innerHTML=isOOS
+    ?'<p class="pm-oos">Currently Sold Out</p>'
+    :`<p class="pm-price">&#8377; ${price.toLocaleString('en-IN')}</p>`;
+  document.getElementById('pmDesc').innerHTML=p.description?p.description.replace(/\n/g,'<br/>'):'';
+
+  const metaEl=document.getElementById('pmMeta');
+  metaEl.innerHTML='';
+  if(p.weight){
+    metaEl.innerHTML+=`<div class="pm-meta-item"><b>Weight</b>${p.weight}g</div>`;
+  }
+  metaEl.innerHTML+=`<div class="pm-meta-item"><b>Availability</b>${isOOS?'Sold Out':(p.availability==='made-to-order'?'Made to Order':'In Stock')}</div>`;
+
+  const mainImgEl=document.getElementById('pmMainImg');
+  const thumbsEl=document.getElementById('pmThumbs');
+  function showImg(i){
+    mainImgEl.innerHTML=imgs[i]?`<img src="${imgs[i]}" alt="${(p.name||'').replace(/"/g,'')}">`:'<span class="c-ph">Coming Soon</span>';
+    thumbsEl.querySelectorAll('img').forEach((t,ti)=>t.classList.toggle('active',ti===i));
+  }
+  if(imgs.length){
+    showImg(0);
+    thumbsEl.innerHTML=imgs.length>1?imgs.map((u,i)=>`<img class="pm-thumb${i===0?' active':''}" src="${u}" data-i="${i}">`).join(''):'';
+    thumbsEl.querySelectorAll('.pm-thumb').forEach(t=>t.addEventListener('click',()=>showImg(+t.dataset.i)));
+  }else{
+    mainImgEl.innerHTML='<span class="c-ph">Coming Soon</span>';
+    thumbsEl.innerHTML='';
+  }
+
+  document.getElementById('pmWa').href=`https://wa.me/${WA_NUMBER}?text=${waText}`;
+  document.getElementById('pmIg').href=IG_DM_LINK;
+  document.getElementById('pmOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeProductModal(){
+  document.getElementById('pmOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('pmClose').addEventListener('click',closeProductModal);
+document.getElementById('pmOverlay').addEventListener('click',e=>{if(e.target.id==='pmOverlay')closeProductModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeProductModal();});
+
+(async()=>{
+  const grid=document.getElementById('grid');
+  const loadingMsg=document.getElementById('loadingMsg');
+  const heroCount=document.getElementById('heroCount');
+  let products=[];
+  try{
+    const snap=await getDocs(collection(db,'products'));
+    products=snap.docs.map(d=>({id:d.id,...d.data()}));
+  }catch(e){
+    products=[];
+  }
+  loadingMsg.remove();
+  if(!products.length){
+    grid.innerHTML='<div class="state-msg">No pieces to show right now &mdash; check back soon.</div>';
+    heroCount.textContent='0 pieces';
+    return;
+  }
+  products.forEach(p=>grid.appendChild(card(p)));
+  heroCount.textContent=products.length+' '+(products.length===1?'piece':'pieces')+' across For Her, For Him & Virasat';
+
+  const cards=Array.from(grid.querySelectorAll('.card'));
+  const tabs=document.querySelectorAll('.tab');
+  const searchInput=document.getElementById('searchInput');
+  const chipsRow=document.getElementById('chipsRow');
+  let activeGroup='all';
+  const selectedTypes=new Set();
+
+  // Build subcategory chips from whichever product types actually exist in the catalogue,
+  // kept in the same order as TYPE_LABELS so it matches the site's own filter lists.
+  const presentTypes=new Set();
+  cards.forEach(c=>(c.dataset.types||'').split(' ').filter(Boolean).forEach(t=>presentTypes.add(t)));
+  const allChip=document.createElement('button');
+  allChip.className='chip active';
+  allChip.textContent='All Types';
+  allChip.dataset.type='';
+  chipsRow.appendChild(allChip);
+  Object.keys(TYPE_LABELS).forEach(slug=>{
+    if(!presentTypes.has(slug))return;
+    const chip=document.createElement('button');
+    chip.className='chip';
+    chip.textContent=TYPE_LABELS[slug];
+    chip.dataset.type=slug;
+    chipsRow.appendChild(chip);
+  });
+  const chips=Array.from(chipsRow.querySelectorAll('.chip'));
+
+  function applyFilters(){
+    const q=searchInput.value.trim().toLowerCase();
+    let visible=0;
+    cards.forEach(c=>{
+      const groupOk=activeGroup==='all'||c.dataset.group===activeGroup;
+      const searchOk=!q||c.dataset.name.indexOf(q)!==-1;
+      const types=(c.dataset.types||'').split(' ').filter(Boolean);
+      const typeOk=selectedTypes.size===0||types.some(t=>selectedTypes.has(t));
+      const show=groupOk&&searchOk&&typeOk;
+      c.classList.toggle('hidden',!show);
+      if(show)visible++;
+    });
+    const noResults=grid.querySelector('.no-results-msg');
+    if(visible===0){
+      if(!noResults){
+        const msg=document.createElement('div');
+        msg.className='state-msg no-results-msg';
+        msg.textContent='No pieces match your search.';
+        grid.appendChild(msg);
+      }
+    }else if(noResults){
+      noResults.remove();
+    }
+  }
+  tabs.forEach(t=>t.addEventListener('click',()=>{
+    tabs.forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    activeGroup=t.dataset.group;
+    applyFilters();
+  }));
+  chips.forEach(chip=>chip.addEventListener('click',()=>{
+    const type=chip.dataset.type;
+    if(!type){
+      selectedTypes.clear();
+      chips.forEach(x=>x.classList.remove('active'));
+      chip.classList.add('active');
+    }else{
+      chip.classList.toggle('active');
+      if(chip.classList.contains('active'))selectedTypes.add(type);
+      else selectedTypes.delete(type);
+      allChip.classList.toggle('active',selectedTypes.size===0);
+    }
+    applyFilters();
+  }));
+  searchInput.addEventListener('input',applyFilters);
+})();
+</script>
+
+<script>
+document.getElementById('shareBtn').addEventListener('click',async function(){
+  const url=window.location.href;
+  const shareData={title:'House of Ansh — Full Catalogue',text:'Browse the full House of Ansh silver jewellery catalogue:',url:url};
+  if(navigator.share){
+    try{ await navigator.share(shareData); return; }catch(e){ /* user cancelled or unsupported, fall through */ }
+  }
+  try{
+    await navigator.clipboard.writeText(url);
+    var t=document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(function(){ t.classList.remove('show'); },2200);
+  }catch(e){
+    window.prompt('Copy this link to share:',url);
+  }
+});
+</script>
+
+</body>
+</html>

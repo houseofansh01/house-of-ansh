@@ -4,19 +4,59 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Checkout — House of Ansh</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cinzel:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-:root{
-  --black:#0a0a0a;--surface:#111;--surface2:#1a1a1a;--border:#2a2a2a;
-  --white:#f5f5f5;--silver:#c4c4c4;--silver-dim:#888;--text:#aaa;
-  --green:#4caf7d;--red:#e05555;
-  --fh:'Helvetica Neue',Arial,sans-serif;--fg:Georgia,serif;
-}
-body{background:var(--black);color:var(--white);font-family:var(--fh);min-height:100vh;}
+:root{--black:#060606;--deep:#090909;--surface:#0e0e0e;--surface2:#131313;--border:#1a1a1a;--border2:#242424;--silver:#d8d8d8;--silver-dim:#b8b8b8;--silver-lo:#2c2c2c;--silver-hi:#f2f2f2;--white:#f5f5f5;--text:#aaaaaa;--text-dim:#999999;--green:#4caf7d;--red:#e05555;--fg:'Cormorant Garamond',serif;--fh:'Cinzel',serif;--fp:'Playfair Display',serif;}
+body{background:var(--black);color:var(--white);font-family:var(--fg);min-height:100vh;}
+a{color:inherit;text-decoration:none;}ul{list-style:none;}button{cursor:pointer;}
 
 /* NAV */
-.nav{height:56px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:center;position:sticky;top:0;z-index:100;}
-.nav-logo{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--silver);}
+nav{position:sticky;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:20px 56px;background:rgba(6,6,6,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nl{display:flex;align-items:center;gap:11px;text-decoration:none;}
+.nl-logo{height:42px;width:auto;object-fit:contain;filter:brightness(1.05);}
+.nl-t{display:flex;flex-direction:column;}
+.nl-n{font-family:var(--fp);font-size:13px;letter-spacing:1.5px;color:var(--white);font-style:italic;}
+.nl-s{font-family:var(--fh);font-size:7.5px;letter-spacing:4px;color:var(--silver-dim);text-transform:uppercase;}
+.nm{display:flex;gap:0;list-style:none;align-items:center;}
+.nm > li{position:relative;}
+.nm > li > a{font-family:var(--fh);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--silver-dim);text-decoration:none;transition:color .3s;padding:10px 16px;display:block;}
+.nm > li > a:hover{color:var(--white);}
+.dropdown{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(-6px);background:rgba(9,9,9,.98);backdrop-filter:blur(16px);border:1px solid var(--border2);min-width:200px;padding:8px 0;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;}
+.nm > li:hover > .dropdown{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0);}
+.dropdown a{display:block;font-family:var(--fh);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--silver-dim);text-decoration:none;padding:10px 20px;transition:color .2s,background .2s;}
+.dropdown a:hover{color:var(--white);background:rgba(255,255,255,.03);}
+.has-sub{position:relative;}
+.sub-dropdown{position:absolute;top:0;left:100%;background:rgba(9,9,9,.98);backdrop-filter:blur(16px);border:1px solid var(--border2);min-width:220px;padding:8px 0;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;transform:translateX(-6px);}
+.dropdown > .has-sub:hover > .sub-dropdown{opacity:1;pointer-events:all;transform:translateX(0);}
+.sub-dropdown a{display:block;font-family:var(--fh);font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:var(--silver-dim);text-decoration:none;padding:10px 20px;transition:color .2s,background .2s;}
+.sub-dropdown a:hover{color:var(--white);background:rgba(255,255,255,.03);}
+.nav-icons{display:flex;align-items:center;}
+.nav-icon{background:none;border:none;cursor:pointer;color:var(--silver-dim);padding:8px 9px;transition:color .3s;display:flex;align-items:center;justify-content:center;}
+.nav-icon:hover,.nav-icon.active-icon{color:var(--silver);}
+.nav-icon svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
+.hamburger span{display:block;width:22px;height:1px;background:var(--silver-dim);transition:all .3s;}
+@media(max-width:860px){
+  nav{padding:16px 24px;}
+  .hamburger{display:flex;}
+  .nm{display:none;flex-direction:column;position:fixed;top:60px;left:0;right:0;bottom:0;background:rgba(6,6,6,.97);padding:16px 0;overflow-y:auto;border-top:1px solid rgba(196,196,196,.12);z-index:901;}
+  .nm.open{display:flex;align-items:stretch;}
+  .nm > li > a{padding:14px 24px;font-size:10px;text-align:center;}
+  .nm > li > .dropdown{display:none;position:relative!important;left:auto!important;right:auto!important;top:auto!important;transform:none!important;opacity:1!important;pointer-events:all!important;box-shadow:none!important;min-width:0!important;width:100%!important;padding:6px 0;border:none;background:rgba(255,255,255,.05);text-align:center;transition:none!important;}
+  .nm > li.mob-open > .dropdown{display:block;}
+  .nm > li > .dropdown a{text-align:center;padding:11px 0;display:block;color:var(--silver)!important;font-size:9px;letter-spacing:2px;width:100%;}
+  .sub-dropdown{display:none;position:static;opacity:1;pointer-events:all;transform:none;padding:4px 0;border:none;background:rgba(255,255,255,.04);min-width:0;width:100%;text-align:center;}
+  .has-sub.mob-open > .sub-dropdown{display:block;}
+  .sub-dropdown a{text-align:center;padding:10px 0;display:block;color:var(--silver)!important;width:100%;}
+  .nav-icon{display:none;}
+}
+@media(max-width:640px){
+  nav{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:14px 16px;}
+  .hamburger{justify-self:start;}
+  .nl{justify-self:center;}
+  .nav-icons{justify-self:end;}
+}
 
 /* LAYOUT */
 .checkout-wrap{max-width:960px;margin:0 auto;padding:48px 20px;display:grid;grid-template-columns:1fr 380px;gap:40px;align-items:start;}
@@ -41,7 +81,7 @@ textarea.form-input{resize:vertical;min-height:80px;}
 .coupon-err{color:var(--red);}
 
 /* SUMMARY SIDE */
-.summary-box{background:var(--surface);border:1px solid var(--border);padding:28px;position:sticky;top:80px;}
+.summary-box{background:var(--surface);border:1px solid var(--border);padding:28px;position:sticky;top:100px;}
 .summary-title{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--silver-dim);margin-bottom:20px;}
 .summary-product{display:flex;gap:14px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);}
 .summary-img{width:72px;height:72px;object-fit:cover;background:var(--surface2);flex-shrink:0;}
@@ -77,11 +117,27 @@ textarea.form-input{resize:vertical;min-height:80px;}
 </head>
 <body>
 
-<div class="nav">
-  <a href="index.html" style="text-decoration:none;">
-    <div class="nav-logo">House of Ansh</div>
-  </a>
-</div>
+<nav id="nav">
+  <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  <a href="index.html" class="nl"><img src="images/logo.png" alt="House of Ansh" class="nl-logo"/><div class="nl-t"><span class="nl-n">House of Ansh</span><span class="nl-s">Pure Silver Jewellery</span></div></a>
+  <ul class="nm">
+    <li><a href="home.html">Home</a></li>
+    <li><a href="#">Categories &#9662;</a>
+      <div class="dropdown">
+        <div class="has-sub"><a href="forher.html">For Her</a><div class="sub-dropdown"><a href="forher.html">All Jewellery</a><a href="forher.html#bangles-bracelets">Bangles / Bracelets</a><a href="forher.html#rings">Rings</a><a href="forher.html#earrings">Earrings</a><a href="forher.html#pendants">Pendants</a><a href="forher.html#necklace-sets">Necklace Sets</a><a href="forher.html#mangalsutra">Mangalsutra</a><a href="forher.html#anklets">Anklets</a></div></div>
+        <div class="has-sub"><a href="forhim.html">For Him</a><div class="sub-dropdown"><a href="forhim.html">All Jewellery</a><a href="forhim.html#wristlets">Wristlets</a><a href="forhim.html#chain">Chain</a><a href="forhim.html#brooches">Brooches</a><a href="forhim.html#rings">Rings</a></div></div>
+      </div>
+    </li>
+    <li><a href="#">Collections &#9662;</a><div class="dropdown"><a href="virasat.html">Virasat</a></div></li>
+    <li><a href="#">Personalise &#9662;</a><div class="dropdown"><a href="transform.html">Transform Your Jewellery</a><a href="customdesign.html">Custom Design</a></div></li>
+    <li><a href="my-orders.html">My Orders</a></li><li><a href="index.html#story">About Us</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <div class="nav-icons">
+    <button class="nav-icon" onclick="window.location.href='login.html'" title="Account"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.582-7 8-7s8 3 8 7"/></svg></button>
+    <button class="nav-icon" onclick="window.location.href='forher.html'" title="Shop"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></button>
+  </div>
+</nav>
 
 <div id="loading" class="page-loader">Loading...</div>
 
@@ -89,6 +145,18 @@ textarea.form-input{resize:vertical;min-height:80px;}
 <div id="checkout-wrap" class="checkout-wrap" style="display:none;">
   <!-- Left: Form -->
   <div>
+    <!-- Profile pre-fill banner -->
+    <div id="profile-banner" style="display:none;background:rgba(196,196,196,.06);border:1px solid rgba(196,196,196,.14);padding:14px 18px;margin-bottom:22px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+        <span id="profile-banner-text" style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#b8b8b8;">&#10003; Your details have been pre-filled</span>
+        <label style="display:flex;align-items:center;gap:9px;cursor:pointer;">
+          <input type="checkbox" id="gift-toggle" onchange="window.toggleGiftMode()" style="width:15px;height:15px;accent-color:#d8d8d8;cursor:pointer;flex-shrink:0;">
+          <span style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#f2f2f2;">Ordering for someone else?</span>
+        </label>
+      </div>
+      <div id="gift-note" style="display:none;margin-top:10px;font-family:'Cormorant Garamond',serif;font-size:15px;color:#b8b8b8;font-style:italic;">Update the name and delivery address below for your recipient — your email stays attached so you can track the order.</div>
+    </div>
+
     <div class="form-section">
       <div class="form-section-title">Contact Details</div>
       <div class="form-row-2">
@@ -183,6 +251,9 @@ textarea.form-input{resize:vertical;min-height:80px;}
     <div style="font-size:11px;color:var(--silver-dim);text-align:center;margin-top:14px;line-height:1.6;">
       We will send you a payment link on WhatsApp within 1 hour of placing your order.
     </div>
+    <div style="font-size:11px;color:#a07840;background:#0e0a04;border:1px solid #5a3a1040;border-radius:4px;text-align:center;margin-top:10px;padding:10px 14px;line-height:1.7;">
+      Please record an unboxing video when opening your parcel. A continuous unboxing video is required to process any return or exchange claim.
+    </div>
   </div>
 </div>
 
@@ -201,9 +272,11 @@ textarea.form-input{resize:vertical;min-height:80px;}
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, query,
+import { getFirestore, collection, addDoc, getDocs, doc, getDoc, setDoc, updateDoc, query,
   where, serverTimestamp, increment }
   from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged }
+  from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBwqpavjzi15Zt9qHoufjJFI05k7AAHLRs",
@@ -214,8 +287,70 @@ const firebaseConfig = {
   appId: "1:386185011014:web:fef798d4e17c84170bcf47"
 };
 
-const app = initializeApp(firebaseConfig);
-const db  = getFirestore(app);
+const app  = initializeApp(firebaseConfig);
+const db   = getFirestore(app);
+const auth = getAuth(app);
+
+let currentUser = null;
+
+// ── AUTH GATE: must be logged in to checkout ──
+onAuthStateChanged(auth, user => {
+  if(!user) {
+    // Save full current URL and redirect to login
+    window.location.href = 'login.html?next=' + encodeURIComponent(location.href);
+  } else {
+    currentUser = user;
+    loadProfile(user);
+  }
+});
+
+async function loadProfile(user) {
+  try {
+    // Try loading saved profile by UID
+    const snap = await getDoc(doc(db, 'customers', user.uid));
+    if(snap.exists()) {
+      const p = snap.data();
+      if(p.name)  document.getElementById('c-name').value  = p.name;
+      if(p.phone) document.getElementById('c-phone').value = p.phone;
+      else if(user.phoneNumber) document.getElementById('c-phone').value = user.phoneNumber;
+      if(p.email) document.getElementById('c-email').value = p.email;
+      else if(user.email) document.getElementById('c-email').value = user.email;
+      if(p.addr1) document.getElementById('c-addr1').value = p.addr1;
+      if(p.city)  document.getElementById('c-city').value  = p.city;
+      if(p.state) document.getElementById('c-state').value = p.state;
+      if(p.pin)   document.getElementById('c-pin').value   = p.pin;
+      // Trigger Kolkata check for founder delivery
+      document.getElementById('c-city').dispatchEvent(new Event('input'));
+    } else {
+      // Pre-fill from auth at minimum
+      if(user.phoneNumber) document.getElementById('c-phone').value = user.phoneNumber;
+      if(user.email) document.getElementById('c-email').value = user.email;
+    }
+    // Show the pre-fill banner
+    document.getElementById('profile-banner').style.display = 'block';
+    const nameVal = document.getElementById('c-name').value;
+    if(nameVal) document.getElementById('profile-banner-text').textContent = '✓ Welcome back, ' + nameVal.split(' ')[0] + '! Your details are pre-filled.';
+  } catch(e) {
+    document.getElementById('c-email').value = user.email || '';
+  }
+}
+
+window.toggleGiftMode = function() {
+  const on = document.getElementById('gift-toggle').checked;
+  document.getElementById('gift-note').style.display = on ? 'block' : 'none';
+  if(on) {
+    // Clear name & address so they fill in recipient's
+    document.getElementById('c-name').value  = '';
+    document.getElementById('c-addr1').value = '';
+    document.getElementById('c-city').value  = '';
+    document.getElementById('c-state').value = '';
+    document.getElementById('c-pin').value   = '';
+    document.getElementById('c-name').focus();
+  } else {
+    // Restore their own profile
+    if(currentUser) loadProfile(currentUser);
+  }
+};
 
 // ── URL PARAMS / CART ──
 const params   = new URLSearchParams(location.search);
@@ -420,21 +555,29 @@ window.placeOrder = async function() {
       createdAt:     serverTimestamp()
     });
 
-    // Upsert customer
-    const custQuery = await getDocs(query(collection(db,'customers'), where('email','==',email)));
-    if(custQuery.empty) {
-      await addDoc(collection(db,'customers'), {
-        name, email, phone, address,
-        orderCount: 1,
-        totalSpent: 0,
-        createdAt:  serverTimestamp()
-      });
-    } else {
-      const custDoc = custQuery.docs[0];
-      await updateDoc(doc(db,'customers',custDoc.id), {
+    // Save/update customer profile by UID for fast pre-fill next time
+    const isGift = document.getElementById('gift-toggle') && document.getElementById('gift-toggle').checked;
+    if(currentUser) {
+      const custRef = doc(db, 'customers', currentUser.uid);
+      const custSnap = await getDoc(custRef);
+      const profileName  = isGift ? (custSnap.exists() ? custSnap.data().name  : name)  : name;
+      const profilePhone = isGift ? (custSnap.exists() ? custSnap.data().phone : phone) : phone;
+      const profileAddr1 = isGift ? (custSnap.exists() ? custSnap.data().addr1 : addr1) : addr1;
+      const profileCity  = isGift ? (custSnap.exists() ? custSnap.data().city  : city)  : city;
+      const profileState = isGift ? (custSnap.exists() ? custSnap.data().state : state) : state;
+      const profilePin   = isGift ? (custSnap.exists() ? custSnap.data().pin   : pin)   : pin;
+      await setDoc(custRef, {
+        name:  profileName,
+        email: currentUser.email || email,
+        phone: profilePhone,
+        addr1: profileAddr1,
+        city:  profileCity,
+        state: profileState,
+        pin:   profilePin,
+        address: [profileAddr1, profileCity, profileState, profilePin].filter(Boolean).join(', '),
         orderCount: increment(1),
-        phone, address
-      });
+        updatedAt: serverTimestamp()
+      }, { merge: true });
     }
 
     // Increment coupon usage
@@ -445,8 +588,48 @@ window.placeOrder = async function() {
     // Clear cart if came from cart
     if(fromCart) localStorage.removeItem('hoaCart');
 
-    // Build WhatsApp message
+    // Email admin notification
     const orderId  = orderRef.id.slice(-8).toUpperCase();
+    if(window.emailjs && window._ejsReady) {
+      try {
+        emailjs.send(window._ejsSvc, window._ejsTpl, {
+          from_name:    name,
+          from_email:   email || '(not provided)',
+          phone:        phone || '(not provided)',
+          enquiry_type: 'New Order',
+          message:
+            'Order ID: #' + orderId + '\n' +
+            'Item: ' + productName + '\n' +
+            'Amount: ₹' + total.toLocaleString('en-IN') + '\n' +
+            (discountAmt > 0 ? 'Coupon: ' + (appliedCoupon?.code||'') + ' (-₹' + discountAmt.toLocaleString('en-IN') + ')\n' : '') +
+            'Delivery: ' + (del === 0 ? 'Free' : '₹' + del.toLocaleString('en-IN')) + '\n' +
+            (founderDeliveryAmt > 0 ? 'Founder Delivery: ₹1,499\n' : '') +
+            'Address: ' + address + '\n' +
+            (notes ? 'Notes: ' + notes : '')
+        }, window._ejsKey);
+      } catch(ejsErr) {}
+      // Customer order confirmation email
+      if(email && window._ejsCustTpl) {
+        try {
+          emailjs.send(window._ejsSvc, window._ejsCustTpl, {
+            to_email:      email,
+            customer_name: name,
+            subject:       'Order Placed — #' + orderId + ' | House of Ansh',
+            message:
+              'Your order has been placed! Here are your details:\n\n' +
+              'Order ID: #' + orderId + '\n' +
+              'Item: ' + productName + '\n' +
+              'Amount: ₹' + total.toLocaleString('en-IN') + '\n' +
+              (discountAmt > 0 ? 'Discount: -₹' + discountAmt.toLocaleString('en-IN') + ' (' + (appliedCoupon?.code||'') + ')\n' : '') +
+              'Delivery Address: ' + address + '\n\n' +
+              'We will share a payment link on WhatsApp at +91-74390-49616 within 1 hour.\n' +
+              'You can track your order at houseofansh.in/my-orders.html'
+          }, window._ejsKey);
+        } catch(ejsErr2) {}
+      }
+    }
+
+    // Build WhatsApp message
     const waMsg    = encodeURIComponent(
       `Hello House of Ansh! 🌸\n\n` +
       `I just placed an order on your website.\n\n` +
@@ -478,6 +661,29 @@ window.placeOrder = async function() {
 };
 
 init();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+(function(){
+  var SVC_ID      = 'service_ina0w1d';
+  var TPL_ID      = 'template_f8me1mh';
+  var CUST_TPL_ID = 'template_zd2d40j';
+  var PUB_KEY     = '8Af9pzk5m72Z3_OxN';
+  if(SVC_ID.indexOf('YOUR_')===0) return;
+  emailjs.init(PUB_KEY);
+  window._ejsSvc=SVC_ID; window._ejsTpl=TPL_ID; window._ejsCustTpl=CUST_TPL_ID; window._ejsKey=PUB_KEY; window._ejsReady=true;
+})();
+</script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  var ham=document.getElementById('hamburger'),nm=document.querySelector('.nm');
+  if(ham&&nm){
+    function closeAll(){ham.classList.remove('open');nm.classList.remove('open');nm.querySelectorAll('.mob-open').forEach(function(el){el.classList.remove('mob-open');});}
+    ham.addEventListener('click',function(){ham.classList.toggle('open');nm.classList.toggle('open');});
+    nm.querySelectorAll('li > a').forEach(function(a){a.addEventListener('click',function(e){if(window.innerWidth>860)return;var dd=a.nextElementSibling;if(dd&&dd.classList.contains('dropdown')){e.preventDefault();var li=a.parentElement;var was=li.classList.contains('mob-open');nm.querySelectorAll('li.mob-open').forEach(function(s){s.classList.remove('mob-open');});if(!was)li.classList.add('mob-open');}else{closeAll();}});});
+    nm.querySelectorAll('.has-sub > a').forEach(function(a){a.addEventListener('click',function(e){if(window.innerWidth>860)return;e.preventDefault();var hs=a.parentElement;var was=hs.classList.contains('mob-open');hs.parentElement.querySelectorAll('.has-sub.mob-open').forEach(function(s){s.classList.remove('mob-open');});if(!was)hs.classList.add('mob-open');});});
+  }
+});
 </script>
 </body>
 </html>

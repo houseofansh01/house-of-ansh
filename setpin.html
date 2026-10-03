@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Set New PIN | House of Ansh</title>
+<meta name="robots" content="noindex"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cinzel:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--black:#060606;--deep:#090909;--surface:#0e0e0e;--surface2:#131313;--border:#1a1a1a;--border2:#242424;--silver:#d8d8d8;--silver-dim:#b8b8b8;--white:#f5f5f5;--text:#aaaaaa;--text-dim:#999999;--fg:'Cormorant Garamond',serif;--fh:'Cinzel',serif;--fp:'Playfair Display',serif;}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{background:var(--black);color:var(--white);font-family:var(--fg);}
+a{color:inherit;text-decoration:none;}
+button{cursor:pointer;}
+nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:20px 56px;background:rgba(6,6,6,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nl{display:flex;align-items:center;gap:11px;}
+.nl-logo{height:42px;width:auto;object-fit:contain;}
+.nl-t{display:flex;flex-direction:column;}
+.nl-n{font-family:var(--fp);font-size:13px;letter-spacing:1.5px;color:var(--white);font-style:italic;}
+.nl-s{font-family:var(--fh);font-size:7.5px;letter-spacing:4px;color:var(--silver-dim);text-transform:uppercase;}
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 24px 80px;}
+.login-card{width:100%;max-width:480px;}
+.login-title{font-family:var(--fh);font-size:clamp(18px,2.5vw,26px);letter-spacing:6px;text-transform:uppercase;color:var(--white);text-align:center;margin-bottom:14px;}
+.login-sub{font-family:var(--fg);font-size:clamp(14px,1.2vw,16px);color:var(--text);text-align:center;margin-bottom:28px;line-height:1.6;}
+.pin-label{font-family:var(--fh);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--silver-dim);display:block;margin-bottom:8px;}
+.pin-row{display:flex;gap:8px;margin-bottom:2px;}
+.pin-digit{flex:1;background:transparent;border:1px solid var(--border2);color:var(--white);font-family:var(--fh);font-size:22px;padding:14px 0;text-align:center;outline:none;transition:border-color .3s;min-width:0;-webkit-text-security:disc;}
+.pin-digit:focus{border-color:var(--silver-dim);}
+.pin-digit.filled{border-color:rgba(216,216,216,.35);}
+.login-btn{width:100%;margin-top:12px;background:var(--white);color:var(--black);font-family:var(--fh);font-size:10px;letter-spacing:4px;text-transform:uppercase;border:none;padding:18px;cursor:pointer;transition:background .3s,color .3s;display:block;text-align:center;}
+.login-btn:hover{background:var(--silver-dim);}
+.login-btn:disabled{opacity:.5;cursor:not-allowed;}
+.login-msg{font-family:var(--fg);font-size:13px;margin-top:10px;min-height:18px;text-align:center;}
+.login-msg.err{color:#e05555;}
+.login-msg.ok{color:#4caf7d;}
+.step{display:none;} .step.active{display:block;}
+@media(max-width:640px){nav{padding:14px 20px;}.nl-logo{height:28px;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nl">
+    <img src="images/logo.png" alt="House of Ansh" class="nl-logo"/>
+    <div class="nl-t"><span class="nl-n">House of Ansh</span><span class="nl-s">Pure Silver Jewellery</span></div>
+  </a>
+</nav>
+
+<div class="login-wrap">
+  <div class="login-card">
+
+    <!-- Verifying link -->
+    <div class="step active" id="step-verify">
+      <h1 class="login-title">Verifying</h1>
+      <p class="login-sub">Please wait…</p>
+    </div>
+
+    <!-- Set new PIN -->
+    <div class="step" id="step-setpin">
+      <h1 class="login-title">Set New PIN</h1>
+      <p class="login-sub">Choose a new 6-digit PIN for your account.</p>
+      <span class="pin-label">New PIN</span>
+      <div class="pin-row" id="pin-new-row">
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+      </div>
+      <span class="pin-label" style="margin-top:12px;">Confirm New PIN</span>
+      <div class="pin-row" id="pin-confirm-row">
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+      </div>
+      <button class="login-btn" id="set-btn" onclick="window.setNewPin()">Set PIN</button>
+      <p class="login-msg" id="msg-setpin"></p>
+    </div>
+
+    <!-- Done -->
+    <div class="step" id="step-done">
+      <h1 class="login-title">PIN Updated</h1>
+      <p class="login-sub">Your PIN has been set successfully. You can now sign in with your phone number and new PIN.</p>
+      <a href="login.html" class="login-btn">Sign In</a>
+    </div>
+
+    <!-- Error -->
+    <div class="step" id="step-error">
+      <h1 class="login-title">Link Expired</h1>
+      <p class="login-sub">This reset link has expired or already been used. Please go back and request a new one.</p>
+      <a href="login.html" class="login-btn">Back to Sign In</a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.pin-row').forEach(function(row) {
+  var digits=row.querySelectorAll('.pin-digit');
+  digits.forEach(function(inp,idx){
+    inp.addEventListener('input',function(){
+      inp.value=inp.value.replace(/\D/g,'').slice(-1);
+      if(inp.value&&idx<digits.length-1)digits[idx+1].focus();
+      inp.classList.toggle('filled',!!inp.value);
+    });
+    inp.addEventListener('keydown',function(e){
+      if(e.key==='Backspace'&&!inp.value&&idx>0){digits[idx-1].focus();digits[idx-1].value='';digits[idx-1].classList.remove('filled');}
+    });
+  });
+});
+function showStep(id){document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function msg(text,type){var el=document.getElementById('msg-setpin');el.textContent=text;el.className='login-msg '+(type||'');}
+function getPinFromRow(id){return Array.from(document.querySelectorAll('#'+id+' .pin-digit')).map(i=>i.value).join('');}
+</script>
+
+<script type="module">
+import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getAuth, verifyPasswordResetCode, confirmPasswordReset }
+  from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+
+const cfg={apiKey:"AIzaSyBwqpavjzi15Zt9qHoufjJFI05k7AAHLRs",authDomain:"house-of-ansh.firebaseapp.com",projectId:"house-of-ansh",storageBucket:"house-of-ansh.firebasestorage.app",messagingSenderId:"386185011014",appId:"1:386185011014:web:fef798d4e17c84170bcf47"};
+const app=getApps().length?getApps()[0]:initializeApp(cfg);
+const auth=getAuth(app);
+
+const params=new URLSearchParams(location.search);
+const mode=params.get('mode');
+const oobCode=params.get('oobCode');
+let userEmail='';
+
+async function hashPin(email,pin){
+  const data=new TextEncoder().encode(email.toLowerCase()+pin+'hoa2026');
+  const buf=await crypto.subtle.digest('SHA-256',data);
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+(async function init(){
+  if(mode==='resetPassword'&&oobCode){
+    try{
+      userEmail=await verifyPasswordResetCode(auth,oobCode);
+      showStep('step-setpin');
+      document.querySelector('#pin-new-row .pin-digit').focus();
+    }catch(e){showStep('step-error');}
+  } else { showStep('step-error'); }
+})();
+
+window.setNewPin=async function(){
+  const newPin=getPinFromRow('pin-new-row');
+  const confPin=getPinFromRow('pin-confirm-row');
+  if(newPin.length!==6){msg('Enter your new 6-digit PIN.','err');return;}
+  if(newPin!==confPin){msg('PINs do not match. Try again.','err');document.querySelectorAll('#pin-confirm-row .pin-digit').forEach(i=>{i.value='';i.classList.remove('filled');});return;}
+  const btn=document.getElementById('set-btn');
+  btn.disabled=true;btn.textContent='Saving…';
+  try{
+    const newAuthKey=await hashPin(userEmail,newPin);
+    await confirmPasswordReset(auth,oobCode,newAuthKey);
+    showStep('step-done');
+  }catch(e){
+    btn.disabled=false;btn.textContent='Set PIN';
+    msg('Failed. The link may have expired. Please request a new one.','err');
+  }
+};
+</script>
+
+</body>
+</html>

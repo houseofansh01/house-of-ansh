@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -213,6 +213,8 @@ select.form-input option{background:var(--surface2);}
       <div class="nav-item" onclick="showPage('customers')">Customers</div>
       <div class="nav-item" onclick="showPage('analytics')">Analytics</div>
       <div class="nav-item" onclick="showPage('coupons')">Offers & Coupons</div>
+      <div class="nav-item" onclick="showPage('pinresets')" id="nav-pinresets">PIN Resets <span id="pinreset-badge" style="display:none;background:#e8a838;color:#000;font-size:9px;font-family:var(--fh);padding:2px 7px;border-radius:10px;margin-left:4px;vertical-align:middle;"></span></div>
+      <div class="nav-item" onclick="showPage('returns')" id="nav-returns">Returns &amp; Exchanges <span id="returns-badge" style="display:none;background:#e05555;color:#fff;font-size:9px;font-family:var(--fh);padding:2px 7px;border-radius:10px;margin-left:4px;vertical-align:middle;"></span></div>
       <div class="nav-item" onclick="showPage('settings')">Delivery Settings</div>
     </div>
 
@@ -447,6 +449,36 @@ select.form-input option{background:var(--surface2);}
         </div>
       </div>
 
+      <!-- PIN RESETS PAGE -->
+      <div class="page" id="page-pinresets">
+        <div class="page-title">PIN Reset Requests</div>
+        <p style="font-size:13px;color:var(--silver-dim);margin-bottom:20px;line-height:1.7;">When a customer forgets their PIN, their request appears here with a <b style="color:var(--white);">6-digit code</b>. Click <b style="color:var(--white);">WhatsApp Code</b> to send it — the customer enters it on the website to set a new PIN. Code expires in 15 minutes.</p>
+        <div class="section-hd">
+          <div class="section-title" id="pinresets-count">Pending Requests</div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Customer</th><th>Phone</th><th>Requested</th><th>Code</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="pinresets-body"><tr class="empty-row"><td colspan="6">Loading...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- RETURNS & EXCHANGES PAGE -->
+      <div class="page" id="page-returns">
+        <div class="page-title">Returns &amp; Exchanges</div>
+        <p style="font-size:13px;color:var(--silver-dim);margin-bottom:20px;line-height:1.7;">Customer return and exchange requests submitted from their order page. Contact the customer on WhatsApp to arrange pickup and resolution.</p>
+        <div class="section-hd">
+          <div class="section-title" id="returns-count">Pending Requests</div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Customer</th><th>Phone</th><th>Order</th><th>Item</th><th>Type</th><th>Reason</th><th>Submitted</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="returns-body"><tr class="empty-row"><td colspan="9">Loading...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
       <!-- REVIEWS PAGE -->
       <div class="page" id="page-reviews">
         <div class="page-title">Customer Reviews</div>
@@ -649,8 +681,22 @@ select.form-input option{background:var(--surface2);}
       <input class="form-input" id="edit-o-paylink" placeholder="https://rzp.io/..."/>
     </div>
     <div class="form-row">
-      <label class="form-label">Tracking Number (optional)</label>
-      <input class="form-input" id="edit-o-tracking" placeholder="Tracking ID"/>
+      <label class="form-label">Courier (optional)</label>
+      <select class="form-input" id="edit-o-courier">
+        <option value="">— Select Courier —</option>
+        <option value="delhivery">Delhivery</option>
+        <option value="bluedart">BlueDart</option>
+        <option value="indiapost">India Post</option>
+        <option value="dtdc">DTDC</option>
+        <option value="shiprocket">Shiprocket</option>
+        <option value="ekart">Ekart</option>
+        <option value="xpressbees">XpressBees</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Tracking Number (AWB)</label>
+      <input class="form-input" id="edit-o-tracking" placeholder="e.g. 1234567890"/>
     </div>
     <div class="modal-actions">
       <button class="btn-outline" onclick="closeModal('modal-edit-order')">Cancel</button>
@@ -786,6 +832,16 @@ select.form-input option{background:var(--surface2);}
         <label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" class="p-type-cb" value="anklets"/><span style="font-family:var(--fg);font-size:13px;">Anklets</span></label>
         <label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" class="p-type-cb" value="wristlets"/><span style="font-family:var(--fg);font-size:13px;">Wristlets</span></label>
         <label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" class="p-type-cb" value="chain"/><span style="font-family:var(--fg);font-size:13px;">Chain</span></label>
+      </div>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Occasion <span style="font-size:10px;color:var(--text-dim);font-family:var(--fg);text-transform:none;letter-spacing:0">(select all that apply)</span></label>
+      <div style="display:flex;flex-wrap:wrap;gap:10px 24px;margin-top:6px;">
+        <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-family:var(--fg);font-size:13px;color:var(--text)"><input type="checkbox" class="p-occ-cb" value="wedding" style="accent-color:#c9a84c;width:15px;height:15px;"/> Wedding</label>
+        <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-family:var(--fg);font-size:13px;color:var(--text)"><input type="checkbox" class="p-occ-cb" value="festival" style="accent-color:#c9a84c;width:15px;height:15px;"/> Festival</label>
+        <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-family:var(--fg);font-size:13px;color:var(--text)"><input type="checkbox" class="p-occ-cb" value="casual" style="accent-color:#c9a84c;width:15px;height:15px;"/> Casual</label>
+        <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-family:var(--fg);font-size:13px;color:var(--text)"><input type="checkbox" class="p-occ-cb" value="gifting" style="accent-color:#c9a84c;width:15px;height:15px;"/> Gifting</label>
+        <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-family:var(--fg);font-size:13px;color:var(--text)"><input type="checkbox" class="p-occ-cb" value="corporate" style="accent-color:#c9a84c;width:15px;height:15px;"/> Corporate</label>
       </div>
     </div>
     <div class="form-row">
@@ -983,7 +1039,119 @@ function startRealtimeListeners() {
 
   // Reviews — real-time
   startReviewsListener();
+
+  // PIN Resets — real-time
+  onSnapshot(query(collection(db,'pinResets'), orderBy('requestedAt','desc')), snap => {
+    const resets = snap.docs.map(d => ({id:d.id,...d.data()}));
+    renderPinResets(resets);
+    const pending = resets.filter(r => r.status === 'pending').length;
+    const badge = document.getElementById('pinreset-badge');
+    if(pending > 0){ badge.textContent = pending; badge.style.display = 'inline'; }
+    else badge.style.display = 'none';
+  });
+
+  // Returns & Exchanges — real-time
+  onSnapshot(query(collection(db,'returnRequests'), orderBy('createdAt','desc')), snap => {
+    const requests = snap.docs.map(d => ({id:d.id,...d.data()}));
+    renderReturnRequests(requests);
+    const pending = requests.filter(r => r.status === 'pending').length;
+    const badge = document.getElementById('returns-badge');
+    if(pending > 0){ badge.textContent = pending; badge.style.display = 'inline'; }
+    else badge.style.display = 'none';
+  });
 }
+
+function renderPinResets(resets) {
+  const tbody = document.getElementById('pinresets-body');
+  if(!tbody) return;
+  const count = document.getElementById('pinresets-count');
+  const pending = resets.filter(r => r.status === 'pending').length;
+  if(count) count.textContent = pending + ' Pending' + (resets.length > pending ? ' / ' + resets.length + ' Total' : '');
+  if(!resets.length){ tbody.innerHTML = '<tr class="empty-row"><td colspan="6">No reset requests yet.</td></tr>'; return; }
+  tbody.innerHTML = resets.map(r => {
+    const phone = (r.phone||'').replace(/\D/g,'');
+    const waNum = phone.startsWith('91') ? phone : phone ? '91' + phone : '';
+    const code = r.resetCode || '——';
+    const codeDisplay = r.status === 'pending'
+      ? `<span style="font-family:'Cinzel',serif;font-size:18px;letter-spacing:4px;color:#f5f5f5;font-weight:600;">${code}</span>`
+      : `<span style="font-family:'Cinzel',serif;font-size:15px;letter-spacing:3px;color:var(--silver-dim);">${code}</span>`;
+    const waMsg = encodeURIComponent('Hi ' + (r.name||'there') + ', your House of Ansh PIN reset code is: *' + code + '*. Go to houseofansh.in, click Sign In → Forgot PIN? → I have my code, and enter this code. It expires in 15 minutes.');
+    const waBtn = waNum ? `<a href="https://wa.me/${waNum}?text=${waMsg}" target="_blank" class="btn-icon" style="color:#25d366;border-color:#25d36644;" onclick="markResetSent('${r.id}')">&#128232; WhatsApp Code</a>` : '<span style="font-size:11px;color:var(--silver-dim);">No phone on file</span>';
+    const statusBadge = r.status === 'pending'
+      ? '<span class="badge badge-pending">Pending</span>'
+      : r.status === 'sent' ? '<span class="badge badge-confirmed">Sent</span>'
+      : '<span class="badge badge-delivered">Used</span>';
+    return `<tr>
+      <td>${r.name||'—'}</td>
+      <td style="font-size:11px;">${r.phone||'—'}</td>
+      <td style="font-size:11px;">${r.requestedAt ? fmtDate(r.requestedAt) : '—'}</td>
+      <td>${codeDisplay}</td>
+      <td>${statusBadge}</td>
+      <td style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">${waBtn}</td>
+    </tr>`;
+  }).join('');
+}
+
+window.markResetSent = async function(id) {
+  try {
+    await updateDoc(doc(db, 'pinResets', id), { status: 'sent' });
+    toast('Marked as sent.');
+  } catch(e) { toast('Error: ' + e.message); }
+};
+
+function renderReturnRequests(requests) {
+  const tbody = document.getElementById('returns-body');
+  if(!tbody) return;
+  const count = document.getElementById('returns-count');
+  const pending = requests.filter(r => r.status === 'pending').length;
+  if(count) count.textContent = pending + ' Pending' + (requests.length > pending ? ' / ' + requests.length + ' Total' : '');
+  if(!requests.length){ tbody.innerHTML = '<tr class="empty-row"><td colspan="9">No requests yet.</td></tr>'; return; }
+  tbody.innerHTML = requests.map(r => {
+    const phone = (r.phone||'').replace(/\D/g,'');
+    const waNum = phone.startsWith('91') ? phone : phone ? '91'+phone : '';
+    const typeLabel = r.type === 'exchange' ? 'Exchange' : 'Return';
+    const typeColor = r.type === 'exchange' ? '#5b9bd5' : '#e08080';
+    const waMsg = encodeURIComponent(
+      'Hi ' + (r.name||'there') + ', we received your ' + typeLabel.toLowerCase() + ' request for order #' + (r.orderDisplayId||'') +
+      ' (' + (r.item||'') + '). Our team will get back to you shortly with the next steps.'
+    );
+    const waBtn = waNum
+      ? `<a href="https://wa.me/${waNum}?text=${waMsg}" target="_blank" class="btn-icon" style="color:#25d366;border-color:#25d36644;">&#128232; WhatsApp</a>`
+      : '<span style="font-size:11px;color:var(--silver-dim);">No phone</span>';
+    const statusBadge = {
+      pending:   '<span class="badge badge-pending">Pending</span>',
+      in_review: '<span class="badge badge-confirmed">In Review</span>',
+      approved:  '<span class="badge badge-delivered">Approved</span>',
+      rejected:  '<span class="badge" style="color:#e05555;border-color:#e0555555;background:#e0555510;">Rejected</span>',
+      completed: '<span class="badge badge-delivered">Completed</span>'
+    }[r.status] || '<span class="badge badge-pending">Pending</span>';
+    const actionBtns = r.status === 'pending'
+      ? `<button class="btn-icon btn-sm" onclick="updateReturnStatus('${r.id}','in_review')">In Review</button>
+         <button class="btn-icon btn-sm" onclick="updateReturnStatus('${r.id}','approved')">Approve</button>
+         <button class="btn-icon btn-sm" onclick="updateReturnStatus('${r.id}','rejected')" style="color:#e05555;border-color:#e0555544;">Reject</button>`
+      : r.status === 'in_review' || r.status === 'approved'
+      ? `<button class="btn-icon btn-sm" onclick="updateReturnStatus('${r.id}','completed')">Mark Done</button>`
+      : '';
+    return `<tr>
+      <td>${r.name||'—'}</td>
+      <td>${r.phone||'—'}</td>
+      <td style="font-family:var(--fh);font-size:11px;letter-spacing:1px;">#${r.orderDisplayId||'—'}</td>
+      <td style="font-size:12px;max-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${r.item||'—'}</td>
+      <td><span style="font-family:var(--fh);font-size:10px;letter-spacing:1px;color:${typeColor};">${typeLabel}</span></td>
+      <td style="font-size:12px;">${r.reason||'—'}${r.notes?'<br><span style="color:var(--silver-dim);font-size:11px;">'+r.notes+'</span>':''}</td>
+      <td style="font-size:11px;">${r.createdAt ? fmtDate(r.createdAt) : '—'}</td>
+      <td>${statusBadge}</td>
+      <td style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">${waBtn}${actionBtns}</td>
+    </tr>`;
+  }).join('');
+}
+
+window.updateReturnStatus = async function(id, status) {
+  try {
+    await updateDoc(doc(db,'returnRequests',id), { status });
+    toast('Request updated.');
+  } catch(e) { toast('Error: ' + e.message); }
+};
 
 function updateDashboardStats() {
   const today    = new Date(); today.setHours(0,0,0,0);
@@ -1134,21 +1302,70 @@ window.editOrder = function(id) {
   document.getElementById('edit-o-item').value      = o.item||'';
   document.getElementById('edit-o-status').value    = o.status||'pending';
   document.getElementById('edit-o-paylink').value   = o.paymentLink||'';
+  document.getElementById('edit-o-courier').value   = o.courier||'';
   document.getElementById('edit-o-tracking').value  = o.tracking||'';
   document.getElementById('modal-edit-order').classList.add('open');
 };
 
 window.updateOrder = async function() {
-  const id = document.getElementById('edit-order-id').value;
+  const id       = document.getElementById('edit-order-id').value;
+  const newStatus= document.getElementById('edit-o-status').value;
+  const courier  = document.getElementById('edit-o-courier').value;
+  const tracking = document.getElementById('edit-o-tracking').value.trim();
   try {
+    // Capture old status and order data BEFORE updating Firestore
+    const order     = allOrders.find(o => o.id === id);
+    const oldStatus = order?.status;
+    const custEmail = order?.email;
+    const custName  = order?.customerName || 'Valued Customer';
+    const item      = order?.item || 'your item';
+    const orderId   = id.slice(-8).toUpperCase();
     await updateDoc(doc(db,'orders',id), {
-      status:      document.getElementById('edit-o-status').value,
+      status:      newStatus,
       paymentLink: document.getElementById('edit-o-paylink').value.trim(),
-      tracking:    document.getElementById('edit-o-tracking').value.trim()
+      courier, tracking
     });
     closeModal('modal-edit-order');
     toast('Order updated.');
     loadOrders(); loadDashboard();
+    if(custEmail && window.emailjs && window._ejsReady && window._ejsCustTpl && oldStatus !== newStatus) {
+      const statusMessages = {
+
+        confirmed: {
+          subject: 'Order Confirmed — #' + orderId + ' | House of Ansh',
+          message: 'Great news! Your order has been confirmed and is being prepared.\n\nOrder ID: #' + orderId + '\nItem: ' + item + '\n\nWe\'ll share a payment link on WhatsApp at +91-74390-49616 shortly.'
+        },
+        processing: {
+          subject: 'Order in Processing — #' + orderId + ' | House of Ansh',
+          message: 'Your order is being processed and will be ready for dispatch soon.\n\nOrder ID: #' + orderId + '\nItem: ' + item
+        },
+        shipped: {
+          subject: 'Your Order is on Its Way — #' + orderId + ' | House of Ansh',
+          message: 'Your order has been shipped!\n\nOrder ID: #' + orderId + '\nItem: ' + item +
+            (courier ? '\nCourier: ' + courier : '') +
+            (tracking ? '\nTracking No: ' + tracking + '\n\nTrack your shipment using the tracking number above.' : '')
+        },
+        delivered: {
+          subject: 'Order Delivered — #' + orderId + ' | House of Ansh',
+          message: 'Your order has been delivered. We hope you love it!\n\nOrder ID: #' + orderId + '\nItem: ' + item + '\n\nIf you have any questions or concerns, please WhatsApp us at +91-74390-49616.'
+        },
+        cancelled: {
+          subject: 'Order Cancelled — #' + orderId + ' | House of Ansh',
+          message: 'Your order has been cancelled.\n\nOrder ID: #' + orderId + '\nItem: ' + item + '\n\nIf you believe this is an error or have questions, please WhatsApp us at +91-74390-49616.'
+        }
+      };
+      const tpl = statusMessages[newStatus];
+      if(tpl) {
+        try {
+          emailjs.send(window._ejsSvc, window._ejsCustTpl, {
+            to_email:      custEmail,
+            customer_name: custName,
+            subject:       tpl.subject,
+            message:       tpl.message
+          }, window._ejsKey);
+        } catch(e2) {}
+      }
+    }
   } catch(e){ toast('Error updating order.'); }
 };
 
@@ -1170,7 +1387,7 @@ function renderProducts(products) {
     const colTags = cols.map(c => `<span style="${tagStyle}background:rgba(201,168,76,.15);color:#c9a84c;border:1px solid rgba(201,168,76,.3);">${colLabels[c]||c}</span>`).join('');
     const ptypes = Array.isArray(p.productTypes) ? p.productTypes : (p.productType ? [p.productType] : []);
     const typeTag = ptypes.map(t => TYPE_LABELS[t]||t).filter(Boolean).map(l => `<span style="${tagStyle}background:rgba(180,180,180,.1);color:var(--silver-dim);border:1px solid rgba(180,180,180,.2);">${l}</span>`).join('');
-    const occTags = '';
+    const occTags=(Array.isArray(p.occasions)&&p.occasions.length)?'<span style="'+tagStyle+'color:#c49ac4;">'+(p.occasions.join(', '))+'</span>':'';
     return `<tr>
       <td>
         ${p.imageUrl ? `<img class="prod-img-cell" src="${p.imageUrl}" style="float:left;margin-right:10px;"/>` : ''}
@@ -1203,6 +1420,7 @@ window.openAddProduct = function() {
   ['p-id','p-name','p-price','p-weight','p-desc'].forEach(id => document.getElementById(id).value='');
   document.getElementById('p-availability').value = 'in-stock';
   document.querySelectorAll('.p-type-cb').forEach(cb => cb.checked = false);
+  document.querySelectorAll('.p-occ-cb').forEach(cb => cb.checked = false);
   ['p-col-forher','p-col-forhim','p-col-virasat'].forEach(id => document.getElementById(id).checked = false);
   resetImageList();
   document.getElementById('modal-add-product').classList.add('open');
@@ -1226,6 +1444,8 @@ window.editProduct = function(id) {
   ['p-col-forher','p-col-forhim','p-col-virasat'].forEach(eid => {
     document.getElementById(eid).checked = cols.includes(document.getElementById(eid).value);
   });
+  const occs=Array.isArray(p.occasions)?p.occasions:[];
+  document.querySelectorAll('.p-occ-cb').forEach(function(cb){cb.checked=occs.indexOf(cb.value)>-1;});
   document.getElementById('modal-add-product').classList.add('open');
 };
 
@@ -1242,6 +1462,7 @@ window.saveProduct = async function() {
     categories,
     category:     categories[0] || '',
     productTypes: Array.from(document.querySelectorAll('.p-type-cb:checked')).map(cb => cb.value),
+    occasions:    Array.from(document.querySelectorAll('.p-occ-cb:checked')).map(function(cb){return cb.value;}),
     productType:  document.querySelectorAll('.p-type-cb:checked')[0]?.value || '',
     description:  document.getElementById('p-desc').value.trim(),
     images:       Array.from(document.querySelectorAll('#p-images-list .p-img-input')).map(i=>i.value.trim()).filter(Boolean),
@@ -1323,7 +1544,7 @@ function renderCustomersData(customers) {
       <td>${c.name||'—'}</td>
       <td style="font-size:12px;color:var(--silver-dim)">${c.email||'—'}</td>
       <td style="font-size:12px;color:var(--silver-dim)">${c.phone||'—'}</td>
-      <td style="font-size:12px;color:var(--silver-dim)">${c.address||'—'}</td>
+      <td style="font-size:12px;color:var(--silver-dim)">${c.address || (c.addr1 ? [c.addr1, c.city, c.state, c.pin].filter(Boolean).join(', ') : '—')}</td>
       <td>${c.orderCount||myOrders.length||0}</td>
       <td>₹${spent.toLocaleString('en-IN')}</td>
       <td style="font-size:11px;color:var(--silver-dim)">${fmtDate(c.createdAt)}</td>
@@ -1669,7 +1890,7 @@ window.generateInvoice = function(id) {
     <div class="brand-name">House of Ansh</div>
     <div class="brand-sub">Pure Silver Jewellery</div>
     <div style="margin-top:12px;font-size:12px;color:#777;line-height:1.8;">
-      Belur, Howrah, West Bengal<br/>
+      Kolkata, West Bengal<br/>
       +91 74390 49616<br/>
       house.of.ansh01@gmail.com
     </div>
@@ -2035,5 +2256,17 @@ window.runExport = function() {
 };
 </script>
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+(function(){
+  var SVC_ID      = 'service_ina0w1d';
+  var TPL_ID      = 'template_f8me1mh';
+  var CUST_TPL_ID = 'template_zd2d40j';
+  var PUB_KEY     = '8Af9pzk5m72Z3_OxN';
+  if(SVC_ID.indexOf('YOUR_')===0) return;
+  emailjs.init(PUB_KEY);
+  window._ejsSvc=SVC_ID; window._ejsTpl=TPL_ID; window._ejsCustTpl=CUST_TPL_ID; window._ejsKey=PUB_KEY; window._ejsReady=true;
+})();
+</script>
 </body>
 </html>

@@ -17,7 +17,7 @@
 <meta name="twitter:description" content="Sign in to your House of Ansh account to manage your orders, wishlist and profile."/>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
-{"@type":"Organization","name":"House of Ansh","url":"https://houseofansh.in","logo":"https://houseofansh.in/images/logo.png","description":"Pure .925 and .999 silver jewellery handcrafted in Belur, Howrah. Founded March 2026. Ships across India.","foundingDate":"2026","contactPoint":{"@type":"ContactPoint","telephone":"+91-74390-49616","email":"house.of.ansh01@gmail.com","contactType":"customer service"},"sameAs":["https://www.instagram.com/houseofansh.in/","https://www.facebook.com/profile.php?id=61588830175777"]},
+{"@type":"Organization","name":"House of Ansh","url":"https://houseofansh.in","logo":"https://houseofansh.in/images/logo.png","description":"Pure .925 and .999 silver jewellery handcrafted in Kolkata. Founded March 2026. Ships across India.","foundingDate":"2026","contactPoint":{"@type":"ContactPoint","telephone":"+91-74390-49616","email":"house.of.ansh01@gmail.com","contactType":"customer service"},"sameAs":["https://www.instagram.com/houseofansh.in/","https://www.facebook.com/profile.php?id=61588830175777"]},
 {"@type":"WebSite","name":"House of Ansh","url":"https://houseofansh.in"},
 {"@type":"Store","name":"House of Ansh","description":"Premium handcrafted pure silver jewellery — bangles, rings, earrings, necklaces, pendants, mangalsutra, anklets and more. Ships Pan India.","image":"https://houseofansh.in/images/logo.png","priceRange":"₹₹","address":{"@type":"PostalAddress","addressLocality":"Belur","addressRegion":"Howrah, West Bengal","addressCountry":"IN"},"telephone":"+91-74390-49616","email":"house.of.ansh01@gmail.com"}
 ]}
@@ -26,7 +26,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cinzel:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-:root{--black:#060606;--deep:#090909;--surface:#0e0e0e;--surface2:#131313;--border:#1a1a1a;--border2:#242424;--silver:#d8d8d8;--silver-dim:#909090;--silver-lo:#2c2c2c;--silver-hi:#f2f2f2;--white:#f5f5f5;--text:#aaaaaa;--text-dim:#555555;--fg:'Cormorant Garamond',serif;--fh:'Cinzel',serif;--fp:'Playfair Display',serif;}
+:root{--black:#060606;--deep:#090909;--surface:#0e0e0e;--surface2:#131313;--border:#1a1a1a;--border2:#242424;--silver:#d8d8d8;--silver-dim:#b8b8b8;--silver-lo:#2c2c2c;--silver-hi:#f2f2f2;--white:#f5f5f5;--text:#aaaaaa;--text-dim:#999999;--fg:'Cormorant Garamond',serif;--fh:'Cinzel',serif;--fp:'Playfair Display',serif;}
 html{scroll-behavior:smooth;overflow-x:hidden;max-width:100vw;}
 body{background:var(--black);color:var(--white);font-family:var(--fg);}
 a{color:inherit;text-decoration:none;}
@@ -34,7 +34,7 @@ ul{list-style:none;}
 button{cursor:pointer;}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:20px 56px;transition:all .4s;background:rgba(6,6,6,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+nav{position:fixed;top:0;left:0;right:0;z-index:900;-webkit-transform:translateZ(0);transform:translateZ(0);display:flex;align-items:center;justify-content:space-between;padding:20px 56px;transition:all .4s;background:rgba(6,6,6,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
 .nl{display:flex;align-items:center;gap:11px;text-decoration:none;}
 .nl-logo{height:42px;width:auto;object-fit:contain;filter:brightness(1.05);}
 .nl-t{display:flex;flex-direction:column;}
@@ -42,11 +42,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:cen
 .nl-s{font-family:var(--fh);font-size:7.5px;letter-spacing:4px;color:var(--silver-dim);text-transform:uppercase;}
 .nm{display:flex;gap:0;list-style:none;align-items:center;}
 .nm > li{position:relative;}
-.nm > li > a{font-family:var(--fh);font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--silver-dim);text-decoration:none;transition:color .3s;padding:10px 16px;display:block;}
+.nm > li > a{font-family:var(--fh);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--silver-dim);text-decoration:none;transition:color .3s;padding:10px 16px;display:block;}
 .nm > li > a:hover{color:var(--white);}
 .dropdown{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(-6px);background:rgba(9,9,9,.98);backdrop-filter:blur(16px);border:1px solid var(--border2);min-width:200px;padding:8px 0;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;}
 .nm > li:hover > .dropdown{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0);}
-.dropdown a{display:block;font-family:var(--fh);font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:var(--silver-dim);text-decoration:none;padding:10px 20px;transition:color .2s,background .2s;}
+.dropdown a{display:block;font-family:var(--fh);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--silver-dim);text-decoration:none;padding:10px 20px;transition:color .2s,background .2s;}
 .dropdown a:hover{color:var(--white);background:rgba(255,255,255,.03);}
 .has-sub{position:relative;}
 .sub-dropdown{position:absolute;top:0;left:100%;background:rgba(9,9,9,.98);backdrop-filter:blur(16px);border:1px solid var(--border2);min-width:220px;padding:8px 0;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;transform:translateX(-6px);}
@@ -86,7 +86,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:cen
 
 .wa-float{position:fixed;bottom:32px;right:32px;z-index:800;width:56px;height:56px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.35);transition:transform .3s,box-shadow .3s;text-decoration:none;}
 .wa-float:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(37,211,102,.5);}
-.seo-tags{border-top:1px solid var(--border);padding:28px 56px;background:var(--surface);}
+.seo-tags{display:none;border-top:1px solid var(--border);padding:28px 56px;background:var(--surface);}
 .seo-tags-inner{max-width:1400px;margin:0 auto;}
 .seo-tags-lbl{font-family:var(--fh);font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:var(--silver-dim);margin-right:10px;font-weight:600;}
 .seo-tags-list{font-family:var(--fg);font-size:13px;color:var(--text-dim);line-height:2;}
@@ -104,7 +104,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:cen
   .nav-icon{padding:6px 3px;}
   .nav-icon:last-child{padding-right:0;}
 }
-.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
 .hamburger span{display:block;width:22px;height:1px;background:var(--silver-dim);transition:all .3s;}
 @media(max-width:860px){
   nav{padding:16px 24px;}
@@ -139,7 +139,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
 .fb-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;background:var(--surface);border-top:1px solid var(--border);padding:18px 56px;}
 .fb-copy{font-family:var(--fh);font-size:7.5px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;}
 .fb-made{font-family:var(--fp);font-style:italic;font-size:12px;color:var(--text-dim);}
-.seo-tags{border-top:1px solid var(--border);padding:28px 56px;background:var(--surface);}
+.seo-tags{display:none;border-top:1px solid var(--border);padding:28px 56px;background:var(--surface);}
 .seo-tags-inner{max-width:1400px;margin:0 auto;}
 .seo-tags-lbl{font-family:var(--fh);font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:var(--silver-dim);margin-right:10px;font-weight:600;}
 .seo-tags-list{font-family:var(--fg);font-size:13px;color:var(--text-dim);line-height:2;}
@@ -157,24 +157,38 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
 .login-card{width:100%;max-width:480px;}
 .login-title{font-family:var(--fh);font-size:clamp(18px,2.5vw,26px);letter-spacing:6px;text-transform:uppercase;color:var(--white);text-align:center;margin-bottom:14px;}
 .login-sub{font-family:var(--fg);font-size:clamp(14px,1.2vw,16px);color:var(--text);text-align:center;margin-bottom:36px;line-height:1.6;}
+.login-step{display:none;}
+.login-step.active{display:block;}
 .login-field{position:relative;margin-bottom:2px;}
 .login-field input{width:100%;background:transparent;border:1px solid var(--border2);color:var(--white);font-family:var(--fg);font-size:15px;padding:16px 18px;outline:none;transition:border-color .3s;-webkit-appearance:none;}
 .login-field input::placeholder{color:var(--text-dim);}
 .login-field input:focus{border-color:var(--silver-dim);}
-.login-field-pw{position:relative;margin-bottom:2px;}
-.login-field-pw input{width:100%;background:transparent;border:1px solid var(--border2);color:var(--white);font-family:var(--fg);font-size:15px;padding:16px 140px 16px 18px;outline:none;transition:border-color .3s;-webkit-appearance:none;}
-.login-field-pw input::placeholder{color:var(--text-dim);}
-.login-field-pw input:focus{border-color:var(--silver-dim);}
-.forgot-link{position:absolute;right:18px;top:50%;transform:translateY(-50%);font-family:var(--fg);font-size:12.5px;color:var(--silver-dim);white-space:nowrap;transition:color .3s;cursor:pointer;}
-.forgot-link:hover{color:var(--silver);}
+.phone-row{display:flex;gap:0;margin-bottom:2px;}
+.phone-prefix{background:transparent;border:1px solid var(--border2);border-right:none;color:var(--silver-dim);font-family:var(--fg);font-size:15px;padding:16px 14px;white-space:nowrap;flex-shrink:0;}
+.phone-row input{flex:1;background:transparent;border:1px solid var(--border2);color:var(--white);font-family:var(--fg);font-size:15px;padding:16px 18px;outline:none;transition:border-color .3s;-webkit-appearance:none;min-width:0;}
+.phone-row input:focus{border-color:var(--silver-dim);}
+.login-tabs{display:flex;gap:0;margin-bottom:28px;border-bottom:1px solid var(--border2);}
+.login-tab{flex:1;background:none;border:none;border-bottom:2px solid transparent;color:var(--text-dim);font-family:var(--fh);font-size:9px;letter-spacing:2.5px;text-transform:uppercase;padding:14px 8px;cursor:pointer;transition:color .3s,border-color .3s;margin-bottom:-1px;}
+.login-tab:hover{color:var(--silver-dim);}
+.login-tab.active{color:var(--white);border-bottom-color:var(--silver);}
+.pin-row{display:flex;gap:8px;margin-bottom:2px;}
+.pin-digit{flex:1;background:transparent;border:1px solid var(--border2);color:var(--white);font-family:var(--fh);font-size:22px;padding:14px 0;text-align:center;outline:none;transition:border-color .3s;min-width:0;-webkit-text-security:disc;}
+.pin-digit[type="text"]{-webkit-text-security:none;}
+.pin-digit:focus{border-color:var(--silver-dim);}
+.pin-digit.filled{border-color:rgba(216,216,216,.35);}
+.pin-label{font-family:var(--fh);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--silver-dim);display:block;margin-bottom:8px;}
 .login-btn{width:100%;margin-top:2px;background:var(--white);color:var(--black);font-family:var(--fh);font-size:10px;letter-spacing:4px;text-transform:uppercase;border:none;padding:18px;cursor:pointer;transition:background .3s,color .3s;}
 .login-btn:hover{background:var(--silver);color:var(--black);}
-.login-signup{text-align:center;margin-top:24px;font-family:var(--fg);font-size:14px;color:var(--text);}
-.login-signup a{color:var(--silver-dim);border-bottom:1px solid var(--border2);padding-bottom:1px;transition:color .3s,border-color .3s;}
-.login-signup a:hover{color:var(--silver);border-color:var(--silver-dim);}
-.login-divider{display:flex;align-items:center;gap:14px;margin:28px 0;}
-.login-divider::before,.login-divider::after{content:'';flex:1;height:1px;background:var(--border2);}
-.login-divider span{font-family:var(--fh);font-size:7px;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);}
+.login-btn:disabled{opacity:.5;cursor:not-allowed;}
+.login-back{background:none;border:none;font-family:var(--fg);font-size:13px;color:var(--text-dim);cursor:pointer;padding:0;transition:color .3s;margin-top:14px;display:block;text-align:center;width:100%;}
+.login-back:hover{color:var(--silver-dim);}
+.login-msg{font-family:var(--fg);font-size:13px;margin-top:10px;min-height:18px;text-align:center;}
+.login-msg.err{color:#e05555;}
+.login-msg.ok{color:#4caf7d;}
+.login-msg.info{color:var(--silver-dim);}
+.resend-link{background:none;border:none;font-family:var(--fg);font-size:13px;color:var(--silver-dim);cursor:pointer;text-decoration:underline;padding:0;transition:color .3s;}
+.resend-link:hover{color:var(--silver);}
+#recaptcha-container{margin-top:8px;}
 </style>
 </head>
 <body>
@@ -229,31 +243,201 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
 
 <div class="login-wrap">
   <div class="login-card">
-    <h1 class="login-title">Login</h1>
-    <p class="login-sub">Enter your email and password to login:</p>
 
-    <div class="login-field">
-      <input type="email" id="login-email" placeholder="E-mail" autocomplete="email"/>
+    <div class="login-tabs">
+      <button class="login-tab active" id="tab-pin" onclick="window.switchTab('pin')">Phone &amp; PIN</button>
+      <button class="login-tab" id="tab-email" onclick="window.switchTab('email')">Email &amp; Password</button>
     </div>
 
-    <div class="login-field-pw">
-      <input type="password" id="login-password" placeholder="Password" autocomplete="current-password"/>
-      <a href="#" class="forgot-link" onclick="event.preventDefault();handleForgotPassword()">Forgot your password?</a>
+    <!-- ══ PHONE + PIN TAB ══ -->
+
+    <!-- Phone entry -->
+    <div class="login-step active" id="step-pin-entry">
+      <h1 class="login-title">Sign In / Sign Up</h1>
+      <p class="login-sub">Enter your mobile number to continue.</p>
+      <div class="phone-row">
+        <span class="phone-prefix">+91</span>
+        <input type="tel" id="pin-phone" placeholder="10-digit mobile number" maxlength="10" inputmode="numeric" onkeydown="if(event.key==='Enter')window.checkPhone()"/>
+      </div>
+      <button class="login-btn" id="pin-phone-btn" onclick="window.checkPhone()" style="margin-top:2px;">Continue</button>
+      <p class="login-msg" id="msg-pin-entry"></p>
     </div>
 
-    <button class="login-btn" id="login-btn" onclick="handleLogin()">Login</button>
+    <!-- PIN login -->
+    <div class="login-step" id="step-pin-login">
+      <h1 class="login-title">Enter Your PIN</h1>
+      <p class="login-sub" id="pin-login-greeting">Welcome back.</p>
+      <span class="pin-label">6-digit PIN</span>
+      <div class="pin-row" id="pin-login-row">
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="off"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="off"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="off"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="off"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="off"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="off"/>
+      </div>
+      <button class="login-btn" id="pin-signin-btn" onclick="window.doSignInPin()" style="margin-top:10px;">Sign In</button>
+      <p class="login-msg" id="msg-pin-login"></p>
+      <div style="text-align:center;margin-top:12px;">
+        <button class="resend-link" onclick="window.requestForgotPin()">Forgot PIN?</button>
+      </div>
+      <button class="login-back" onclick="window.goStep('step-pin-entry')">&#8592; Change number</button>
+    </div>
 
-    <p id="login-error" style="font-family:var(--fg);font-size:13px;margin-top:10px;min-height:18px;text-align:center;"></p>
+    <!-- PIN signup -->
+    <div class="login-step" id="step-pin-signup">
+      <h1 class="login-title">Create Account</h1>
+      <p class="login-sub">A few details to get started.</p>
+      <div class="login-field">
+        <input type="text" id="pin-su-name" placeholder="Full name" autocomplete="name"/>
+      </div>
+      <div class="login-field">
+        <input type="email" id="pin-su-email" placeholder="Email (for order confirmations &amp; PIN reset)" autocomplete="email"/>
+      </div>
+      <p style="font-family:var(--fg);font-size:12px;color:var(--text-dim);margin:-8px 0 12px;padding:0 2px;">Used for order confirmations and updates.</p>
+      <div class="phone-row">
+        <span class="phone-prefix">+91</span>
+        <input type="tel" id="pin-su-phone" placeholder="Mobile number" maxlength="10" inputmode="numeric" readonly/>
+      </div>
+      <span class="pin-label" style="margin-top:12px;">Choose a 6-digit PIN</span>
+      <div class="pin-row" id="pin-signup-row">
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+      </div>
+      <span class="pin-label" style="margin-top:10px;">Confirm PIN</span>
+      <div class="pin-row" id="pin-confirm-row">
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+      </div>
+      <button class="login-btn" id="pin-signup-btn" onclick="window.doSignUpPin()" style="margin-top:12px;">Create Account</button>
+      <p class="login-msg" id="msg-pin-signup"></p>
+      <button class="login-back" onclick="window.goStep('step-pin-entry')">&#8592; Back</button>
+    </div>
 
-    <div class="login-divider"><span>or</span></div>
+    <!-- PIN forgot - request sent -->
+    <div class="login-step" id="step-pin-forgot">
+      <h1 class="login-title">Request Sent</h1>
+      <p class="login-sub" id="pin-forgot-msg">Our team will WhatsApp you shortly with a 6-digit verification code.</p>
+      <button class="login-btn" style="margin-top:16px;" onclick="window.goStep('step-pin-code')">I have my code &rarr;</button>
+      <button class="login-back" onclick="window.goStep('step-pin-entry')">&larr; Start over</button>
+    </div>
 
-    <p class="login-signup">Don&#x2019;t have an account? <a href="signup.html">Sign up</a></p>
+    <!-- PIN forgot - enter WhatsApp code -->
+    <div class="login-step" id="step-pin-code">
+      <h1 class="login-title">Enter Code</h1>
+      <p class="login-sub">Enter the 6-digit code sent to your WhatsApp.</p>
+      <span class="pin-label">Verification Code</span>
+      <div class="pin-row" id="pin-code-row">
+        <input class="pin-digit" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code"/>
+        <input class="pin-digit" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code"/>
+        <input class="pin-digit" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code"/>
+        <input class="pin-digit" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code"/>
+        <input class="pin-digit" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code"/>
+        <input class="pin-digit" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code"/>
+      </div>
+      <button class="login-btn" id="pin-code-btn" onclick="window.doVerifyResetCode()" style="margin-top:12px;">Verify Code</button>
+      <p class="login-msg" id="msg-pin-code"></p>
+      <button class="login-back" onclick="window.goStep('step-pin-forgot')">&larr; Back</button>
+    </div>
+
+    <!-- PIN forgot - set new PIN -->
+    <div class="login-step" id="step-pin-newpin">
+      <h1 class="login-title">Set New PIN</h1>
+      <p class="login-sub">Choose a new 6-digit PIN for your account.</p>
+      <span class="pin-label">New PIN</span>
+      <div class="pin-row" id="pin-newpin-row">
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+      </div>
+      <span class="pin-label" style="margin-top:12px;">Confirm New PIN</span>
+      <div class="pin-row" id="pin-newpin-confirm-row">
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+      </div>
+      <button class="login-btn" id="pin-newpin-btn" onclick="window.doSetNewPin()" style="margin-top:12px;">Save PIN</button>
+      <p class="login-msg" id="msg-pin-newpin"></p>
+    </div>
+
+    <!-- ══ EMAIL + PASSWORD TAB ══ -->
+
+    <!-- Email entry -->
+    <div class="login-step" id="step-em-entry">
+      <h1 class="login-title">Sign In / Sign Up</h1>
+      <p class="login-sub">Enter your email address to continue.</p>
+      <div class="login-field">
+        <input type="email" id="em-email" placeholder="Email address" autocomplete="email" inputmode="email" onkeydown="if(event.key==='Enter')window.checkEmail()"/>
+      </div>
+      <button class="login-btn" id="em-email-btn" onclick="window.checkEmail()">Continue</button>
+      <p class="login-msg" id="msg-em-entry"></p>
+    </div>
+
+    <!-- Password login -->
+    <div class="login-step" id="step-em-login">
+      <h1 class="login-title">Enter Password</h1>
+      <p class="login-sub" id="em-login-greeting">Welcome back.</p>
+      <div class="login-field">
+        <input type="password" id="em-password" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')window.doSignInEmail()"/>
+      </div>
+      <button class="login-btn" id="em-signin-btn" onclick="window.doSignInEmail()">Sign In</button>
+      <p class="login-msg" id="msg-em-login"></p>
+      <div style="text-align:center;margin-top:12px;">
+        <button class="resend-link" onclick="window.sendForgotPassword()">Forgot password?</button>
+      </div>
+      <button class="login-back" onclick="window.goStep('step-em-entry')">&#8592; Change email</button>
+    </div>
+
+    <!-- Email signup -->
+    <div class="login-step" id="step-em-signup">
+      <h1 class="login-title">Create Account</h1>
+      <p class="login-sub">Set up your account with email and password.</p>
+      <div class="login-field">
+        <input type="text" id="em-su-name" placeholder="Full name" autocomplete="name"/>
+      </div>
+      <div class="phone-row" style="margin-bottom:2px;">
+        <span class="phone-prefix">+91</span>
+        <input type="tel" id="em-su-phone" placeholder="Mobile number (optional)" maxlength="10" inputmode="numeric"/>
+      </div>
+      <p style="font-family:var(--fg);font-size:12px;color:var(--text-dim);margin:6px 0 12px;padding:0 2px;">Mobile number is used for WhatsApp order updates.</p>
+      <div class="login-field">
+        <input type="password" id="em-su-password" placeholder="Choose a password (min 8 characters)" autocomplete="new-password"/>
+      </div>
+      <div class="login-field">
+        <input type="password" id="em-su-confirm" placeholder="Confirm password" autocomplete="new-password" onkeydown="if(event.key==='Enter')window.doSignUpEmail()"/>
+      </div>
+      <button class="login-btn" id="em-signup-btn" onclick="window.doSignUpEmail()">Create Account</button>
+      <p class="login-msg" id="msg-em-signup"></p>
+      <button class="login-back" onclick="window.goStep('step-em-entry')">&#8592; Back</button>
+    </div>
+
+    <!-- Email forgot - sent -->
+    <div class="login-step" id="step-em-forgot">
+      <h1 class="login-title">Reset Link Sent</h1>
+      <p class="login-sub">Check your email for a password reset link from House of Ansh.</p>
+      <a href="login.html" class="login-btn" style="display:block;text-align:center;padding:18px;margin-top:16px;">Back to Sign In</a>
+    </div>
+
   </div>
 </div>
 
 
 
-<footer><div class="ft"><div><img src="images/logo.png" alt="House of Ansh" class="fb-logo-img"/><div class="fb-name">House of Ansh</div><div class="fb-tag">A Little Moonlight You Can Wear</div><p class="fb-bio">Pure silver jewellery crafted with intention. Founded March 2026, Belur, Howrah. Ships across India.</p></div><div class="fcol"><h5>Navigate</h5><ul><li><a href="home.html">Home</a></li><li><a href="forher.html">For Her</a></li><li><a href="forhim.html">For Him</a></li><li><a href="virasat.html">Virasat Collection</a></li><li><a href="index.html#story">About Us</a></li></ul></div><div class="fcol"><h5>Policies</h5><ul><li><a href="#" onclick="om('mTerms');return false;">Terms of Service</a></li><li><a href="#" onclick="om('mReturns');return false;">Returns &amp; Exchanges</a></li><li><a href="#" onclick="om('mPrivacy');return false;">Privacy Policy</a></li><li><a href="#" onclick="om('mShipping');return false;">Shipping &amp; Delivery</a></li></ul></div><div class="fcol"><h5>Connect</h5><ul><li><a href="https://www.instagram.com/houseofansh.in/" target="_blank">Instagram</a></li><li><a href="https://www.facebook.com/profile.php?id=61588830175777" target="_blank">Facebook</a></li><li><a href="https://www.linkedin.com/" target="_blank">LinkedIn</a></li><li><a href="#" onclick="openEmailChooser();return false;">Email Us</a></li><li><a href="tel:+917439049616">+91-74390-49616</a></li></ul></div></div></footer>
+<footer><div class="ft"><div><img src="images/logo.png" alt="House of Ansh" class="fb-logo-img"/><div class="fb-name">House of Ansh</div><div class="fb-tag">A Little Moonlight You Can Wear</div><p class="fb-bio">Pure silver jewellery crafted with intention. Founded March 2026, Kolkata. Ships across India.</p></div><div class="fcol"><h5>Navigate</h5><ul><li><a href="home.html">Home</a></li><li><a href="forher.html">For Her</a></li><li><a href="forhim.html">For Him</a></li><li><a href="virasat.html">Virasat Collection</a></li><li><a href="index.html#story">About Us</a></li></ul></div><div class="fcol"><h5>Policies</h5><ul><li><a href="#" onclick="om('mTerms');return false;">Terms of Service</a></li><li><a href="#" onclick="om('mReturns');return false;">Returns &amp; Exchanges</a></li><li><a href="#" onclick="om('mPrivacy');return false;">Privacy Policy</a></li><li><a href="#" onclick="om('mShipping');return false;">Shipping &amp; Delivery</a></li></ul></div><div class="fcol"><h5>Connect</h5><ul><li><a href="https://www.instagram.com/houseofansh.in/" target="_blank">Instagram</a></li><li><a href="https://www.facebook.com/profile.php?id=61588830175777" target="_blank">Facebook</a></li><li><a href="https://www.linkedin.com/" target="_blank">LinkedIn</a></li><li><a href="#" onclick="openEmailChooser();return false;">Email Us</a></li><li><a href="tel:+917439049616">+91-74390-49616</a></li></ul></div></div></footer>
 <section class="seo-tags"><div class="seo-tags-inner"><span class="seo-tags-lbl">Tags :</span><span class="seo-tags-list">House of Ansh | Silver Jewellery | Pure Silver Jewellery | 925 Sterling Silver | Handcrafted Silver Jewellery | Handmade Jewellery India | Silver Bangles | Silver Bracelets | Silver Rings | Silver Earrings | Silver Necklace | Silver Pendant | Silver Anklets | Silver Mangalsutra | Silver Brooches | Silver Wristlets | Silver Chains for Men | Women's Silver Jewellery | Men's Silver Jewellery | Bridal Jewellery | Wedding Jewellery India | Festival Jewellery | Everyday Silver Jewellery | Daily Wear Silver | Luxury Silver Jewellery | Premium Silver Jewellery | Traditional Indian Jewellery | Contemporary Silver Jewellery | Oxidised Silver Jewellery | Hallmarked Silver | Pure 999 Silver | Buy Silver Jewellery Online | Silver Jewellery Online India | Silver Jewellery Shop | Jewellery Gift Ideas | Gift for Her | Gift for Him | Sustainable Jewellery | Artisan Jewellery India | Virasat Collection | Jewellery Store Online India | Pan India Shipping | Best Silver Jewellery India | Affordable Silver Jewellery | Minimalist Silver Jewellery | Silver Jewellery Howrah | Silver Jewellery West Bengal | House of Ansh Jewellery Store | Silver Jewellery Brand India</span></div></section>
 <div class="fb-bottom"><span class="fb-copy">© 2026 House of Ansh. All rights reserved. Howrah, West Bengal, India.</span><span class="fb-made">Made with care by Anushree &amp; Meenakshi Krishna</span></div>
 
@@ -280,72 +464,389 @@ document.addEventListener('DOMContentLoaded',function(){
     btn.addEventListener('click',function(){overlay.classList.add('active');document.getElementById('search-input').focus();});
     overlay.addEventListener('click',function(e){if(e.target===this)closeSearch();});
   }
-  document.getElementById('login-email').focus();
+  var ee = document.getElementById('entry-email'); if(ee) ee.focus();
 });
 </script>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, onAuthStateChanged }
+import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+  sendPasswordResetEmail, onAuthStateChanged }
   from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc, addDoc, collection, serverTimestamp, query, where, getDocs }
+  from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
-const firebaseConfig = {
+const cfg = {
   apiKey: "AIzaSyBwqpavjzi15Zt9qHoufjJFI05k7AAHLRs",
   authDomain: "house-of-ansh.firebaseapp.com",
   projectId: "house-of-ansh",
   storageBucket: "house-of-ansh.firebasestorage.app",
   messagingSenderId: "386185011014",
-  appId: "1:386185011014:web:fef798d4e17c84170bcf47",
-  measurementId: "G-Y640CVG7KQ"
+  appId: "1:386185011014:web:fef798d4e17c84170bcf47"
 };
-const app  = initializeApp(firebaseConfig);
+const app  = getApps().length ? getApps()[0] : initializeApp(cfg);
 const auth = getAuth(app);
+const db   = getFirestore(app);
 
-onAuthStateChanged(auth, user => {
-  if(user) window.location.href = 'my-orders.html';
-});
+// ── shared state ──
+let currentPinEmail       = ''; // email looked up from phone
+let currentPhone          = ''; // +91xxxxxxxxxx
+let currentEm             = ''; // email typed on email tab
+let currentPinHash        = ''; // pinHash from customer Firestore doc
+let currentFirebaseSecret = ''; // random secret used as Firebase Auth password
+let currentResetDocId     = ''; // pinResets doc id during reset flow
+let currentResetUid       = ''; // customer uid during reset flow
 
-function showMsg(msg, isInfo) {
-  const el = document.getElementById('login-error');
-  if(!el) return;
-  el.textContent = msg;
-  el.style.color = isInfo ? 'var(--silver-dim)' : '#e05555';
+async function hashPin(email, pin) {
+  const data = new TextEncoder().encode(email.toLowerCase() + pin + 'hoa2026');
+  const buf  = await crypto.subtle.digest('SHA-256', data);
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+function generateSecret() {
+  const arr = new Uint8Array(24);
+  crypto.getRandomValues(arr);
+  return Array.from(arr).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+function getPinFromRow(id) {
+  return Array.from(document.querySelectorAll('#'+id+' .pin-digit')).map(i=>i.value).join('');
+}
+function clearPinRow(id) {
+  document.querySelectorAll('#'+id+' .pin-digit').forEach(i=>{i.value='';i.classList.remove('filled');});
+}
+function msg(id, text, type) {
+  const el=document.getElementById(id); if(!el)return;
+  el.textContent=text; el.className='login-msg '+(type||'');
+}
+function redirect() {
+  const next=new URLSearchParams(location.search).get('next');
+  window.location.href=next?decodeURIComponent(next):'home.html';
 }
 
-window.handleLogin = async function() {
-  const email = document.getElementById('login-email').value.trim();
-  const pw    = document.getElementById('login-password').value;
-  if(!email || !pw){ showMsg('Please enter your email and password.'); return; }
-  const btn = document.getElementById('login-btn');
-  btn.disabled = true; btn.textContent = 'Signing in…';
+onAuthStateChanged(auth, async user => {
+  if(user){ const s=await getDoc(doc(db,'customers',user.uid)); if(s.exists()&&s.data().name)redirect(); }
+});
+
+window.goStep = function(id) {
+  document.querySelectorAll('.login-step').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+};
+
+window.switchTab = function(tab) {
+  document.querySelectorAll('.login-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  window.goStep(tab==='pin' ? 'step-pin-entry' : 'step-em-entry');
+};
+
+// ════ PHONE + PIN TAB ════
+
+window.checkPhone = async function() {
+  const raw = (document.getElementById('pin-phone').value||'').replace(/\D/g,'');
+  if(raw.length!==10){ msg('msg-pin-entry','Enter a valid 10-digit mobile number.','err'); return; }
+  currentPhone = '+91'+raw;
+  const btn=document.getElementById('pin-phone-btn');
+  btn.disabled=true; btn.textContent='Checking…'; msg('msg-pin-entry','','');
   try {
-    await signInWithEmailAndPassword(auth, email, pw);
+    const snap=await getDocs(query(collection(db,'customers'),where('phone','==',currentPhone)));
+    if(!snap.empty) {
+      const cust=snap.docs[0].data();
+      currentPinEmail=cust.email||'';
+      currentPinHash=cust.pinHash||'';
+      currentFirebaseSecret=cust.firebaseSecret||'';
+      document.getElementById('pin-login-greeting').textContent='Welcome back, '+cust.name+'.';
+      window.goStep('step-pin-login');
+      document.querySelector('#pin-login-row .pin-digit').focus();
+    } else {
+      document.getElementById('pin-su-phone').value=raw;
+      window.goStep('step-pin-signup');
+      document.getElementById('pin-su-name').focus();
+    }
+  } catch(e){ msg('msg-pin-entry','Something went wrong. Please try again.','err'); }
+  finally{ btn.disabled=false; btn.textContent='Continue'; }
+};
+
+window.doSignInPin = async function() {
+  const pin=getPinFromRow('pin-login-row');
+  if(pin.length!==6){ msg('msg-pin-login','Enter all 6 digits.','err'); return; }
+  if(!currentPinEmail){ msg('msg-pin-login','Session expired. Please go back.','err'); return; }
+  const btn=document.getElementById('pin-signin-btn');
+  btn.disabled=true; btn.textContent='Signing in…'; msg('msg-pin-login','','');
+  try {
+    const computedHash=await hashPin(currentPinEmail,pin);
+    if(currentPinHash && computedHash!==currentPinHash) {
+      btn.disabled=false; btn.textContent='Sign In';
+      clearPinRow('pin-login-row'); document.querySelector('#pin-login-row .pin-digit').focus();
+      msg('msg-pin-login','Incorrect PIN. Please try again.','err');
+      return;
+    }
+    // Use firebaseSecret if available (new accounts), else fall back to hashed PIN (legacy accounts)
+    const authKey = currentFirebaseSecret || computedHash;
+    await signInWithEmailAndPassword(auth,currentPinEmail,authKey);
+    redirect();
   } catch(e) {
-    btn.disabled = false; btn.textContent = 'Login';
-    const code = e.code || '';
-    showMsg(
-      (code.includes('credential') || code.includes('password') || code.includes('user-not-found'))
-        ? 'Incorrect email or password.'
-        : code === 'auth/too-many-requests'
-        ? 'Too many attempts. Try again later.'
-        : 'Sign in failed. Please try again.'
-    );
+    btn.disabled=false; btn.textContent='Sign In';
+    clearPinRow('pin-login-row'); document.querySelector('#pin-login-row .pin-digit').focus();
+    const c=e.code||'';
+    msg('msg-pin-login',
+      c==='auth/too-many-requests'?'Too many attempts. Try again later.':
+      'Sign in failed. Please try again.','err');
   }
 };
 
-window.handleForgotPassword = async function() {
-  const email = document.getElementById('login-email').value.trim();
-  if(!email){ showMsg('Enter your email above first.'); return; }
+window.doSignUpPin = async function() {
+  const name =(document.getElementById('pin-su-name').value||'').trim();
+  const email=(document.getElementById('pin-su-email').value||'').trim().toLowerCase();
+  const phone=(document.getElementById('pin-su-phone').value||'').replace(/\D/g,'');
+  const pin  =getPinFromRow('pin-signup-row');
+  const conf =getPinFromRow('pin-confirm-row');
+  if(!name){ msg('msg-pin-signup','Please enter your name.','err'); return; }
+  if(!email||!email.includes('@')){ msg('msg-pin-signup','Please enter a valid email address.','err'); return; }
+  if(pin.length!==6){ msg('msg-pin-signup','Choose a 6-digit PIN.','err'); return; }
+  if(pin!==conf){ msg('msg-pin-signup','PINs do not match.','err'); clearPinRow('pin-confirm-row'); return; }
+  const btn=document.getElementById('pin-signup-btn');
+  btn.disabled=true; btn.textContent='Creating account…'; msg('msg-pin-signup','','');
   try {
-    await sendPasswordResetEmail(auth, email);
-    showMsg('Reset link sent — check your inbox.', true);
+    const secret=generateSecret();
+    const pinHash=await hashPin(email,pin);
+    const cred=await createUserWithEmailAndPassword(auth,email,secret);
+    await setDoc(doc(db,'customers',cred.user.uid),{
+      name, email, phone: phone?'+91'+phone:'', createdAt:serverTimestamp(),
+      pinHash, firebaseSecret:secret
+    });
+    redirect();
   } catch(e) {
-    showMsg('Could not send reset email. Check the address.');
+    btn.disabled=false; btn.textContent='Create Account';
+    const c=e.code||'';
+    msg('msg-pin-signup',
+      c==='auth/email-already-in-use'?'This email already has an account. Try signing in with Email & Password.':
+      'Could not create account. Please try again.','err');
+  }
+};
+
+window.requestForgotPin = async function() {
+  msg('msg-pin-login','','');
+  if(!currentPhone){ window.goStep('step-pin-entry'); return; }
+  try {
+    const snap=await getDocs(query(collection(db,'customers'),where('phone','==',currentPhone)));
+    if(snap.empty){ msg('msg-pin-login','Phone number not found.','err'); return; }
+    const cust=snap.docs[0].data();
+    // Generate 6-digit code valid for 15 minutes
+    const resetCode=Math.floor(100000+Math.random()*900000).toString();
+    const resetExpiry=Date.now()+15*60*1000;
+    // Save to pinResets — admin sees the code in their dashboard
+    const resetRef=await addDoc(collection(db,'pinResets'),{
+      name:cust.name||'', email:cust.email||'', phone:currentPhone,
+      uid:snap.docs[0].id, status:'pending',
+      resetCode, resetExpiry, requestedAt:serverTimestamp()
+    });
+    currentResetDocId=resetRef.id;
+    currentPinEmail=cust.email||'';
+    currentFirebaseSecret=cust.firebaseSecret||'';
+    currentResetUid=snap.docs[0].id;
+    // Email admin so they get a Gmail push notification on their phone
+    if(window.emailjs && window._ejsReady) {
+      try {
+        emailjs.send(window._ejsSvc, window._ejsTpl, {
+          from_name: cust.name||'Customer',
+          from_email: cust.email||'',
+          phone: currentPhone,
+          enquiry_type: 'PIN Reset Request',
+          message: (cust.name||'A customer')+' ('+currentPhone+') has requested a PIN reset. Open Admin Dashboard → PIN Resets to WhatsApp them their code.'
+        }, window._ejsKey);
+      } catch(e2) {}
+    }
+    document.getElementById('pin-forgot-msg').textContent=
+      'Our team will WhatsApp you at '+currentPhone+' with a 6-digit code. This code expires in 15 minutes.';
+    window.goStep('step-pin-forgot');
+  } catch(e) {
+    msg('msg-pin-login','Could not send request. Please try again.','err');
+  }
+};
+
+window.doVerifyResetCode = async function() {
+  const code=getPinFromRow('pin-code-row');
+  if(code.length!==6){ msg('msg-pin-code','Enter the 6-digit code.','err'); return; }
+  if(!currentPhone){ window.goStep('step-pin-entry'); return; }
+  const btn=document.getElementById('pin-code-btn');
+  btn.disabled=true; btn.textContent='Verifying…'; msg('msg-pin-code','','');
+  try {
+    const now=Date.now();
+    const snap=await getDocs(query(collection(db,'pinResets'),
+      where('phone','==',currentPhone),where('status','==','pending')));
+    let match=null;
+    snap.forEach(d=>{ const r=d.data(); if(r.resetCode===code&&r.resetExpiry>now) match={id:d.id,data:r}; });
+    if(!match){
+      btn.disabled=false; btn.textContent='Verify Code';
+      msg('msg-pin-code','Incorrect or expired code. Please try again.','err');
+      return;
+    }
+    currentResetDocId=match.id;
+    currentResetUid=match.data.uid;
+    currentPinEmail=match.data.email||'';
+    // Load firebaseSecret fresh from customer doc
+    if(currentResetUid){
+      const custSnap=await getDoc(doc(db,'customers',currentResetUid));
+      if(custSnap.exists()) currentFirebaseSecret=custSnap.data().firebaseSecret||'';
+    }
+    btn.disabled=false; btn.textContent='Verify Code';
+    window.goStep('step-pin-newpin');
+    document.querySelector('#pin-newpin-row .pin-digit').focus();
+  } catch(e){
+    btn.disabled=false; btn.textContent='Verify Code';
+    msg('msg-pin-code','Something went wrong. Please try again.','err');
+  }
+};
+
+window.doSetNewPin = async function() {
+  const newPin=getPinFromRow('pin-newpin-row');
+  const confPin=getPinFromRow('pin-newpin-confirm-row');
+  if(newPin.length!==6){ msg('msg-pin-newpin','Enter your new 6-digit PIN.','err'); return; }
+  if(newPin!==confPin){ msg('msg-pin-newpin','PINs do not match.','err'); clearPinRow('pin-newpin-confirm-row'); return; }
+  if(!currentPinEmail||!currentFirebaseSecret){ msg('msg-pin-newpin','Session expired. Please start over.','err'); return; }
+  const btn=document.getElementById('pin-newpin-btn');
+  btn.disabled=true; btn.textContent='Saving…'; msg('msg-pin-newpin','','');
+  try {
+    const newPinHash=await hashPin(currentPinEmail,newPin);
+    // Update pinHash in customer doc — firebaseSecret stays the same
+    if(currentResetUid){
+      await setDoc(doc(db,'customers',currentResetUid),{pinHash:newPinHash},{merge:true});
+    }
+    // Mark reset completed
+    if(currentResetDocId){
+      await setDoc(doc(db,'pinResets',currentResetDocId),{status:'completed'},{merge:true});
+    }
+    // Sign in with unchanged firebaseSecret
+    await signInWithEmailAndPassword(auth,currentPinEmail,currentFirebaseSecret);
+    redirect();
+  } catch(e){
+    btn.disabled=false; btn.textContent='Save PIN';
+    msg('msg-pin-newpin','Could not update PIN. Please try again.','err');
+  }
+};
+
+// ════ EMAIL + PASSWORD TAB ════
+
+window.checkEmail = async function() {
+  const email=(document.getElementById('em-email').value||'').trim().toLowerCase();
+  if(!email||!email.includes('@')){ msg('msg-em-entry','Please enter a valid email address.','err'); return; }
+  currentEm=email;
+  const btn=document.getElementById('em-email-btn');
+  btn.disabled=true; btn.textContent='Checking…'; msg('msg-em-entry','','');
+  try {
+    const snap=await getDocs(query(collection(db,'customers'),where('email','==',email)));
+    if(!snap.empty) {
+      document.getElementById('em-login-greeting').textContent='Welcome back, '+snap.docs[0].data().name+'.';
+      window.goStep('step-em-login');
+      document.getElementById('em-password').focus();
+    } else {
+      window.goStep('step-em-signup');
+      document.getElementById('em-su-name').focus();
+    }
+  } catch(e){ msg('msg-em-entry','Something went wrong. Please try again.','err'); }
+  finally{ btn.disabled=false; btn.textContent='Continue'; }
+};
+
+window.doSignInEmail = async function() {
+  const password=document.getElementById('em-password').value;
+  if(!password){ msg('msg-em-login','Please enter your password.','err'); return; }
+  const btn=document.getElementById('em-signin-btn');
+  btn.disabled=true; btn.textContent='Signing in…'; msg('msg-em-login','','');
+  try {
+    await signInWithEmailAndPassword(auth,currentEm,password);
+    redirect();
+  } catch(e) {
+    btn.disabled=false; btn.textContent='Sign In';
+    document.getElementById('em-password').value='';
+    const c=e.code||'';
+    msg('msg-em-login',
+      (c==='auth/wrong-password'||c==='auth/invalid-credential')?'Incorrect password. Please try again.':
+      c==='auth/too-many-requests'?'Too many attempts. Try again later.':
+      'Sign in failed. Please try again.','err');
+  }
+};
+
+window.doSignUpEmail = async function() {
+  const name    =(document.getElementById('em-su-name').value||'').trim();
+  const phone   =(document.getElementById('em-su-phone').value||'').replace(/\D/g,'');
+  const password=document.getElementById('em-su-password').value;
+  const confirm =document.getElementById('em-su-confirm').value;
+  if(!name){ msg('msg-em-signup','Please enter your name.','err'); return; }
+  if(password.length<8){ msg('msg-em-signup','Password must be at least 8 characters.','err'); return; }
+  if(password!==confirm){ msg('msg-em-signup','Passwords do not match.','err'); document.getElementById('em-su-confirm').value=''; return; }
+  if(phone&&phone.length!==10){ msg('msg-em-signup','Enter a valid 10-digit mobile or leave it blank.','err'); return; }
+  const btn=document.getElementById('em-signup-btn');
+  btn.disabled=true; btn.textContent='Creating account…'; msg('msg-em-signup','','');
+  try {
+    const cred=await createUserWithEmailAndPassword(auth,currentEm,password);
+    await setDoc(doc(db,'customers',cred.user.uid),{
+      name, email:currentEm, phone:phone?'+91'+phone:'', createdAt:serverTimestamp()
+    });
+    redirect();
+  } catch(e) {
+    btn.disabled=false; btn.textContent='Create Account';
+    const c=e.code||'';
+    msg('msg-em-signup',
+      c==='auth/email-already-in-use'?'Account already exists. Please sign in.':
+      'Could not create account. Please try again.','err');
+  }
+};
+
+window.sendForgotPassword = async function() {
+  if(!currentEm){ window.goStep('step-em-entry'); return; }
+  try {
+    await sendPasswordResetEmail(auth,currentEm);
+    window.goStep('step-em-forgot');
+  } catch(e) {
+    msg('msg-em-login','Could not send reset email. Please check your email address.','err');
   }
 };
 </script>
 
+<script>
+// PIN digit auto-advance
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.pin-row').forEach(function(row) {
+    var digits = row.querySelectorAll('.pin-digit');
+    digits.forEach(function(inp, idx) {
+      inp.addEventListener('input', function() {
+        inp.value = inp.value.replace(/\D/g, '').slice(-1);
+        if (inp.value && idx < digits.length - 1) digits[idx + 1].focus();
+        inp.classList.toggle('filled', !!inp.value);
+      });
+      inp.addEventListener('keydown', function(e) {
+        if (e.key === 'Backspace' && !inp.value && idx > 0) {
+          digits[idx - 1].focus();
+          digits[idx - 1].value = '';
+          digits[idx - 1].classList.remove('filled');
+        }
+        if (e.key === 'Enter') {
+          var step = inp.closest('.login-step');
+          if (step) { var btn = step.querySelector('.login-btn'); if (btn) btn.click(); }
+        }
+      });
+      inp.addEventListener('paste', function(e) {
+        e.preventDefault();
+        var pasted = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '').slice(0, 6);
+        digits.forEach(function(d, i) { d.value = pasted[i] || ''; d.classList.toggle('filled', !!d.value); });
+        digits[Math.min(pasted.length, digits.length - 1)].focus();
+      });
+    });
+  });
+});
+</script>
+
 <a href="https://wa.me/917439049616?text=Hi!%20I%20need%20help" target="_blank" class="wa-float" title="Chat on WhatsApp" aria-label="Chat on WhatsApp"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" style="width:30px;height:30px;fill:#fff;"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.737 5.469 2.027 7.773L0 32l8.489-2.001A15.93 15.93 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.267 13.267 0 01-6.756-1.839l-.484-.287-5.04 1.187 1.208-4.916-.316-.505A13.267 13.267 0 012.667 16C2.667 8.636 8.636 2.667 16 2.667S29.333 8.636 29.333 16 23.364 29.333 16 29.333zm7.274-9.878c-.399-.2-2.359-1.163-2.724-1.296-.364-.133-.629-.2-.894.2s-1.026 1.296-1.257 1.562c-.232.265-.464.298-.863.1-.399-.2-1.685-.621-3.21-1.98-1.186-1.058-1.988-2.364-2.22-2.763-.232-.399-.024-.615.174-.814.178-.178.399-.464.598-.696.2-.232.265-.399.399-.665.133-.265.066-.498-.033-.697-.1-.2-.894-2.153-1.224-2.948-.323-.774-.65-.669-.894-.681-.232-.012-.498-.015-.764-.015s-.696.1-1.062.498c-.364.399-1.39 1.358-1.39 3.311s1.423 3.841 1.621 4.107c.2.265 2.801 4.276 6.786 5.996.949.41 1.689.655 2.267.838.953.303 1.82.26 2.506.158.764-.114 2.359-.964 2.691-1.895.332-.931.332-1.729.232-1.895-.099-.165-.364-.265-.763-.464z"/></svg></a>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+(function(){
+  var SVC_ID      = 'service_ina0w1d';
+  var TPL_ID      = 'template_f8me1mh';
+  var CUST_TPL_ID = 'template_zd2d40j';
+  var PUB_KEY     = '8Af9pzk5m72Z3_OxN';
+  if(SVC_ID.indexOf('YOUR_')===0) return;
+  emailjs.init(PUB_KEY);
+  window._ejsSvc=SVC_ID; window._ejsTpl=TPL_ID; window._ejsCustTpl=CUST_TPL_ID; window._ejsKey=PUB_KEY; window._ejsReady=true;
+})();
+</script>
 <script src="search.js"></script>
 <div id="email-chooser-ov" onclick="if(event.target===this)closeEmailChooser()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9500;align-items:center;justify-content:center;backdrop-filter:blur(6px);">
   <div style="background:#0e0e0e;border:1px solid #242424;padding:36px 32px;width:90%;max-width:360px;position:relative;">
@@ -388,7 +889,7 @@ function closeEmailChooser(){
   document.body.style.overflow='';
 }
 </script><div class="modal-ov" id="mTerms" style="position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(8px);"><div style="background:#0e0e0e;border:1px solid #242424;max-width:620px;width:90%;max-height:80vh;overflow-y:auto;padding:48px;position:relative;"><button onclick="cm('mTerms')" style="position:absolute;top:14px;right:14px;font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:#909090;cursor:pointer;background:none;border:none;text-transform:uppercase;">Close ✕</button><div style="font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#f5f5f5;margin-bottom:5px;">Terms of Service</div><div style="font-family:'Playfair Display',serif;font-size:18px;font-style:italic;color:#909090;margin-bottom:24px;">Effective March 2026</div><div style="font-family:'Cormorant Garamond',serif;font-size:16px;color:#aaa;line-height:1.82;"><b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">1. Introduction</b>These Terms govern your use of our website. By using it, you accept these Terms in full.<br/><br/>You must be at least 18 years of age. Our website uses cookies; by using it you consent to our cookie policy.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">2. License to Use Website</b>You may view, print, and use services for personal and business purposes. You must not republish, sell, or redistribute material without permission.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">3. Acceptable Use</b>You must not damage the website, transmit malware, or use it unlawfully. All information you supply must be accurate.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">4. Orders &amp; Payment</b>Confirmed on receipt of full payment in INR. Unavailable orders refunded in full.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">5. Buyback &amp; Exchange (Up to 70%)</b>Eligible only for genuine products with invoice, purchased from our official website. Valid up to 3 years. Up to 70% as store credit; new purchase must exceed credit. Items must be in good condition. Customised or discounted products may not be eligible. Store credits are non-refundable and non-transferable.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">16. Law &amp; Jurisdiction</b>Governed by Indian law. Disputes under Howrah court jurisdiction.</div></div></div>
-<div class="modal-ov" id="mReturns" style="position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(8px);"><div style="background:#0e0e0e;border:1px solid #242424;max-width:620px;width:90%;max-height:80vh;overflow-y:auto;padding:48px;position:relative;"><button onclick="cm('mReturns')" style="position:absolute;top:14px;right:14px;font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:#909090;cursor:pointer;background:none;border:none;text-transform:uppercase;">Close ✕</button><div style="font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#f5f5f5;margin-bottom:5px;">Returns &amp; Exchanges</div><div style="font-family:'Playfair Display',serif;font-size:18px;font-style:italic;color:#909090;margin-bottom:24px;">We want you to love every piece.</div><div style="font-family:'Cormorant Garamond',serif;font-size:16px;color:#aaa;line-height:1.82;"><b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">Return Window</b>7 days from delivery — unused, unworn, original packaging.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">Non-Returnable</b>Custom/personalised pieces, sale items, damaged by misuse.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">Process</b>Email house.of.ansh01@gmail.com with order number. Response within 48 hours.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">Refunds</b>7–10 business days to original payment. Shipping non-refundable.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">Photograph Requirement</b>Before we arrange for your damaged or incorrect product to be returned to us, you are required to send us a photograph of the product. It is then up to the discretion of the House of Ansh Jewellery Quality Check team to decide whether the product is approved for return.<br/><br/>This policy does not apply to cancellation of orders after 3 days of placing it, or to custom made orders.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">No Refunds in the Following Cases</b><ul style="margin-top:6px;padding-left:18px;"><li style="margin-bottom:8px;">Incorrect or outdated delivery address.</li><li style="margin-bottom:8px;">After 3 failed delivery attempts by our courier agent.</li><li style="margin-bottom:8px;">Package refused by recipient.</li><li style="margin-bottom:8px;">Sizing issues. Please review our size guides carefully before making your purchase.</li><li style="margin-bottom:8px;">Products returned in a used or damaged condition.</li><li style="margin-bottom:8px;">Minor colour and design variation. All products are handmade and may vary slightly from website photographs.</li><li style="margin-bottom:8px;">If the jewellery is not faulty or damaged.</li><li style="margin-bottom:8px;">The customer fails to inform us within 2 days of receipt of goods.</li><li style="margin-bottom:8px;">For Made to Order requests cancelled after 2 days of payment — 25% of the product cost will be deducted and the balance refunded.</li></ul></div></div></div>
+<div class="modal-ov" id="mReturns" style="position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(8px);"><div style="background:#0e0e0e;border:1px solid #242424;max-width:620px;width:90%;max-height:80vh;overflow-y:auto;padding:48px;position:relative;"><button onclick="cm('mReturns')" style="position:absolute;top:14px;right:14px;font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:#909090;cursor:pointer;background:none;border:none;text-transform:uppercase;">Close ✕</button><div style="font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#f5f5f5;margin-bottom:5px;">Returns &amp; Exchanges</div><div style="font-family:'Playfair Display',serif;font-size:18px;font-style:italic;color:#909090;margin-bottom:24px;">We want you to love every piece.</div><div style="font-family:'Cormorant Garamond',serif;font-size:16px;color:#aaa;line-height:1.82;"><b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">Return Window</b>7 days from delivery — unused, unworn, original packaging.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">Non-Returnable</b>Custom/personalised pieces, sale items, damaged by misuse.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">Process</b>Email house.of.ansh01@gmail.com with order number. Response within 48 hours.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">Refunds</b>7–10 business days to original payment. Shipping non-refundable.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">Unboxing Video Required</b>An unboxing video — recorded continuously while opening the parcel for the very first time — is mandatory for all return, exchange, and damage claims. Without a valid unboxing video we cannot process any request, regardless of the reason. We strongly recommend recording one before opening every House of Ansh package.<br/><br/>This requirement does not apply to non-delivery or courier loss claims.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">No Refunds in the Following Cases</b><ul style="margin-top:6px;padding-left:18px;"><li style="margin-bottom:8px;">Incorrect or outdated delivery address.</li><li style="margin-bottom:8px;">After 3 failed delivery attempts by our courier agent.</li><li style="margin-bottom:8px;">Package refused by recipient.</li><li style="margin-bottom:8px;">Sizing issues. Please review our size guides carefully before making your purchase.</li><li style="margin-bottom:8px;">Products returned in a used or damaged condition.</li><li style="margin-bottom:8px;">Minor colour and design variation. All products are handmade and may vary slightly from website photographs.</li><li style="margin-bottom:8px;">If the jewellery is not faulty or damaged.</li><li style="margin-bottom:8px;">The customer fails to inform us within 2 days of receipt of goods.</li><li style="margin-bottom:8px;">For Made to Order requests cancelled after 2 days of payment — 25% of the product cost will be deducted and the balance refunded.</li></ul></div></div></div>
 <div class="modal-ov" id="mPrivacy" style="position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(8px);"><div style="background:#0e0e0e;border:1px solid #242424;max-width:620px;width:90%;max-height:80vh;overflow-y:auto;padding:48px;position:relative;"><button onclick="cm('mPrivacy')" style="position:absolute;top:14px;right:14px;font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:#909090;cursor:pointer;background:none;border:none;text-transform:uppercase;">Close ✕</button><div style="font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#f5f5f5;margin-bottom:5px;">Privacy Policy</div><div style="font-family:'Playfair Display',serif;font-size:18px;font-style:italic;color:#909090;margin-bottom:24px;">Your trust matters deeply.</div><div style="font-family:'Cormorant Garamond',serif;font-size:16px;color:#aaa;line-height:1.82;"><b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">What We Collect</b>Name, email, phone, address — only what you provide.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">How We Use It</b>Solely to process orders and provide support. Never sold or shared.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">Contact</b>house.of.ansh01@gmail.com</div></div></div>
 <div class="modal-ov" id="mShipping" style="position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(8px);"><div style="background:#0e0e0e;border:1px solid #242424;max-width:620px;width:90%;max-height:80vh;overflow-y:auto;padding:48px;position:relative;"><button onclick="cm('mShipping')" style="position:absolute;top:14px;right:14px;font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:#909090;cursor:pointer;background:none;border:none;text-transform:uppercase;">Close ✕</button><div style="font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#f5f5f5;margin-bottom:5px;">Shipping &amp; Delivery</div><div style="font-family:'Playfair Display',serif;font-size:18px;font-style:italic;color:#909090;margin-bottom:24px;">Pan India &amp; Worldwide. With care.</div><div style="font-family:'Cormorant Garamond',serif;font-size:16px;color:#aaa;line-height:1.82;"><b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">1. Pan-India Shipping</b>Partnered with DHL, FedEx, DTDC, Delhivery, Blue Dart, Xpress Bees and more.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">2. Shipping Method</b>Free shipping on orders ₹2,999 & above. A delivery fee of ₹299 applies to all orders below ₹2,999. All prices inclusive of GST.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">3. Processing &amp; Dispatch</b>Each piece is crafted to order. Dispatch takes 2–5 business days. Customisation: 7–30 days + ₹500 fee.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">4. Delivery</b>Monday–Saturday, 10 AM–6 PM. Delivery takes 6–8 business days after dispatch, excluding bank holidays and Sundays.<b style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#d8d8d8;display:block;margin:18px 0 6px;">5. Contact</b>house.of.ansh01@gmail.com | +91 74390 49616</div></div></div>
 <script>
@@ -414,7 +915,7 @@ footer{background:var(--deep,#090909);border-top:1px solid var(--border,#1a1a1a)
 .fb-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;background:var(--surface,#0e0e0e);border-top:1px solid var(--border,#1a1a1a);padding:18px 56px;}
 .fb-copy{font-family:var(--fh,'Cinzel',serif);font-size:7.5px;letter-spacing:2px;color:var(--text-dim,#555);text-transform:uppercase;}
 .fb-made{font-family:var(--fp,'Playfair Display',serif);font-style:italic;font-size:12px;color:var(--text-dim,#555);}
-.seo-tags{border-top:1px solid var(--border,#1a1a1a);padding:28px 56px;background:var(--surface,#0e0e0e);}
+.seo-tags{display:none;border-top:1px solid var(--border,#1a1a1a);padding:28px 56px;background:var(--surface,#0e0e0e);}
 .seo-tags-inner{max-width:1400px;margin:0 auto;}
 .seo-tags-lbl{font-family:var(--fh,'Cinzel',serif);font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:var(--silver-dim,#909090);margin-right:10px;font-weight:600;}
 .seo-tags-list{font-family:var(--fg,'Cormorant Garamond',serif);font-size:13px;color:var(--text-dim,#555);line-height:2;}

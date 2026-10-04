@@ -21,7 +21,7 @@ ul{list-style:none;}
 button{cursor:pointer;}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:900;-webkit-transform:translateZ(0);transform:translateZ(0);display:flex;align-items:center;justify-content:space-between;padding:20px 56px;transition:all .4s;background:rgba(6,6,6,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:20px 56px;transition:all .4s;background:rgba(6,6,6,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
 .nl{display:flex;align-items:center;gap:11px;text-decoration:none;}
 .nl-logo{height:42px;width:auto;object-fit:contain;filter:brightness(1.05);}
 .nl-t{display:flex;flex-direction:column;}
@@ -44,7 +44,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;-webkit-transform:translateZ
 .nav-icon{background:none;border:none;cursor:pointer;color:var(--silver-dim);padding:8px 9px;transition:color .3s;display:flex;align-items:center;justify-content:center;}
 .nav-icon:hover,.nav-icon.active-icon{color:var(--silver);}
 .nav-icon svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;}
-.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:10px;min-width:44px;min-height:44px;justify-content:center;align-items:center;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
 .hamburger span{display:block;width:22px;height:1px;background:var(--silver-dim);transition:all .3s;}
 @media(max-width:640px){
   nav{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:14px 0px;}
@@ -61,8 +61,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;-webkit-transform:translateZ
 @media(max-width:860px){
   nav{padding:16px 24px;}
   .hamburger{display:flex;}
-  .nm{display:none;flex-direction:column;position:fixed;top:60px;left:0;right:0;bottom:0;background:rgba(6,6,6,.97);padding:16px 0;overflow-y:auto;border-top:1px solid rgba(196,196,196,.12);z-index:901;}
-  .nm.open{display:flex;align-items:stretch;}
+  .nm{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;min-height:calc(100vh - 60px);background:rgba(6,6,6,.97);padding:16px 0;overflow-y:auto;border-top:1px solid rgba(196,196,196,.12);z-index:901;}
+  .nm.open{display:flex!important;align-items:stretch;}
   .nm > li > a{padding:14px 24px;font-size:10px;text-align:center;}
   .nm > li > .dropdown{display:none;position:relative!important;left:auto!important;right:auto!important;top:auto!important;transform:none!important;opacity:1!important;pointer-events:all!important;box-shadow:none!important;min-width:0!important;width:100%!important;padding:6px 0;border:none;background:rgba(255,255,255,.05);text-align:center;transition:none!important;}
   .nm > li.mob-open > .dropdown{display:block;}
@@ -96,7 +96,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;-webkit-transform:translateZ
 <body>
 
 <nav id="nav">
-  <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  <button class="hamburger" id="hamburger" aria-label="Open menu" onclick="var _n=document.querySelector('ul.nm');this.classList.toggle('open');if(_n){_n.classList.toggle('open');_n.style.display=_n.classList.contains('open')?'flex':'';}">  <span></span><span></span><span></span></button>
   <a href="index.html" class="nl"><img src="images/logo.png" alt="House of Ansh" class="nl-logo"/><div class="nl-t"><span class="nl-n">House of Ansh</span><span class="nl-s">Pure Silver Jewellery</span></div></a>
   <ul class="nm">
     <li><a href="home.html">Home</a></li>
@@ -218,7 +218,7 @@ window.handleSignup = async function() {
 document.addEventListener('DOMContentLoaded', function() {
   var ham = document.getElementById('hamburger'), nm = document.querySelector('.nm');
   if(ham && nm) {
-    ham.addEventListener('click', function(){ ham.classList.toggle('open'); nm.classList.toggle('open'); });
+    window._hamTog=function(){var h=document.getElementById('hamburger'),n=document.querySelector('.nm');if(!h||!n)return;h.classList.toggle('open');n.classList.toggle('open');};
   }
   document.getElementById('su-name').focus();
 });

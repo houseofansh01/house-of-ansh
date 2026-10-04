@@ -23,7 +23,7 @@ ul{list-style:none;}
 button{cursor:pointer;}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:900;-webkit-transform:translateZ(0);transform:translateZ(0);display:flex;align-items:center;justify-content:space-between;padding:20px 56px;transition:all .4s;background:rgba(6,6,6,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:20px 56px;transition:all .4s;background:rgba(6,6,6,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
 .nl{display:flex;align-items:center;gap:11px;text-decoration:none;}
 .nl-logo{height:42px;width:auto;object-fit:contain;filter:brightness(1.05);}
 .nl-t{display:flex;flex-direction:column;}
@@ -59,25 +59,25 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;-webkit-transform:translateZ
 .cart-panel{position:fixed;top:0;right:0;bottom:0;width:400px;max-width:95vw;background:var(--surface);z-index:1060;transform:translateX(100%);transition:transform .42s cubic-bezier(.25,.46,.45,.94);display:flex;flex-direction:column;border-left:1px solid var(--border);}
 .cart-panel.active{transform:translateX(0);}
 .cart-head{display:flex;align-items:center;justify-content:space-between;padding:22px 26px;border-bottom:1px solid var(--border);}
-.cart-head-title{font-family:var(--fh);font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--white);}
-.cart-close-btn{background:none;border:none;color:var(--silver-dim);font-size:20px;cursor:pointer;line-height:1;transition:color .3s;padding:2px 4px;}
+.cart-head-title{font-family:var(--fh);font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--white);}
+.cart-close-btn{background:none;border:none;color:var(--silver);font-size:22px;cursor:pointer;line-height:1;transition:color .3s;padding:2px 4px;}
 .cart-close-btn:hover{color:var(--silver);}
 .cart-body{flex:1;overflow-y:auto;padding:32px 26px;display:flex;flex-direction:column;}
 .cart-empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:18px;text-align:center;}
 .cart-empty-state svg{color:var(--text-dim);}
 .cart-empty-msg{font-family:var(--fg);font-size:15px;color:var(--text);line-height:1.7;}
-.cart-shop-link{font-family:var(--fh);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--silver-dim);border-bottom:1px solid var(--border2);padding-bottom:2px;transition:color .3s,border-color .3s;}
+.cart-shop-link{font-family:var(--fh);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--silver-dim);border-bottom:1px solid var(--border2);padding-bottom:2px;transition:color .3s,border-color .3s;}
 .cart-shop-link:hover{color:var(--silver);border-color:var(--silver-dim);}
 .cart-footer-panel{padding:20px 26px;border-top:1px solid var(--border);}
 .cart-total-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px;}
-.cart-total-label{font-family:var(--fh);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--silver-dim);}
-.cart-total-amount{font-family:var(--fg);font-size:20px;color:var(--white);}
-.cart-checkout-btn{width:100%;background:var(--white);color:var(--black);font-family:var(--fh);font-size:9px;letter-spacing:4px;text-transform:uppercase;border:none;padding:16px;cursor:pointer;transition:background .3s;}
+.cart-total-label{font-family:var(--fh);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--silver-dim);}
+.cart-total-amount{font-family:var(--fg);font-size:22px;color:var(--white);}
+.cart-checkout-btn{width:100%;background:var(--white);color:var(--black);font-family:var(--fh);font-size:11px;letter-spacing:3px;text-transform:uppercase;border:none;padding:16px;cursor:pointer;transition:background .3s;}
 .cart-checkout-btn:hover{background:var(--silver);}
 .cart-item{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border);}
 .cart-item-info{flex:1;min-width:0;}
-.cart-item-name{font-size:13px;color:var(--white);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.cart-item-price{font-size:12px;color:var(--silver-dim);}
+.cart-item-name{font-size:15px;color:var(--white);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cart-item-price{font-size:17px;color:var(--silver);}
 .cart-item-rm{background:none;border:none;color:var(--silver-dim);cursor:pointer;font-size:20px;line-height:1;padding:2px 6px;flex-shrink:0;}
 .cart-item-rm:hover{color:#e05555;}
 
@@ -111,7 +111,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
 .wa-float:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(37,211,102,.5);}
 
 /* HAMBURGER */
-.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:10px;min-width:44px;min-height:44px;justify-content:center;align-items:center;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
 .hamburger span{display:block;width:22px;height:1px;background:var(--silver-dim);transition:all .3s;}
 
 /* PAGE — CUSTOM DESIGN */
@@ -151,8 +151,8 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
 @media(max-width:860px){
   nav{padding:16px 24px;}
   .hamburger{display:flex;}
-  .nm{display:none;flex-direction:column;position:fixed;top:60px;left:0;right:0;bottom:0;background:rgba(6,6,6,.97);padding:16px 0;overflow-y:auto;border-top:1px solid rgba(196,196,196,.12);z-index:901;}
-  .nm.open{display:flex;align-items:stretch;}
+  .nm{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;min-height:calc(100vh - 60px);background:rgba(6,6,6,.97);padding:16px 0;overflow-y:auto;border-top:1px solid rgba(196,196,196,.12);z-index:901;}
+  .nm.open{display:flex!important;align-items:stretch;}
   .nm > li > a{padding:14px 24px;font-size:10px;text-align:center;}
   .nm > li > .dropdown{display:none;position:relative!important;left:auto!important;right:auto!important;top:auto!important;transform:none!important;opacity:1!important;pointer-events:all!important;box-shadow:none!important;min-width:0!important;width:100%!important;padding:6px 0;border:none;background:rgba(255,255,255,.05);text-align:center;transition:none!important;}
   .nm > li.mob-open > .dropdown{display:block;}
@@ -188,7 +188,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
 <body>
 
 <nav id="nav">
-  <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  <button class="hamburger" id="hamburger" aria-label="Open menu" onclick="var _n=document.querySelector('ul.nm');this.classList.toggle('open');if(_n){_n.classList.toggle('open');_n.style.display=_n.classList.contains('open')?'flex':'';}">  <span></span><span></span><span></span></button>
   <a href="index.html" class="nl"><img src="images/logo.png" alt="House of Ansh" class="nl-logo"/><div class="nl-t"><span class="nl-n">House of Ansh</span><span class="nl-s">Pure Silver Jewellery</span></div></a>
   <ul class="nm">
     <li><a href="home.html">Home</a></li>
@@ -301,7 +301,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
 </section>
 
 <footer><div class="ft"><div><img src="images/logo.png" alt="House of Ansh" class="fb-logo-img"/><div class="fb-name">House of Ansh</div><div class="fb-tag">A Little Moonlight You Can Wear</div><p class="fb-bio">Pure silver jewellery crafted with intention. Founded March 2026, Kolkata. Ships across India.</p></div><div class="fcol"><h5>Navigate</h5><ul><li><a href="home.html">Home</a></li><li><a href="forher.html">For Her</a></li><li><a href="forhim.html">For Him</a></li><li><a href="virasat.html">Virasat Collection</a></li><li><a href="my-orders.html">My Orders</a></li><li><a href="index.html#story">About Us</a></li></ul></div><div class="fcol"><h5>Policies</h5><ul><li><a href="#" onclick="om('mTerms');return false;">Terms of Service</a></li><li><a href="#" onclick="om('mReturns');return false;">Returns &amp; Exchanges</a></li><li><a href="#" onclick="om('mPrivacy');return false;">Privacy Policy</a></li><li><a href="#" onclick="om('mShipping');return false;">Shipping &amp; Delivery</a></li></ul></div><div class="fcol"><h5>Connect</h5><ul><li><a href="https://www.instagram.com/houseofansh.in/" target="_blank">Instagram</a></li><li><a href="https://www.facebook.com/profile.php?id=61588830175777" target="_blank">Facebook</a></li><li><a href="https://www.linkedin.com/" target="_blank">LinkedIn</a></li><li><a href="#" onclick="openEmailChooser();return false;">Email Us</a></li><li><a href="tel:+917439049616">+91-74390-49616</a></li></ul></div></div></footer>
-<section class="seo-tags"><div class="seo-tags-inner"><span class="seo-tags-lbl">Tags :</span><span class="seo-tags-list">House of Ansh | Silver Jewellery | Pure Silver Jewellery | 925 Sterling Silver | Handcrafted Silver Jewellery | Handmade Jewellery India | Silver Bangles | Silver Bracelets | Silver Rings | Silver Earrings | Silver Necklace | Silver Pendant | Silver Anklets | Silver Mangalsutra | Silver Brooches | Silver Wristlets | Silver Chains for Men | Women's Silver Jewellery | Men's Silver Jewellery | Bridal Jewellery | Wedding Jewellery India | Festival Jewellery | Everyday Silver Jewellery | Daily Wear Silver | Luxury Silver Jewellery | Premium Silver Jewellery | Traditional Indian Jewellery | Contemporary Silver Jewellery | Oxidised Silver Jewellery | Hallmarked Silver | Pure 999 Silver | Buy Silver Jewellery Online | Silver Jewellery Online India | Silver Jewellery Shop | Jewellery Gift Ideas | Gift for Her | Gift for Him | Sustainable Jewellery | Artisan Jewellery India | Virasat Collection | Jewellery Store Online India | Pan India Shipping | Best Silver Jewellery India | Affordable Silver Jewellery | Minimalist Silver Jewellery | Silver Jewellery Howrah | Silver Jewellery West Bengal | House of Ansh Jewellery Store | Silver Jewellery Brand India</span></div></section>
+<section class="seo-tags"><div class="seo-tags-inner"><span class="seo-tags-lbl">Tags :</span><span class="seo-tags-list">House of Ansh | Silver Jewellery | Pure Silver Jewellery | 925 Sterling Silver | Handcrafted Silver Jewellery | Handmade Jewellery India | Silver Bangles | Silver Bracelets | Silver Rings | Silver Earrings | Silver Necklace | Silver Pendant | Silver Anklets | Silver Mangalsutra | Silver Brooches | Silver Wristlets | Silver Chains for Men | Women's Silver Jewellery | Men's Silver Jewellery | Bridal Jewellery | Wedding Jewellery India | Festival Jewellery | Everyday Silver Jewellery | Daily Wear Silver | Luxury Silver Jewellery | Premium Silver Jewellery | Traditional Indian Jewellery | Contemporary Silver Jewellery | Oxidised Silver Jewellery | Hallmarked Silver | Pure 999 Silver | Buy Silver Jewellery Online | Silver Jewellery Online India | Silver Jewellery Shop | Jewellery Gift Ideas | Gift for Her | Gift for Him | Sustainable Jewellery | Artisan Jewellery India | Virasat Collection | Jewellery Store Online India | Pan India Shipping | Best Silver Jewellery India | Affordable Silver Jewellery | Minimalist Silver Jewellery | Silver Jewellery Howrah | Silver Jewellery West Bengal | House of Ansh Jewellery Store | Silver Jewellery Brand India | Gold Plated Jewellery | Gold Plated Jewelry | Gold Plated Jewlery | Gold Plated Jwellery | Gold Plated Bracelet | Gold Plated Braclet | Gold Plated Braclet India | Gold Plated Jewellery India | Party Wear Jewellery | Party Wear Jewelry | Party Wear Jewlery | Party Wear Necklace | Party Necklace India | Party Wear Silver Jewellery | Daily Wear Jewellery | Daily Wear Jewelry | Daily Wear Jewlery | Dailywear Jewellery | Everyday Jewellery India | Traditional Jewellery | Traditional Jewelry | Traditional Indian Jewlery | Jewellery Store Near Me | Jewelry Store Near Me | Jewlery Store Near Me | Silver Jewellery Near Me | Silver Jewelry Shop Near Me | Silver Jewellery Store Near Me</span></div></section>
 <div class="fb-bottom"><span class="fb-copy">© 2026 House of Ansh. All rights reserved. Howrah, West Bengal, India.</span><span class="fb-made">Made with care by Anushree &amp; Meenakshi Krishna</span></div>
 
 <a href="https://wa.me/917439049616?text=Hi!%20I%20need%20help" target="_blank" class="wa-float" title="Chat on WhatsApp" aria-label="Chat on WhatsApp"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" style="width:30px;height:30px;fill:#fff;"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.737 5.469 2.027 7.773L0 32l8.489-2.001A15.93 15.93 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.267 13.267 0 01-6.756-1.839l-.484-.287-5.04 1.187 1.208-4.916-.316-.505A13.267 13.267 0 012.667 16C2.667 8.636 8.636 2.667 16 2.667S29.333 8.636 29.333 16 23.364 29.333 16 29.333zm7.274-9.878c-.399-.2-2.359-1.163-2.724-1.296-.364-.133-.629-.2-.894.2s-1.026 1.296-1.257 1.562c-.232.265-.464.298-.863.1-.399-.2-1.685-.621-3.21-1.98-1.186-1.058-1.988-2.364-2.22-2.763-.232-.399-.024-.615.174-.814.178-.178.399-.464.598-.696.2-.232.265-.399.399-.665.133-.265.066-.498-.033-.697-.1-.2-.894-2.153-1.224-2.948-.323-.774-.65-.669-.894-.681-.232-.012-.498-.015-.764-.015s-.696.1-1.062.498c-.364.399-1.39 1.358-1.39 3.311s1.423 3.841 1.621 4.107c.2.265 2.801 4.276 6.786 5.996.949.41 1.689.655 2.267.838.953.303 1.82.26 2.506.158.764-.114 2.359-.964 2.691-1.895.332-.931.332-1.729.232-1.895-.099-.165-.364-.265-.763-.464z"/></svg></a>
@@ -325,8 +325,8 @@ document.addEventListener('DOMContentLoaded',function(){
   var ham=document.getElementById('hamburger'),nm=document.querySelector('.nm');
   if(!ham||!nm)return;
   function isMob(){return window.innerWidth<=640;}
-  function closeAll(){ham.classList.remove('open');nm.classList.remove('open');nm.querySelectorAll('.mob-open').forEach(function(el){el.classList.remove('mob-open');});}
-  ham.addEventListener('click',function(){ham.classList.toggle('open');nm.classList.toggle('open');if(!nm.classList.contains('open')){nm.querySelectorAll('.mob-open').forEach(function(el){el.classList.remove('mob-open');});}});
+  function closeAll(){ham.classList.remove('open');nm.classList.remove('open');nm.style.display='';nm.querySelectorAll('.mob-open').forEach(function(el){el.classList.remove('mob-open');});}
+  window._hamTog=function(){var h=document.getElementById('hamburger'),n=document.querySelector('.nm');if(!h||!n)return;h.classList.toggle('open');n.classList.toggle('open');if(!n.classList.contains('open')){n.querySelectorAll('.mob-open').forEach(function(el){el.classList.remove('mob-open');});}};var _hamTog=window._hamTog;window._hamTog=_hamTog;
   nm.querySelectorAll('li > a').forEach(function(a){a.addEventListener('click',function(e){if(!isMob())return;var dd=a.nextElementSibling;if(dd&&dd.classList.contains('dropdown')){e.preventDefault();var li=a.parentElement;var wasOpen=li.classList.contains('mob-open');nm.querySelectorAll('li.mob-open').forEach(function(s){s.classList.remove('mob-open');});if(!wasOpen)li.classList.add('mob-open');}else{e.preventDefault();closeAll();var href=a.getAttribute('href');if(href){setTimeout(function(){var anch=href.includes('#')?href.split('#')[1]:null;var tgt=anch?document.getElementById(anch):null;if(tgt)tgt.scrollIntoView({behavior:'smooth'});else window.location.href=href;},220);}}});});
   nm.querySelectorAll('.has-sub > a').forEach(function(a){a.addEventListener('click',function(e){if(!isMob())return;e.preventDefault();var hs=a.parentElement;var wasOpen=hs.classList.contains('mob-open');hs.parentElement.querySelectorAll('.has-sub.mob-open').forEach(function(s){s.classList.remove('mob-open');});if(!wasOpen)hs.classList.add('mob-open');});});
   nm.querySelectorAll('.sub-dropdown a,.dropdown > a').forEach(function(a){a.addEventListener('click',function(){if(isMob())closeAll();});});

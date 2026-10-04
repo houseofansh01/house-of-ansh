@@ -34,7 +34,7 @@ ul{list-style:none;}
 button{cursor:pointer;}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:900;-webkit-transform:translateZ(0);transform:translateZ(0);display:flex;align-items:center;justify-content:space-between;padding:20px 56px;transition:all .4s;background:rgba(6,6,6,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:20px 56px;transition:all .4s;background:rgba(6,6,6,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
 .nl{display:flex;align-items:center;gap:11px;text-decoration:none;}
 .nl-logo{height:42px;width:auto;object-fit:contain;filter:brightness(1.05);}
 .nl-t{display:flex;flex-direction:column;}
@@ -104,13 +104,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;-webkit-transform:translateZ
   .nav-icon{padding:6px 3px;}
   .nav-icon:last-child{padding-right:0;}
 }
-.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:10px;min-width:44px;min-height:44px;justify-content:center;align-items:center;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
 .hamburger span{display:block;width:22px;height:1px;background:var(--silver-dim);transition:all .3s;}
 @media(max-width:860px){
   nav{padding:16px 24px;}
   .hamburger{display:flex;}
-  .nm{display:none;flex-direction:column;position:fixed;top:60px;left:0;right:0;bottom:0;background:rgba(6,6,6,.97);padding:16px 0;overflow-y:auto;border-top:1px solid rgba(196,196,196,.12);z-index:901;}
-  .nm.open{display:flex;align-items:stretch;}
+  .nm{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;min-height:calc(100vh - 60px);background:rgba(6,6,6,.97);padding:16px 0;overflow-y:auto;border-top:1px solid rgba(196,196,196,.12);z-index:901;}
+  .nm.open{display:flex!important;align-items:stretch;}
   .nm > li > a{padding:14px 24px;font-size:10px;text-align:center;}
   .nm > li > .dropdown{display:none;position:relative!important;left:auto!important;right:auto!important;top:auto!important;transform:none!important;opacity:1!important;pointer-events:all!important;box-shadow:none!important;min-width:0!important;width:100%!important;padding:6px 0;border:none;background:rgba(255,255,255,.05);text-align:center;transition:none!important;}
   .nm > li.mob-open > .dropdown{display:block;}
@@ -194,7 +194,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
 <body>
 
 <nav id="nav">
-  <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  <button class="hamburger" id="hamburger" aria-label="Open menu" onclick="var _n=document.querySelector('ul.nm');this.classList.toggle('open');if(_n){_n.classList.toggle('open');_n.style.display=_n.classList.contains('open')?'flex':'';}">  <span></span><span></span><span></span></button>
   <a href="index.html" class="nl"><img src="images/logo.png" alt="House of Ansh" class="nl-logo"/><div class="nl-t"><span class="nl-n">House of Ansh</span><span class="nl-s">Pure Silver Jewellery</span></div></a>
   <ul class="nm">
     <li><a href="home.html">Home</a></li>
@@ -202,6 +202,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
     <li><a href="#">Collections &#9662;</a><div class="dropdown"><a href="virasat.html">Virasat</a><a href="#" style="color:var(--text-dim);cursor:default;">More Coming Soon</a></div></li>
     <li><a href="#">Personalise &#9662;</a><div class="dropdown"><a href="transform.html">Transform Your Jewellery</a><a href="customdesign.html">Custom Design</a></div></li>
     <li><a href="index.html#story">About Us</a></li>
+    <li><a href="my-orders.html">My Orders</a></li>
     <li><a href="index.html#contact">Contact</a></li>
   </ul>
   <div class="nav-icons">
@@ -438,7 +439,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
 
 
 <footer><div class="ft"><div><img src="images/logo.png" alt="House of Ansh" class="fb-logo-img"/><div class="fb-name">House of Ansh</div><div class="fb-tag">A Little Moonlight You Can Wear</div><p class="fb-bio">Pure silver jewellery crafted with intention. Founded March 2026, Kolkata. Ships across India.</p></div><div class="fcol"><h5>Navigate</h5><ul><li><a href="home.html">Home</a></li><li><a href="forher.html">For Her</a></li><li><a href="forhim.html">For Him</a></li><li><a href="virasat.html">Virasat Collection</a></li><li><a href="index.html#story">About Us</a></li></ul></div><div class="fcol"><h5>Policies</h5><ul><li><a href="#" onclick="om('mTerms');return false;">Terms of Service</a></li><li><a href="#" onclick="om('mReturns');return false;">Returns &amp; Exchanges</a></li><li><a href="#" onclick="om('mPrivacy');return false;">Privacy Policy</a></li><li><a href="#" onclick="om('mShipping');return false;">Shipping &amp; Delivery</a></li></ul></div><div class="fcol"><h5>Connect</h5><ul><li><a href="https://www.instagram.com/houseofansh.in/" target="_blank">Instagram</a></li><li><a href="https://www.facebook.com/profile.php?id=61588830175777" target="_blank">Facebook</a></li><li><a href="https://www.linkedin.com/" target="_blank">LinkedIn</a></li><li><a href="#" onclick="openEmailChooser();return false;">Email Us</a></li><li><a href="tel:+917439049616">+91-74390-49616</a></li></ul></div></div></footer>
-<section class="seo-tags"><div class="seo-tags-inner"><span class="seo-tags-lbl">Tags :</span><span class="seo-tags-list">House of Ansh | Silver Jewellery | Pure Silver Jewellery | 925 Sterling Silver | Handcrafted Silver Jewellery | Handmade Jewellery India | Silver Bangles | Silver Bracelets | Silver Rings | Silver Earrings | Silver Necklace | Silver Pendant | Silver Anklets | Silver Mangalsutra | Silver Brooches | Silver Wristlets | Silver Chains for Men | Women's Silver Jewellery | Men's Silver Jewellery | Bridal Jewellery | Wedding Jewellery India | Festival Jewellery | Everyday Silver Jewellery | Daily Wear Silver | Luxury Silver Jewellery | Premium Silver Jewellery | Traditional Indian Jewellery | Contemporary Silver Jewellery | Oxidised Silver Jewellery | Hallmarked Silver | Pure 999 Silver | Buy Silver Jewellery Online | Silver Jewellery Online India | Silver Jewellery Shop | Jewellery Gift Ideas | Gift for Her | Gift for Him | Sustainable Jewellery | Artisan Jewellery India | Virasat Collection | Jewellery Store Online India | Pan India Shipping | Best Silver Jewellery India | Affordable Silver Jewellery | Minimalist Silver Jewellery | Silver Jewellery Howrah | Silver Jewellery West Bengal | House of Ansh Jewellery Store | Silver Jewellery Brand India</span></div></section>
+<section class="seo-tags"><div class="seo-tags-inner"><span class="seo-tags-lbl">Tags :</span><span class="seo-tags-list">House of Ansh | Silver Jewellery | Pure Silver Jewellery | 925 Sterling Silver | Handcrafted Silver Jewellery | Handmade Jewellery India | Silver Bangles | Silver Bracelets | Silver Rings | Silver Earrings | Silver Necklace | Silver Pendant | Silver Anklets | Silver Mangalsutra | Silver Brooches | Silver Wristlets | Silver Chains for Men | Women's Silver Jewellery | Men's Silver Jewellery | Bridal Jewellery | Wedding Jewellery India | Festival Jewellery | Everyday Silver Jewellery | Daily Wear Silver | Luxury Silver Jewellery | Premium Silver Jewellery | Traditional Indian Jewellery | Contemporary Silver Jewellery | Oxidised Silver Jewellery | Hallmarked Silver | Pure 999 Silver | Buy Silver Jewellery Online | Silver Jewellery Online India | Silver Jewellery Shop | Jewellery Gift Ideas | Gift for Her | Gift for Him | Sustainable Jewellery | Artisan Jewellery India | Virasat Collection | Jewellery Store Online India | Pan India Shipping | Best Silver Jewellery India | Affordable Silver Jewellery | Minimalist Silver Jewellery | Silver Jewellery Howrah | Silver Jewellery West Bengal | House of Ansh Jewellery Store | Silver Jewellery Brand India | Gold Plated Jewellery | Gold Plated Jewelry | Gold Plated Jewlery | Gold Plated Jwellery | Gold Plated Bracelet | Gold Plated Braclet | Gold Plated Braclet India | Gold Plated Jewellery India | Party Wear Jewellery | Party Wear Jewelry | Party Wear Jewlery | Party Wear Necklace | Party Necklace India | Party Wear Silver Jewellery | Daily Wear Jewellery | Daily Wear Jewelry | Daily Wear Jewlery | Dailywear Jewellery | Everyday Jewellery India | Traditional Jewellery | Traditional Jewelry | Traditional Indian Jewlery | Jewellery Store Near Me | Jewelry Store Near Me | Jewlery Store Near Me | Silver Jewellery Near Me | Silver Jewelry Shop Near Me | Silver Jewellery Store Near Me</span></div></section>
 <div class="fb-bottom"><span class="fb-copy">© 2026 House of Ansh. All rights reserved. Howrah, West Bengal, India.</span><span class="fb-made">Made with care by Anushree &amp; Meenakshi Krishna</span></div>
 
 
@@ -451,8 +452,8 @@ document.addEventListener('DOMContentLoaded',function(){
   var ham=document.getElementById('hamburger'),nm=document.querySelector('.nm');
   if(ham&&nm){
     function isMob(){return window.innerWidth<=640;}
-    function closeAll(){ham.classList.remove('open');nm.classList.remove('open');nm.querySelectorAll('.mob-open').forEach(function(el){el.classList.remove('mob-open');});}
-    ham.addEventListener('click',function(){ham.classList.toggle('open');nm.classList.toggle('open');if(!nm.classList.contains('open')){nm.querySelectorAll('.mob-open').forEach(function(el){el.classList.remove('mob-open');});}});
+    function closeAll(){ham.classList.remove('open');nm.classList.remove('open');nm.style.display='';nm.querySelectorAll('.mob-open').forEach(function(el){el.classList.remove('mob-open');});}
+    window._hamTog=function(){var h=document.getElementById('hamburger'),n=document.querySelector('.nm');if(!h||!n)return;h.classList.toggle('open');n.classList.toggle('open');if(!n.classList.contains('open')){n.querySelectorAll('.mob-open').forEach(function(el){el.classList.remove('mob-open');});}};var _hamTog=window._hamTog;window._hamTog=_hamTog;
     nm.querySelectorAll('li > a').forEach(function(a){a.addEventListener('click',function(e){if(!isMob())return;var dd=a.nextElementSibling;if(dd&&dd.classList.contains('dropdown')){e.preventDefault();var li=a.parentElement;var wasOpen=li.classList.contains('mob-open');nm.querySelectorAll('li.mob-open').forEach(function(s){s.classList.remove('mob-open');});if(!wasOpen)li.classList.add('mob-open');}else{e.preventDefault();closeAll();var href=a.getAttribute('href');if(href){setTimeout(function(){var anch=href.includes('#')?href.split('#')[1]:null;var tgt=anch?document.getElementById(anch):null;if(tgt)tgt.scrollIntoView({behavior:'smooth'});else window.location.href=href;},220);}}});});
     nm.querySelectorAll('.has-sub > a').forEach(function(a){a.addEventListener('click',function(e){if(!isMob())return;e.preventDefault();var hs=a.parentElement;var wasOpen=hs.classList.contains('mob-open');hs.parentElement.querySelectorAll('.has-sub.mob-open').forEach(function(s){s.classList.remove('mob-open');});if(!wasOpen)hs.classList.add('mob-open');});});
     nm.querySelectorAll('.sub-dropdown a').forEach(function(a){a.addEventListener('click',function(){if(isMob())closeAll();});});

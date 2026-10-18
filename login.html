@@ -254,7 +254,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
 
     <!-- Phone entry -->
     <div class="login-step active" id="step-pin-entry">
-      <h1 class="login-title">Sign In / Sign Up</h1>
+      <h1 class="login-title">Log In / Sign Up</h1>
       <p class="login-sub">Enter your mobile number to continue.</p>
       <div class="phone-row">
         <span class="phone-prefix">+91</span>
@@ -277,7 +277,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
         <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="off"/>
         <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="off"/>
       </div>
-      <button class="login-btn" id="pin-signin-btn" onclick="window.doSignInPin()" style="margin-top:10px;">Sign In</button>
+      <button class="login-btn" id="pin-signin-btn" onclick="window.doSignInPin()" style="margin-top:10px;">Log In</button>
       <p class="login-msg" id="msg-pin-login"></p>
       <div style="text-align:center;margin-top:12px;">
         <button class="resend-link" onclick="window.requestForgotPin()">Forgot PIN?</button>
@@ -379,7 +379,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
 
     <!-- Email entry -->
     <div class="login-step" id="step-em-entry">
-      <h1 class="login-title">Sign In / Sign Up</h1>
+      <h1 class="login-title">Log In / Sign Up</h1>
       <p class="login-sub">Enter your email address to continue.</p>
       <div class="login-field">
         <input type="email" id="em-email" placeholder="Email address" autocomplete="email" inputmode="email" onkeydown="if(event.key==='Enter')window.checkEmail()"/>
@@ -395,7 +395,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
       <div class="login-field">
         <input type="password" id="em-password" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')window.doSignInEmail()"/>
       </div>
-      <button class="login-btn" id="em-signin-btn" onclick="window.doSignInEmail()">Sign In</button>
+      <button class="login-btn" id="em-signin-btn" onclick="window.doSignInEmail()">Log In</button>
       <p class="login-msg" id="msg-em-login"></p>
       <div style="text-align:center;margin-top:12px;">
         <button class="resend-link" onclick="window.sendForgotPassword()">Forgot password?</button>
@@ -419,8 +419,27 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
         <input type="password" id="em-su-password" placeholder="Choose a password (min 8 characters)" autocomplete="new-password"/>
       </div>
       <div class="login-field">
-        <input type="password" id="em-su-confirm" placeholder="Confirm password" autocomplete="new-password" onkeydown="if(event.key==='Enter')window.doSignUpEmail()"/>
+        <input type="password" id="em-su-confirm" placeholder="Confirm password" autocomplete="new-password"/>
       </div>
+      <span class="pin-label" style="margin-top:12px;">Choose a 6-digit PIN</span>
+      <div class="pin-row" id="em-pin-signup-row">
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+      </div>
+      <span class="pin-label" style="margin-top:10px;">Confirm PIN</span>
+      <div class="pin-row" id="em-pin-confirm-row">
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+      </div>
+      <p style="font-family:var(--fg);font-size:12px;color:var(--text-dim);margin:4px 0 12px;padding:0 2px;">Your PIN lets you log in quickly with your phone number.</p>
       <button class="login-btn" id="em-signup-btn" onclick="window.doSignUpEmail()">Create Account</button>
       <p class="login-msg" id="msg-em-signup"></p>
       <button class="login-back" onclick="window.goStep('step-em-entry')">&#8592; Back</button>
@@ -430,7 +449,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
     <div class="login-step" id="step-em-forgot">
       <h1 class="login-title">Reset Link Sent</h1>
       <p class="login-sub">Check your email for a password reset link from House of Ansh.</p>
-      <a href="login.html" class="login-btn" style="display:block;text-align:center;padding:18px;margin-top:16px;">Back to Sign In</a>
+      <a href="login.html" class="login-btn" style="display:block;text-align:center;padding:18px;margin-top:16px;">Back to Log In</a>
     </div>
 
   </div>
@@ -570,11 +589,11 @@ window.doSignInPin = async function() {
   if(pin.length!==6){ msg('msg-pin-login','Enter all 6 digits.','err'); return; }
   if(!currentPinEmail){ msg('msg-pin-login','Session expired. Please go back.','err'); return; }
   const btn=document.getElementById('pin-signin-btn');
-  btn.disabled=true; btn.textContent='Signing in…'; msg('msg-pin-login','','');
+  btn.disabled=true; btn.textContent='Logging in…'; msg('msg-pin-login','','');
   try {
     const computedHash=await hashPin(currentPinEmail,pin);
     if(currentPinHash && computedHash!==currentPinHash) {
-      btn.disabled=false; btn.textContent='Sign In';
+      btn.disabled=false; btn.textContent='Log In';
       clearPinRow('pin-login-row'); document.querySelector('#pin-login-row .pin-digit').focus();
       msg('msg-pin-login','Incorrect PIN. Please try again.','err');
       return;
@@ -584,12 +603,12 @@ window.doSignInPin = async function() {
     await signInWithEmailAndPassword(auth,currentPinEmail,authKey);
     redirect();
   } catch(e) {
-    btn.disabled=false; btn.textContent='Sign In';
+    btn.disabled=false; btn.textContent='Log In';
     clearPinRow('pin-login-row'); document.querySelector('#pin-login-row .pin-digit').focus();
     const c=e.code||'';
     msg('msg-pin-login',
       c==='auth/too-many-requests'?'Too many attempts. Try again later.':
-      'Sign in failed. Please try again.','err');
+      'Log in failed. Please try again.','err');
   }
 };
 
@@ -750,18 +769,18 @@ window.doSignInEmail = async function() {
   const password=document.getElementById('em-password').value;
   if(!password){ msg('msg-em-login','Please enter your password.','err'); return; }
   const btn=document.getElementById('em-signin-btn');
-  btn.disabled=true; btn.textContent='Signing in…'; msg('msg-em-login','','');
+  btn.disabled=true; btn.textContent='Logging in…'; msg('msg-em-login','','');
   try {
     await signInWithEmailAndPassword(auth,currentEm,password);
     redirect();
   } catch(e) {
-    btn.disabled=false; btn.textContent='Sign In';
+    btn.disabled=false; btn.textContent='Log In';
     document.getElementById('em-password').value='';
     const c=e.code||'';
     msg('msg-em-login',
       (c==='auth/wrong-password'||c==='auth/invalid-credential')?'Incorrect password. Please try again.':
       c==='auth/too-many-requests'?'Too many attempts. Try again later.':
-      'Sign in failed. Please try again.','err');
+      'Log in failed. Please try again.','err');
   }
 };
 
@@ -770,23 +789,28 @@ window.doSignUpEmail = async function() {
   const phone   =(document.getElementById('em-su-phone').value||'').replace(/\D/g,'');
   const password=document.getElementById('em-su-password').value;
   const confirm =document.getElementById('em-su-confirm').value;
+  const pin     =getPinFromRow('em-pin-signup-row');
+  const pinConf =getPinFromRow('em-pin-confirm-row');
   if(!name){ msg('msg-em-signup','Please enter your name.','err'); return; }
   if(password.length<8){ msg('msg-em-signup','Password must be at least 8 characters.','err'); return; }
   if(password!==confirm){ msg('msg-em-signup','Passwords do not match.','err'); document.getElementById('em-su-confirm').value=''; return; }
   if(phone&&phone.length!==10){ msg('msg-em-signup','Enter a valid 10-digit mobile or leave it blank.','err'); return; }
+  if(pin.length!==6){ msg('msg-em-signup','Please choose a 6-digit PIN.','err'); return; }
+  if(pin!==pinConf){ msg('msg-em-signup','PINs do not match.','err'); clearPinRow('em-pin-confirm-row'); return; }
   const btn=document.getElementById('em-signup-btn');
   btn.disabled=true; btn.textContent='Creating account…'; msg('msg-em-signup','','');
   try {
+    const pinHash=await hashPin(currentEm,pin);
     const cred=await createUserWithEmailAndPassword(auth,currentEm,password);
     await setDoc(doc(db,'customers',cred.user.uid),{
-      name, email:currentEm, phone:phone?'+91'+phone:'', createdAt:serverTimestamp()
+      name, email:currentEm, phone:phone?'+91'+phone:'', createdAt:serverTimestamp(), pinHash
     });
     redirect();
   } catch(e) {
     btn.disabled=false; btn.textContent='Create Account';
     const c=e.code||'';
     msg('msg-em-signup',
-      c==='auth/email-already-in-use'?'Account already exists. Please sign in.':
+      c==='auth/email-already-in-use'?'Account already exists. Please log in.':
       'Could not create account. Please try again.','err');
   }
 };

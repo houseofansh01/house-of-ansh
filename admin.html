@@ -832,6 +832,7 @@ select.form-input option{background:var(--surface2);}
         <label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" class="p-type-cb" value="anklets"/><span style="font-family:var(--fg);font-size:13px;">Anklets</span></label>
         <label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" class="p-type-cb" value="wristlets"/><span style="font-family:var(--fg);font-size:13px;">Wristlets</span></label>
         <label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" class="p-type-cb" value="chain"/><span style="font-family:var(--fg);font-size:13px;">Chain</span></label>
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" class="p-type-cb" value="cufflinks"/><span style="font-family:var(--fg);font-size:13px;">Cufflinks</span></label>
       </div>
     </div>
     <div class="form-row">
@@ -1380,7 +1381,7 @@ function renderProducts(products) {
     return;
   }
   const tagStyle = 'display:inline-block;font-size:9px;font-family:var(--fh);letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border-radius:3px;margin:2px 2px 0 0;';
-  const TYPE_LABELS = {'bangles-bracelets':'Bangles / Bracelets','rings':'Rings','earrings':'Earrings','pendants':'Pendants','pendant-sets':'Pendant Sets','necklace-sets':'Necklace Sets','mangalsutra':'Mangalsutra','brooches':'Brooches','anklets':'Anklets','wristlets':'Wristlets','chain':'Chain','necklaces':'Necklaces'};
+  const TYPE_LABELS = {'bangles-bracelets':'Bangles / Bracelets','rings':'Rings','earrings':'Earrings','pendants':'Pendants','pendant-sets':'Pendant Sets','necklace-sets':'Necklace Sets','mangalsutra':'Mangalsutra','brooches':'Brooches','anklets':'Anklets','wristlets':'Wristlets','chain':'Chain','cufflinks':'Cufflinks','necklaces':'Necklaces'};
   tbody.innerHTML = products.map(p => {
     const cols = Array.isArray(p.categories) ? p.categories : (p.category ? [p.category] : []);
     const colLabels = {forher:'For Her',forhim:'For Him',virasat:'Virasat'};

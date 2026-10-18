@@ -345,7 +345,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
   <a href="index.html" class="nl"><img src="images/logo.png" alt="House of Ansh" class="nl-logo"/><div class="nl-t"><span class="nl-n">House of Ansh</span><span class="nl-s">Pure Silver Jewellery</span></div></a>
   <ul class="nm">
     <li><a href="index.html">Home</a></li>
-    <li><a href="#">Categories &#9662;</a><div class="dropdown"><div class="has-sub"><a href="forher.html">For Her</a><div class="sub-dropdown"><a href="forher.html">All Jewellery</a><a href="forher.html#bangles-bracelets">Bangles / Bracelets</a><a href="forher.html#rings">Rings</a><a href="forher.html#earrings">Earrings</a><a href="forher.html#pendants">Pendants</a><a href="forher.html#pendant-sets">Pendant Sets</a><a href="forher.html#necklace-sets">Necklace Sets</a><a href="forher.html#mangalsutra">Mangalsutra</a><a href="forher.html#brooches">Brooches</a><a href="forher.html#anklets">Anklets</a><a href="forher.html#wristlets">Wristlets</a><a href="forher.html#chain">Chain</a><a href="forher.html#necklaces">Necklaces</a></div></div><div class="has-sub"><a href="forhim.html">For Him</a><div class="sub-dropdown"><a href="forhim.html">All Jewellery</a><a href="forhim.html#wristlets">Wristlets</a><a href="forhim.html#chain">Chain</a><a href="forhim.html#brooches">Brooches</a><a href="forhim.html#rings">Rings</a></div></div></div></li>
+    <li><a href="#">Categories &#9662;</a><div class="dropdown"><div class="has-sub"><a href="forher.html">For Her</a><div class="sub-dropdown"><a href="forher.html">All Jewellery</a><a href="forher.html#bangles-bracelets">Bangles / Bracelets</a><a href="forher.html#rings">Rings</a><a href="forher.html#earrings">Earrings</a><a href="forher.html#pendants">Pendants</a><a href="forher.html#pendant-sets">Pendant Sets</a><a href="forher.html#necklace-sets">Necklace Sets</a><a href="forher.html#mangalsutra">Mangalsutra</a><a href="forher.html#brooches">Brooches</a><a href="forher.html#anklets">Anklets</a><a href="forher.html#wristlets">Wristlets</a><a href="forher.html#chain">Chain</a><a href="forher.html#necklaces">Necklaces</a></div></div><div class="has-sub"><a href="forhim.html">For Him</a><div class="sub-dropdown"><a href="forhim.html">All Jewellery</a><a href="forhim.html#wristlets">Wristlets</a><a href="forhim.html#chain">Chain</a><a href="forhim.html#brooches">Brooches</a><a href="forhim.html#rings">Rings</a><a href="forhim.html#cufflinks">Cufflinks</a></div></div></div></li>
     <li><a href="#">Collections &#9662;</a><div class="dropdown"><a href="virasat.html">Virasat</a><a href="#" style="color:var(--text-dim);cursor:default;">More Coming Soon</a></div></li>
     <li><a href="#">Personalise &#9662;</a><div class="dropdown"><a href="transform.html">Transform Your Jewellery</a><a href="customdesign.html">Custom Design</a></div></li>
     <li><a href="my-orders.html">My Orders</a></li><li><a href="index.html#story">About Us</a></li>
@@ -411,7 +411,8 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
           <label class="filter-opt"><input type="checkbox" data-filter="category" value="wristlets"><label>Wristlets</label></label>
           <label class="filter-opt"><input type="checkbox" data-filter="category" value="chain"><label>Chain</label></label>
           <label class="filter-opt"><input type="checkbox" data-filter="category" value="brooches"><label>Brooches</label></label>
-          <label class="filter-opt"><input type="checkbox" data-filter="category" value="rings"><label>Rings</label></label>        </div>
+          <label class="filter-opt"><input type="checkbox" data-filter="category" value="rings"><label>Rings</label></label>
+          <label class="filter-opt"><input type="checkbox" data-filter="category" value="cufflinks"><label>Cufflinks</label></label>        </div>
       </div>
       <div class="cat-group">
         <div class="cat-group-head" onclick="this.parentElement.classList.toggle('open')">
@@ -487,6 +488,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
   <button class="cat-tab" data-cat="wristlets">Wristlets</button>
   <button class="cat-tab" data-cat="chain">Chain</button>
   <button class="cat-tab" data-cat="brooches">Brooches</button>
+  <button class="cat-tab" data-cat="cufflinks">Cufflinks</button>
 </div>
 <div class="sort-bar">
   <span class="sort-count" id="sortCount">— pieces</span>
@@ -632,7 +634,7 @@ const cfg={apiKey:"AIzaSyBwqpavjzi15Zt9qHoufjJFI05k7AAHLRs",authDomain:"house-of
 const app=getApps().length?getApps()[0]:initializeApp(cfg);
 const db=getFirestore(app);
 const COLLECTION_KEY='forhim';
-const TYPE_LABELS={'bangles-bracelets':'Bangles / Bracelets','rings':'Rings','earrings':'Earrings','pendants':'Pendants','pendant-sets':'Pendant Sets','necklace-sets':'Necklace Sets','mangalsutra':'Mangalsutra','brooches':'Brooches','anklets':'Anklets','wristlets':'Wristlets','chain':'Chain','necklaces':'Necklaces'};
+const TYPE_LABELS={'bangles-bracelets':'Bangles / Bracelets','rings':'Rings','earrings':'Earrings','pendants':'Pendants','pendant-sets':'Pendant Sets','necklace-sets':'Necklace Sets','mangalsutra':'Mangalsutra','brooches':'Brooches','anklets':'Anklets','wristlets':'Wristlets','chain':'Chain','cufflinks':'Cufflinks','necklaces':'Necklaces'};
 const PH=`<div class="pc-placeholder"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8" stroke-width="1.5"/><path d="M8 44c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke-width="1.5"/></svg><span class="pc-placeholder-text">Coming Soon</span></div>`;
 function makeCard(p,idx){
   const typeSlugs=Array.isArray(p.productTypes)&&p.productTypes.length?p.productTypes:(p.productType?[p.productType]:[]);

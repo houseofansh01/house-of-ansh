@@ -536,11 +536,6 @@ window.changePin=async function(){
       clearPin('pin-current-row');msg('pin-msg','Current PIN is incorrect.','err');return;
     }
     const newKey=await hashPin(phone,newPin);
-    // Update Firebase Auth password first (requires reauthentication)
-    const cred=EmailAuthProvider.credential('p.'+phone+'@houseofansh.in',currentKey);
-    await reauthenticateWithCredential(_user,cred);
-    await updatePassword(_user,newKey);
-    // Then update Firestore
     await setDoc(doc(db,'customers',_user.uid),{pinHash:newKey},{merge:true});
     _cust.pinHash=newKey;
     btn.disabled=false;btn.textContent='Update PIN';
@@ -548,10 +543,7 @@ window.changePin=async function(){
     msg('pin-msg','PIN updated successfully.','ok');
   }catch(e){
     btn.disabled=false;btn.textContent='Update PIN';
-    const c=e.code||'';
-    msg('pin-msg',
-      c==='auth/wrong-password'||c==='auth/invalid-credential'?'Current PIN is incorrect.':
-      'Could not update PIN. Please try again.','err');
+    msg('pin-msg','Could not update PIN. Please try again.','err');
   }
 };
 

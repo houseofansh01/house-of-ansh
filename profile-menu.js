@@ -35,30 +35,40 @@ style.textContent = `
 document.head.appendChild(style);
 
 let _cust = null;
+let _loggedIn = false;
 
 document.addEventListener('DOMContentLoaded', () => {
-  // close on outside click or Escape
+  // Seize control of the button immediately — before Firebase resolves —
+  // so clicking it never falls through to the inline onclick redirect.
+  const btn = document.querySelector('.nav-icon[title="Account"]');
+  if (btn) {
+    btn.removeAttribute('onclick');
+    btn.onclick = null;
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      if (_loggedIn) { _toggle(btn); }
+      else { window.location.href = 'login.html'; }
+    });
+  }
+
   document.addEventListener('click', () => { const m=document.getElementById('prof-menu'); if(m) m.remove(); });
   document.addEventListener('keydown', e => { if(e.key==='Escape'){ const m=document.getElementById('prof-menu'); if(m) m.remove(); } });
 
   onAuthStateChanged(auth, async user => {
-    const btn = document.querySelector('.nav-icon[title="Account"]');
-    if (!btn) return;
+    const b = document.querySelector('.nav-icon[title="Account"]');
+    if (!b) return;
 
     if (user) {
+      _loggedIn = true;
       try {
         const snap = await getDoc(doc(db,'customers',user.uid));
         _cust = snap.exists() ? snap.data() : {};
       } catch(_) { _cust = {}; }
-
-      btn.removeAttribute('onclick');
-      btn.classList.add('prof-live');
-      btn.addEventListener('click', e => { e.stopPropagation(); _toggle(btn); });
+      b.classList.add('prof-live');
     } else {
+      _loggedIn = false;
       _cust = null;
-      btn.removeAttribute('onclick');
-      btn.classList.remove('prof-live');
-      btn.onclick = () => { window.location.href = 'login.html'; };
+      b.classList.remove('prof-live');
     }
   });
 });

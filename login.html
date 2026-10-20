@@ -588,83 +588,40 @@ window.checkPhone = async function() {
   const raw=(document.getElementById('pin-phone').value||'').replace(/\D/g,'');
   if(raw.length!==10){ msg('msg-pin-entry','Enter a valid 10-digit mobile number.','err'); return; }
   currentPhone='+91'+raw;
-  const btn=document.getElementById('pin-phone-btn');
-  btn.disabled=true; btn.textContent='Checking…'; msg('msg-pin-entry','','');
-  try {
-    const snap=await getDocs(query(collection(db,'customers'),where('phone','==',currentPhone)));
-    if(!snap.empty) {
-      const cust=snap.docs[0].data();
-      currentPinEmail=cust.email||'';
-      currentPinHash=cust.pinHash||'';
-      currentFirebaseSecret=cust.firebaseSecret||'';
-      document.getElementById('pin-login-greeting').textContent='Welcome back, '+cust.name+'.';
-      window.goStep('step-pin-login');
-      document.querySelector('#pin-login-row .pin-digit').focus();
-    } else {
-      msg('msg-pin-entry','No account found with this number. Please Sign Up first.','err');
-    }
-  } catch(e){ msg('msg-pin-entry','Something went wrong. Please try again.','err'); }
-  finally{ btn.disabled=false; btn.textContent='Continue'; }
+  msg('msg-pin-entry','','');
+  document.getElementById('pin-login-greeting').textContent='Enter your 6-digit PIN.';
+  window.goStep('step-pin-login');
+  document.querySelector('#pin-login-row .pin-digit').focus();
 };
 
 window.doSignInPin = async function() {
   const pin=getPinFromRow('pin-login-row');
   if(pin.length!==6){ msg('msg-pin-login','Enter all 6 digits.','err'); return; }
-  if(!currentPinEmail){ msg('msg-pin-login','Session expired. Please go back.','err'); return; }
+  if(!currentPhone){ window.goStep('step-pin-entry'); return; }
   const btn=document.getElementById('pin-signin-btn');
   btn.disabled=true; btn.textContent='Logging in…'; msg('msg-pin-login','','');
   try {
-    const computedHash=await hashPin(currentPinEmail,pin);
-    if(currentPinHash && computedHash!==currentPinHash) {
-      btn.disabled=false; btn.textContent='Log In';
-      clearPinRow('pin-login-row'); document.querySelector('#pin-login-row .pin-digit').focus();
-      msg('msg-pin-login','Incorrect PIN. Please try again.','err');
-      return;
-    }
-    const authKey=currentFirebaseSecret||computedHash;
-    await signInWithEmailAndPassword(auth,currentPinEmail,authKey);
+    const phoneEmail='p.'+currentPhone+'@houseofansh.in';
+    const phoneKey=await hashPin(currentPhone,pin);
+    await signInWithEmailAndPassword(auth,phoneEmail,phoneKey);
     redirect();
   } catch(e) {
     btn.disabled=false; btn.textContent='Log In';
     clearPinRow('pin-login-row'); document.querySelector('#pin-login-row .pin-digit').focus();
     const c=e.code||'';
     msg('msg-pin-login',
-      c==='auth/too-many-requests'?'Too many attempts. Try again later.':
-      'Log in failed. Please try again.','err');
+      c==='auth/too-many-requests'?'Too many attempts. Please try again in a few minutes.':
+      c==='auth/network-request-failed'?'Network error. Please check your connection.':
+      'Incorrect PIN or no account found with this number. Please try again or Sign Up.','err');
   }
 };
 
 window.requestForgotPin = async function() {
   msg('msg-pin-login','','');
   if(!currentPhone){ window.goStep('step-pin-entry'); return; }
-  try {
-    const snap=await getDocs(query(collection(db,'customers'),where('phone','==',currentPhone)));
-    if(snap.empty){ msg('msg-pin-login','Phone number not found.','err'); return; }
-    const cust=snap.docs[0].data();
-    const resetCode=Math.floor(100000+Math.random()*900000).toString();
-    const resetExpiry=Date.now()+15*60*1000;
-    const resetRef=await addDoc(collection(db,'pinResets'),{
-      name:cust.name||'', email:cust.email||'', phone:currentPhone,
-      uid:snap.docs[0].id, status:'pending',
-      resetCode, resetExpiry, requestedAt:serverTimestamp()
-    });
-    currentResetDocId=resetRef.id;
-    currentPinEmail=cust.email||'';
-    currentFirebaseSecret=cust.firebaseSecret||'';
-    currentResetUid=snap.docs[0].id;
-    if(window.emailjs && window._ejsReady) {
-      try {
-        emailjs.send(window._ejsSvc, window._ejsTpl, {
-          from_name: cust.name||'Customer', from_email: cust.email||'', phone: currentPhone,
-          enquiry_type: 'PIN Reset Request',
-          message: (cust.name||'A customer')+' ('+currentPhone+') has requested a PIN reset. Open Admin Dashboard → PIN Resets to WhatsApp them their code.'
-        }, window._ejsKey);
-      } catch(e2) {}
-    }
-    document.getElementById('pin-forgot-msg').textContent=
-      'Our team will WhatsApp you at '+currentPhone+' with a 6-digit code. This code expires in 15 minutes.';
-    window.goStep('step-pin-forgot');
-  } catch(e) { msg('msg-pin-login','Could not send request. Please try again.','err'); }
+  document.getElementById('pin-forgot-msg').textContent=
+    'Please WhatsApp us at +91 74390 49616 or email house.of.ansh01@gmail.com with your registered mobile number. We will reset your PIN within a few hours.';
+  window.goStep('step-pin-forgot');
 };
 
 window.doVerifyResetCode = async function() {
@@ -814,14 +771,14 @@ window.doSignUp = async function() {
       }
     } catch(_){}
 
-    const secret=generateSecret();
-    const pinHash=await hashPin(email,pin);
+    const phoneEmail='p.+91'+phone+'@houseofansh.in';
+    const phoneKey=await hashPin('+91'+phone,pin);
     const passwordHash=await hashPin(email,password);
-    const cred=await createUserWithEmailAndPassword(auth,email,secret);
+    const cred=await createUserWithEmailAndPassword(auth,phoneEmail,phoneKey);
     await setDoc(doc(db,'customers',cred.user.uid),{
       name, email, phone:'+91'+phone,
       address:{ line:address, city, state, postal },
-      pinHash, passwordHash, firebaseSecret:secret,
+      pinHash:phoneKey, passwordHash,
       createdAt:serverTimestamp()
     });
     redirect();

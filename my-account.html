@@ -529,19 +529,30 @@ window.changePin=async function(){
   const btn=document.getElementById('pin-btn');
   btn.disabled=true;btn.textContent='Updating…';msg('pin-msg','','');
   try{
-    const email=_cust.email||_user.email||'';
-    const currentHash=await hashPin(email,current);
-    if(_cust.pinHash && currentHash!==_cust.pinHash){
+    const phone=_cust.phone||'';
+    const currentKey=await hashPin(phone,current);
+    if(_cust.pinHash && currentKey!==_cust.pinHash){
       btn.disabled=false;btn.textContent='Update PIN';
       clearPin('pin-current-row');msg('pin-msg','Current PIN is incorrect.','err');return;
     }
-    const newHash=await hashPin(email,newPin);
-    await setDoc(doc(db,'customers',_user.uid),{pinHash:newHash},{merge:true});
-    _cust.pinHash=newHash;
+    const newKey=await hashPin(phone,newPin);
+    // Update Firebase Auth password first (requires reauthentication)
+    const cred=EmailAuthProvider.credential('p.'+phone+'@houseofansh.in',currentKey);
+    await reauthenticateWithCredential(_user,cred);
+    await updatePassword(_user,newKey);
+    // Then update Firestore
+    await setDoc(doc(db,'customers',_user.uid),{pinHash:newKey},{merge:true});
+    _cust.pinHash=newKey;
     btn.disabled=false;btn.textContent='Update PIN';
     clearPin('pin-current-row');clearPin('pin-new-row');clearPin('pin-conf-row');
     msg('pin-msg','PIN updated successfully.','ok');
-  }catch(e){btn.disabled=false;btn.textContent='Update PIN';msg('pin-msg','Could not update PIN. Please try again.','err');}
+  }catch(e){
+    btn.disabled=false;btn.textContent='Update PIN';
+    const c=e.code||'';
+    msg('pin-msg',
+      c==='auth/wrong-password'||c==='auth/invalid-credential'?'Current PIN is incorrect.':
+      'Could not update PIN. Please try again.','err');
+  }
 };
 
 window.changePassword=async function(){

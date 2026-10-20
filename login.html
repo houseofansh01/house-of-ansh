@@ -189,6 +189,16 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
 .resend-link{background:none;border:none;font-family:var(--fg);font-size:13px;color:var(--silver-dim);cursor:pointer;text-decoration:underline;padding:0;transition:color .3s;}
 .resend-link:hover{color:var(--silver);}
 #recaptcha-container{margin-top:8px;}
+.login-subtabs{display:flex;gap:0;margin-bottom:24px;border-bottom:1px solid var(--border2);}
+.login-subtab{flex:1;background:none;border:none;border-bottom:2px solid transparent;color:var(--text-dim);font-family:var(--fh);font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:12px 8px;cursor:pointer;transition:color .3s,border-color .3s;margin-bottom:-1px;}
+.login-subtab:hover{color:var(--silver-dim);}
+.login-subtab.active{color:var(--white);border-bottom-color:var(--silver);}
+.su-label{font-family:var(--fh);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--silver-dim);margin:14px 0 8px;display:block;}
+.su-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:2px;}
+.su-grid input{background:transparent;border:1px solid var(--border2);color:var(--white);font-family:var(--fg);font-size:15px;padding:16px 18px;outline:none;transition:border-color .3s;width:100%;-webkit-appearance:none;}
+.su-grid input:first-child{border-right:none;}
+.su-grid input:focus{border-color:var(--silver-dim);z-index:1;position:relative;}
+.su-grid input::placeholder{color:var(--text-dim);}
 </style>
 </head>
 <body>
@@ -245,212 +255,203 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
 <div class="login-wrap">
   <div class="login-card">
 
-    <div class="login-tabs">
-      <button class="login-tab active" id="tab-pin" onclick="window.switchTab('pin')">Phone &amp; PIN</button>
-      <button class="login-tab" id="tab-email" onclick="window.switchTab('email')">Email &amp; Password</button>
+    <!-- TOP TABS: Log In | Sign Up -->
+    <div class="login-tabs" id="main-tabs">
+      <button class="login-tab active" id="tab-login" onclick="window.setMode('login')">Log In</button>
+      <button class="login-tab" id="tab-signup" onclick="window.setMode('signup')">Sign Up</button>
     </div>
 
-    <!-- ══ PHONE + PIN TAB ══ -->
+    <!-- ══ LOG IN SECTION ══ -->
+    <div id="section-login">
 
-    <!-- Phone entry -->
-    <div class="login-step active" id="step-pin-entry">
-      <h1 class="login-title">Log In / Sign Up</h1>
-      <p class="login-sub">Enter your mobile number to continue.</p>
-      <div class="phone-row">
-        <span class="phone-prefix">+91</span>
-        <input type="tel" id="pin-phone" placeholder="10-digit mobile number" maxlength="10" inputmode="numeric" onkeydown="if(event.key==='Enter')window.checkPhone()"/>
+      <!-- Sub-tabs: Phone & PIN | Email & Password -->
+      <div class="login-subtabs">
+        <button class="login-subtab active" id="stab-pin" onclick="window.switchLoginMethod('pin')">Phone &amp; PIN</button>
+        <button class="login-subtab" id="stab-em" onclick="window.switchLoginMethod('email')">Email &amp; Password</button>
       </div>
-      <button class="login-btn" id="pin-phone-btn" onclick="window.checkPhone()" style="margin-top:2px;">Continue</button>
-      <p class="login-msg" id="msg-pin-entry"></p>
-    </div>
 
-    <!-- PIN login -->
-    <div class="login-step" id="step-pin-login">
-      <h1 class="login-title">Enter Your PIN</h1>
-      <p class="login-sub" id="pin-login-greeting">Welcome back.</p>
-      <span class="pin-label">6-digit PIN</span>
-      <div class="pin-row" id="pin-login-row">
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="off"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="off"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="off"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="off"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="off"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="off"/>
-      </div>
-      <button class="login-btn" id="pin-signin-btn" onclick="window.doSignInPin()" style="margin-top:10px;">Log In</button>
-      <p class="login-msg" id="msg-pin-login"></p>
-      <div style="text-align:center;margin-top:12px;">
-        <button class="resend-link" onclick="window.requestForgotPin()">Forgot PIN?</button>
-      </div>
-      <button class="login-back" onclick="window.goStep('step-pin-entry')">&#8592; Change number</button>
-    </div>
+      <!-- ── Phone & PIN area ── -->
+      <div id="login-pin-area">
 
-    <!-- PIN signup -->
-    <div class="login-step" id="step-pin-signup">
-      <h1 class="login-title">Create Account</h1>
-      <p class="login-sub">A few details to get started.</p>
-      <div class="login-field">
-        <input type="text" id="pin-su-name" placeholder="Full name" autocomplete="name"/>
-      </div>
-      <div class="login-field">
-        <input type="email" id="pin-su-email" placeholder="Email (for order confirmations &amp; PIN reset)" autocomplete="email"/>
-      </div>
-      <p style="font-family:var(--fg);font-size:12px;color:var(--text-dim);margin:-8px 0 12px;padding:0 2px;">Used for order confirmations and updates.</p>
-      <div class="phone-row">
-        <span class="phone-prefix">+91</span>
-        <input type="tel" id="pin-su-phone" placeholder="Mobile number" maxlength="10" inputmode="numeric" readonly/>
-      </div>
-      <span class="pin-label" style="margin-top:12px;">Choose a 6-digit PIN</span>
-      <div class="pin-row" id="pin-signup-row">
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-      </div>
-      <span class="pin-label" style="margin-top:10px;">Confirm PIN</span>
-      <div class="pin-row" id="pin-confirm-row">
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-      </div>
-      <button class="login-btn" id="pin-signup-btn" onclick="window.doSignUpPin()" style="margin-top:12px;">Create Account</button>
-      <p class="login-msg" id="msg-pin-signup"></p>
-      <button class="login-back" onclick="window.goStep('step-pin-entry')">&#8592; Back</button>
-    </div>
+        <div class="login-step active" id="step-pin-entry">
+          <h1 class="login-title">Log In</h1>
+          <p class="login-sub">Enter your registered mobile number.</p>
+          <div class="phone-row">
+            <span class="phone-prefix">+91</span>
+            <input type="tel" id="pin-phone" placeholder="10-digit mobile number" maxlength="10" inputmode="numeric" onkeydown="if(event.key==='Enter')window.checkPhone()"/>
+          </div>
+          <button class="login-btn" id="pin-phone-btn" onclick="window.checkPhone()" style="margin-top:2px;">Continue</button>
+          <p class="login-msg" id="msg-pin-entry"></p>
+        </div>
 
-    <!-- PIN forgot - request sent -->
-    <div class="login-step" id="step-pin-forgot">
-      <h1 class="login-title">Request Sent</h1>
-      <p class="login-sub" id="pin-forgot-msg">Our team will WhatsApp you shortly with a 6-digit verification code.</p>
-      <button class="login-btn" style="margin-top:16px;" onclick="window.goStep('step-pin-code')">I have my code &rarr;</button>
-      <button class="login-back" onclick="window.goStep('step-pin-entry')">&larr; Start over</button>
-    </div>
+        <div class="login-step" id="step-pin-login">
+          <h1 class="login-title">Enter Your PIN</h1>
+          <p class="login-sub" id="pin-login-greeting">Welcome back.</p>
+          <span class="pin-label">6-digit PIN</span>
+          <div class="pin-row" id="pin-login-row">
+            <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="off"/>
+            <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="off"/>
+            <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="off"/>
+            <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="off"/>
+            <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="off"/>
+            <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="off"/>
+          </div>
+          <button class="login-btn" id="pin-signin-btn" onclick="window.doSignInPin()" style="margin-top:10px;">Log In</button>
+          <p class="login-msg" id="msg-pin-login"></p>
+          <div style="text-align:center;margin-top:12px;">
+            <button class="resend-link" onclick="window.requestForgotPin()">Forgot PIN?</button>
+          </div>
+          <button class="login-back" onclick="window.goStep('step-pin-entry')">&#8592; Change number</button>
+        </div>
 
-    <!-- PIN forgot - enter WhatsApp code -->
-    <div class="login-step" id="step-pin-code">
-      <h1 class="login-title">Enter Code</h1>
-      <p class="login-sub">Enter the 6-digit code sent to your WhatsApp.</p>
-      <span class="pin-label">Verification Code</span>
-      <div class="pin-row" id="pin-code-row">
-        <input class="pin-digit" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code"/>
-        <input class="pin-digit" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code"/>
-        <input class="pin-digit" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code"/>
-        <input class="pin-digit" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code"/>
-        <input class="pin-digit" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code"/>
-        <input class="pin-digit" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code"/>
-      </div>
-      <button class="login-btn" id="pin-code-btn" onclick="window.doVerifyResetCode()" style="margin-top:12px;">Verify Code</button>
-      <p class="login-msg" id="msg-pin-code"></p>
-      <button class="login-back" onclick="window.goStep('step-pin-forgot')">&larr; Back</button>
-    </div>
+        <div class="login-step" id="step-pin-forgot">
+          <h1 class="login-title">Request Sent</h1>
+          <p class="login-sub" id="pin-forgot-msg">Our team will WhatsApp you shortly with a 6-digit verification code.</p>
+          <button class="login-btn" style="margin-top:16px;" onclick="window.goStep('step-pin-code')">I have my code &rarr;</button>
+          <button class="login-back" onclick="window.goStep('step-pin-entry')">&larr; Start over</button>
+        </div>
 
-    <!-- PIN forgot - set new PIN -->
-    <div class="login-step" id="step-pin-newpin">
-      <h1 class="login-title">Set New PIN</h1>
-      <p class="login-sub">Choose a new 6-digit PIN for your account.</p>
-      <span class="pin-label">New PIN</span>
-      <div class="pin-row" id="pin-newpin-row">
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-      </div>
-      <span class="pin-label" style="margin-top:12px;">Confirm New PIN</span>
-      <div class="pin-row" id="pin-newpin-confirm-row">
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-      </div>
-      <button class="login-btn" id="pin-newpin-btn" onclick="window.doSetNewPin()" style="margin-top:12px;">Save PIN</button>
-      <p class="login-msg" id="msg-pin-newpin"></p>
-    </div>
+        <div class="login-step" id="step-pin-code">
+          <h1 class="login-title">Enter Code</h1>
+          <p class="login-sub">Enter the 6-digit code sent to your WhatsApp.</p>
+          <span class="pin-label">Verification Code</span>
+          <div class="pin-row" id="pin-code-row">
+            <input class="pin-digit" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code"/>
+            <input class="pin-digit" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code"/>
+            <input class="pin-digit" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code"/>
+            <input class="pin-digit" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code"/>
+            <input class="pin-digit" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code"/>
+            <input class="pin-digit" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code"/>
+          </div>
+          <button class="login-btn" id="pin-code-btn" onclick="window.doVerifyResetCode()" style="margin-top:12px;">Verify Code</button>
+          <p class="login-msg" id="msg-pin-code"></p>
+          <button class="login-back" onclick="window.goStep('step-pin-forgot')">&larr; Back</button>
+        </div>
 
-    <!-- ══ EMAIL + PASSWORD TAB ══ -->
+        <div class="login-step" id="step-pin-newpin">
+          <h1 class="login-title">Set New PIN</h1>
+          <p class="login-sub">Choose a new 6-digit PIN for your account.</p>
+          <span class="pin-label">New PIN</span>
+          <div class="pin-row" id="pin-newpin-row">
+            <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+            <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+            <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+            <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+            <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+            <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+          </div>
+          <span class="pin-label" style="margin-top:12px;">Confirm New PIN</span>
+          <div class="pin-row" id="pin-newpin-confirm-row">
+            <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+            <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+            <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+            <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+            <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+            <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+          </div>
+          <button class="login-btn" id="pin-newpin-btn" onclick="window.doSetNewPin()" style="margin-top:12px;">Save PIN</button>
+          <p class="login-msg" id="msg-pin-newpin"></p>
+        </div>
 
-    <!-- Email entry -->
-    <div class="login-step" id="step-em-entry">
-      <h1 class="login-title">Log In / Sign Up</h1>
-      <p class="login-sub">Enter your email address to continue.</p>
-      <div class="login-field">
-        <input type="email" id="em-email" placeholder="Email address" autocomplete="email" inputmode="email" onkeydown="if(event.key==='Enter')window.checkEmail()"/>
-      </div>
-      <button class="login-btn" id="em-email-btn" onclick="window.checkEmail()">Continue</button>
-      <p class="login-msg" id="msg-em-entry"></p>
-    </div>
+      </div><!-- /login-pin-area -->
 
-    <!-- Password login -->
-    <div class="login-step" id="step-em-login">
-      <h1 class="login-title">Enter Password</h1>
-      <p class="login-sub" id="em-login-greeting">Welcome back.</p>
-      <div class="login-field">
-        <input type="password" id="em-password" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')window.doSignInEmail()"/>
-      </div>
-      <button class="login-btn" id="em-signin-btn" onclick="window.doSignInEmail()">Log In</button>
-      <p class="login-msg" id="msg-em-login"></p>
-      <div style="text-align:center;margin-top:12px;">
-        <button class="resend-link" onclick="window.sendForgotPassword()">Forgot password?</button>
-      </div>
-      <button class="login-back" onclick="window.goStep('step-em-entry')">&#8592; Change email</button>
-    </div>
+      <!-- ── Email & Password area ── -->
+      <div id="login-em-area" style="display:none">
 
-    <!-- Email signup -->
-    <div class="login-step" id="step-em-signup">
-      <h1 class="login-title">Create Account</h1>
-      <p class="login-sub">Set up your account with email and password.</p>
-      <div class="login-field">
-        <input type="text" id="em-su-name" placeholder="Full name" autocomplete="name"/>
-      </div>
-      <div class="phone-row" style="margin-bottom:2px;">
-        <span class="phone-prefix">+91</span>
-        <input type="tel" id="em-su-phone" placeholder="Mobile number (optional)" maxlength="10" inputmode="numeric"/>
-      </div>
-      <p style="font-family:var(--fg);font-size:12px;color:var(--text-dim);margin:6px 0 12px;padding:0 2px;">Mobile number is used for WhatsApp order updates.</p>
-      <div class="login-field">
-        <input type="password" id="em-su-password" placeholder="Choose a password (min 8 characters)" autocomplete="new-password"/>
-      </div>
-      <div class="login-field">
-        <input type="password" id="em-su-confirm" placeholder="Confirm password" autocomplete="new-password"/>
-      </div>
-      <span class="pin-label" style="margin-top:12px;">Choose a 6-digit PIN</span>
-      <div class="pin-row" id="em-pin-signup-row">
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-      </div>
-      <span class="pin-label" style="margin-top:10px;">Confirm PIN</span>
-      <div class="pin-row" id="em-pin-confirm-row">
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-        <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
-      </div>
-      <p style="font-family:var(--fg);font-size:12px;color:var(--text-dim);margin:4px 0 12px;padding:0 2px;">Your PIN lets you log in quickly with your phone number.</p>
-      <button class="login-btn" id="em-signup-btn" onclick="window.doSignUpEmail()">Create Account</button>
-      <p class="login-msg" id="msg-em-signup"></p>
-      <button class="login-back" onclick="window.goStep('step-em-entry')">&#8592; Back</button>
-    </div>
+        <div class="login-step active" id="step-em-login">
+          <h1 class="login-title">Log In</h1>
+          <p class="login-sub">Enter your email and password.</p>
+          <div class="login-field">
+            <input type="email" id="em-email" placeholder="Email address" autocomplete="email" inputmode="email"/>
+          </div>
+          <div class="login-field">
+            <input type="password" id="em-password" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')window.doSignInEmail()"/>
+          </div>
+          <button class="login-btn" id="em-signin-btn" onclick="window.doSignInEmail()">Log In</button>
+          <p class="login-msg" id="msg-em-login"></p>
+          <div style="text-align:center;margin-top:12px;">
+            <button class="resend-link" onclick="window.sendForgotPassword()">Forgot password?</button>
+          </div>
+        </div>
 
-    <!-- Email forgot - sent -->
-    <div class="login-step" id="step-em-forgot">
-      <h1 class="login-title">Reset Link Sent</h1>
-      <p class="login-sub">Check your email for a password reset link from House of Ansh.</p>
-      <a href="login.html" class="login-btn" style="display:block;text-align:center;padding:18px;margin-top:16px;">Back to Log In</a>
-    </div>
+        <div class="login-step" id="step-em-forgot">
+          <h1 class="login-title">Reset Link Sent</h1>
+          <p class="login-sub">Check your email for a password reset link from House of Ansh.</p>
+          <button class="login-btn" style="margin-top:16px;" onclick="window.switchLoginMethod('email')">Back to Log In</button>
+        </div>
+
+      </div><!-- /login-em-area -->
+
+    </div><!-- /section-login -->
+
+
+    <!-- ══ SIGN UP SECTION ══ -->
+    <div id="section-signup" style="display:none">
+
+      <div class="login-step active" id="step-signup">
+        <h1 class="login-title">Create Account</h1>
+        <p class="login-sub">Join House of Ansh — pure silver, crafted with care.</p>
+
+        <span class="su-label">Personal Details</span>
+        <div class="login-field">
+          <input type="text" id="su-name" placeholder="Full name" autocomplete="name"/>
+        </div>
+        <div class="phone-row" style="margin-bottom:2px;">
+          <span class="phone-prefix">+91</span>
+          <input type="tel" id="su-phone" placeholder="Mobile number" maxlength="10" inputmode="numeric" autocomplete="tel"/>
+        </div>
+        <p style="font-family:var(--fg);font-size:12px;color:var(--text-dim);margin:4px 0 10px;padding:0 2px;">For WhatsApp updates &amp; phone log in.</p>
+        <div class="login-field">
+          <input type="email" id="su-email" placeholder="Email address" autocomplete="email" inputmode="email"/>
+        </div>
+        <p style="font-family:var(--fg);font-size:12px;color:var(--text-dim);margin:-4px 0 10px;padding:0 2px;">For order confirmations &amp; email log in.</p>
+
+        <span class="su-label">Delivery Address</span>
+        <div class="login-field">
+          <input type="text" id="su-address" placeholder="House / Flat / Street address" autocomplete="address-line1"/>
+        </div>
+        <div class="su-grid">
+          <input type="text" id="su-city" placeholder="City" autocomplete="address-level2"/>
+          <input type="text" id="su-state" placeholder="State" autocomplete="address-level1"/>
+        </div>
+        <div class="login-field">
+          <input type="text" id="su-postal" placeholder="Postal code" maxlength="6" inputmode="numeric" autocomplete="postal-code"/>
+        </div>
+
+        <span class="su-label">Password</span>
+        <div class="login-field">
+          <input type="password" id="su-password" placeholder="Choose a password (min 8 characters)" autocomplete="new-password"/>
+        </div>
+        <div class="login-field">
+          <input type="password" id="su-confirm-pw" placeholder="Confirm password" autocomplete="new-password"/>
+        </div>
+
+        <span class="su-label">Login PIN</span>
+        <p style="font-family:var(--fg);font-size:12px;color:var(--text-dim);margin:-6px 0 10px;padding:0 2px;">Your 6-digit PIN lets you log in quickly with your phone number.</p>
+        <span class="pin-label">Choose PIN</span>
+        <div class="pin-row" id="su-pin-row">
+          <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+          <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+          <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+          <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+          <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+          <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        </div>
+        <span class="pin-label" style="margin-top:10px;">Confirm PIN</span>
+        <div class="pin-row" id="su-pin-confirm-row">
+          <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+          <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+          <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+          <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+          <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+          <input class="pin-digit" type="password" maxlength="1" inputmode="numeric" autocomplete="new-password"/>
+        </div>
+
+        <button class="login-btn" id="su-btn" onclick="window.doSignUp()" style="margin-top:16px;">Create Account</button>
+        <p class="login-msg" id="msg-signup"></p>
+      </div>
+
+    </div><!-- /section-signup -->
 
   </div>
 </div>
@@ -509,13 +510,12 @@ const auth = getAuth(app);
 const db   = getFirestore(app);
 
 // ── shared state ──
-let currentPinEmail       = ''; // email looked up from phone
-let currentPhone          = ''; // +91xxxxxxxxxx
-let currentEm             = ''; // email typed on email tab
-let currentPinHash        = ''; // pinHash from customer Firestore doc
-let currentFirebaseSecret = ''; // random secret used as Firebase Auth password
-let currentResetDocId     = ''; // pinResets doc id during reset flow
-let currentResetUid       = ''; // customer uid during reset flow
+let currentPinEmail       = '';
+let currentPhone          = '';
+let currentPinHash        = '';
+let currentFirebaseSecret = '';
+let currentResetDocId     = '';
+let currentResetUid       = '';
 
 async function hashPin(email, pin) {
   const data = new TextEncoder().encode(email.toLowerCase() + pin + 'hoa2026');
@@ -551,18 +551,33 @@ window.goStep = function(id) {
   document.getElementById(id).classList.add('active');
 };
 
-window.switchTab = function(tab) {
-  document.querySelectorAll('.login-tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById('tab-'+tab).classList.add('active');
-  window.goStep(tab==='pin' ? 'step-pin-entry' : 'step-em-entry');
+// ── Top-level mode: log in vs sign up ──
+window.setMode = function(mode) {
+  document.getElementById('tab-login').classList.toggle('active', mode==='login');
+  document.getElementById('tab-signup').classList.toggle('active', mode==='signup');
+  document.getElementById('section-login').style.display  = mode==='login'  ? '' : 'none';
+  document.getElementById('section-signup').style.display = mode==='signup' ? '' : 'none';
 };
 
-// ════ PHONE + PIN TAB ════
+// ── Login method: phone+pin vs email+password ──
+window.switchLoginMethod = function(method) {
+  document.getElementById('stab-pin').classList.toggle('active', method==='pin');
+  document.getElementById('stab-em').classList.toggle('active',  method==='email');
+  document.getElementById('login-pin-area').style.display = method==='pin'   ? '' : 'none';
+  document.getElementById('login-em-area').style.display  = method==='email' ? '' : 'none';
+  if(method==='email') {
+    document.querySelectorAll('#login-em-area .login-step').forEach(s=>s.classList.remove('active'));
+    document.getElementById('step-em-login').classList.add('active');
+    document.getElementById('em-email').focus();
+  }
+};
+
+// ════ PHONE + PIN LOGIN ════
 
 window.checkPhone = async function() {
-  const raw = (document.getElementById('pin-phone').value||'').replace(/\D/g,'');
+  const raw=(document.getElementById('pin-phone').value||'').replace(/\D/g,'');
   if(raw.length!==10){ msg('msg-pin-entry','Enter a valid 10-digit mobile number.','err'); return; }
-  currentPhone = '+91'+raw;
+  currentPhone='+91'+raw;
   const btn=document.getElementById('pin-phone-btn');
   btn.disabled=true; btn.textContent='Checking…'; msg('msg-pin-entry','','');
   try {
@@ -576,9 +591,7 @@ window.checkPhone = async function() {
       window.goStep('step-pin-login');
       document.querySelector('#pin-login-row .pin-digit').focus();
     } else {
-      document.getElementById('pin-su-phone').value=raw;
-      window.goStep('step-pin-signup');
-      document.getElementById('pin-su-name').focus();
+      msg('msg-pin-entry','No account found with this number. Please Sign Up first.','err');
     }
   } catch(e){ msg('msg-pin-entry','Something went wrong. Please try again.','err'); }
   finally{ btn.disabled=false; btn.textContent='Continue'; }
@@ -598,8 +611,7 @@ window.doSignInPin = async function() {
       msg('msg-pin-login','Incorrect PIN. Please try again.','err');
       return;
     }
-    // Use firebaseSecret if available (new accounts), else fall back to hashed PIN (legacy accounts)
-    const authKey = currentFirebaseSecret || computedHash;
+    const authKey=currentFirebaseSecret||computedHash;
     await signInWithEmailAndPassword(auth,currentPinEmail,authKey);
     redirect();
   } catch(e) {
@@ -612,36 +624,6 @@ window.doSignInPin = async function() {
   }
 };
 
-window.doSignUpPin = async function() {
-  const name =(document.getElementById('pin-su-name').value||'').trim();
-  const email=(document.getElementById('pin-su-email').value||'').trim().toLowerCase();
-  const phone=(document.getElementById('pin-su-phone').value||'').replace(/\D/g,'');
-  const pin  =getPinFromRow('pin-signup-row');
-  const conf =getPinFromRow('pin-confirm-row');
-  if(!name){ msg('msg-pin-signup','Please enter your name.','err'); return; }
-  if(!email||!email.includes('@')){ msg('msg-pin-signup','Please enter a valid email address.','err'); return; }
-  if(pin.length!==6){ msg('msg-pin-signup','Choose a 6-digit PIN.','err'); return; }
-  if(pin!==conf){ msg('msg-pin-signup','PINs do not match.','err'); clearPinRow('pin-confirm-row'); return; }
-  const btn=document.getElementById('pin-signup-btn');
-  btn.disabled=true; btn.textContent='Creating account…'; msg('msg-pin-signup','','');
-  try {
-    const secret=generateSecret();
-    const pinHash=await hashPin(email,pin);
-    const cred=await createUserWithEmailAndPassword(auth,email,secret);
-    await setDoc(doc(db,'customers',cred.user.uid),{
-      name, email, phone: phone?'+91'+phone:'', createdAt:serverTimestamp(),
-      pinHash, firebaseSecret:secret
-    });
-    redirect();
-  } catch(e) {
-    btn.disabled=false; btn.textContent='Create Account';
-    const c=e.code||'';
-    msg('msg-pin-signup',
-      c==='auth/email-already-in-use'?'This email already has an account. Try signing in with Email & Password.':
-      'Could not create account. Please try again.','err');
-  }
-};
-
 window.requestForgotPin = async function() {
   msg('msg-pin-login','','');
   if(!currentPhone){ window.goStep('step-pin-entry'); return; }
@@ -649,10 +631,8 @@ window.requestForgotPin = async function() {
     const snap=await getDocs(query(collection(db,'customers'),where('phone','==',currentPhone)));
     if(snap.empty){ msg('msg-pin-login','Phone number not found.','err'); return; }
     const cust=snap.docs[0].data();
-    // Generate 6-digit code valid for 15 minutes
     const resetCode=Math.floor(100000+Math.random()*900000).toString();
     const resetExpiry=Date.now()+15*60*1000;
-    // Save to pinResets — admin sees the code in their dashboard
     const resetRef=await addDoc(collection(db,'pinResets'),{
       name:cust.name||'', email:cust.email||'', phone:currentPhone,
       uid:snap.docs[0].id, status:'pending',
@@ -662,13 +642,10 @@ window.requestForgotPin = async function() {
     currentPinEmail=cust.email||'';
     currentFirebaseSecret=cust.firebaseSecret||'';
     currentResetUid=snap.docs[0].id;
-    // Email admin so they get a Gmail push notification on their phone
     if(window.emailjs && window._ejsReady) {
       try {
         emailjs.send(window._ejsSvc, window._ejsTpl, {
-          from_name: cust.name||'Customer',
-          from_email: cust.email||'',
-          phone: currentPhone,
+          from_name: cust.name||'Customer', from_email: cust.email||'', phone: currentPhone,
           enquiry_type: 'PIN Reset Request',
           message: (cust.name||'A customer')+' ('+currentPhone+') has requested a PIN reset. Open Admin Dashboard → PIN Resets to WhatsApp them their code.'
         }, window._ejsKey);
@@ -677,9 +654,7 @@ window.requestForgotPin = async function() {
     document.getElementById('pin-forgot-msg').textContent=
       'Our team will WhatsApp you at '+currentPhone+' with a 6-digit code. This code expires in 15 minutes.';
     window.goStep('step-pin-forgot');
-  } catch(e) {
-    msg('msg-pin-login','Could not send request. Please try again.','err');
-  }
+  } catch(e) { msg('msg-pin-login','Could not send request. Please try again.','err'); }
 };
 
 window.doVerifyResetCode = async function() {
@@ -702,7 +677,6 @@ window.doVerifyResetCode = async function() {
     currentResetDocId=match.id;
     currentResetUid=match.data.uid;
     currentPinEmail=match.data.email||'';
-    // Load firebaseSecret fresh from customer doc
     if(currentResetUid){
       const custSnap=await getDoc(doc(db,'customers',currentResetUid));
       if(custSnap.exists()) currentFirebaseSecret=custSnap.data().firebaseSecret||'';
@@ -726,15 +700,8 @@ window.doSetNewPin = async function() {
   btn.disabled=true; btn.textContent='Saving…'; msg('msg-pin-newpin','','');
   try {
     const newPinHash=await hashPin(currentPinEmail,newPin);
-    // Update pinHash in customer doc — firebaseSecret stays the same
-    if(currentResetUid){
-      await setDoc(doc(db,'customers',currentResetUid),{pinHash:newPinHash},{merge:true});
-    }
-    // Mark reset completed
-    if(currentResetDocId){
-      await setDoc(doc(db,'pinResets',currentResetDocId),{status:'completed'},{merge:true});
-    }
-    // Sign in with unchanged firebaseSecret
+    if(currentResetUid) await setDoc(doc(db,'customers',currentResetUid),{pinHash:newPinHash},{merge:true});
+    if(currentResetDocId) await setDoc(doc(db,'pinResets',currentResetDocId),{status:'completed'},{merge:true});
     await signInWithEmailAndPassword(auth,currentPinEmail,currentFirebaseSecret);
     redirect();
   } catch(e){
@@ -743,85 +710,114 @@ window.doSetNewPin = async function() {
   }
 };
 
-// ════ EMAIL + PASSWORD TAB ════
-
-window.checkEmail = async function() {
-  const email=(document.getElementById('em-email').value||'').trim().toLowerCase();
-  if(!email||!email.includes('@')){ msg('msg-em-entry','Please enter a valid email address.','err'); return; }
-  currentEm=email;
-  const btn=document.getElementById('em-email-btn');
-  btn.disabled=true; btn.textContent='Checking…'; msg('msg-em-entry','','');
-  try {
-    const snap=await getDocs(query(collection(db,'customers'),where('email','==',email)));
-    if(!snap.empty) {
-      document.getElementById('em-login-greeting').textContent='Welcome back, '+snap.docs[0].data().name+'.';
-      window.goStep('step-em-login');
-      document.getElementById('em-password').focus();
-    } else {
-      window.goStep('step-em-signup');
-      document.getElementById('em-su-name').focus();
-    }
-  } catch(e){ msg('msg-em-entry','Something went wrong. Please try again.','err'); }
-  finally{ btn.disabled=false; btn.textContent='Continue'; }
-};
+// ════ EMAIL + PASSWORD LOGIN ════
 
 window.doSignInEmail = async function() {
+  const email=(document.getElementById('em-email').value||'').trim().toLowerCase();
   const password=document.getElementById('em-password').value;
+  if(!email||!email.includes('@')){ msg('msg-em-login','Please enter a valid email address.','err'); return; }
   if(!password){ msg('msg-em-login','Please enter your password.','err'); return; }
   const btn=document.getElementById('em-signin-btn');
   btn.disabled=true; btn.textContent='Logging in…'; msg('msg-em-login','','');
   try {
-    await signInWithEmailAndPassword(auth,currentEm,password);
+    // Try direct Firebase Auth first (works for legacy email-only accounts)
+    await signInWithEmailAndPassword(auth,email,password);
     redirect();
   } catch(e) {
-    btn.disabled=false; btn.textContent='Log In';
-    document.getElementById('em-password').value='';
     const c=e.code||'';
-    msg('msg-em-login',
-      (c==='auth/wrong-password'||c==='auth/invalid-credential')?'Incorrect password. Please try again.':
-      c==='auth/too-many-requests'?'Too many attempts. Try again later.':
-      'Log in failed. Please try again.','err');
+    if(c==='auth/invalid-credential'||c==='auth/wrong-password') {
+      // May be a new unified account where Firebase Auth password = firebaseSecret
+      try {
+        const snap=await getDocs(query(collection(db,'customers'),where('email','==',email)));
+        if(!snap.empty){
+          const cust=snap.docs[0].data();
+          if(cust.firebaseSecret && cust.passwordHash) {
+            const computed=await hashPin(email,password);
+            if(computed===cust.passwordHash){
+              await signInWithEmailAndPassword(auth,email,cust.firebaseSecret);
+              redirect(); return;
+            }
+          }
+        }
+      } catch(e2){}
+      btn.disabled=false; btn.textContent='Log In';
+      document.getElementById('em-password').value='';
+      msg('msg-em-login','Incorrect email or password. Please try again.','err');
+    } else if(c==='auth/user-not-found') {
+      btn.disabled=false; btn.textContent='Log In';
+      msg('msg-em-login','No account found with this email. Please Sign Up first.','err');
+    } else if(c==='auth/too-many-requests') {
+      btn.disabled=false; btn.textContent='Log In';
+      msg('msg-em-login','Too many attempts. Please try again later.','err');
+    } else {
+      btn.disabled=false; btn.textContent='Log In';
+      document.getElementById('em-password').value='';
+      msg('msg-em-login','Log in failed. Please try again.','err');
+    }
   }
 };
 
-window.doSignUpEmail = async function() {
-  const name    =(document.getElementById('em-su-name').value||'').trim();
-  const phone   =(document.getElementById('em-su-phone').value||'').replace(/\D/g,'');
-  const password=document.getElementById('em-su-password').value;
-  const confirm =document.getElementById('em-su-confirm').value;
-  const pin     =getPinFromRow('em-pin-signup-row');
-  const pinConf =getPinFromRow('em-pin-confirm-row');
-  if(!name){ msg('msg-em-signup','Please enter your name.','err'); return; }
-  if(password.length<8){ msg('msg-em-signup','Password must be at least 8 characters.','err'); return; }
-  if(password!==confirm){ msg('msg-em-signup','Passwords do not match.','err'); document.getElementById('em-su-confirm').value=''; return; }
-  if(phone&&phone.length!==10){ msg('msg-em-signup','Enter a valid 10-digit mobile or leave it blank.','err'); return; }
-  if(pin.length!==6){ msg('msg-em-signup','Please choose a 6-digit PIN.','err'); return; }
-  if(pin!==pinConf){ msg('msg-em-signup','PINs do not match.','err'); clearPinRow('em-pin-confirm-row'); return; }
-  const btn=document.getElementById('em-signup-btn');
-  btn.disabled=true; btn.textContent='Creating account…'; msg('msg-em-signup','','');
+window.sendForgotPassword = async function() {
+  const email=(document.getElementById('em-email').value||'').trim().toLowerCase();
+  if(!email||!email.includes('@')){ msg('msg-em-login','Please enter your email address above first.','err'); return; }
   try {
-    const pinHash=await hashPin(currentEm,pin);
-    const cred=await createUserWithEmailAndPassword(auth,currentEm,password);
+    await sendPasswordResetEmail(auth,email);
+    document.querySelectorAll('#login-em-area .login-step').forEach(s=>s.classList.remove('active'));
+    document.getElementById('step-em-forgot').classList.add('active');
+  } catch(e) {
+    msg('msg-em-login','Could not send reset email. Please check your email address.','err');
+  }
+};
+
+// ════ UNIFIED SIGN UP ════
+
+window.doSignUp = async function() {
+  const name    =(document.getElementById('su-name').value||'').trim();
+  const phone   =(document.getElementById('su-phone').value||'').replace(/\D/g,'');
+  const email   =(document.getElementById('su-email').value||'').trim().toLowerCase();
+  const address =(document.getElementById('su-address').value||'').trim();
+  const city    =(document.getElementById('su-city').value||'').trim();
+  const state   =(document.getElementById('su-state').value||'').trim();
+  const postal  =(document.getElementById('su-postal').value||'').replace(/\D/g,'');
+  const password=document.getElementById('su-password').value;
+  const confirm =document.getElementById('su-confirm-pw').value;
+  const pin     =getPinFromRow('su-pin-row');
+  const pinConf =getPinFromRow('su-pin-confirm-row');
+
+  if(!name)                          { msg('msg-signup','Please enter your full name.','err'); return; }
+  if(!phone||phone.length!==10)      { msg('msg-signup','Please enter a valid 10-digit mobile number.','err'); return; }
+  if(!email||!email.includes('@'))   { msg('msg-signup','Please enter a valid email address.','err'); return; }
+  if(password.length<8)              { msg('msg-signup','Password must be at least 8 characters.','err'); return; }
+  if(password!==confirm)             { msg('msg-signup','Passwords do not match.','err'); document.getElementById('su-confirm-pw').value=''; return; }
+  if(pin.length!==6)                 { msg('msg-signup','Please choose a 6-digit PIN.','err'); return; }
+  if(pin!==pinConf)                  { msg('msg-signup','PINs do not match.','err'); clearPinRow('su-pin-confirm-row'); return; }
+
+  const btn=document.getElementById('su-btn');
+  btn.disabled=true; btn.textContent='Creating account…'; msg('msg-signup','','');
+  try {
+    // Check phone not already registered
+    const phoneSnap=await getDocs(query(collection(db,'customers'),where('phone','==','+91'+phone)));
+    if(!phoneSnap.empty){
+      btn.disabled=false; btn.textContent='Create Account';
+      msg('msg-signup','This mobile number is already registered. Please log in.','err'); return;
+    }
+    const secret=generateSecret();
+    const pinHash=await hashPin(email,pin);
+    const passwordHash=await hashPin(email,password);
+    const cred=await createUserWithEmailAndPassword(auth,email,secret);
     await setDoc(doc(db,'customers',cred.user.uid),{
-      name, email:currentEm, phone:phone?'+91'+phone:'', createdAt:serverTimestamp(), pinHash
+      name, email, phone:'+91'+phone,
+      address:{ line:address, city, state, postal },
+      pinHash, passwordHash, firebaseSecret:secret,
+      createdAt:serverTimestamp()
     });
     redirect();
   } catch(e) {
     btn.disabled=false; btn.textContent='Create Account';
     const c=e.code||'';
-    msg('msg-em-signup',
-      c==='auth/email-already-in-use'?'Account already exists. Please log in.':
+    msg('msg-signup',
+      c==='auth/email-already-in-use'?'An account with this email already exists. Please log in.':
       'Could not create account. Please try again.','err');
-  }
-};
-
-window.sendForgotPassword = async function() {
-  if(!currentEm){ window.goStep('step-em-entry'); return; }
-  try {
-    await sendPasswordResetEmail(auth,currentEm);
-    window.goStep('step-em-forgot');
-  } catch(e) {
-    msg('msg-em-login','Could not send reset email. Please check your email address.','err');
   }
 };
 </script>

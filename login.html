@@ -199,6 +199,13 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
 .su-grid input:first-child{border-right:none;}
 .su-grid input:focus{border-color:var(--silver-dim);z-index:1;position:relative;}
 .su-grid input::placeholder{color:var(--text-dim);}
+.pw-wrap{position:relative;margin-bottom:2px;}
+.pw-wrap input{width:100%;background:transparent;border:1px solid var(--border2);color:var(--white);font-family:var(--fg);font-size:15px;padding:16px 48px 16px 18px;outline:none;transition:border-color .3s;-webkit-appearance:none;}
+.pw-wrap input::placeholder{color:var(--text-dim);}
+.pw-wrap input:focus{border-color:var(--silver-dim);}
+.pw-eye{position:absolute;right:0;top:0;bottom:0;width:46px;display:flex;align-items:center;justify-content:center;background:none;border:none;color:var(--text-dim);cursor:pointer;transition:color .2s;padding:0;}
+.pw-eye:hover{color:var(--silver-dim);}
+.pw-eye svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;}
 </style>
 </head>
 <body>
@@ -364,8 +371,9 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
           <div class="login-field">
             <input type="email" id="em-email" placeholder="Email address" autocomplete="email" inputmode="email"/>
           </div>
-          <div class="login-field">
+          <div class="pw-wrap">
             <input type="password" id="em-password" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')window.doSignInEmail()"/>
+            <button type="button" class="pw-eye" onclick="window.togglePw('em-password',this)" tabindex="-1" aria-label="Show/hide password"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
           </div>
           <button class="login-btn" id="em-signin-btn" onclick="window.doSignInEmail()">Log In</button>
           <p class="login-msg" id="msg-em-login"></p>
@@ -419,11 +427,13 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
         </div>
 
         <span class="su-label">Password</span>
-        <div class="login-field">
+        <div class="pw-wrap">
           <input type="password" id="su-password" placeholder="Choose a password (min 8 characters)" autocomplete="new-password"/>
+          <button type="button" class="pw-eye" onclick="window.togglePw('su-password',this)" tabindex="-1" aria-label="Show/hide password"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
         </div>
-        <div class="login-field">
+        <div class="pw-wrap">
           <input type="password" id="su-confirm-pw" placeholder="Confirm password" autocomplete="new-password"/>
+          <button type="button" class="pw-eye" onclick="window.togglePw('su-confirm-pw',this)" tabindex="-1" aria-label="Show/hide password"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
         </div>
 
         <span class="su-label">Login PIN</span>
@@ -795,12 +805,15 @@ window.doSignUp = async function() {
   const btn=document.getElementById('su-btn');
   btn.disabled=true; btn.textContent='Creating account…'; msg('msg-signup','','');
   try {
-    // Check phone not already registered
-    const phoneSnap=await getDocs(query(collection(db,'customers'),where('phone','==','+91'+phone)));
-    if(!phoneSnap.empty){
-      btn.disabled=false; btn.textContent='Create Account';
-      msg('msg-signup','This mobile number is already registered. Please log in.','err'); return;
-    }
+    // Try to check if phone already registered (best-effort — skip if rules block it)
+    try {
+      const phoneSnap=await getDocs(query(collection(db,'customers'),where('phone','==','+91'+phone)));
+      if(!phoneSnap.empty){
+        btn.disabled=false; btn.textContent='Create Account';
+        msg('msg-signup','This mobile number is already registered. Please log in.','err'); return;
+      }
+    } catch(_){}
+
     const secret=generateSecret();
     const pinHash=await hashPin(email,pin);
     const passwordHash=await hashPin(email,password);
@@ -817,8 +830,19 @@ window.doSignUp = async function() {
     const c=e.code||'';
     msg('msg-signup',
       c==='auth/email-already-in-use'?'An account with this email already exists. Please log in.':
-      'Could not create account. Please try again.','err');
+      c==='auth/invalid-email'?'Please enter a valid email address.':
+      c==='auth/network-request-failed'?'Network error. Please check your connection and try again.':
+      'Could not create account ('+c+'). Please try again.','err');
   }
+};
+
+window.togglePw = function(id, btn) {
+  const inp=document.getElementById(id);
+  const show=inp.type==='password';
+  inp.type=show?'text':'password';
+  btn.innerHTML=show
+    ?'<svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>'
+    :'<svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
 };
 </script>
 

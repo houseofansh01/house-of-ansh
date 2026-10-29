@@ -759,7 +759,7 @@ window.doSetNewPin = async function() {
     if(currentPinEmail&&currentFirebaseSecret&&!auth.currentUser){
       try { await signInWithEmailAndPassword(auth,currentPinEmail,currentFirebaseSecret); } catch(_) {}
     }
-    const uid=(auth.currentUser&&auth.currentUser.uid)||currentResetUid;
+    const uid=currentResetUid||(auth.currentUser&&auth.currentUser.uid);
     if(!uid) throw new Error('no uid');
     await setDoc(doc(db,'customers',uid),{pinHash:newPinHash},{merge:true});
     try { if(currentResetDocId) await setDoc(doc(db,'pinResets',currentResetDocId),{status:'completed'},{merge:true}); } catch(_) {}

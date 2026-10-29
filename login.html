@@ -528,6 +528,7 @@ let currentPinHash        = '';
 let currentFirebaseSecret = '';
 let currentResetDocId     = '';
 let currentResetUid       = '';
+let _inResetFlow          = false;
 
 async function hashPin(email, pin) {
   const data = new TextEncoder().encode(email.toLowerCase() + pin + 'hoa2026');
@@ -555,7 +556,7 @@ function redirect() {
 }
 
 onAuthStateChanged(auth, async user => {
-  if(user){ const s=await getDoc(doc(db,'customers',user.uid)); if(s.exists()&&s.data().name)redirect(); }
+  if(user&&!_inResetFlow){ const s=await getDoc(doc(db,'customers',user.uid)); if(s.exists()&&s.data().name)redirect(); }
 });
 
 window.goStep = function(id) {
@@ -676,7 +677,7 @@ window.sendPinResetCode = async function() {
   const resetCode=(Math.floor(Math.random()*900000)+100000).toString();
   const resetExpiry=Date.now()+60*60*1000;
   try { sessionStorage.setItem('hoa_pinReset',JSON.stringify({code:resetCode,phone:currentPhone,email:currentPinEmail,uid:currentResetUid,firebaseSecret:currentFirebaseSecret,expires:resetExpiry})); } catch(_) {}
-  try { await addDoc(collection(db,'pinResets'),{phone:currentPhone,email:currentPinEmail||'',uid:currentResetUid||'',resetCode,resetExpiry,status:'pending',requestedAt:serverTimestamp()}); } catch(_) {}
+  if(currentResetUid){ try { await setDoc(doc(db,'pinResets',currentResetUid),{phone:currentPhone,email:currentPinEmail||'',uid:currentResetUid,resetCode,resetExpiry,status:'pending',requestedAt:serverTimestamp()}); } catch(_) {} }
   if(window.emailjs&&window._ejsReady){
     try {
       await emailjs.send(window._ejsSvc,window._ejsTpl,{
@@ -710,7 +711,7 @@ window.doVerifyResetCode = async function() {
     if(stored&&stored.code===code&&stored.phone===currentPhone&&stored.expires>Date.now()){
       valid=true;
       if(stored.email) currentPinEmail=stored.email;
-      if(stored.uid) currentResetUid=stored.uid;
+      if(stored.uid){ currentResetUid=stored.uid; currentResetDocId=stored.uid; }
       if(stored.firebaseSecret) currentFirebaseSecret=stored.firebaseSecret;
     }
   } catch(_) {}
@@ -739,9 +740,7 @@ window.doVerifyResetCode = async function() {
     btn.disabled=false; btn.textContent='Verify Code';
     msg('msg-pin-code','Incorrect or expired code. Please try again.','err'); return;
   }
-  if(currentPinEmail&&currentFirebaseSecret){
-    try { await signInWithEmailAndPassword(auth,currentPinEmail,currentFirebaseSecret); } catch(_) {}
-  }
+  _inResetFlow=true;
   btn.disabled=false; btn.textContent='Verify Code';
   window.goStep('step-pin-newpin');
   document.querySelector('#pin-newpin-row .pin-digit').focus();
@@ -757,10 +756,15 @@ window.doSetNewPin = async function() {
   btn.disabled=true; btn.textContent='Saving…'; msg('msg-pin-newpin','','');
   try {
     const newPinHash=await hashPin(currentPhone,newPin);
+    if(currentPinEmail&&currentFirebaseSecret&&!auth.currentUser){
+      try { await signInWithEmailAndPassword(auth,currentPinEmail,currentFirebaseSecret); } catch(_) {}
+    }
     const uid=(auth.currentUser&&auth.currentUser.uid)||currentResetUid;
-    if(uid) await setDoc(doc(db,'customers',uid),{pinHash:newPinHash},{merge:true});
-    if(currentResetDocId) await setDoc(doc(db,'pinResets',currentResetDocId),{status:'completed'},{merge:true});
+    if(!uid) throw new Error('no uid');
+    await setDoc(doc(db,'customers',uid),{pinHash:newPinHash},{merge:true});
+    try { if(currentResetDocId) await setDoc(doc(db,'pinResets',currentResetDocId),{status:'completed'},{merge:true}); } catch(_) {}
     try { sessionStorage.removeItem('hoa_pinReset'); } catch(_) {}
+    _inResetFlow=false;
     redirect();
   } catch(e){
     btn.disabled=false; btn.textContent='Save PIN';

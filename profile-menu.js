@@ -44,8 +44,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btn) {
     btn.removeAttribute('onclick');
     btn.onclick = null;
-    btn.addEventListener('click', e => {
+    btn.addEventListener('click', async e => {
       e.stopPropagation();
+      try { await auth.authStateReady(); } catch(_) {}
       if (_loggedIn) { _toggle(btn); }
       else { window.location.href = 'login.html'; }
     });

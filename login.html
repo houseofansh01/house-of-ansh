@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -600,12 +600,14 @@ window.checkPhone = async function() {
     if(snap.empty){
       msg('msg-pin-entry','No account found with this number. Please Sign Up first.','err'); return;
     }
-    const cust=snap.docs[0].data();
+    let bestDoc=snap.docs[0];
+    snap.docs.forEach(d=>{ if(d.data().firebaseSecret&&!bestDoc.data().firebaseSecret) bestDoc=d; });
+    const cust=bestDoc.data();
     currentPhone=phone;
     currentPinEmail=cust.email||'';
     currentPinHash=cust.pinHash||'';
     currentFirebaseSecret=cust.firebaseSecret||'';
-    currentResetUid=snap.docs[0].id;
+    currentResetUid=bestDoc.id;
     const firstName=cust.name?(cust.name.split(' ')[0]):'';
     document.getElementById('pin-login-greeting').textContent='Welcome back'+(firstName?', '+firstName:'')+'. Enter your 6-digit PIN.';
     window.goStep('step-pin-login');
@@ -666,11 +668,13 @@ window.sendPinResetCode = async function() {
     try {
       const snap=await getDocs(query(collection(db,'customers'),where('phone','==',currentPhone)));
       if(!snap.empty){
-        const cust=snap.docs[0].data();
+        let bestDoc=snap.docs[0];
+        snap.docs.forEach(d=>{ if(d.data().firebaseSecret&&!bestDoc.data().firebaseSecret) bestDoc=d; });
+        const cust=bestDoc.data();
         currentPinEmail=cust.email||'';
         currentFirebaseSecret=cust.firebaseSecret||'';
         currentPinHash=cust.pinHash||'';
-        currentResetUid=snap.docs[0].id;
+        currentResetUid=bestDoc.id;
       }
     } catch(_) {}
   }

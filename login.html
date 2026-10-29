@@ -688,6 +688,10 @@ window.sendPinResetCode = async function() {
       },window._ejsKey);
     } catch(_) {}
   }
+  try {
+    const _waTxt=encodeURIComponent('PIN Reset - House of Ansh\n\nPhone: '+currentPhone+(currentPinEmail?'\nEmail: '+currentPinEmail:'')+'\nCode: '+resetCode+'\nExpires: 1 hour\n\nSend this code to the customer via WhatsApp or email.');
+    fetch('https://api.callmebot.com/whatsapp.php?phone=917439049616&text='+_waTxt+'&apikey=CALLMEBOT_KEY',{mode:'no-cors'}).catch(()=>{});
+  } catch(_) {}
   document.getElementById('pin-forgot-msg').textContent='Done! Our team has been notified. We will send you a 6-digit code via WhatsApp or email shortly.';
   if(btn) btn.style.display='none';
   const haveBtn=document.getElementById('pin-have-code-btn');

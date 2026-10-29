@@ -148,7 +148,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:cen
 .product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-top:1px;}
 .product-card{background:var(--black);cursor:pointer;position:relative;overflow:hidden;transition:background .3s;}
 .product-card:hover{background:var(--surface);}
-.pc-img{aspect-ratio:3/4;background:var(--surface);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;transition:filter .4s;}
+.pc-img{aspect-ratio:1/1;background:var(--surface);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;transition:filter .4s;}
 .product-card:hover .pc-img{filter:brightness(.82);}
 .pc-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;opacity:.2;}
 .pc-placeholder svg{width:44px;height:44px;stroke:var(--silver);fill:none;stroke-linecap:round;stroke-linejoin:round;}
@@ -606,7 +606,7 @@ function makeCard(p,idx){
   const typeSlugs=Array.isArray(p.productTypes)&&p.productTypes.length?p.productTypes:(p.productType?[p.productType]:[]);
   const typeLabel=typeSlugs.map(s=>TYPE_LABELS[s]||'').filter(Boolean).join(' · ');
   const thumb=(Array.isArray(p.images)&&p.images[0])||p.imageUrl||'';
-  const imgHtml=thumb?`<img src="${thumb}" alt="${(p.name||'').replace(/"/g,'')}" style="width:100%;height:100%;object-fit:contain;">`:PH;
+  const imgHtml=thumb?`<img src="${thumb}" alt="${(p.name||'').replace(/"/g,'')}" style="width:100%;height:100%;object-fit:cover;" onerror="this.closest('.product-card').classList.add('hidden')">`:PH;
   const ts=p.createdAt&&p.createdAt.seconds?p.createdAt.seconds:Math.floor(Date.now()/1000)-idx;
   const isOOS=p.availability==='out-of-stock';
   const btnsHtml=isOOS?`<div class="pc-btns"><button class="pc-btn-oos" disabled>Sold Out</button></div>`:`<div class="pc-btns"><button class="pc-btn" onclick="addToCart(this)">Add to Cart</button><button class="pc-btn-now" onclick="buyNow(this)">Buy Now</button></div>`;

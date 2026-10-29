@@ -447,13 +447,13 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
       <div class="price-range-wrap">
         <div class="price-slider-track" id="priceTrack">
           <div class="price-range-fill" id="priceFill"></div>
-          <input type="range" id="priceMin" min="0" max="50000" value="0" step="100">
-          <input type="range" id="priceMax" min="0" max="50000" value="50000" step="100">
+          <input type="range" id="priceMin" min="0" max="100000" value="0" step="100">
+          <input type="range" id="priceMax" min="0" max="100000" value="100000" step="100">
         </div>
         <div class="price-inputs">
-          <div class="price-inp-wrap"><span>&#8377;</span><input type="number" id="priceMinIn" value="0" min="0" max="50000"></div>
+          <div class="price-inp-wrap"><span>&#8377;</span><input type="number" id="priceMinIn" value="0" min="0" max="100000"></div>
           <span class="price-sep">to</span>
-          <div class="price-inp-wrap"><span>&#8377;</span><input type="number" id="priceMaxIn" value="50000" min="0" max="50000"></div>
+          <div class="price-inp-wrap"><span>&#8377;</span><input type="number" id="priceMaxIn" value="100000" min="0" max="100000"></div>
         </div>
       </div>
     </div>
@@ -533,7 +533,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:56px 56
     nm.querySelectorAll('.dropdown > a').forEach(function(a){a.addEventListener('click',function(){if(isMob())closeAll();});});
   }
   window.toggleFilter=function(id){document.getElementById(id).classList.toggle('open');};
-  var state={cats:new Set(),collections:new Set(),availability:new Set(),discounts:new Set(),occasions:new Set(),priceMin:0,priceMax:50000};
+  var state={cats:new Set(),collections:new Set(),availability:new Set(),discounts:new Set(),occasions:new Set(),priceMin:0,priceMax:100000};
   var cards=[];
   var countEl=document.getElementById('sortCount');
   var grid=document.getElementById('product-grid');
